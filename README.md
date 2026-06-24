@@ -1,5 +1,7 @@
 # C. elegans Connectome Knowledge Graph
 
+[![CI](https://github.com/raymond91125/celegans-connectome-kg/actions/workflows/ci.yml/badge.svg)](https://github.com/raymond91125/celegans-connectome-kg/actions/workflows/ci.yml)
+
 A re-runnable pipeline that converts **neuron-graph** (FunCoNN) connectivity data into a
 **LinkML-modeled knowledge graph**, with every cell grounded in the
 **C. elegans Gross Anatomy Ontology (WBBT)** and every connection traceable to its source
