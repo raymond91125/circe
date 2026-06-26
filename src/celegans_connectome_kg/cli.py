@@ -96,15 +96,72 @@ def match(data_dir: Path, wbbt: Path, out_dir: Path) -> None:
 
 
 @main.command()
-def build() -> None:
+@click.option(
+    "--data-dir",
+    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    default=DEFAULT_NEURON_GRAPH_DIR,
+    show_default=True,
+    help="Pinned neuron-graph snapshot directory.",
+)
+@click.option(
+    "--wbbt",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    default=DEFAULT_WBBT_JSON,
+    show_default=True,
+    help="Pinned WBBT OBO-graph JSON.",
+)
+@click.option(
+    "--out-dir",
+    type=click.Path(file_okay=False, path_type=Path),
+    default=DEFAULT_OUTPUT_DIR,
+    show_default=True,
+    help="Where to write the assembled data.",
+)
+def build(data_dir: Path, wbbt: Path, out_dir: Path) -> None:
     """Assemble LinkML data (cells, connections, datasets, evidence). [Phase 3]"""
-    raise click.ClickException("not yet implemented (Phase 3)")
+    from celegans_connectome_kg.build.assemble import assemble
+    from celegans_connectome_kg.export.rdf import write_json
+
+    connectome, stats = assemble(data_dir, wbbt)
+    out_path = out_dir / "connectome.json"
+    write_json(connectome, out_path)
+
+    click.echo(f"cells:       {stats.cells} ({stats.cells_with_anatomy} with WBBT anatomy)")
+    click.echo(f"datasets:    {stats.datasets}")
+    click.echo(f"connections: {stats.connections}")
+    for t in ("chemical", "gap_junction", "functional"):
+        click.echo(f"  {t:13} {stats.connections_by_type.get(t, 0)}")
+    if stats.unknown_connection_cells:
+        click.echo(
+            f"note: {stats.unknown_connection_cells} connection endpoints not in the cell list"
+        )
+    click.echo(f"wrote: {out_path}")
 
 
 @main.command()
-def export() -> None:
+@click.option(
+    "--in",
+    "in_path",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    default=DEFAULT_OUTPUT_DIR / "connectome.json",
+    show_default=True,
+    help="LinkML-native JSON produced by `cckg build`.",
+)
+@click.option(
+    "--out-dir",
+    type=click.Path(file_okay=False, path_type=Path),
+    default=DEFAULT_OUTPUT_DIR,
+    show_default=True,
+    help="Where to write the serialized graph.",
+)
+def export(in_path: Path, out_dir: Path) -> None:
     """Serialize RDF/OWL and the neuron-graph JSON projection. [Phase 3]"""
-    raise click.ClickException("not yet implemented (Phase 3)")
+    from celegans_connectome_kg.export.rdf import load_json, write_turtle
+
+    connectome = load_json(in_path)
+    ttl_path = out_dir / "connectome.ttl"
+    write_turtle(connectome, ttl_path)
+    click.echo(f"wrote: {ttl_path}")
 
 
 if __name__ == "__main__":
