@@ -15,9 +15,9 @@ artifact.
 
 ## Notes on resolutions
 
-- **BWM-\*** (95) — grounded by quadrant: `DL→WBbt:0005816`, `DR→WBbt:0005817`,
-  `VL→WBbt:0005818`, `VR→WBbt:0005819` (the per-quadrant body wall muscle classes; WBBT has
-  no per-cell term for each of the 95).
+- **BWM-\*** (95) — grounded to the **individual** body wall muscle cell term (under
+  `WBbt:0006804`), matched via each cell's `DL`/`DR`/`VL`/`VR` synonym: neuron-graph
+  `BWM-DL01` → synonym `DL1` → `WBbt:0006235` (lineage name `MSapappp`). All 95 map 1:1.
 - **M1 / M4 / M5** — pharyngeal **neurons** (`WBbt:0004488 / 0004467 / 0004465`), correcting
   the lexical false-match to the pm1/pm4/pm5 **muscle** terms (synonyms "m1"/"m4"/"m5").
 - **pm2D / pm3D / pm5D** — the dorsal pharyngeal-muscle pair terms (`pm?DL-pm?DR`).
