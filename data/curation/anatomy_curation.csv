@@ -1,0 +1,115 @@
+cell_name,wbbt_id,wbbt_label,confidence,note
+BWM-DL01,WBbt:0006235,MSapappp,high,body wall muscle cell (DL1); under WBbt:0006804
+BWM-DL02,WBbt:0006306,MSapaaap,high,body wall muscle cell (DL2); under WBbt:0006804
+BWM-DL03,WBbt:0006362,MSappppa,high,body wall muscle cell (DL3); under WBbt:0006804
+BWM-DL04,WBbt:0006495,MSapappa,high,body wall muscle cell (DL4); under WBbt:0006804
+BWM-DL05,WBbt:0006596,MSappppp,high,body wall muscle cell (DL5); under WBbt:0006804
+BWM-DL06,WBbt:0005873,MSapppap,high,body wall muscle cell (DL6); under WBbt:0006804
+BWM-DL07,WBbt:0006084,Dappaa,high,body wall muscle cell (DL7); under WBbt:0006804
+BWM-DL08,WBbt:0005874,Daaap,high,body wall muscle cell (DL8); under WBbt:0006804
+BWM-DL09,WBbt:0006320,Dappap,high,body wall muscle cell (DL9); under WBbt:0006804
+BWM-DL10,WBbt:0006535,Dapap,high,body wall muscle cell (DL10); under WBbt:0006804
+BWM-DL11,WBbt:0006274,Dapppa,high,body wall muscle cell (DL11); under WBbt:0006804
+BWM-DL12,WBbt:0006182,Cappaaa,high,body wall muscle cell (DL12); under WBbt:0006804
+BWM-DL13,WBbt:0006297,Dapppp,high,body wall muscle cell (DL13); under WBbt:0006804
+BWM-DL14,WBbt:0005884,Capapaa,high,body wall muscle cell (DL14); under WBbt:0006804
+BWM-DL15,WBbt:0007163,M.dlaa,high,body wall muscle cell (DL15); under WBbt:0006804
+BWM-DL16,WBbt:0007164,M.dlap,high,body wall muscle cell (DL16); under WBbt:0006804
+BWM-DL17,WBbt:0005976,Cappaap,high,body wall muscle cell (DL17); under WBbt:0006804
+BWM-DL18,WBbt:0006559,Capapap,high,body wall muscle cell (DL18); under WBbt:0006804
+BWM-DL19,WBbt:0006682,Capppaa,high,body wall muscle cell (DL19); under WBbt:0006804
+BWM-DL20,WBbt:0006681,Cappapa,high,body wall muscle cell (DL20); under WBbt:0006804
+BWM-DL21,WBbt:0006429,Capppap,high,body wall muscle cell (DL21); under WBbt:0006804
+BWM-DL22,WBbt:0007168,M.dlpp,high,body wall muscle cell (DL22); under WBbt:0006804
+BWM-DL23,WBbt:0006537,Cappppd,high,body wall muscle cell (DL23); under WBbt:0006804
+BWM-DL24,WBbt:0006406,Cappapp,high,body wall muscle cell (DL24); under WBbt:0006804
+BWM-DR01,WBbt:0006450,MSppappp,high,body wall muscle cell (DR1); under WBbt:0006804
+BWM-DR02,WBbt:0006342,MSppaaap,high,body wall muscle cell (DR2); under WBbt:0006804
+BWM-DR03,WBbt:0006261,MSpppppa,high,body wall muscle cell (DR3); under WBbt:0006804
+BWM-DR04,WBbt:0006318,MSppappa,high,body wall muscle cell (DR4); under WBbt:0006804
+BWM-DR05,WBbt:0006449,MSpppppp,high,body wall muscle cell (DR5); under WBbt:0006804
+BWM-DR06,WBbt:0006659,MSppppap,high,body wall muscle cell (DR6); under WBbt:0006804
+BWM-DR07,WBbt:0005858,Dpppaa,high,body wall muscle cell (DR7); under WBbt:0006804
+BWM-DR08,WBbt:0006634,Dpaap,high,body wall muscle cell (DR8); under WBbt:0006804
+BWM-DR09,WBbt:0006565,Dpppap,high,body wall muscle cell (DR9); under WBbt:0006804
+BWM-DR10,WBbt:0005989,Dppap,high,body wall muscle cell (DR10); under WBbt:0006804
+BWM-DR11,WBbt:0006265,Dppppa,high,body wall muscle cell (DR11); under WBbt:0006804
+BWM-DR12,WBbt:0006011,Cpppaaa,high,body wall muscle cell (DR12); under WBbt:0006804
+BWM-DR13,WBbt:0006049,Dppppp,high,body wall muscle cell (DR13); under WBbt:0006804
+BWM-DR14,WBbt:0006148,Cppapaa,high,body wall muscle cell (DR14); under WBbt:0006804
+BWM-DR15,WBbt:0007171,M.draa,high,body wall muscle cell (DR15); under WBbt:0006804
+BWM-DR16,WBbt:0007172,M.drap,high,body wall muscle cell (DR16); under WBbt:0006804
+BWM-DR17,WBbt:0006187,Cpppaap,high,body wall muscle cell (DR17); under WBbt:0006804
+BWM-DR18,WBbt:0005864,Cppapap,high,body wall muscle cell (DR18); under WBbt:0006804
+BWM-DR19,WBbt:0006452,Cppppaa,high,body wall muscle cell (DR19); under WBbt:0006804
+BWM-DR20,WBbt:0006740,Cpppapa,high,body wall muscle cell (DR20); under WBbt:0006804
+BWM-DR21,WBbt:0006555,Cppppap,high,body wall muscle cell (DR21); under WBbt:0006804
+BWM-DR22,WBbt:0007176,M.drpp,high,body wall muscle cell (DR22); under WBbt:0006804
+BWM-DR23,WBbt:0006113,Cpppppd,high,body wall muscle cell (DR23); under WBbt:0006804
+BWM-DR24,WBbt:0006660,Cpppapp,high,body wall muscle cell (DR24); under WBbt:0006804
+BWM-VL01,WBbt:0006469,MSappapp,high,body wall muscle cell (VL1); under WBbt:0006804
+BWM-VL02,WBbt:0006685,MSapapap,high,body wall muscle cell (VL2); under WBbt:0006804
+BWM-VL03,WBbt:0006381,Daapa,high,body wall muscle cell (VL3); under WBbt:0006804
+BWM-VL04,WBbt:0006523,MSapppaa,high,body wall muscle cell (VL4); under WBbt:0006804
+BWM-VL05,WBbt:0006435,Daapp,high,body wall muscle cell (VL5); under WBbt:0006804
+BWM-VL06,WBbt:0006146,Daaaa,high,body wall muscle cell (VL6); under WBbt:0006804
+BWM-VL07,WBbt:0006195,MSaapppaa,high,body wall muscle cell (VL7); under WBbt:0006804
+BWM-VL08,WBbt:0006344,Dapaa,high,body wall muscle cell (VL8); under WBbt:0006804
+BWM-VL09,WBbt:0006498,MSaapppap,high,body wall muscle cell (VL9); under WBbt:0006804
+BWM-VL10,WBbt:0005954,Capaaaa,high,body wall muscle cell (VL10); under WBbt:0006804
+BWM-VL11,WBbt:0006173,MSaappppa,high,body wall muscle cell (VL11); under WBbt:0006804
+BWM-VL12,WBbt:0006213,Capaaap,high,body wall muscle cell (VL12); under WBbt:0006804
+BWM-VL13,WBbt:0006397,MSaappppp,high,body wall muscle cell (VL13); under WBbt:0006804
+BWM-VL14,WBbt:0006711,Capaapa,high,body wall muscle cell (VL14); under WBbt:0006804
+BWM-VL15,WBbt:0006637,MSpappaa,high,body wall muscle cell (VL15); under WBbt:0006804
+BWM-VL16,WBbt:0006040,Capaapp,high,body wall muscle cell (VL16); under WBbt:0006804
+BWM-VL17,WBbt:0007180,M.vlaa,high,body wall muscle cell (VL17); under WBbt:0006804
+BWM-VL18,WBbt:0007181,M.vlap,high,body wall muscle cell (VL18); under WBbt:0006804
+BWM-VL19,WBbt:0006538,Capappa,high,body wall muscle cell (VL19); under WBbt:0006804
+BWM-VL20,WBbt:0007189,M.vlpap,high,body wall muscle cell (VL20); under WBbt:0006804
+BWM-VL21,WBbt:0007190,M.vlpp,high,body wall muscle cell (VL21); under WBbt:0006804
+BWM-VL22,WBbt:0006333,Capappp,high,body wall muscle cell (VL22); under WBbt:0006804
+BWM-VL23,WBbt:0006337,Cappppv,high,body wall muscle cell (VL23); under WBbt:0006804
+BWM-VR01,WBbt:0006667,MSpppapp,high,body wall muscle cell (VR1); under WBbt:0006804
+BWM-VR02,WBbt:0005848,MSppapap,high,body wall muscle cell (VR2); under WBbt:0006804
+BWM-VR03,WBbt:0006128,Dpapa,high,body wall muscle cell (VR3); under WBbt:0006804
+BWM-VR04,WBbt:0005990,MSppppaa,high,body wall muscle cell (VR4); under WBbt:0006804
+BWM-VR05,WBbt:0006366,Dpapp,high,body wall muscle cell (VR5); under WBbt:0006804
+BWM-VR06,WBbt:0006481,Dpaaa,high,body wall muscle cell (VR6); under WBbt:0006804
+BWM-VR07,WBbt:0006354,MSpapppaa,high,body wall muscle cell (VR7); under WBbt:0006804
+BWM-VR08,WBbt:0006704,Dppaa,high,body wall muscle cell (VR8); under WBbt:0006804
+BWM-VR09,WBbt:0005986,MSpapppap,high,body wall muscle cell (VR9); under WBbt:0006804
+BWM-VR10,WBbt:0006511,Cppaaaa,high,body wall muscle cell (VR10); under WBbt:0006804
+BWM-VR11,WBbt:0006742,MSpappppa,high,body wall muscle cell (VR11); under WBbt:0006804
+BWM-VR12,WBbt:0006301,Cppaaap,high,body wall muscle cell (VR12); under WBbt:0006804
+BWM-VR13,WBbt:0006022,MSpappppp,high,body wall muscle cell (VR13); under WBbt:0006804
+BWM-VR14,WBbt:0005926,Cppaapa,high,body wall muscle cell (VR14); under WBbt:0006804
+BWM-VR15,WBbt:0006426,MSpappap,high,body wall muscle cell (VR15); under WBbt:0006804
+BWM-VR16,WBbt:0006014,Cppaapp,high,body wall muscle cell (VR16); under WBbt:0006804
+BWM-VR17,WBbt:0007193,M.vraa,high,body wall muscle cell (VR17); under WBbt:0006804
+BWM-VR18,WBbt:0007194,M.vrap,high,body wall muscle cell (VR18); under WBbt:0006804
+BWM-VR19,WBbt:0006138,ABprpppppaa,high,body wall muscle cell (VR19); under WBbt:0006804
+BWM-VR20,WBbt:0006378,Cppappa,high,body wall muscle cell (VR20); under WBbt:0006804
+BWM-VR21,WBbt:0006419,Cppappp,high,body wall muscle cell (VR21); under WBbt:0006804
+BWM-VR22,WBbt:0007202,M.vrpap,high,body wall muscle cell (VR22); under WBbt:0006804
+BWM-VR23,WBbt:0007203,M.vrpp,high,body wall muscle cell (VR23); under WBbt:0006804
+BWM-VR24,WBbt:0005890,Cpppppv,high,body wall muscle cell (VR24); under WBbt:0006804
+HMC,WBbt:0004697,head mesodermal cell,high,
+I3,WBbt:0004742,I3 neuron,high,
+I4,WBbt:0004741,I4 neuron,high,
+I5,WBbt:0004740,I5 neuron,high,
+I6,WBbt:0004739,I6 neuron,high,
+LegacyBodyWallMuscles,WBbt:0006804,body wall muscle cell,low,
+M1,WBbt:0004488,M1 neuron,high,
+M4,WBbt:0004467,M4 neuron,high,
+M5,WBbt:0004465,M5 neuron,high,
+MI,WBbt:0003664,MI neuron,high,
+analdep,WBbt:0004292,anal depressor muscle,high,
+excgl,WBbt:0005776,excretory gland cell,medium,
+hyp,WBbt:0007846,hypodermal cell,high,
+intmuL,WBbt:0003833,mu_int_L,high,left intestinal muscle cell
+intmuR,WBbt:0003822,mu_int_R,high,right intestinal muscle cell
+pm2D,WBbt:0003632,pm2DL-pm2DR,high,
+pm3D,WBbt:0003630,pm3DL-pm3DR,high,
+pm5D,WBbt:0003736,pm5DL-pm5DR,high,
+sphmu,WBbt:0005798,anal sphincter muscle,high,

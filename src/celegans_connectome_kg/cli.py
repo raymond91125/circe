@@ -10,6 +10,7 @@ import click
 
 DEFAULT_NEURON_GRAPH_DIR = Path("data/neuron-graph")
 DEFAULT_WBBT_JSON = Path("data/wbbt/wbbt.json")
+DEFAULT_CURATION = Path("data/curation/anatomy_curation.csv")
 DEFAULT_OUTPUT_DIR = Path("outputs")
 
 
@@ -64,9 +65,17 @@ def ingest(data_dir: Path) -> None:
     show_default=True,
     help="Where to write the match report and work-list.",
 )
-def match(data_dir: Path, wbbt: Path, out_dir: Path) -> None:
+@click.option(
+    "--curation",
+    type=click.Path(dir_okay=False, path_type=Path),
+    default=DEFAULT_CURATION,
+    show_default=True,
+    help="Manual anatomy curation CSV (applied if present).",
+)
+def match(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path) -> None:
     """Resolve cell names to WBbt anatomy URIs; emit the match report. [Phase 2]"""
     from celegans_connectome_kg.ingest.neuron_graph import read_cells
+    from celegans_connectome_kg.match.curation import load_curation
     from celegans_connectome_kg.match.matcher import (
         match_cells,
         summarize,
@@ -77,7 +86,8 @@ def match(data_dir: Path, wbbt: Path, out_dir: Path) -> None:
 
     index = WBBTIndex.from_obograph(wbbt)
     cells = read_cells(data_dir / "neurons.json")
-    matches = match_cells(cells, index)
+    curated = load_curation(curation) if curation.exists() else None
+    matches = match_cells(cells, index, curated)
     counts = summarize(matches)
 
     report_path = out_dir / "match_report.csv"
@@ -86,8 +96,10 @@ def match(data_dir: Path, wbbt: Path, out_dir: Path) -> None:
     write_worklist_csv(matches, cells, worklist_path)
 
     click.echo(f"WBBT terms indexed: {len(index.terms)}")
+    if curated:
+        click.echo(f"curated overrides: {len(curated)}")
     click.echo(f"cells:     {len(cells)}")
-    for status in ("matched", "ambiguous", "unmatched"):
+    for status in ("matched", "curated", "ambiguous", "unmatched"):
         click.echo(f"  {status:10} {counts.get(status, 0)}")
     click.echo(f"report:   {report_path}")
     click.echo(
@@ -117,12 +129,19 @@ def match(data_dir: Path, wbbt: Path, out_dir: Path) -> None:
     show_default=True,
     help="Where to write the assembled data.",
 )
-def build(data_dir: Path, wbbt: Path, out_dir: Path) -> None:
+@click.option(
+    "--curation",
+    type=click.Path(dir_okay=False, path_type=Path),
+    default=DEFAULT_CURATION,
+    show_default=True,
+    help="Manual anatomy curation CSV (applied if present).",
+)
+def build(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path) -> None:
     """Assemble LinkML data (cells, connections, datasets, evidence). [Phase 3]"""
     from celegans_connectome_kg.build.assemble import assemble
     from celegans_connectome_kg.export.rdf import write_json
 
-    connectome, stats = assemble(data_dir, wbbt)
+    connectome, stats = assemble(data_dir, wbbt, curation if curation.exists() else None)
     out_path = out_dir / "connectome.json"
     write_json(connectome, out_path)
 

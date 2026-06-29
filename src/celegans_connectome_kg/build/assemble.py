@@ -18,6 +18,7 @@ from celegans_connectome_kg.ingest.neuron_graph import (
     ConnectionRecord,
     load_neuron_graph,
 )
+from celegans_connectome_kg.match.curation import load_curation
 from celegans_connectome_kg.match.matcher import match_cells
 from celegans_connectome_kg.match.wbbt import WBBTIndex
 
@@ -70,14 +71,23 @@ class BuildStats:
     unknown_connection_cells: int
 
 
-def assemble(data_dir: Path, wbbt_path: Path) -> tuple[object, BuildStats]:
-    """Assemble a Connectome data-model object plus build stats."""
+def assemble(
+    data_dir: Path, wbbt_path: Path, curation_path: Path | None = None
+) -> tuple[object, BuildStats]:
+    """Assemble a Connectome data-model object plus build stats.
+
+    If ``curation_path`` is given, manual anatomy resolutions take precedence over lexical
+    matches (see :mod:`celegans_connectome_kg.match.curation`).
+    """
     dm: ModuleType = datamodel()
     data = load_neuron_graph(data_dir)
     index = WBBTIndex.from_obograph(wbbt_path)
+    curation = load_curation(curation_path) if curation_path else None
 
     cell_records: dict[str, CellRecord] = {c.name: c for c in data.cells}
-    anatomy_by_name = {m.cell_name: m.wbbt_id for m in match_cells(data.cells, index) if m.wbbt_id}
+    anatomy_by_name = {
+        m.cell_name: m.wbbt_id for m in match_cells(data.cells, index, curation) if m.wbbt_id
+    }
 
     cells = [
         dm.Cell(

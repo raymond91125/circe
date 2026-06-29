@@ -21,7 +21,7 @@ from typing import Literal
 from celegans_connectome_kg.ingest.neuron_graph import CellRecord
 from celegans_connectome_kg.match.wbbt import STRONG_KINDS, Hit, WBBTIndex
 
-MatchStatus = Literal["matched", "ambiguous", "unmatched"]
+MatchStatus = Literal["matched", "curated", "ambiguous", "unmatched"]
 
 
 @dataclass(frozen=True)
@@ -58,9 +58,29 @@ def match_cell(name: str, index: WBBTIndex) -> CellMatch:
     return CellMatch(name, "ambiguous", None, None, reason, hits)
 
 
-def match_cells(cells: list[CellRecord], index: WBBTIndex) -> list[CellMatch]:
-    """Match every cell (sorted by name for deterministic output)."""
-    return [match_cell(c.name, index) for c in sorted(cells, key=lambda c: c.name)]
+def match_cells(
+    cells: list[CellRecord],
+    index: WBBTIndex,
+    curation: dict[str, str] | None = None,
+) -> list[CellMatch]:
+    """Match every cell (sorted by name). Curated cells take precedence over the lexical result."""
+    curation = curation or {}
+    results = []
+    for cell in sorted(cells, key=lambda c: c.name):
+        if cell.name in curation:
+            results.append(
+                CellMatch(
+                    cell.name,
+                    "curated",
+                    curation[cell.name],
+                    "curated",
+                    "manual curation (data/curation)",
+                    index.lookup(cell.name),
+                )
+            )
+        else:
+            results.append(match_cell(cell.name, index))
+    return results
 
 
 def summarize(matches: list[CellMatch]) -> Counter[str]:
@@ -115,7 +135,7 @@ def write_worklist_csv(matches: list[CellMatch], cells: list[CellRecord], path: 
             ]
         )
         for m in matches:
-            if m.status == "matched":
+            if m.status in ("matched", "curated"):
                 continue
             cell = by_name.get(m.cell_name)
             writer.writerow(
