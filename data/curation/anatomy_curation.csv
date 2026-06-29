@@ -107,8 +107,8 @@ MI,WBbt:0003664,MI neuron,high,
 analdep,WBbt:0004292,anal depressor muscle,high,
 excgl,WBbt:0005776,excretory gland cell,medium,
 hyp,WBbt:0007846,hypodermal cell,high,
-intmuL,WBbt:0005796,intestinal muscle,high,
-intmuR,WBbt:0005796,intestinal muscle,high,
+intmuL,WBbt:0003833,mu_int_L,high,left intestinal muscle cell
+intmuR,WBbt:0003822,mu_int_R,high,right intestinal muscle cell
 pm2D,WBbt:0003632,pm2DL-pm2DR,high,
 pm3D,WBbt:0003630,pm3DL-pm3DR,high,
 pm5D,WBbt:0003736,pm5DL-pm5DR,high,
