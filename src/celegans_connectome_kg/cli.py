@@ -11,6 +11,7 @@ import click
 DEFAULT_NEURON_GRAPH_DIR = Path("data/neuron-graph")
 DEFAULT_WBBT_JSON = Path("data/wbbt/wbbt.json")
 DEFAULT_CURATION = Path("data/curation/anatomy_curation.csv")
+DEFAULT_ENDPOINT_CELLS = Path("data/curation/connection_endpoint_cells.csv")
 DEFAULT_OUTPUT_DIR = Path("outputs")
 
 
@@ -136,12 +137,24 @@ def match(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path) -> None:
     show_default=True,
     help="Manual anatomy curation CSV (applied if present).",
 )
-def build(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path) -> None:
+@click.option(
+    "--endpoint-cells",
+    type=click.Path(dir_okay=False, path_type=Path),
+    default=DEFAULT_ENDPOINT_CELLS,
+    show_default=True,
+    help="Stub cells for class-level connection endpoints (applied if present).",
+)
+def build(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path, endpoint_cells: Path) -> None:
     """Assemble LinkML data (cells, connections, datasets, evidence). [Phase 3]"""
     from celegans_connectome_kg.build.assemble import assemble
     from celegans_connectome_kg.export.rdf import write_json
 
-    connectome, stats = assemble(data_dir, wbbt, curation if curation.exists() else None)
+    connectome, stats = assemble(
+        data_dir,
+        wbbt,
+        curation if curation.exists() else None,
+        endpoint_cells if endpoint_cells.exists() else None,
+    )
     out_path = out_dir / "connectome.json"
     write_json(connectome, out_path)
 

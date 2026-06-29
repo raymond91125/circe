@@ -1,5 +1,22 @@
 # Anatomy curation
 
+## `connection_endpoint_cells.csv` — stub cells for class-level endpoints
+
+11 names appear as connection pre/post but are not in neuron-graph's cell list (class-level
+aggregates / pharyngeal structures). Each is mapped to a WBBT **class** term and minted as a
+stub `Cell` so the references resolve and carry grounding. These are KG-only (not neuron-
+graph cells), so they are **excluded from the viz `/api/cells` projection**.
+
+Columns: `cell_name, wbbt_id, wbbt_label, cell_type, note`. Covers pharyngeal muscles
+(`pm2/3/5/6/7`), marginal cells (`mc2/3`), pharyngeal glands (`G1→g1`, `G2→g2`),
+`DefecationMuscles→enteric muscle`, and `VAn→VA neuron`. The 3 reconstruction fragments
+(`Fragment`, `NR_fragment`, `vncfrag`) are **left unmapped** — they are unidentified EM
+processes with no cell/class term, and remain dangling references (acceptable, open-world).
+
+---
+
+
+
 `anatomy_curation.csv` — human-resolved cell → WBbt mappings for the cells the lexical
 matcher leaves in the work-list (ambiguous + unmatched). Curator-authored, not an upstream
 artifact.

@@ -18,7 +18,7 @@ from celegans_connectome_kg.ingest.neuron_graph import (
     ConnectionRecord,
     load_neuron_graph,
 )
-from celegans_connectome_kg.match.curation import load_curation
+from celegans_connectome_kg.match.curation import load_curation, load_endpoint_cells
 from celegans_connectome_kg.match.matcher import match_cells
 from celegans_connectome_kg.match.wbbt import WBBTIndex
 
@@ -72,17 +72,23 @@ class BuildStats:
 
 
 def assemble(
-    data_dir: Path, wbbt_path: Path, curation_path: Path | None = None
+    data_dir: Path,
+    wbbt_path: Path,
+    curation_path: Path | None = None,
+    endpoint_cells_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
     If ``curation_path`` is given, manual anatomy resolutions take precedence over lexical
-    matches (see :mod:`celegans_connectome_kg.match.curation`).
+    matches. If ``endpoint_cells_path`` is given, stub cells are minted for class-level /
+    aggregate connection endpoints that are not in neuron-graph's cell list (see
+    :mod:`celegans_connectome_kg.match.curation`).
     """
     dm: ModuleType = datamodel()
     data = load_neuron_graph(data_dir)
     index = WBBTIndex.from_obograph(wbbt_path)
     curation = load_curation(curation_path) if curation_path else None
+    endpoint_cells = load_endpoint_cells(endpoint_cells_path) if endpoint_cells_path else []
 
     cell_records: dict[str, CellRecord] = {c.name: c for c in data.cells}
     anatomy_by_name = {
@@ -103,6 +109,14 @@ def assemble(
             in_tail=c.in_tail,
         )
         for c in sorted(data.cells, key=lambda c: c.name)
+    ]
+
+    # Stub cells for class-level / aggregate connection endpoints (KG-only; no neuron-graph
+    # attributes, so the viz cells projection excludes them).
+    stub_names = {ec.name for ec in endpoint_cells}
+    cells += [
+        dm.Cell(id=_cell_id(ec.name), name=ec.name, cell_type=ec.cell_type, anatomy=ec.wbbt_id)
+        for ec in sorted(endpoint_cells, key=lambda ec: ec.name)
     ]
 
     datasets = [
@@ -146,7 +160,8 @@ def assemble(
         )
 
     referenced = {c.pre for c in by_key.values()} | {c.post for c in by_key.values()}
-    unknown_cells = sorted(name for name in referenced if name not in cell_records)
+    known = set(cell_records) | stub_names
+    unknown_cells = sorted(name for name in referenced if name not in known)
 
     connectome = dm.Connectome(cells=cells, datasets=datasets, connections=connections)
     stats = BuildStats(

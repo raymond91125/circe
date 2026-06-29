@@ -1,0 +1,12 @@
+cell_name,wbbt_id,wbbt_label,cell_type,note
+DefecationMuscles,WBbt:0008600,enteric muscle,muscle,class-level endpoint; enteric (defecation) muscle grouping
+G1,WBbt:0003712,g1,other,pharyngeal gland g1
+G2,WBbt:0003710,g2,other,pharyngeal gland g2
+VAn,WBbt:0005339,VA neuron,neuron,unspecified VA-class ventral cord motor neuron
+mc2,WBbt:0003708,mc2,other,pharyngeal marginal cell class
+mc3,WBbt:0003707,mc3,other,pharyngeal marginal cell class
+pm2,WBbt:0003742,pm2,muscle,pharyngeal muscle class
+pm3,WBbt:0003740,pm3,muscle,pharyngeal muscle class
+pm5,WBbt:0003737,pm5,muscle,pharyngeal muscle class
+pm6,WBbt:0003724,pm6,muscle,pharyngeal muscle class
+pm7,WBbt:0003721,pm7,muscle,pharyngeal muscle class

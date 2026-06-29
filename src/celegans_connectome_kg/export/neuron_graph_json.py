@@ -31,9 +31,15 @@ def _strip(curie: str, prefix: str) -> str:
 
 
 def cells_projection(connectome: object) -> list[dict]:
-    """Project Cells into the /api/cells shape (ordered, booleans as true/false)."""
+    """Project Cells into the /api/cells shape (ordered, booleans as true/false).
+
+    Stub cells minted for class-level connection endpoints are not neuron-graph cells (no
+    NemaNode type) and are not in /api/cells, so they are excluded from this projection.
+    """
     out = []
     for c in connectome.cells:
+        if c.nemanode_type is None:
+            continue
         out.append(
             {
                 "name": c.name,
