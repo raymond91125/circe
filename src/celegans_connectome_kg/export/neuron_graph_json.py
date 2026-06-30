@@ -102,6 +102,52 @@ def anatomy_terms_map(
     return dict(sorted(out.items()))
 
 
+#: WormAtlas handbook pages are hand-curated (not ontology-derived). The neuron pattern is
+#: keyed by neuron class; non-neuron categories need explicit handbook URLs.
+_WORMATLAS_NEURON = "http://www.wormatlas.org/neurons/Individual%20Neurons/{}frameset.html"
+_WORMATLAS_BODY_WALL_MUSCLE = (
+    "https://wormatlas.org/hermaphrodite/musclesomatic/MusSomaticframeset.html"
+)
+
+
+def _is_body_wall_muscle(name: str) -> bool:
+    u = name.upper()
+    return u.startswith("BWM") or u in ("BODYWALLMUSCLES", "LEGACYBODYWALLMUSCLES")
+
+
+def wormatlas_links_map(connectome: object) -> dict[str, str]:
+    """Build a node-name → WormAtlas URL map for the viz cell-info link.
+
+    WormAtlas links to handbook pages, which are not derivable from the cell name except for
+    neurons. Neurons → the per-class neuron page; body wall muscles → the somatic-muscle
+    handbook page; other non-neuron categories are omitted for now (the viz then renders no
+    link rather than a broken neuron-pattern URL). Keys are upper-cased; lookup is
+    case-insensitive in the viz.
+    """
+    members: dict[str, list[object]] = defaultdict(list)
+    for cell in connectome.cells:
+        if cell.cell_class:
+            members[cell.cell_class].append(cell)
+
+    def url_for(name: str, cell_type: str, cls: str | None) -> str | None:
+        if _is_body_wall_muscle(name) or (cls and _is_body_wall_muscle(cls)):
+            return _WORMATLAS_BODY_WALL_MUSCLE
+        if cell_type == "neuron":
+            return _WORMATLAS_NEURON.format(cls or name)
+        return None
+
+    out: dict[str, str] = {}
+    for cell in connectome.cells:
+        url = url_for(cell.name, str(cell.cell_type), cell.cell_class)
+        if url:
+            out[cell.name.upper()] = url
+    for cls, mem in members.items():
+        url = url_for(cls, str(mem[0].cell_type), cls)
+        if url:
+            out[cls.upper()] = url
+    return dict(sorted(out.items()))
+
+
 def _merge_gap_junctions(gap_junctions: list[dict]) -> list[dict]:
     """Merge flipped pre/post electrical pairs additively (neuron-graph mergeGapJunctions)."""
     by_key: dict[str, dict] = {}

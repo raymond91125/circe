@@ -209,6 +209,7 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         anatomy_terms_map,
         cells_projection,
         connections_projection,
+        wormatlas_links_map,
     )
     from celegans_connectome_kg.export.rdf import load_json, write_turtle
     from celegans_connectome_kg.match.curation import load_class_curation
@@ -233,6 +234,10 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     terms = anatomy_terms_map(connectome, WBBTIndex.from_obograph(wbbt), curated)
     (ng_dir / "anatomy_terms.json").write_text(json.dumps(terms, indent=1))
     click.echo(f"wrote: {ng_dir}/anatomy_terms.json ({len(terms)} name→WBbt)")
+
+    atlas = wormatlas_links_map(connectome)
+    (ng_dir / "wormatlas_links.json").write_text(json.dumps(atlas, indent=1))
+    click.echo(f"wrote: {ng_dir}/wormatlas_links.json ({len(atlas)} name→WormAtlas)")
 
 
 @main.command()
