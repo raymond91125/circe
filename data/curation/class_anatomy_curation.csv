@@ -1,0 +1,29 @@
+class_name,wbbt_id,wbbt_label,note
+ASn,WBbt:0005334,AS neuron,ventral cord AS motor neuron class
+DAn,WBbt:0005278,DA neuron,
+DBn,WBbt:0005274,DB neuron,
+DDn,WBbt:0005270,DD neuron,
+VAn,WBbt:0005339,VA neuron,
+VBn,WBbt:0005336,VB neuron,
+VCn,WBbt:0005304,VC neuron,
+VDn,WBbt:0005303,VD neuron,
+I1,WBbt:0003649,I1 neuron,
+I2,WBbt:0003645,I2 neuron,
+M2,WBbt:0003634,M2 neuron,
+M3,WBbt:0003754,M3 neuron,
+MC,WBbt:0003638,MC neuron,
+IL1,WBbt:0005119,IL1 neuron,
+IL2,WBbt:0005118,IL2 neuron,
+CEPsh,WBbt:0008406,cephalic sheath cell,CEP sheath glia
+g1,WBbt:0003712,g1,pharyngeal gland g1
+g2,WBbt:0003710,g2,pharyngeal gland g2
+DefecationMuscles,WBbt:0008600,enteric muscle,
+BWM01,WBbt:0006804,body wall muscle cell,positional BWM class spans 4 quadrants; generic term
+BWM02,WBbt:0006804,body wall muscle cell,
+BWM03,WBbt:0006804,body wall muscle cell,
+BWM04,WBbt:0006804,body wall muscle cell,
+BWM05,WBbt:0006804,body wall muscle cell,
+BWM06,WBbt:0006804,body wall muscle cell,
+BWM07,WBbt:0006804,body wall muscle cell,
+BWM08,WBbt:0006804,body wall muscle cell,
+BWM09-24,WBbt:0006804,body wall muscle cell,positional BWM aggregate class; generic term

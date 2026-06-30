@@ -21,6 +21,7 @@ from __future__ import annotations
 from collections import defaultdict
 
 from celegans_connectome_kg.build.assemble import CELL_PREFIX, DATASET_PREFIX
+from celegans_connectome_kg.match.wbbt import STRONG_KINDS, WBBTIndex
 
 #: our CellType-enum connection label → neuron-graph API `type` string.
 _API_TYPE = {"chemical": "chemical", "gap_junction": "electrical", "functional": "functional"}
@@ -52,6 +53,40 @@ def cells_projection(connectome: object) -> list[dict]:
             }
         )
     return out
+
+
+def class_anatomy_map(
+    connectome: object,
+    index: WBBTIndex,
+    class_curation: dict[str, str] | None = None,
+) -> dict[str, str]:
+    """Build a cell-class → WBbt map for the viz cell-info link.
+
+    The neuron-graph cell-info panel links to WormBase by cell *class*. Resolution order:
+    manual class curation, then a unique strong (label/exact) WBBT match on the class name,
+    then — for a single-cell class — that cell's own anatomy from the KG.
+    """
+    class_curation = class_curation or {}
+    members: dict[str, list[str]] = defaultdict(list)
+    cell_anatomy: dict[str, str] = {}
+    for cell in connectome.cells:
+        cls = cell.cell_class
+        if cls:
+            members[cls].append(cell.name)
+        if cell.anatomy:
+            cell_anatomy[cell.name] = str(cell.anatomy)
+
+    out: dict[str, str] = {}
+    for cls, mem in members.items():
+        if cls in class_curation:
+            out[cls] = class_curation[cls]
+            continue
+        strong = {h.curie for h in index.lookup(cls) if h.kind in STRONG_KINDS}
+        if len(strong) == 1:
+            out[cls] = next(iter(strong))
+        elif len(mem) == 1 and mem[0] in cell_anatomy:
+            out[cls] = cell_anatomy[mem[0]]
+    return dict(sorted(out.items()))
 
 
 def _merge_gap_junctions(gap_junctions: list[dict]) -> list[dict]:
