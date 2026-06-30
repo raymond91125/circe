@@ -15,6 +15,7 @@ from pathlib import Path
 
 DEFAULT_CURATION_PATH = Path("data/curation/anatomy_curation.csv")
 DEFAULT_ENDPOINT_CELLS_PATH = Path("data/curation/connection_endpoint_cells.csv")
+DEFAULT_CLASS_CURATION_PATH = Path("data/curation/class_anatomy_curation.csv")
 
 
 @dataclass(frozen=True)
@@ -39,6 +40,17 @@ def load_curation(path: Path) -> dict[str, str]:
             wbbt_id = (row.get("wbbt_id") or "").strip()
             if wbbt_id:
                 curated[row["cell_name"]] = wbbt_id
+    return curated
+
+
+def load_class_curation(path: Path) -> dict[str, str]:
+    """Load cell-class → WBbt CURIE for classes the lexical class match can't resolve."""
+    curated: dict[str, str] = {}
+    with Path(path).open(newline="") as fh:
+        for row in csv.DictReader(fh):
+            wbbt_id = (row.get("wbbt_id") or "").strip()
+            if wbbt_id:
+                curated[row["class_name"]] = wbbt_id
     return curated
 
 

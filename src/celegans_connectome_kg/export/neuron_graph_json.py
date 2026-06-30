@@ -21,6 +21,7 @@ from __future__ import annotations
 from collections import defaultdict
 
 from celegans_connectome_kg.build.assemble import CELL_PREFIX, DATASET_PREFIX
+from celegans_connectome_kg.match.wbbt import STRONG_KINDS, WBBTIndex
 
 #: our CellType-enum connection label → neuron-graph API `type` string.
 _API_TYPE = {"chemical": "chemical", "gap_junction": "electrical", "functional": "functional"}
@@ -52,6 +53,53 @@ def cells_projection(connectome: object) -> list[dict]:
             }
         )
     return out
+
+
+def anatomy_terms_map(
+    connectome: object,
+    index: WBBTIndex,
+    class_curation: dict[str, str] | None = None,
+) -> dict[str, str]:
+    """Build a node-name → WBbt map for the viz cell-info WormBase link.
+
+    The cell-info panel links by whatever ``DataService.cellClass()`` returns for the clicked
+    node — a cell *class* (e.g. ``AVA``) when grouped, or the cell/endpoint *name* (e.g.
+    ``pm2D``) when shown individually or when the node isn't a neuron-graph cell. So the map
+    must cover both: every cell name (incl. minted endpoint stubs, all grounded in the KG)
+    and every class.
+
+    Class resolution: manual class curation → unique strong (label/exact) WBBT class-name
+    match → single-cell-class reuse of that cell's anatomy. Keys are upper-cased; the viz
+    looks up case-insensitively. Entities with no WBbt term are omitted (the viz then renders
+    no link rather than a broken one).
+    """
+    class_curation = class_curation or {}
+    members: dict[str, list[str]] = defaultdict(list)
+    cell_anatomy: dict[str, str] = {}
+    for cell in connectome.cells:
+        if cell.cell_class:
+            members[cell.cell_class].append(cell.name)
+        if cell.anatomy:
+            cell_anatomy[cell.name] = str(cell.anatomy)
+
+    out: dict[str, str] = {}
+    # Individual cell / endpoint-stub names (handles individual display + non-neuron nodes).
+    for name, wbbt in cell_anatomy.items():
+        out[name.upper()] = wbbt
+    # Cell classes (the default grouped view).
+    for cls, mem in members.items():
+        if cls in class_curation:
+            wbbt = class_curation[cls]
+        else:
+            strong = {h.curie for h in index.lookup(cls) if h.kind in STRONG_KINDS}
+            if len(strong) == 1:
+                wbbt = next(iter(strong))
+            elif len(mem) == 1 and mem[0] in cell_anatomy:
+                wbbt = cell_anatomy[mem[0]]
+            else:
+                continue
+        out[cls.upper()] = wbbt
+    return dict(sorted(out.items()))
 
 
 def _merge_gap_junctions(gap_junctions: list[dict]) -> list[dict]:

@@ -12,6 +12,7 @@ DEFAULT_NEURON_GRAPH_DIR = Path("data/neuron-graph")
 DEFAULT_WBBT_JSON = Path("data/wbbt/wbbt.json")
 DEFAULT_CURATION = Path("data/curation/anatomy_curation.csv")
 DEFAULT_ENDPOINT_CELLS = Path("data/curation/connection_endpoint_cells.csv")
+DEFAULT_CLASS_CURATION = Path("data/curation/class_anatomy_curation.csv")
 DEFAULT_OUTPUT_DIR = Path("outputs")
 
 
@@ -186,15 +187,32 @@ def build(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path, endpoint_ce
     show_default=True,
     help="Where to write the serialized graph.",
 )
-def export(in_path: Path, out_dir: Path) -> None:
+@click.option(
+    "--wbbt",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    default=DEFAULT_WBBT_JSON,
+    show_default=True,
+    help="Pinned WBBT OBO-graph JSON (for the class anatomy map).",
+)
+@click.option(
+    "--class-curation",
+    type=click.Path(dir_okay=False, path_type=Path),
+    default=DEFAULT_CLASS_CURATION,
+    show_default=True,
+    help="Manual cell-class anatomy curation CSV (applied if present).",
+)
+def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> None:
     """Serialize RDF/OWL and the neuron-graph JSON projection. [Phase 3]"""
     import json
 
     from celegans_connectome_kg.export.neuron_graph_json import (
+        anatomy_terms_map,
         cells_projection,
         connections_projection,
     )
     from celegans_connectome_kg.export.rdf import load_json, write_turtle
+    from celegans_connectome_kg.match.curation import load_class_curation
+    from celegans_connectome_kg.match.wbbt import WBBTIndex
 
     connectome = load_json(in_path)
 
@@ -210,6 +228,11 @@ def export(in_path: Path, out_dir: Path) -> None:
     (ng_dir / "connections.json").write_text(json.dumps(connections, indent=2))
     click.echo(f"wrote: {ng_dir}/cells.json ({len(cells)} cells)")
     click.echo(f"wrote: {ng_dir}/connections.json ({len(connections)} connections)")
+
+    curated = load_class_curation(class_curation) if class_curation.exists() else None
+    terms = anatomy_terms_map(connectome, WBBTIndex.from_obograph(wbbt), curated)
+    (ng_dir / "anatomy_terms.json").write_text(json.dumps(terms, indent=1))
+    click.echo(f"wrote: {ng_dir}/anatomy_terms.json ({len(terms)} name→WBbt)")
 
 
 @main.command()

@@ -1,5 +1,17 @@
 # Anatomy curation
 
+## `class_anatomy_curation.csv` — cell-class → WBbt (for the viz cell-info link)
+
+neuron-graph's cell-info panel links to WormBase by cell **class**, so the viz needs a
+class → WBbt map. `cckg export` builds it: manual curation here (highest precedence), then a
+unique strong (label/exact) WBBT match on the class name, then single-cell-class reuse of the
+cell's own anatomy. This file curates the 28 classes that don't auto-resolve — the generic
+ventral-cord motor-neuron classes (`ASn`/`DAn`/`DBn`/`DDn`/`VAn`/`VBn`/`VCn`/`VDn` → the
+`* neuron` class terms), pharyngeal/labial (`I1`,`I2`,`M2`,`M3`,`MC`,`IL1`,`IL2`), `CEPsh`
+(cephalic sheath), pharyngeal glands (`g1`/`g2`), `DefecationMuscles` (enteric muscle), and
+the positional BWM classes (→ generic `body wall muscle cell`, since they span all 4
+quadrants). With this, all 147 classes map. Emitted to `outputs/neuron-graph/anatomy_terms.json`.
+
 ## `connection_endpoint_cells.csv` — stub cells for class-level endpoints
 
 11 names appear as connection pre/post but are not in neuron-graph's cell list (class-level
