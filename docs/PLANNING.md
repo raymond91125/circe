@@ -74,9 +74,36 @@ hand. (No AI curation tool in scope — pipeline only.)
 
 - **RDF/OWL** (Turtle) — primary, for triplestore/SPARQL/research.
 - **neuron-graph JSON** — projection matching `/api/cells`, `/api/connections` shapes,
-  losslessly preserving pre/post/type/weight/dataset for the viz.
+  losslessly preserving pre/post/type/weight/dataset for the viz. **Note:** this matches the
+  API *output* shape, which is **not** how data is loaded into the viz — see the finding
+  below.
 - **Match report** — matched / ambiguous / unmatched, doubling as QA signal + curation
   work-list.
+
+### Finding: feeding the viz needs the *raw populate* format, not the API projection
+
+(Recorded 2026-06-29, after a live load of the KG data into neuron-graph against a remote
+MariaDB.) The `/api/cells` and `/api/connections` projection is correct as an **API-output**
+artifact, but loading it straight into neuron-graph's `connections` table breaks the viz:
+
+- The client's default (class-level) view queries connections by **cell class** (e.g.
+  `cells=AVA`), relying on **class-expansion rows** (`AVA→X`, `pre→postClass`, …) that
+  neuron-graph's `populate-database` generates from cell-level edges. The API-shaped
+  projection has no class rows, so any multi-cell class (AVA, DA, VB, …) shows as
+  unconnected. Singleton classes (DVB, AVL) and explicitly-input individual cells happen to
+  work, which masks the problem.
+- Gap junctions: the API projection is already reverse-merged into one sorted orientation,
+  whereas the DB layer expects raw per-direction edges and merges at populate/query time.
+- The viz also needs each dataset's `datatypes` (`cs`/`gj`/`fc`); it is **absent from
+  neuron-graph's own `datasets.json`** for the EM datasets and must be derived from the
+  connection types actually present per dataset.
+
+**Implication:** to feed the viz from the KG, emit the **raw populate format** (per-dataset
+`{pre, post, typ, syn}` cell-level files + `neurons.json` + `datasets.json` *with*
+`datatypes`) and run neuron-graph's `populate-database` (which owns class expansion + gap
+dedup + the `synapses` table). The current API-shaped projection stays useful for shape
+validation and for an API-level consumer — it is just the wrong layer to bulk-load. A
+viz-loading helper (KG → raw populate files) is a candidate follow-up, out of v1 scope.
 
 ## Pipeline stages
 
@@ -133,7 +160,11 @@ celegans-connectome-kg/
 - ~~Triplestore choice for Phase 4~~ **Resolved: Oxigraph** (embedded, pip-installable, lets
   CI run real SPARQL).
 - ~~GitHub project creation~~ **Resolved:** public repo under `raymond91125`.
-- Curating the 114-cell work-list (8 ambiguous + 106 unmatched, mostly muscles) to anatomy
-  terms; deciding whether to mint stub cells for the 14 class-level/fragment connection
-  endpoints.
+- ~~Curating the 114-cell work-list and the 14 class-level/fragment connection endpoints~~
+  **Resolved:** all 114 cells curated to WBbt terms (BWM → individual cell terms, etc.); the
+  11 mappable endpoints minted as stub cells, 3 EM fragments left unmapped. Every cell is now
+  WBBT-grounded.
+- **Follow-up (out of v1 scope):** a viz-loading helper that emits the raw populate format
+  (KG → per-dataset `{pre,post,typ,syn}` + `datasets.json` with `datatypes`) so the KG can
+  feed neuron-graph's `populate-database` directly. See the Outputs finding above.
 ```
