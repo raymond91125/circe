@@ -1,0 +1,1010 @@
+[
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "ACh",
+  "gene": "NA",
+  "detection_method": "Radioenzymatic assay",
+  "localization": "Whole animal",
+  "references": "Hosono et al., 1987 ; Hosono & Kamiya, 1991 ; Nguyen et al., 1995"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "Choline Acetyltransferase (ChAT)",
+  "gene": "cha-1 1",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Rand & Russell, 1984"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "ChAT",
+  "gene": "cha-1 1",
+  "detection_method": "Antibody",
+  "localization": "Same as unc-17 (see below) 2",
+  "references": "Duerr et al., 2008"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "Vesicular Acetylcholine Transporter (VAChT)",
+  "gene": "unc-17 1",
+  "detection_method": "Antibody",
+  "localization": "AIA , AIY",
+  "references": "Altun-Gultekin et al., 2001"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "VAChT",
+  "gene": "unc-17 1",
+  "detection_method": "Antibody",
+  "localization": "ALN , AS1-11 , DA1-9 , DB1-7 , HSN (faint, h), PLN , SDQ , URA , URB , VA1-12, VB1-11 , VC1-6 (h), many others",
+  "references": "Duerr et al., 2008"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "VAChT",
+  "gene": "unc-17 1",
+  "detection_method": "Reporter transgenics",
+  "localization": "IL2 , URA , URB",
+  "references": "Zhang et al., 2014"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "VAChT",
+  "gene": "unc-17 1",
+  "detection_method": "Reporter transgenics",
+  "localization": "PCB (m), PCC (m), PVX (m), PVY (m), SPC (m), SPV (m)",
+  "references": "Garcia et al., 2001 ; LeBouef et al., 2014"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "VAChT",
+  "gene": "unc-17 1",
+  "detection_method": "Reporter transgenics",
+  "localization": "SMB",
+  "references": "Kim et al., 2015"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "VAChT",
+  "gene": "unc-17 1",
+  "detection_method": "Reporter transgenics (fosmid 3 ), Antibody",
+  "localization": "ADF , AIA , [ AIM ] 4 , AIN , AIY , ALN , AS1-11(1-11) , ASJ , AVA , AVB , AVD , AVE , AVG 5 , AWB , CA1-9 (m), CEM (m), DA1-9 , DB1-7 , DVA 6 , DVE (m) 7 , DVF (m) 7 , HOB (m), HSN (h), I1 5 , I3 5 , IL2 , M1 5 , M2 5 , M4 , M5 , MC 5 , PCB (m), PCC (m), PDA , PDB , PDC (m), PGA (m), PLN , PVC , PVN 5 , PVP , PVV (m), PVX (m), PVY (m), PVZ (m), R1A (m), R2A (m), R3A (m), R4A (m), R6A (m), RIB 8 , RIF , RIH , RIR , RIV , RMD , RMF , RMH , SAA 5 , SAB , SDQ , SIA , SIB , SMB , SMD , SPC (m), SPV (m), URA , URB , URX , VA1-12, VB1-11 , VC1-6 (h) 9",
+  "references": "Pereira et al., 2015"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "VAChT",
+  "gene": "unc-17 1",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "DX1/2 (m) 7",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "Choline Transporter (ChT)",
+  "gene": "cho-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "Most cholinergic ( i.e., unc-17 -expressing) neurons",
+  "references": "Okuda et al., 2000 ; Matthies et al., 2006 ; Mullen et al., 2007"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "ChT",
+  "gene": "cho-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "IL2 , URA",
+  "references": "Zhang et al., 2014"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "ChT",
+  "gene": "cho-1",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "Expressed in all unc-17 -expressing neurons EXCEPT AVG , CA7-9 (m), DX1/2 (m) 7 , HSN (h), I1 , I3 , M1 , M2 , MC , PVN , SAA , and VC4-5 (h); also expressed in R8A (m), R8B (m)",
+  "references": "Pereira et al., 2015 ; Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "ChT",
+  "gene": "cho-1",
+  "detection_method": "Uptake assay 10",
+  "localization": "NA - heterologous expression ( Xenopus oocyte)",
+  "references": "Okuda et al., 2000"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "Postsynaptic Choline/Acetylcholine Transporter",
+  "gene": "snf-6",
+  "detection_method": "Reporter transgenics",
+  "localization": "Neuromuscular junctions of body wall muscle , vulval and enteric muscles ; a few unidentified neurons",
+  "references": "Kim et al., 2004"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "Acetylcholinesterase (AChE) Total",
+  "gene": "NA",
+  "detection_method": "Histochemistry 11",
+  "localization": "Strong, reliable staining in nerve ring, ventral ganglion, pharyngeal-intestinal valve and anal depressor region ; \n\t\t\t\t    more variable staining in VNC, DNC and PAG",
+  "references": "Culotti et al., 1981"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "AChE class A",
+  "gene": "ace-1",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Johnson et al., 1981"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "AChE class B",
+  "gene": "ace-2",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Johnson et al., 1981 ; Culotti et al., 1981"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "AChE class C",
+  "gene": "ace-3",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Kolson et al., 1985a ; Kolson et al., 1985b ; Johnson et al., 1988"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "AChE",
+  "gene": "ace-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "CEP , OLL , pm5, body wall muscles, vulval muscles, anal sphincter muscle",
+  "references": "Culetto, 1999"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "AChE",
+  "gene": "ace-1",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "CEP , OLL",
+  "references": "Pereira et al., 2015"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "AChE",
+  "gene": "ace-2",
+  "detection_method": "Reporter transgenics",
+  "localization": "IL cells, AWB (?), AWC , additional head neurons, pm5, PVC , PVQ , PDA , hyp 8-11",
+  "references": "Combes et al., 2003"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "AChE",
+  "gene": "ace-2",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "AS1-11 , AVA , AVB , AVD , AVE , DA1-9 , DB1-7 , DVA , M4 , PDA , RIH , VA1-1, VB1-11 , others",
+  "references": "Pereira et al., 2015"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "AChE",
+  "gene": "ace-3 / ace-4 12",
+  "detection_method": "Reporter transgenics",
+  "localization": "pm3, pm4, pm5, pm7, CAN , some body muscles",
+  "references": "Combes et al., 2003"
+ },
+ {
+  "neurotransmitter": "acetylcholine",
+  "description": "AChE",
+  "gene": "ace-3 / ace-4 12",
+  "detection_method": "Reporter transgenics",
+  "localization": "AIA , DVA , IL2 , PDA , RIH , RIV , RMD , SIA , SMD , URA , URB , URX , others",
+  "references": "Pereira et al., 2015"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Dopamine",
+  "gene": "NA",
+  "detection_method": "HPLC + ED",
+  "localization": "Whole animal",
+  "references": "Sanyal et al., 2004"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Dopamine",
+  "gene": "NA",
+  "detection_method": "Formaldehyde induced fluorescence (FIF)",
+  "localization": "CEP , ADE , PDE , R5A (m), R7A (m), R9A (m)",
+  "references": "Sulston et al., 1975"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Tyrosine Hydroxylase (TH)",
+  "gene": "cat-2",
+  "detection_method": "Reporter transgenics",
+  "localization": "CEP , ADE , PDE , R5A (m), R7A (m), R9A (m), SPSo (m) 13",
+  "references": "Lints & Emmons, 1999 ; Flames & Hobert, 2009 ; LeBouef et al., 2014"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Aromatic L-Amino Acid Decarboxylase (AADC) 17",
+  "gene": "bas-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "CEP , ADE , PDE , R5A (m), R7A (m), R9A (m), SPSo (m) 13 ; see also 5HT neurons",
+  "references": "Hare & Loer, 2004 ; Flames & Hobert, 2009 ; LeBouef et al., 2014"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "GTP Cyclohydrolase I (GTPCH1)",
+  "gene": "cat-4",
+  "detection_method": "Reporter transgenics",
+  "localization": "CEP , ADE , PDE , R5A (m), R7A (m), R9A (m); see also 5HT neurons",
+  "references": "Sze et al., 2002 ; Flames & Hobert, 2009"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "GTPCH1",
+  "gene": "cat-4",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Loer et al., 2015"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Pyruvoyl\n    Tetrahydropterin Synthase (PTPS)",
+  "gene": "ptps-1 16",
+  "detection_method": "Reporter transgenics",
+  "localization": "Various unidentified neurons and non-neuronal cells; see also 5HT neurons",
+  "references": "Zhang et al., 2014 ; Loer et al., 2015"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "PTPS",
+  "gene": "ptps-1",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Loer et al., 2015"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Pterin Carbinolamine Dehydratase (PCBD)",
+  "gene": "pcbd-1 16",
+  "detection_method": "Reporter transgenics",
+  "localization": "Various unidentified neurons and non-neuronal cells; see also 5HT neurons",
+  "references": "Zhang et al., 2014 ; Loer et al., 2015"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Quinoid Dihydropterin Reductase (QDPR) 17",
+  "gene": "qdpr-1 16",
+  "detection_method": "Reporter transgenics",
+  "localization": "CEP , other unidentified cells; see also 5HT neurons",
+  "references": "Zhang et al., 2014 ; Loer et al., 2015"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Vesicular Monoamine Transporter (VMAT)",
+  "gene": "cat-1",
+  "detection_method": "Antibody 19",
+  "localization": "CEP , ADE , PDE ; see also 5HT , OA , and TA neurons",
+  "references": "Duerr et al., 1999"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "VMAT",
+  "gene": "cat-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "CEP , ADE , PDE , R5A (m), R9A (m); see also 5HT , OA , and TA neurons",
+  "references": "Flames & Hobert, 2009"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "VMAT",
+  "gene": "cat-1",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "CEP , ADE , PDE , R5A (m), R7A (m), R9A (m); see also 5HT , OA , and TA neurons",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "VMAT",
+  "gene": "cat-1",
+  "detection_method": "Uptake assay 21",
+  "localization": "NA - heterologous expression (CV-1 cells)",
+  "references": "Duerr et al., 1999"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "(Plasma Membrane) Dopamine  Transporter (DAT)",
+  "gene": "dat-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "CEP , ADE , PDE , R5A (m), R7A (m), R9A (m)",
+  "references": "Nass et al., 2001 ; Nass et al., 2002 ; Flames & Hobert, 2009"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "DAT",
+  "gene": "dat-1",
+  "detection_method": "Antibody",
+  "localization": "CEP , ADE , PDE (rare)",
+  "references": "McDonald et al, 2007"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "DAT",
+  "gene": "dat-1",
+  "detection_method": "Uptake assay 22",
+  "localization": "NA - heterologous expression (HeLa cells)",
+  "references": "Jayanthi et al., 1998"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "DAT",
+  "gene": "dat-1",
+  "detection_method": "Uptake assay, patch clamping recording 23",
+  "localization": "Heterologous expression (tsA-201 cells) and\n    cultured embryonic C. elegans dopaminergic neurons (P dat-1 ::GFP  cells)",
+  "references": "Carvelli et al., 2004"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Arylalkylamine N-Acetyltransferase (AA-NAT)",
+  "gene": "anat-1 ?",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Migliori et al., 2012"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Monoamine Oxidase (MAO)",
+  "gene": "amx-1 25",
+  "detection_method": "Reporter transgenics",
+  "localization": "~30 head and tail neurons including ASJ , IL2 , other amphid neurons; PHA , PHB , 3 other tail neurons; not expressed in dopaminergic cells. Expressed in nearly all cells in the embryo.",
+  "references": "Filkin et al., 2007 ; Kaushal 2008"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "MAO",
+  "gene": "amx-2 25",
+  "detection_method": "Reporter transgenics",
+  "localization": "4 pairs amphid neurons: ASJ , and most likely ASH , ASE , AWB , PHA , PHB",
+  "references": "Hostettler et al., 2017"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "MAO",
+  "gene": "amx-2 25",
+  "detection_method": "Reporter transgenics",
+  "localization": "Intestine , neurons",
+  "references": "Filkin et al., 2007"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Aldehyde Dehydrogenase (ALDH)",
+  "gene": "alh-1 26",
+  "detection_method": "Reporter transgenics",
+  "localization": "Nervous system , including head neurons, neurons along body, PVT , intestine , head mesodermal cell , rectal gland cells, etc.",
+  "references": "McKay et al., 2003 27"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "ALDH",
+  "gene": "alh-6 26",
+  "detection_method": "Reporter transgenics",
+  "localization": "Body wall muscle , hypodermis , unidentified cells in head, unidentified cells in tail (adult)",
+  "references": "McKay et al., 2003 27"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "Succinic Semialdehyde Dehydrogenase (SSADH)",
+  "gene": "alh-7 26",
+  "detection_method": "Reporter transgenics",
+  "localization": "Intestine , rectal gland cells, nervous system , head neurons (adult)",
+  "references": "McKay et al., 2003 27"
+ },
+ {
+  "neurotransmitter": "dopamine",
+  "description": "ALDH",
+  "gene": "alh-10 26",
+  "detection_method": "Reporter transgenics",
+  "localization": "Intestine , nervous system , tail neurons (adult)",
+  "references": "McKay et al., 2003 27"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "TA",
+  "gene": "NA",
+  "detection_method": "TLC",
+  "localization": "Whole animal",
+  "references": "Alkema et al., 2005"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "OA",
+  "gene": "NA",
+  "detection_method": "Radioenzymatic assay 28",
+  "localization": "Whole animal",
+  "references": "Horvitz et al., 1982"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "OA",
+  "gene": "NA",
+  "detection_method": "HPLC + ED",
+  "localization": "Whole animal",
+  "references": "Alkema et al., 2005"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "Tyrosine Decarboxylase (TDC)",
+  "gene": "tdc-1",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Alkema et al., 2005"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "TDC",
+  "gene": "tdc-1",
+  "detection_method": "Reporter transgenics, Antibody",
+  "localization": "RIC , RIM , uv1 29 , gonadal sheath cells",
+  "references": "Alkema et al., 2005"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "TDC",
+  "gene": "tdc-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "RIC , RIM , HOA (m), R8A (m) 30 , R8B (m) 30",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "Tyramine Beta-Hydroxylase (TBH)",
+  "gene": "tbh-1",
+  "detection_method": "Reporter transgenics, Antibody",
+  "localization": "RIC , gonadal sheath cells",
+  "references": "Alkema et al., 2005 ; Suo et al., 2006"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "Vesicular Monoamine Transporter (VMAT) 18",
+  "gene": "cat-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "RIC ; see also dopaminergic , 5HT neurons",
+  "references": "Duerr et al., 1999"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "VMAT",
+  "gene": "cat-1",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "RIC , RIM , HOA (m); see also dopaminergic , 5HT neurons",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "VMAT",
+  "gene": "cat-1",
+  "detection_method": "Antibody 19",
+  "localization": "RIC ; see also dopaminergic , 5HT neurons",
+  "references": "Duerr et al., 1999"
+ },
+ {
+  "neurotransmitter": "tyramine/octopamine",
+  "description": "VMAT",
+  "gene": "cat-1",
+  "detection_method": "Uptake assay 21",
+  "localization": "TA and OA are competitive inhibitors of dopamine and 5HT uptake by CAT-1 in  heterologous expression (CV-1 cells).",
+  "references": "Duerr et al., 1999"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "5HT",
+  "gene": "NA",
+  "detection_method": "HPLC + ED",
+  "localization": "Whole animal",
+  "references": "Sanyal et al., 2004"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "5HT",
+  "gene": "NA",
+  "detection_method": "HPLC + ED",
+  "localization": "Whole animal",
+  "references": "Wang et al., 2017"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "5HT",
+  "gene": "NA",
+  "detection_method": "Formaldehyde induced fluorescence (FIF) 31",
+  "localization": "NSM",
+  "references": "Horvitz et al., 1982"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "5HT",
+  "gene": "NA",
+  "detection_method": "Glyoxylic acid induced fluorescence (GAIF) 32",
+  "localization": "NSM , ADF , AIM , RIH , HSN (h), VC4-5 (h)",
+  "references": "Duerr et al., 1999"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "5HT",
+  "gene": "NA",
+  "detection_method": "Antibody",
+  "localization": "NSM , ADF , AIM , RIH , HSN (h), VC4-5 (h) 33 , CA1-4 (m) 34 , CP1-6 (m), RPAG(m) 36 , R1B (m), R3B (m), R9B (m)",
+  "references": "Desai et al., 1988 ; Loer & Kenyon, 1993 ; Duerr et al., 1999 ; Jia & Emmons, 2006"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "5HT",
+  "gene": "NA",
+  "detection_method": "Antibody",
+  "localization": "ASG 23",
+  "references": "Pocock & Hobert, 2010"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "5HT",
+  "gene": "NA",
+  "detection_method": "Antibody",
+  "localization": "Extracellular 5HT-immunoreactivity observed following optogenetic stimulation of NSM , ADF [ traditional criterion - stimulation-dependent release].",
+  "references": "Tatum et al., 2015"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "5HT",
+  "gene": "NA",
+  "detection_method": "Antibody",
+  "localization": "NSM , ADF , AIM 4,35 , RIH , URX (weak) 35 , I5 (weak) 35 , CEM (m,weak) 35 , HSN (h), CP1-6 (m), PGA (m) 36 , PVW (m, weak) 37 , R1B (m, weak), R3B (m), R9B (m)",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Tryptophan Hydroxylase (TPH)",
+  "gene": "tph-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "NSM , ADF , [ AIM , RIH ] 39 , HSN (h), CP1-6 (m), R1B (m), R3B (m), R9B (m)",
+  "references": "Sze et al., 2000"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "TPH",
+  "gene": "tph-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "ASG 38",
+  "references": "Pocock & Hobert, 2010"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "TPH",
+  "gene": "tph-1",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "NSM , ADF , HSN (h), CP1-6 (m), R1B (m), R3B (m), R9B (m)",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "TPH",
+  "gene": "tph-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "VC4-5 (h) 33",
+  "references": "Mondal et al., 2018"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Aromatic L-Amino Acid Decarboxylase (AADC) 14",
+  "gene": "bas-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "NSM , ADF , [ AIM , RIH ] 39 , HSN (h), CP1-6 (m), R1B (m), R3B (m), R9B (m); see also dopaminergic neurons",
+  "references": "Hare & Loer, 2004 ; Flames & Hobert, 2009"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "GTP Cyclohydrolase I (GTPCH1)",
+  "gene": "cat-4",
+  "detection_method": "Reporter transgenics",
+  "localization": "NSM , ADF , HSN (h), CP1-6 (m), R1B (m), R3B (m), R9B (m); see also Dopaminergic neurons",
+  "references": "Sze et al., 2002 ; Flames & Hobert, 2009"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Pyruvoyl\n    Tetrahydropterin Synthase (PTPS)",
+  "gene": "ptps-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "NSM , ADF , HSN (h), VC4-5 (h), other unidentified cells; see also Dopaminergic neurons",
+  "references": "Zhang et al., 2014 ; Loer et al., 2015"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Pterin Carbinolamine Dehydratase (PCBD)",
+  "gene": "pcbd-1 16",
+  "detection_method": "Reporter transgenics",
+  "localization": "Various unidentified neurons and non-neuronal cells; see also Dopaminergic neurons",
+  "references": "Zhang et al., 2014 ; Loer et al., 2015"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Quinoid Dihydropterin Reductase (QDPR)",
+  "gene": "qdpr-1 16",
+  "detection_method": "Reporter transgenics",
+  "localization": "NSM , ADF , other unidentified cells; see also Dopaminergic neurons",
+  "references": "Zhang et al., 2014 ; Loer et al., 2015"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Vesicular Monoamine Transporter (VMAT)",
+  "gene": "cat-1",
+  "detection_method": "Antibody 19",
+  "localization": "NSM , ADF , AIM , male VNC & tail cells; see also Dopaminergic neurons",
+  "references": "Duerr et al., 1999"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "VMAT",
+  "gene": "cat-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "NSM , ADF , AIM 40 , RIH , HSN (h), VC4-5 (h), CP1-6 (m), RPAG(m) 36 , R1B (m), R3B (m), R9B (m); see also DA , OA and TA neurons",
+  "references": "Duerr et al., 1999 ; Nurrish et al., 1999 ; Duerr et al., 2001 ; Flames & Hobert, 2009"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "VMAT",
+  "gene": "cat-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "NSM , ADF , RIH , HSN (h), CP1-6 (m), PGA (m, weak), PVW (male only , weak) 37 , R1B (m), R3B (m), R9B (m); see also DA , OA and TA neurons",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "VMAT",
+  "gene": "cat-1",
+  "detection_method": "Uptake assay 21",
+  "localization": "NA - heterologous expression (CV-1 cells)",
+  "references": "Duerr et al., 1999"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Serotonin Reuptake Transporter (SERT)",
+  "gene": "mod-5",
+  "detection_method": "Reporter transgenics",
+  "localization": "NSM , ADF , AIM , RIH , other neuronal and non-neuronal cells",
+  "references": "Jafari et al., 2011 ; Barri\u00e8re et al., 2014"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "SERT",
+  "gene": "mod-5",
+  "detection_method": "Antibody",
+  "localization": "NSM , AIM",
+  "references": "Jafari et al., 2011"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "SERT",
+  "gene": "mod-5",
+  "detection_method": "Uptake assay 41",
+  "localization": "NA - heterologous expression (HEK293 cells)",
+  "references": "Ranganathan et al., 2001"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Serotonin N-Acetyltransferase (SNAT)",
+  "gene": "anat-1 ?",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Muimo & Isaacs, 1993"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Arylalkylamine N-Acetyltransferase (AA-NAT)",
+  "gene": "anat-1 ? 42",
+  "detection_method": "Enzymatic assay",
+  "localization": "Whole animal",
+  "references": "Migliori et al., 2012"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Monoamine Oxidase (MAO)",
+  "gene": "amx-1 25",
+  "detection_method": "Reporter transgenics",
+  "localization": "~30 head and tail neurons including ASJ , IL2 , other amphid neurons; PHB , 3 other tail neurons",
+  "references": "Filkin et al., 2007 ; Kaushal 2008"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "MAO",
+  "gene": "amx-2 25",
+  "detection_method": "Reporter transgenics",
+  "localization": "Intestine , neurons",
+  "references": "Filkin et al., 2007"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "MAO",
+  "gene": "amx-2 25",
+  "detection_method": "Reporter transgenics",
+  "localization": "Pharynx , Intestine , vulval cells , rectal epithelial cells",
+  "references": "Schmid et al., 2015"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "MAO",
+  "gene": "amx-2 25",
+  "detection_method": "Reporter transgenics",
+  "localization": "Pharyngeal muscle , intestine , NSM , other head neurons, vulval HSN (h), anus",
+  "references": "Wang et al., 2017"
+ },
+ {
+  "neurotransmitter": "serotonin",
+  "description": "Aldehyde Dehydrogenase (ALDH)",
+  "gene": "alh-1 26",
+  "detection_method": "Reporter transgenics",
+  "localization": "Nervous system, including head neurons, neurons along body, PVT , intestine , head mesodermal cell , rectal gland cells, etc.",
+  "references": "McKay et al., 2003 27"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GABA",
+  "gene": "NA",
+  "detection_method": "Antibody",
+  "localization": "AVL , DD1-6 , DVB , RIS , RME , VD1-13",
+  "references": "McIntire et al., 1993b"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GABA",
+  "gene": "NA",
+  "detection_method": "Antibody",
+  "localization": "ALA 44 , AVA 45 , AVB 45 , AVJ 45 , AVL , DD1-6 , DVB , EF1-4 (m), R2A (m), R6A (m), R9B (m), RIB , RIS , RME , SMDD/V 45 , VD1-13 , GLR , hmc , muscle",
+  "references": "Gendrel et al., 2016"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GABA",
+  "gene": "NA",
+  "detection_method": "Antibody",
+  "localization": "CP9 (m), EF1-4 (m), R2A (m, weak), R6A (m), R9B (m, weak)",
+  "references": "Gendrel et al., 2016 ; Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "Glutamatic Acid Decarboxylase (GAD)",
+  "gene": "unc-25",
+  "detection_method": "Reporter transgenics",
+  "localization": "AVL , DD1-6 , DVB , RIS , RME , VD1-13",
+  "references": "Jin et al., 1999"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GAD",
+  "gene": "unc-25",
+  "detection_method": "Reporter transgenics (CRISPR-endogenous locus 3 )",
+  "localization": "AVL , DD1-6 , DVB , EF1-4 (m), RIB , RIS , RME , VD1-13",
+  "references": "Gendrel et al., 2016"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GAD",
+  "gene": "unc-25",
+  "detection_method": "Reporter transgenics (CRISPR-endogenous locus 3 )",
+  "localization": "CP9 (m)",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "Vesicular GABA Transporter (VGAT)",
+  "gene": "unc-47",
+  "detection_method": "Reporter transgenics",
+  "localization": "AVL , DD1-6 , DVB , RIS , RME , VD1-13",
+  "references": "McIntire et al., 1997"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "VGAT",
+  "gene": "unc-47",
+  "detection_method": "Reporter transgenics",
+  "localization": "AVL , DD1-6 , DVB , RIS , RME , SDQ (weak), SIAD , VD1-13",
+  "references": "Barri\u00e8re & Ruvinsky, 2014"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "VGAT",
+  "gene": "unc-47",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "AVL , DD1-6 , DVB , EF1-4 (m), R6A (m), RIB , RIS , RME , SMDD/V , VD1-13",
+  "references": "Gendrel et al., 2016"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "VGAT",
+  "gene": "unc-47",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "CP9 (m), EF1-4 (m), R2A (m), R6A (m), R9B (m); Sex-shared cells with adult male only expression: ADF , AS10 or DA7 , AS11 , PDB , PHC , PVN ; Loses expression in adult male: PQR ; Cells that express unc-47 reporter but lack GABA-IR (possibly Glycinergic?): CA1-4 (m) 34 , CEM (m), CP1-6 (m), CP8 (m), DVE (m), DVF (m), HOA (m), PDC (m), PGA (m), PVX (m), PVY (m), PVZ (m), R1A (m), R3A (m), R3B (m), R5A (m), R5B (m), R8A (m), R9B (m), PCB , PCC , SPC (m)",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "'VGAT Chaperone' 46",
+  "gene": "unc-46",
+  "detection_method": "Reporter transgenics",
+  "localization": "AVL , DD1-6 , DVB , RIS , RME , VD1-13 , plus a few  unidentified neurons",
+  "references": "Schuske et al., 2007"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "'VGAT Chaperone' 46",
+  "gene": "unc-46",
+  "detection_method": "Reporter transgenics",
+  "localization": "AVL , DD1-6 , DVB , RIS , RME , SIAD , VD1-13",
+  "references": "Barri\u00e8re & Ruvinsky, 2014"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "'VGAT Chaperone' 46",
+  "gene": "unc-46",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "AVL , DD1-6 , DVB , EF1-4 (m), R9B (m) 47 , RIB , RIS , RME , VD1-13",
+  "references": "Gendrel et al., 2016"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GABA  Transporter (GAT)",
+  "gene": "snf-11",
+  "detection_method": "Reporter transgenics",
+  "localization": "AVL , [ DD1-6 ,] 48 DVB ,  [ PVQ ,] 48 RIS , RME , [ VD1-13 ] 48",
+  "references": "Jiang et al., 2005"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GAT",
+  "gene": "snf-11",
+  "detection_method": "Reporter transgenics, antibody",
+  "localization": "AVL , DVB , RID , RIS , RME , 2 neurons in pharynx , 2 neurons in RVG , muscles (body wall, anal, uterine) 48",
+  "references": "Mullen et al., 2006"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GAT",
+  "gene": "snf-11",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "ALA 44 , AVF , AVL , RIB , RME , VD12 (m) 49 , GLR , hmc , muscle",
+  "references": "Gendrel et al., 2016"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GAT",
+  "gene": "snf-11",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "CP9 (m) 49",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GAT",
+  "gene": "snf-11",
+  "detection_method": "Uptake assay 50",
+  "localization": "NA - heterologous expression (HRPE cells and Xenopus oocytes)",
+  "references": "Jiang et al., 2005"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GAT",
+  "gene": "snf-11",
+  "detection_method": "Uptake assay 50",
+  "localization": "NA - heterologous expression ( Xenopus oocyte)",
+  "references": "Mullen et al., 2006"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GABA Transaminase (GABA-T)",
+  "gene": "gta-1",
+  "detection_method": "Reporter transgenics",
+  "localization": "Body wall muscle, head neurons, unidentified cells",
+  "references": "McKay et al., 2003 27 ; Meissner et al., 2011"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "GABA Transaminase (GABA-T)",
+  "gene": "gta-1",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "Ubiquitous 51",
+  "references": "Gendrel et al., 2016"
+ },
+ {
+  "neurotransmitter": "GABA",
+  "description": "Succinic Semialdehyde Dehydrogenase (SSADH)",
+  "gene": "alh-7 26",
+  "detection_method": "Reporter transgenics",
+  "localization": "Intestine , rectal gland cells, hypodermis , nervous system, head neurons",
+  "references": "McKay et al., 2003 27"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "Vesicular Glutamate Transporter (VGluT)",
+  "gene": "eat-4 52",
+  "detection_method": "Reporter transgenics",
+  "localization": "M3 , I5 , ADA , ALM , ASH , ASK , AUA , AVM , FLP , IL1 , LUA , OLL , OLQ , PLM , PVD , PVR",
+  "references": "Lee et al., 1999 ; Mano et al., 2007"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "VGluT",
+  "gene": "eat-4 52",
+  "detection_method": "Reporter transgenics",
+  "localization": "Many head neurons, including ADL , AFD , AIB , AIM , AIZ , ASH , ASE , ASG , ASK , AUA , AVA , AVE , AWB , AWC , RIA , etc.",
+  "references": "Ohnishi et al., 2011"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "VGluT",
+  "gene": "eat-4 52",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "M3 , MI , I2 , I5 , ADA , ADL , AFD , AIB , AIM , AIZ , ALM , AQR , ASE , ASG , ASH , ASK , AUA , AVM , AWC , BAG , DVC , FLP , IL1 , LUA , OLL , OLQ , PHA , PHB , PHC , PLM , PQR , PVD , PVQ , PVR , RIA , RIG , RIM , URY , 20 more male-specific cells (see below)",
+  "references": "Serrano-Saiz et al., 2013"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "VGluT",
+  "gene": "eat-4 52",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "Male-specific cells only: CP0 (m, weak), CP5 (m, weak), CP6 (m, weak), CP7 (m), HOA (m), PCA (m), PVV (m), R2B (m, weak), R5A (m), R6B (m, weak), R9A (m, weak)",
+  "references": "Serrano-Saiz et al., 2017"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "VGluT",
+  "gene": "vglu-2 53",
+  "detection_method": "Reporter transgenics (fosmid 3 )",
+  "localization": "AIA , skin cells",
+  "references": "Serrano-Saiz et al., 2020"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "Plasma Membrane Glutamate Transporter (PmGluT)",
+  "gene": "glt-1 54",
+  "detection_method": "Reporter transgenics",
+  "localization": "Muscle , hypodermis",
+  "references": "Mano et al., 2007"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "PmGluT",
+  "gene": "glt-3",
+  "detection_method": "Reporter transgenics",
+  "localization": "Excretory canal cell , pharynx",
+  "references": "Mano et al., 2007"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "PmGluT",
+  "gene": "glt-4 55",
+  "detection_method": "Reporter transgenics",
+  "localization": "AUA , RIA , IL2",
+  "references": "Mano et al., 2007"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "PmGluT",
+  "gene": "glt-5",
+  "detection_method": "Reporter transgenics",
+  "localization": "Pharynx",
+  "references": "Mano et al., 2007"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "PmGluT",
+  "gene": "glt-6",
+  "detection_method": "Reporter transgenics",
+  "localization": "Excretory canal cell , pharynx marginal cells",
+  "references": "Reported 27 in Mano et al., 2007"
+ },
+ {
+  "neurotransmitter": "glutamate",
+  "description": "PmGluT",
+  "gene": "glt-7",
+  "detection_method": "Reporter transgenics",
+  "localization": "Excretory canal cell",
+  "references": "Mano et al., 2007"
+ }
+]
