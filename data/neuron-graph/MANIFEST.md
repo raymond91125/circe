@@ -57,6 +57,30 @@ from neuron-graph's `functional/` dir) were removed: the canonical populate-data
 are the `connections/randi_funconn_*.json` files above, which carry only realized
 connections and share the uniform record shape used for all three connection types.
 
+## Provenance gap: neuron `nt` (neurotransmitter) and `typ` fields
+
+The `neurotransmitter` (`nt`) and cell-`typ` values in `neurons.json` are inherited verbatim
+with **no cited per-neuron source** in this data's lineage. Traced 2026-07-02:
+
+- **Lineage:** this pin ← neuron-graph (FunCoNN fork) ← **NemaNode** (`zhenlab-ltri/NemaNode`,
+  Zhen Lab). `neurons.json` is byte-identical across all three.
+- **Origin commit:** in NemaNode, `neurons.json` was first committed **2020-05-14** by Daniel
+  Witvliet as the initial commit ("after removing unpublished datasets") — no pre-history, no
+  provenance recorded. NemaNode's in-app "Data sources" and docs cite only the *connectivity*
+  reconstructions, never the neurotransmitter assignments.
+- **Publication (Witvliet et al., 2020):** the Methods "Classification of neuron types"
+  section sources only the **monoaminergic** identities — serotonin (AIM, HSN), dopamine
+  (ADE, CEP), octopamine (RIC) — cited to **Sulston, Dew & Brenner 1975** and **Duerr et al.
+  1999**, and only to justify the *modulatory* `typ`. Neuron **type** classification follows
+  **White et al. 1986** (Table S1). The majority `nt` assignments — **acetylcholine (`a`),
+  GABA (`g`), glutamate (`l`)** — are **not cited anywhere** in the lineage or the paper.
+- **Likely (uncited) origin:** the field-standard C. elegans neurotransmitter atlas (Hobert
+  lab; Pereira 2015 cholinergic, Gendrel 2016 GABAergic, Serrano-Saiz 2013 glutamatergic) via
+  WormAtlas/WormBase — but this cannot be confirmed from any artifact in the lineage.
+
+Treat `nt` (and `typ`) as unsourced upstream annotations; to establish provenance, ask the
+NemaNode maintainers (Zhen Lab).
+
 ## Not pinned (out of v1 scope)
 
 - `annotations/*.json` — connection annotations (head annotations exist; not modeled in v1).
