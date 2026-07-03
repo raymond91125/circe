@@ -1,11 +1,6 @@
 cell_name,neurotransmitter,note
-HSNL,as,glutamate->ACh: HSN is cholinergic + serotonergic (WormAtlas; Wang et al. 2024 eLife 95402). neurons.json 'ls' (Glu+5HT) unsupported by either source.
-HSNR,as,glutamate->ACh: HSN is cholinergic + serotonergic (WormAtlas; Wang et al. 2024 eLife 95402). neurons.json 'ls' (Glu+5HT) unsupported by either source.
-ALA,g,unknown->GABA (Wang et al. 2024 eLife 95402: GABA).
-AVJL,g,unknown->GABA (Wang 2024: *GABA - updated).
-AVJR,g,unknown->GABA (Wang 2024: *GABA - updated).
-AWAL,a,unknown->ACh (Wang 2024: *ACh - newly identified).
-AWAR,a,unknown->ACh (Wang 2024: *ACh - newly identified).
-RIPL,a,unknown->ACh (Wang 2024: ACh - newly identified).
-RIPR,a,unknown->ACh (Wang 2024: ACh - newly identified).
-I4,l,unknown->glutamate (Wang 2024: *Glu - newly identified).
+HSNL,as,glutamate->ACh: HSN is cholinergic (unc-17/VAChT) + serotonergic by synthesis (Wang et al. 2024 comment: "5-HT synthesis (no uptake machinery detected)"; WormAtlas). neurons.json 'ls' (Glu+5HT) unsupported.
+HSNR,as,glutamate->ACh: HSN is cholinergic (unc-17/VAChT) + serotonergic by synthesis (Wang et al. 2024: "5-HT synthesis"; WormAtlas). neurons.json 'ls' (Glu+5HT) unsupported.
+ALA,g,unknown->GABA: clean GABA call in Wang 2024 (anti-GABA staining).
+RIPL,a,unknown->ACh: cholinergic identity added in Wang 2024 on newly detected unc-17 (VAChT) expression.
+RIPR,a,unknown->ACh: cholinergic identity added in Wang 2024 on newly detected unc-17 (VAChT) expression.

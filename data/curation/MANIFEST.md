@@ -8,17 +8,35 @@ keyed by cell name (`cell_name, neurotransmitter, note`). Applied in `build`
 three-way reconciliation in [`../../analysis/neurotransmitter_reconciliation.md`]
 (../../analysis/neurotransmitter_reconciliation.md).
 
-Entries:
-- **Correction** — `HSNL, HSNR` `ls → as` (glutamate+serotonin → **ACh**+serotonin): HSN is
-  cholinergic + serotonergic per both WormAtlas and Wang et al. 2024; neuron-graph's glutamate
-  is unsupported by either source.
-- **Gap-fills** (neuron-graph `nt = u`/unknown → confident Wang 2024 assignment): `ALA`→GABA,
-  `AVJL/AVJR`→GABA (`*GABA`), `AWAL/AWAR`→ACh (`*ACh`, new), `RIPL/RIPR`→ACh (new), `I4`→glutamate
-  (`*Glu`, new).
+### Criterion for applying a correction
 
-**Deliberately not applied — uptake only, not a transmitter identity:** `AVF` (`GABA (uptake)`)
-and `ASI` (`betaine (uptake)`) in Wang 2024 are transmitter *uptake*, not synthesis/release, so
-they are left `unknown`. (Betaine also has no code in neuron-graph's `nt` vocabulary.)
+A transmitter identity requires a **release mechanism**, not just presence of the transmitter:
+biosynthesis and/or the **vesicular transporter** — `unc-17`/VAChT (ACh), `unc-47`/VGAT (GABA),
+`cat-1`/VMAT (monoamines), `eat-4`/VGLUT (glutamate). Uptake alone (a plasma-membrane
+transporter, e.g. `snf-11` GAT) can be clearance. We therefore apply only the Wang et al. 2024
+atlas's **non-hedged** calls, and hold its own hedged ones. (Verified from Table S2 reporter
+cells, which are graded — filled ≠ uniformly robust; many are "very dim and variable".)
+
+**Applied** (atlas clean call):
+- **Correction** — `HSNL, HSNR` `ls → as` (Glu+5HT → **ACh**+5HT): unc-17/VAChT + 5-HT
+  *synthesis* (Wang comment: "5-HT synthesis (no uptake machinery detected)"; WormAtlas).
+  neuron-graph's glutamate is unsupported.
+- **Gap-fills** (`nt = u` → assignment): `ALA`→GABA (clean call, anti-GABA staining);
+  `RIPL/RIPR`→ACh (unc-17/VAChT newly detected, "identity added").
+
+**Held — documented but NOT applied** (the atlas's own hedged calls; left `unknown`):
+- *"potential" identity on very-dim-and-variable reporter*: `AVJL/AVJR` (unc-47 very dim/variable
+  → "potential GABAergic"), `AWAL/AWAR` (unc-17 very dim/variable → "potentially… ACh"),
+  `I4` (eat-4 dim/variable → "may potentially… glutamate").
+- *uptake, no releasing machinery*: `AVF` — Wang `GABA (uptake)`, **no** unc-47/VGAT detected
+  (no reporter expression at all) → cannot vesicularly release GABA. `ASI` — Wang
+  `*betaine (uptake)`, cat-1/VMAT+ but snf-3 "dim and variable" → "potential"; betaine also has
+  no code in neuron-graph's `nt` vocabulary.
+
+Consistency check: serotonin **uptake** neurons like `RIH` *are* accepted as serotonergic —
+because RIH expresses cat-1/VMAT (verified: unc-17 + cat-1 + mod-5, no tph-1), i.e. it has the
+vesicular machinery to release the 5-HT it takes up. AVF lacks the equivalent (VGAT), which is
+why it is not applied.
 
 ## `class_anatomy_curation.csv` — cell-class → WBbt (for the viz cell-info link)
 
