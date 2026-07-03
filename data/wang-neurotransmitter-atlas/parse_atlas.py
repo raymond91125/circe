@@ -2,7 +2,7 @@
 """Parse the Wang et al. neurotransmitter atlas (Table S2) into per-neuron assignments.
 
 Source: TableS2_expression.xlsx — supplement of Wang, Vidal, Sural et al., "A neurotransmitter
-atlas of C. elegans males and hermaphrodites", eLife 2024 (doi:10.7554/eLife.95402.2). See
+atlas of C. elegans males and hermaphrodites", eLife 2024 (doi:10.7554/eLife.95402). See
 MANIFEST.md. The sheet has per-neuron reporter-expression columns (eat-4, unc-17, unc-25,
 unc-47, cat-1, tph-1, cat-2, …) plus a consolidated "Neurotransmitter(s)" column; we take the
 consolidated call (the reporter columns are color-coded and not machine-readable via values).
