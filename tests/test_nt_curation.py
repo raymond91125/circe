@@ -14,6 +14,10 @@ NT_CURATION = REPO / "data" / "curation" / "neurotransmitter_curation.csv"
 def test_load_nt_curation() -> None:
     cur = load_nt_curation(NT_CURATION)
     assert cur["HSNL"] == "as" and cur["HSNR"] == "as"  # glutamate+serotonin -> ACh+serotonin
+    # atlas gap-fills (neuron-graph nt=u -> confident Wang 2024 assignment)
+    assert cur["ALA"] == "g" and cur["AWAL"] == "a" and cur["I4"] == "l"
+    # uptake-only cells deliberately NOT assigned
+    assert "AVFL" not in cur and "ASIL" not in cur
 
 
 def test_overlay_corrects_hsn_and_leaves_others() -> None:
@@ -27,5 +31,13 @@ def test_overlay_corrects_hsn_and_leaves_others() -> None:
     by_name = {c.name: c for c in curated.cells}
     assert by_name["HSNL"].neurotransmitter == "as"
     assert by_name["HSNR"].neurotransmitter == "as"
+    # gap-fills: unknown -> confident assignment
+    assert base_by_name["ALA"].neurotransmitter == "u"
+    assert by_name["ALA"].neurotransmitter == "g"
+    assert by_name["AWAL"].neurotransmitter == "a"
+    assert by_name["I4"].neurotransmitter == "l"
+    # uptake-only cells left unknown
+    assert by_name["AVFL"].neurotransmitter == "u"
+    assert by_name["ASIL"].neurotransmitter == "u"
     # a non-curated neuron is untouched
     assert by_name["AVAL"].neurotransmitter == base_by_name["AVAL"].neurotransmitter

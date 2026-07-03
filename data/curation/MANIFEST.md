@@ -8,10 +8,17 @@ keyed by cell name (`cell_name, neurotransmitter, note`). Applied in `build`
 three-way reconciliation in [`../../analysis/neurotransmitter_reconciliation.md`]
 (../../analysis/neurotransmitter_reconciliation.md).
 
-Current entries: **HSNL, HSNR** `ls → as` (glutamate+serotonin → **ACh**+serotonin) — HSN is
-cholinergic + serotonergic per both WormAtlas and Wang et al. 2024; the glutamate in
-neuron-graph is unsupported by either source. (The reconciliation also flags atlas-fillable
-gaps — ALA/AVF/AVJ→GABA, AWA/RIP→ACh, I4→Glu, ASI→betaine — not yet applied here.)
+Entries:
+- **Correction** — `HSNL, HSNR` `ls → as` (glutamate+serotonin → **ACh**+serotonin): HSN is
+  cholinergic + serotonergic per both WormAtlas and Wang et al. 2024; neuron-graph's glutamate
+  is unsupported by either source.
+- **Gap-fills** (neuron-graph `nt = u`/unknown → confident Wang 2024 assignment): `ALA`→GABA,
+  `AVJL/AVJR`→GABA (`*GABA`), `AWAL/AWAR`→ACh (`*ACh`, new), `RIPL/RIPR`→ACh (new), `I4`→glutamate
+  (`*Glu`, new).
+
+**Deliberately not applied — uptake only, not a transmitter identity:** `AVF` (`GABA (uptake)`)
+and `ASI` (`betaine (uptake)`) in Wang 2024 are transmitter *uptake*, not synthesis/release, so
+they are left `unknown`. (Betaine also has no code in neuron-graph's `nt` vocabulary.)
 
 ## `class_anatomy_curation.csv` — cell-class → WBbt (for the viz cell-info link)
 
