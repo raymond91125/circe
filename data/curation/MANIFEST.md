@@ -1,5 +1,18 @@
 # Anatomy curation
 
+## `neurotransmitter_curation.csv` — corrections to neuron-graph's `nt`
+
+Evidence-based overrides of the (provenance-less) neuron-graph `neurotransmitter` code,
+keyed by cell name (`cell_name, neurotransmitter, note`). Applied in `build`
+(`cckg build --nt-curation`), taking precedence over the ingested `nt`. Derived from the
+three-way reconciliation in [`../../analysis/neurotransmitter_reconciliation.md`]
+(../../analysis/neurotransmitter_reconciliation.md).
+
+Current entries: **HSNL, HSNR** `ls → as` (glutamate+serotonin → **ACh**+serotonin) — HSN is
+cholinergic + serotonergic per both WormAtlas and Wang et al. 2024; the glutamate in
+neuron-graph is unsupported by either source. (The reconciliation also flags atlas-fillable
+gaps — ALA/AVF/AVJ→GABA, AWA/RIP→ACh, I4→Glu, ASI→betaine — not yet applied here.)
+
 ## `class_anatomy_curation.csv` — cell-class → WBbt (for the viz cell-info link)
 
 neuron-graph's cell-info panel links to WormBase by cell **class**, so the viz needs a
