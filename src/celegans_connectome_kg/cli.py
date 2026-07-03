@@ -13,6 +13,7 @@ DEFAULT_WBBT_JSON = Path("data/wbbt/wbbt.json")
 DEFAULT_CURATION = Path("data/curation/anatomy_curation.csv")
 DEFAULT_ENDPOINT_CELLS = Path("data/curation/connection_endpoint_cells.csv")
 DEFAULT_CLASS_CURATION = Path("data/curation/class_anatomy_curation.csv")
+DEFAULT_NT_CURATION = Path("data/curation/neurotransmitter_curation.csv")
 DEFAULT_OUTPUT_DIR = Path("outputs")
 
 
@@ -145,7 +146,21 @@ def match(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path) -> None:
     show_default=True,
     help="Stub cells for class-level connection endpoints (applied if present).",
 )
-def build(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path, endpoint_cells: Path) -> None:
+@click.option(
+    "--nt-curation",
+    type=click.Path(dir_okay=False, path_type=Path),
+    default=DEFAULT_NT_CURATION,
+    show_default=True,
+    help="Neurotransmitter corrections overriding neuron-graph nt (applied if present).",
+)
+def build(
+    data_dir: Path,
+    wbbt: Path,
+    out_dir: Path,
+    curation: Path,
+    endpoint_cells: Path,
+    nt_curation: Path,
+) -> None:
     """Assemble LinkML data (cells, connections, datasets, evidence). [Phase 3]"""
     from celegans_connectome_kg.build.assemble import assemble
     from celegans_connectome_kg.export.rdf import write_json
@@ -155,6 +170,7 @@ def build(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path, endpoint_ce
         wbbt,
         curation if curation.exists() else None,
         endpoint_cells if endpoint_cells.exists() else None,
+        nt_curation if nt_curation.exists() else None,
     )
     out_path = out_dir / "connectome.json"
     write_json(connectome, out_path)

@@ -16,6 +16,7 @@ from pathlib import Path
 DEFAULT_CURATION_PATH = Path("data/curation/anatomy_curation.csv")
 DEFAULT_ENDPOINT_CELLS_PATH = Path("data/curation/connection_endpoint_cells.csv")
 DEFAULT_CLASS_CURATION_PATH = Path("data/curation/class_anatomy_curation.csv")
+DEFAULT_NT_CURATION_PATH = Path("data/curation/neurotransmitter_curation.csv")
 
 
 @dataclass(frozen=True)
@@ -51,6 +52,21 @@ def load_class_curation(path: Path) -> dict[str, str]:
             wbbt_id = (row.get("wbbt_id") or "").strip()
             if wbbt_id:
                 curated[row["class_name"]] = wbbt_id
+    return curated
+
+
+def load_nt_curation(path: Path) -> dict[str, str]:
+    """Load cell_name → corrected neurotransmitter code, overriding neuron-graph's `nt`.
+
+    Corrections are evidence-based (WormAtlas / Wang et al. atlas); see the reconciliation in
+    ``analysis/neurotransmitter_reconciliation.md``.
+    """
+    curated: dict[str, str] = {}
+    with Path(path).open(newline="") as fh:
+        for row in csv.DictReader(fh):
+            nt = (row.get("neurotransmitter") or "").strip()
+            if nt:
+                curated[row["cell_name"]] = nt
     return curated
 
 

@@ -18,7 +18,11 @@ from celegans_connectome_kg.ingest.neuron_graph import (
     ConnectionRecord,
     load_neuron_graph,
 )
-from celegans_connectome_kg.match.curation import load_curation, load_endpoint_cells
+from celegans_connectome_kg.match.curation import (
+    load_curation,
+    load_endpoint_cells,
+    load_nt_curation,
+)
 from celegans_connectome_kg.match.matcher import match_cells
 from celegans_connectome_kg.match.wbbt import WBBTIndex
 
@@ -76,19 +80,22 @@ def assemble(
     wbbt_path: Path,
     curation_path: Path | None = None,
     endpoint_cells_path: Path | None = None,
+    nt_curation_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
     If ``curation_path`` is given, manual anatomy resolutions take precedence over lexical
     matches. If ``endpoint_cells_path`` is given, stub cells are minted for class-level /
-    aggregate connection endpoints that are not in neuron-graph's cell list (see
-    :mod:`celegans_connectome_kg.match.curation`).
+    aggregate connection endpoints that are not in neuron-graph's cell list. If
+    ``nt_curation_path`` is given, curated neurotransmitter corrections override neuron-graph's
+    `nt` for the listed cells (see :mod:`celegans_connectome_kg.match.curation`).
     """
     dm: ModuleType = datamodel()
     data = load_neuron_graph(data_dir)
     index = WBBTIndex.from_obograph(wbbt_path)
     curation = load_curation(curation_path) if curation_path else None
     endpoint_cells = load_endpoint_cells(endpoint_cells_path) if endpoint_cells_path else []
+    nt_curation = load_nt_curation(nt_curation_path) if nt_curation_path else {}
 
     cell_records: dict[str, CellRecord] = {c.name: c for c in data.cells}
     anatomy_by_name = {
@@ -102,7 +109,7 @@ def assemble(
             cell_type=classify_cell_type(c.nemanode_type),
             anatomy=anatomy_by_name.get(c.name),
             cell_class=c.cell_class,
-            neurotransmitter=c.neurotransmitter,
+            neurotransmitter=nt_curation.get(c.name, c.neurotransmitter),
             nemanode_type=c.nemanode_type,
             embryonic=c.embryonic,
             in_head=c.in_head,

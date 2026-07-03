@@ -1,0 +1,3 @@
+cell_name,neurotransmitter,note
+HSNL,as,glutamate->ACh: HSN is cholinergic + serotonergic (WormAtlas; Wang et al. 2024 eLife 95402). neurons.json 'ls' (Glu+5HT) unsupported by either source.
+HSNR,as,glutamate->ACh: HSN is cholinergic + serotonergic (WormAtlas; Wang et al. 2024 eLife 95402). neurons.json 'ls' (Glu+5HT) unsupported by either source.
