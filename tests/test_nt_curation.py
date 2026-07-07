@@ -58,7 +58,9 @@ def test_overlay_applies_clean_calls_and_holds_hedged() -> None:
     assert base_by_name["AFDL"].neurotransmitter == "l" and by_name["AFDL"].neurotransmitter == "al"
     assert base_by_name["PDEL"].neurotransmitter == "d" and by_name["PDEL"].neurotransmitter == "dl"
     assert base_by_name["AIBL"].neurotransmitter == "l" and by_name["AIBL"].neurotransmitter == "bl"
-    assert base_by_name["PVNL"].neurotransmitter == "a" and by_name["PVNL"].neurotransmitter == "abl"
+    assert (
+        base_by_name["PVNL"].neurotransmitter == "a" and by_name["PVNL"].neurotransmitter == "abl"
+    )
     # held: hedged ("*") and uptake-without-VGAT (AVF) -> unchanged
     for held in ("AVJL", "AWAL", "I4", "AVFL"):
         assert by_name[held].neurotransmitter == "u"
