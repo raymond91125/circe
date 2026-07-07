@@ -38,6 +38,20 @@ def test_connectome_is_tree_root(view: SchemaView) -> None:
     assert view.get_class("Connectome").tree_root is True
 
 
+def test_sex_enum_and_slots(view: SchemaView) -> None:
+    # Sex enum covers both C. elegans sexes
+    assert set(view.get_enum("Sex").permissible_values) == {"hermaphrodite", "male"}
+    # Dataset carries the specimen sex (single-valued)
+    dataset_slots = view.class_slots("Dataset")
+    assert "sex" in dataset_slots
+    assert view.get_slot("sex").range == "Sex"
+    # Cell carries derived sex-presence (multivalued)
+    cell_slots = view.class_slots("Cell")
+    assert "sexes" in cell_slots
+    sexes = view.get_slot("sexes")
+    assert sexes.range == "Sex" and sexes.multivalued is True
+
+
 def test_sample_instance_validates() -> None:
     from linkml.validator import validate_file
 
