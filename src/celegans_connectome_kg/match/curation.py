@@ -17,6 +17,9 @@ DEFAULT_CURATION_PATH = Path("data/curation/anatomy_curation.csv")
 DEFAULT_ENDPOINT_CELLS_PATH = Path("data/curation/connection_endpoint_cells.csv")
 DEFAULT_CLASS_CURATION_PATH = Path("data/curation/class_anatomy_curation.csv")
 DEFAULT_NT_CURATION_PATH = Path("data/curation/neurotransmitter_curation.csv")
+# Cook et al. 2019 (sex extension): naming reconciliation + male-specific anatomy grounding.
+DEFAULT_COOK_ALIASES_PATH = Path("data/curation/cook_name_aliases.csv")
+DEFAULT_COOK_ANATOMY_CURATION_PATH = Path("data/curation/cook_anatomy_curation.csv")
 
 
 @dataclass(frozen=True)
@@ -42,6 +45,23 @@ def load_curation(path: Path) -> dict[str, str]:
             if wbbt_id:
                 curated[row["cell_name"]] = wbbt_id
     return curated
+
+
+def load_cook_aliases(path: Path) -> dict[str, str]:
+    """Load Cook 2019 cell name → canonical KG name (naming reconciliation, sex extension).
+
+    Reconciles Cook's naming to the KG's canonical names: zero-padded series (``DA01`` → ``DA1``)
+    and body-wall muscles (``dBWML1`` → ``BWM-DL01``). A target already in the neuron-graph
+    registry is a shared cell; a target absent from it is a male-specific cell renamed to
+    canonical form (grounded via ``cook_anatomy_curation.csv``).
+    """
+    aliases: dict[str, str] = {}
+    with Path(path).open(newline="") as fh:
+        for row in csv.DictReader(fh):
+            canonical = (row.get("canonical_name") or "").strip()
+            if canonical:
+                aliases[row["cook_name"]] = canonical
+    return aliases
 
 
 def load_class_curation(path: Path) -> dict[str, str]:

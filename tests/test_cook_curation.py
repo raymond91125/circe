@@ -1,0 +1,46 @@
+"""Tests for the Cook 2019 name reconciliation + anatomy grounding [M4]."""
+
+from celegans_connectome_kg.ingest.cook_2019 import read_cook
+from celegans_connectome_kg.ingest.neuron_graph import read_cells
+from celegans_connectome_kg.match.curation import (
+    DEFAULT_COOK_ALIASES_PATH,
+    DEFAULT_COOK_ANATOMY_CURATION_PATH,
+    load_cook_aliases,
+    load_curation,
+)
+
+NG = {c.name for c in read_cells("data/neuron-graph/neurons.json")}
+
+
+def test_aliases_reconcile_naming() -> None:
+    aliases = load_cook_aliases(DEFAULT_COOK_ALIASES_PATH)
+    # body-wall muscle renaming -> the neuron-graph BWM cells (shared, already grounded)
+    assert aliases["dBWML1"] == "BWM-DL01"
+    assert aliases["vBWMR9"] == "BWM-VR09"
+    # zero-padded motor-neuron series -> canonical (shared)
+    assert aliases["DA01"] == "DA1" and aliases["AS09"] == "AS9"
+    # male-specific series normalized to canonical (still absent from the herm registry)
+    assert aliases["CA01"] == "CA1" and "CA1" not in NG
+    # every alias key is a real Cook cell, and the map is non-trivial
+    cook_cells = set().union(*read_cook().cells_by_sex.values())
+    assert set(aliases) <= cook_cells
+    assert len(aliases) >= 150
+
+
+def test_aliases_shared_targets_exist_in_registry() -> None:
+    aliases = load_cook_aliases(DEFAULT_COOK_ALIASES_PATH)
+    # BWM aliases must all resolve to an existing neuron-graph cell
+    bwm = {c: t for c, t in aliases.items() if t.startswith("BWM-")}
+    assert len(bwm) == 95
+    assert all(t in NG for t in bwm.values())
+
+
+def test_cook_anatomy_curation_grounds_male_cells() -> None:
+    curated = load_curation(DEFAULT_COOK_ANATOMY_CURATION_PATH)
+    # every value is a WBbt CURIE
+    assert curated and all(v.startswith("WBbt:") for v in curated.values())
+    # known male-specific / new cells are grounded
+    for cell in ("CEMDL", "CA9", "CP9", "HOA", "PCAL", "proctodeum"):
+        assert cell in curated
+    # curated Cook cells are genuinely outside the hermaphrodite registry
+    assert all(cell not in NG for cell in curated)
