@@ -6,3 +6,26 @@ RIPL,a,unknown->ACh: cholinergic identity added in Wang 2024 on newly detected u
 RIPR,a,unknown->ACh: cholinergic identity added in Wang 2024 on newly detected unc-17 (VAChT) expression.
 RIML,blt,add betaine to glutamate+tyramine: RIM synthesizes betaine and packages it via CAT-1/VMAT (Hardege et al. 2022 PNAS PMC9860315; betaine-gated channel LGC-41).
 RIMR,blt,add betaine to glutamate+tyramine: RIM synthesizes betaine and packages it via CAT-1/VMAT (Hardege et al. 2022 PNAS PMC9860315; betaine-gated channel LGC-41).
+ASIL,b,unknown->betaine (uptake): Wang 2024 Table S2 (Supp File 2; Neurotransmitter(s) block U/V/W) primary conclusion "betaine (uptake)" via newly detected cat-1/VMAT + snf-3 (betaine transporter). Tentative ('*'; snf-3 "very dim and variable"). Uptake-based (cf. RIM synthesis).
+ASIR,b,unknown->betaine (uptake): Wang 2024 Table S2 primary conclusion "betaine (uptake)" via cat-1/VMAT + snf-3. Tentative ('*'; snf-3 "very dim and variable"). Uptake-based.
+AUAL,bl,add betaine (uptake) to glutamate: Wang 2024 Table S2 conclusion "Glu + betaine (uptake)" via cat-1/VMAT + snf-3 (un-hedged). Uptake-based.
+AUAR,bl,add betaine (uptake) to glutamate: Wang 2024 Table S2 conclusion "Glu + betaine (uptake)" via cat-1/VMAT + snf-3 (un-hedged). Uptake-based.
+CANL,b,none->betaine (uptake): Wang 2024 Table S2 primary conclusion "betaine (uptake)" via cat-1/VMAT + snf-3 (un-hedged). CAN was previously a classical-transmitter orphan. Uptake-based.
+CANR,b,none->betaine (uptake): Wang 2024 Table S2 primary conclusion "betaine (uptake)" via cat-1/VMAT + snf-3 (un-hedged). CAN was previously a classical-transmitter orphan. Uptake-based.
+RIR,ab,add betaine (uptake) to ACh: Wang 2024 Table S2 conclusion "ACh + betaine (uptake)" via cat-1/VMAT + snf-3. Tentative ('*'; snf-3 "dim and variable"). Uptake-based.
+AFDL,al,add ACh to glutamate: Wang 2024 Table S2 conclusion "Glu + ACh" (newly detected unc-17/VAChT; un-hedged).
+AFDR,al,add ACh to glutamate: Wang 2024 Table S2 conclusion "Glu + ACh" (newly detected unc-17/VAChT; un-hedged).
+DVA,al,add glutamate to ACh: Wang 2024 Table S2 conclusion "ACh + Glu" (newly detected eat-4/VGLUT; un-hedged).
+M5,al,add glutamate to ACh: Wang 2024 Table S2 conclusion "ACh + Glu" (un-hedged).
+PDEL,dl,add glutamate to dopamine: Wang 2024 Table S2 conclusion "DA + Glu" (newly detected eat-4/VGLUT; un-hedged).
+PDER,dl,add glutamate to dopamine: Wang 2024 Table S2 conclusion "DA + Glu" (newly detected eat-4/VGLUT; un-hedged).
+RICL,lo,add glutamate to octopamine: Wang 2024 Table S2 conclusion "octopamine + Glu" (un-hedged).
+RICR,lo,add glutamate to octopamine: Wang 2024 Table S2 conclusion "octopamine + Glu" (un-hedged).
+MI,ls,add serotonin to glutamate: Wang 2024 Table S2 conclusion "Glu + 5-HTP" (serotonin-precursor synthesis newly detected; un-hedged). Synthesis-pathway (not uptake).
+AIBL,bl,add betaine (uptake) to glutamate: Wang 2024 Table S2 conclusion "Glu + betaine (uptake)" via cat-1/VMAT + snf-3 (un-hedged NEW). Uptake-based.
+AIBR,bl,add betaine (uptake) to glutamate: Wang 2024 Table S2 conclusion "Glu + betaine (uptake)" via cat-1/VMAT + snf-3 (un-hedged NEW). Uptake-based.
+PHCL,bl,add betaine (uptake) to glutamate: Wang 2024 Table S2 conclusion "Glu + betaine (uptake)" via cat-1/VMAT + snf-3 (un-hedged NEW). Uptake-based.
+PHCR,bl,add betaine (uptake) to glutamate: Wang 2024 Table S2 conclusion "Glu + betaine (uptake)" via cat-1/VMAT + snf-3 (un-hedged NEW). Uptake-based.
+RIS,bg,add betaine (uptake) to GABA: Wang 2024 Table S2 conclusion "GABA + betaine (uptake)" via cat-1/VMAT + snf-3 (un-hedged NEW). Uptake-based.
+PVNL,abl,add glutamate + betaine (uptake) to ACh: Wang 2024 Table S2 conclusion "ACh + Glu + betaine (uptake)" (Glu via newly detected eat-4; betaine via cat-1/VMAT + snf-3; un-hedged NEW). Uptake-based betaine.
+PVNR,abl,add glutamate + betaine (uptake) to ACh: Wang 2024 Table S2 conclusion "ACh + Glu + betaine (uptake)" (Glu via newly detected eat-4; betaine via cat-1/VMAT + snf-3; un-hedged NEW). Uptake-based betaine.

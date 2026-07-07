@@ -3,18 +3,18 @@ ADA,ADAL,Glu
 ADA,ADAR,Glu
 ADE,ADEL,DA
 ADE,ADER,DA
-ADF,ADFL,ACh
-ADF,ADFR,ACh
+ADF,ADFL,ACh | 5-HT (synthesis + uptake)
+ADF,ADFR,ACh | 5-HT (synthesis + uptake)
 ADL,ADLL,Glu
 ADL,ADLR,Glu
-AFD,AFDL,Glu
-AFD,AFDR,Glu
+AFD,AFDL,Glu | ACh - NEW
+AFD,AFDR,Glu | ACh - NEW
 AIA,AIAL,ACh
 AIA,AIAR,ACh
-AIB,AIBL,Glu
-AIB,AIBR,Glu
-AIM,AIML,Glu
-AIM,AIMR,Glu
+AIB,AIBL,Glu | betaine (uptake) - NEW
+AIB,AIBR,Glu | betaine (uptake) - NEW
+AIM,AIML,Glu | 5-HT (uptake)
+AIM,AIMR,Glu | 5-HT (uptake)
 AIN,AINL,ACh
 AIN,AINR,ACh
 AIY,AIYL,ACh
@@ -40,8 +40,8 @@ AS,AS10,ACh
 AS,AS11,ACh
 ASE,ASEL,Glu
 ASE,ASER,Glu
-ASG,ASGL,Glu
-ASG,ASGR,Glu
+ASG,ASGL,Glu | *betaine (uptake) - NEW
+ASG,ASGR,Glu | *betaine (uptake) - NEW
 ASH,ASHL,Glu
 ASH,ASHR,Glu
 ASI,ASIL,*betaine (uptake) - NEW
@@ -50,8 +50,8 @@ ASJ,ASJL,ACh
 ASJ,ASJR,ACh
 ASK,ASKL,Glu
 ASK,ASKR,Glu
-AUA,AUAL,Glu
-AUA,AUAR,Glu
+AUA,AUAL,Glu | betaine (uptake) - NEW
+AUA,AUAR,Glu | betaine (uptake) - NEW
 AVA,AVAL,ACh
 AVA,AVAR,ACh
 AVB,AVBL,ACh
@@ -69,7 +69,7 @@ AVJ,AVJL,*GABA
 AVJ,AVJR,*GABA
 AVK,AVKL,"unknown (orphan, unc-47 expression)"
 AVK,AVKR,"unknown (orphan, unc-47 expression)"
-AVL,AVL,GABA
+AVL,AVL,GABA | unknown monoamine? - NEW
 AVM,AVM,Glu
 AWA,AWAL,*ACh - NEW
 AWA,AWAR,*ACh - NEW
@@ -95,7 +95,7 @@ DA,DA5,ACh
 DA,DA6,ACh
 DA,DA7,ACh
 DA,DA8,ACh
-DA,DA9,ACh
+DA,DA9,ACh | *betaine (uptake) - NEW
 DB,DB1/3,ACh
 DB,DB2,ACh
 DB,DB3/1,ACh
@@ -109,20 +109,20 @@ DD,DD3,GABA
 DD,DD4,GABA
 DD,DD5,GABA
 DD,DD6,GABA
-DVA,DVA,ACh
-DVB,DVB,GABA
+DVA,DVA,ACh | Glu - NEW
+DVB,DVB,GABA | *betaine (uptake) - NEW
 DVC,DVC,Glu
 FLP,FLPL,Glu
 FLP,FLPR,Glu
-HSN,HSNL,ACh
-HSN,HSNR,ACh
+HSN,HSNL,ACh | 5-HT
+HSN,HSNR,ACh | 5-HT
 I1,I1L,ACh
 I1,I1R,ACh
 I2,I2L,Glu
 I2,I2R,Glu
 I3,I3,ACh
 I4,I4,*Glu - NEW
-I5,I5,Glu
+I5,I5,Glu | 5-HT (alternative synthesis/uptake mechanism)
 I6,I6,"unknown (orphan, unc-47 expression)"
 IL1,IL1DL,Glu
 IL1,IL1DR,Glu
@@ -130,42 +130,42 @@ IL1,IL1L,Glu
 IL1,IL1R,Glu
 IL1,IL1VL,Glu
 IL1,IL1VR,Glu
-IL2,IL2DL,ACh
-IL2,IL2DR,ACh
-IL2,IL2L,ACh
-IL2,IL2R,ACh
-IL2,IL2VL,ACh
-IL2,IL2VR,ACh
+IL2,IL2DL,ACh | unknown monoamine? - NEW
+IL2,IL2DR,ACh | unknown monoamine? - NEW
+IL2,IL2L,ACh | unknown monoamine? - NEW
+IL2,IL2R,ACh | unknown monoamine? - NEW
+IL2,IL2VL,ACh | unknown monoamine? - NEW
+IL2,IL2VR,ACh | unknown monoamine? - NEW
 LUA,LUAL,Glu
 LUA,LUAR,Glu
 M1,M1,ACh
 M2,M2L,ACh
 M2,M2R,ACh
-M3,M3L,Glu
-M3,M3R,Glu
+M3,M3L,Glu | *betaine (uptake) - NEW
+M3,M3R,Glu | *betaine (uptake) - NEW
 M4,M4,ACh
-M5,M5,ACh
+M5,M5,ACh | Glu
 MC,MCL,ACh
 MC,MCR,ACh
-MI,MI,Glu
-NSM,NSML,5-HT
-NSM,NSMR,5-HT
+MI,MI,Glu | 5-HTP - NEW
+NSM,NSML,5-HT | *betaine (uptake) - NEW
+NSM,NSMR,5-HT | *betaine (uptake) - NEW
 OLL,OLLL,Glu
 OLL,OLLR,Glu
 OLQ,OLQDL,Glu
 OLQ,OLQDR,Glu
 OLQ,OLQVL,Glu
 OLQ,OLQVR,Glu
-PDA,PDA,ACh
+PDA,PDA,ACh | *betaine (uptake) - NEW
 PDB,PDB,ACh
-PDE,PDEL,DA
-PDE,PDER,DA
+PDE,PDEL,DA | Glu - NEW
+PDE,PDER,DA | Glu - NEW
 PHA,PHAL,*Glu
 PHA,PHAR,*Glu
 PHB,PHBL,Glu
 PHB,PHBR,Glu
-PHC,PHCL,Glu
-PHC,PHCR,Glu
+PHC,PHCL,Glu | betaine (uptake) - NEW
+PHC,PHCR,Glu | betaine (uptake) - NEW
 PLM,PLML,Glu
 PLM,PLMR,Glu
 PLN,PLNL,ACh
@@ -176,34 +176,34 @@ PVC,PVCR,ACh
 PVD,PVDL,Glu
 PVD,PVDR,Glu
 PVM,PVM,unknown (orphan)
-PVN,PVNL,ACh
-PVN,PVNR,ACh
+PVN,PVNL,ACh | Glu - NEW | betaine (uptake) - NEW
+PVN,PVNR,ACh | Glu - NEW | betaine (uptake) - NEW
 PVP,PVPL,ACh
 PVP,PVPR,ACh
 PVQ,PVQL,unknown (orphan)
 PVQ,PVQR,unknown (orphan)
 PVR,PVR,Glu
 PVT,PVT,"unknown (orphan, unc-47 expression)"
-PVW,PVWL,"unknown (orphan, unc-46 expression)"
-PVW,PVWR,"unknown (orphan, unc-46 expression)"
+PVW,PVWL,"unknown (orphan, unc-46 expression) | male - 5-HT (alternative synthesis/uptake mechanism?)"
+PVW,PVWR,"unknown (orphan, unc-46 expression) | male - 5-HT (alternative synthesis/uptake mechanism?)"
 RIA,RIAL,Glu
 RIA,RIAR,Glu
 RIB,RIBL,GABA
 RIB,RIBR,GABA
-RIC,RICL,octopamine
-RIC,RICR,octopamine
+RIC,RICL,octopamine | Glu
+RIC,RICR,octopamine | Glu
 RID,RID,"Unknown (orphan, unc-47 expression)"
 RIF,RIFL,ACh
 RIF,RIFR,ACh
 RIG,RIGL,Glu
 RIG,RIGR,Glu
-RIH,RIH,ACh
-RIM,RIML,Glu
-RIM,RIMR,Glu
+RIH,RIH,ACh | 5-HT (uptake)
+RIM,RIML,Glu | tyramine (synthesis + uptake) - NEW | betaine (uptake) - NEW
+RIM,RIMR,Glu | tyramine (synthesis + uptake) - NEW | betaine (uptake) - NEW
 RIP,RIPL,ACh - NEW
 RIP,RIPR,ACh - NEW
-RIR,RIR,ACh
-RIS,RIS,GABA
+RIR,RIR,ACh | *betaine (uptake) - NEW
+RIS,RIS,GABA | betaine (uptake) - NEW
 RIV,RIVL,ACh
 RIV,RIVR,ACh
 RMD,RMDDL,ACh
@@ -220,8 +220,8 @@ RMF,RMFL,ACh
 RMF,RMFR,ACh
 RMG,RMGL,unknown (orphan)
 RMG,RMGR,unknown (orphan)
-RMH,RMHL,ACh
-RMH,RMHR,ACh
+RMH,RMHL,ACh | *betaine (uptake) - NEW
+RMH,RMHR,ACh | *betaine (uptake) - NEW
 SAA,SAADL,ACh
 SAA,SAADR,ACh
 SAA,SAAVL,ACh
@@ -243,18 +243,18 @@ SMB,SMBDL,ACh
 SMB,SMBDR,ACh
 SMB,SMBVL,ACh
 SMB,SMBVR,ACh
-SMD,SMDDL,ACh
-SMD,SMDDR,ACh
-SMD,SMDVL,ACh
-SMD,SMDVR,ACh
+SMD,SMDDL,ACh | *GABA | *betaine (uptake) - NEW
+SMD,SMDDR,ACh | *GABA | *betaine (uptake) - NEW
+SMD,SMDVL,ACh | *GABA | *betaine (uptake) - NEW
+SMD,SMDVR,ACh | *GABA | *betaine (uptake) - NEW
 URA,URADL,ACh
 URA,URADR,ACh
 URA,URAVL,ACh
 URA,URAVR,ACh
-URB,URBL,ACh
-URB,URBR,ACh
-URX,URXL,ACh
-URX,URXR,ACh
+URB,URBL,ACh | bas-1-depen unknown monoamine? - NEW
+URB,URBR,ACh | bas-1-depen unknown monoamine? - NEW
+URX,URXL,ACh | *5-HT (uptake) | *betaine (uptake) - NEW
+URX,URXR,ACh | *5-HT (uptake) | *betaine (uptake) - NEW
 URY,URYDL,Glu
 URY,URYDR,Glu
 URY,URYVL,Glu
@@ -270,23 +270,23 @@ VA,VA8,ACh
 VA,VA9,ACh
 VA,VA10,ACh
 VA,VA11,ACh
-VA,VA12,ACh
-VB,VB1,ACh
-VB,VB2,ACh
-VB,VB3,ACh
-VB,VB4,ACh
-VB,VB5,ACh
-VB,VB6,ACh
-VB,VB7,ACh
-VB,VB8,ACh
-VB,VB9,ACh
-VB,VB10,ACh
-VB,VB11,ACh
+VA,VA12,ACh | *betaine (uptake) - NEW
+VB,VB1,ACh | *betaine (uptake) - NEW
+VB,VB2,ACh | *betaine (uptake) - NEW
+VB,VB3,ACh | *betaine (uptake) - NEW
+VB,VB4,ACh | *betaine (uptake) - NEW
+VB,VB5,ACh | *betaine (uptake) - NEW
+VB,VB6,ACh | *betaine (uptake) - NEW
+VB,VB7,ACh | *betaine (uptake) - NEW
+VB,VB8,ACh | *betaine (uptake) - NEW
+VB,VB9,ACh | *betaine (uptake) - NEW
+VB,VB10,ACh | *betaine (uptake) - NEW
+VB,VB11,ACh | *betaine (uptake) - NEW
 VC,VC1,ACh
 VC,VC2,ACh
 VC,VC3,ACh
-VC,VC4,ACh
-VC,VC5,ACh
+VC,VC4,ACh | 5-HT (alternative synthesis/uptake mechanism)
+VC,VC5,ACh | 5-HT (alternative synthesis/uptake mechanism)
 VC,VC6,ACh
 VD,VD1,GABA
 VD,VD2,GABA
