@@ -42,5 +42,8 @@ def test_cook_anatomy_curation_grounds_male_cells() -> None:
     # known male-specific / new cells are grounded
     for cell in ("CEMDL", "CA9", "CP9", "HOA", "PCAL", "proctodeum"):
         assert cell in curated
+    # ray sheath cells map to their WBbt ray structural term (Cook sh == WBbt st)
+    assert curated["R1shL"] == "WBbt:0004044"  # R1stL
+    assert curated["R8shR"] == "WBbt:0003972"  # R8stR
     # curated Cook cells are genuinely outside the hermaphrodite registry
     assert all(cell not in NG for cell in curated)
