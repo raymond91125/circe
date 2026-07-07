@@ -102,6 +102,21 @@ def anatomy_terms_map(
     return dict(sorted(out.items()))
 
 
+def anatomy_labels_map(terms: dict[str, str], index: WBBTIndex) -> dict[str, str]:
+    """WBbt curie → human-readable term label, for every curie referenced in ``terms``.
+
+    Lets the viz cell-info panel show the anatomy term name (e.g. "RIM" → "RIM neuron")
+    beside the WBbt id, rather than only the opaque id. Curies absent from the ontology or
+    without a label are omitted (the viz then shows just the id).
+    """
+    labels: dict[str, str] = {}
+    for curie in sorted(set(terms.values())):
+        term = index.terms.get(curie)
+        if term and term.label:
+            labels[curie] = term.label
+    return labels
+
+
 #: WormAtlas handbook pages are hand-curated (not ontology-derived). The neuron pattern is
 #: keyed by neuron class; non-neuron categories need explicit handbook URLs.
 _WORMATLAS_NEURON = "http://www.wormatlas.org/neurons/Individual%20Neurons/{}frameset.html"

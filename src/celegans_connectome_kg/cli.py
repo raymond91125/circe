@@ -222,6 +222,7 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     import json
 
     from celegans_connectome_kg.export.neuron_graph_json import (
+        anatomy_labels_map,
         anatomy_terms_map,
         cells_projection,
         connections_projection,
@@ -247,9 +248,14 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     click.echo(f"wrote: {ng_dir}/connections.json ({len(connections)} connections)")
 
     curated = load_class_curation(class_curation) if class_curation.exists() else None
-    terms = anatomy_terms_map(connectome, WBBTIndex.from_obograph(wbbt), curated)
+    wbbt_index = WBBTIndex.from_obograph(wbbt)
+    terms = anatomy_terms_map(connectome, wbbt_index, curated)
     (ng_dir / "anatomy_terms.json").write_text(json.dumps(terms, indent=1))
     click.echo(f"wrote: {ng_dir}/anatomy_terms.json ({len(terms)} name→WBbt)")
+
+    labels = anatomy_labels_map(terms, wbbt_index)
+    (ng_dir / "anatomy_labels.json").write_text(json.dumps(labels, indent=1))
+    click.echo(f"wrote: {ng_dir}/anatomy_labels.json ({len(labels)} WBbt→label)")
 
     atlas = wormatlas_links_map(connectome)
     (ng_dir / "wormatlas_links.json").write_text(json.dumps(atlas, indent=1))
