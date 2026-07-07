@@ -190,5 +190,7 @@ HOA/HOB, SPC, PCA/B/C, PDC, MCM, …) are grounded to their male WBbt terms.
 - **M4 — match/ground:** reconcile Cook cell names against the existing registry; ground
   male-specific cells to male WBbt terms; curation work-list as before.
 - **M5 — build + export:** assemble the sex-aware Connectome; emit RDF/OWL + a male neuron-graph
-  JSON projection; verify via SPARQL (sex partition, shared vs sex-specific counts).
+  JSON projection; verify via SPARQL (sex partition, shared vs sex-specific counts) — including an
+  explicit check that a **shared neuron's connections partition cleanly by `dataset.sex`** (a
+  neuron present in both sexes has its male vs hermaphrodite edges distinguishable).
 - **M6 — (later, separate) viz:** sex selector + male neuron set/layout, or defer to WormWiring.
