@@ -45,5 +45,19 @@ def test_cook_anatomy_curation_grounds_male_cells() -> None:
     # ray sheath cells map to their WBbt ray structural term (Cook sh == WBbt st)
     assert curated["R1shL"] == "WBbt:0004044"  # R1stL
     assert curated["R8shR"] == "WBbt:0003972"  # R8stR
+    # M4b external-term-lookup groundings
+    assert curated["ailL"] == "WBbt:0003790"  # anterior inner longitudinal muscle L (male)
+    assert curated["vsrR"] == "WBbt:0004908"  # ventral spicule retractor R
+    assert curated["dglL1"] == "WBbt:0008381"  # male diagonal muscle left (Cook 'dgl')
+    assert curated["um1AL"] == "WBbt:0006915" and curated["vm1AL"] == "WBbt:0006917"
+    assert curated["exc_cell"] == "WBbt:0005812" and curated["int"] == "WBbt:0005772"
+
+
+def test_naming_variant_aliases() -> None:
+    aliases = load_cook_aliases(DEFAULT_COOK_ALIASES_PATH)
+    # Cook naming variants of existing neuron-graph cells
+    assert aliases["hmc"] == "HMC" and aliases["exc_gl"] == "excgl"
+    assert aliases["mu_intL"] == "intmuL" and aliases["mu_intR"] == "intmuR"
+    assert all(t in NG for t in ("HMC", "excgl", "intmuL", "intmuR"))
     # curated Cook cells are genuinely outside the hermaphrodite registry
     assert all(cell not in NG for cell in curated)
