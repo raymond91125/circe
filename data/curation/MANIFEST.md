@@ -8,6 +8,13 @@ keyed by cell name (`cell_name, neurotransmitter, note`). Applied in `build`
 three-way reconciliation in [`../../analysis/neurotransmitter_reconciliation.md`]
 (../../analysis/neurotransmitter_reconciliation.md).
 
+### Neurotransmitter code vocabulary
+
+neuron-graph's `nt` codes: `a` ACh, `d` dopamine, `g` GABA, `l` glutamate, `o` octopamine,
+`s` serotonin, `t` tyramine, `u` unknown, `n` none. This curation adds **`b` = betaine**
+(RIM, per Hardege et al. 2022 — see [`../hardege-betaine-rim/`](../hardege-betaine-rim/MANIFEST.md)),
+which also required adding betaine to the neuron-graph viz vocabulary (legend + colour + display).
+
 ### Criterion for applying a correction
 
 A transmitter identity requires a **release mechanism**, not just presence of the transmitter:

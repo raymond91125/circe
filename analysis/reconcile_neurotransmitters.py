@@ -120,6 +120,7 @@ def load_wang(by_class: dict[str, list]) -> dict[str, set[str]]:
         "gaba": "g",
         "da": "d",
         "5-ht": "s",
+        "5-htp": "s",  # serotonin synthesis precursor (e.g. MI)
         "octopamine": "o",
         "tyramine": "t",
         "betaine": "b",
