@@ -4,3 +4,5 @@ HSNR,as,glutamate->ACh: HSN is cholinergic (unc-17/VAChT) + serotonergic by synt
 ALA,g,unknown->GABA: clean GABA call in Wang 2024 (anti-GABA staining).
 RIPL,a,unknown->ACh: cholinergic identity added in Wang 2024 on newly detected unc-17 (VAChT) expression.
 RIPR,a,unknown->ACh: cholinergic identity added in Wang 2024 on newly detected unc-17 (VAChT) expression.
+RIML,blt,add betaine to glutamate+tyramine: RIM synthesizes betaine and packages it via CAT-1/VMAT (Hardege et al. 2022 PNAS PMC9860315; betaine-gated channel LGC-41).
+RIMR,blt,add betaine to glutamate+tyramine: RIM synthesizes betaine and packages it via CAT-1/VMAT (Hardege et al. 2022 PNAS PMC9860315; betaine-gated channel LGC-41).

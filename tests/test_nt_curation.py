@@ -16,6 +16,8 @@ def test_load_nt_curation() -> None:
     assert cur["HSNL"] == "as" and cur["HSNR"] == "as"  # glutamate+serotonin -> ACh+serotonin
     # applied gap-fills (atlas clean, non-hedged calls)
     assert cur["ALA"] == "g" and cur["RIPL"] == "a" and cur["RIPR"] == "a"
+    # betaine (b) added for RIM: glutamate+tyramine+betaine (Hardege et al. 2022)
+    assert cur["RIML"] == "blt" and cur["RIMR"] == "blt"
     # atlas-hedged ("potential") and uptake-only calls are NOT applied
     for held in ("AVJL", "AWAL", "I4", "AVFL", "ASIL"):
         assert held not in cur
@@ -35,6 +37,7 @@ def test_overlay_applies_clean_calls_and_holds_hedged() -> None:
     assert by_name["HSNR"].neurotransmitter == "as"
     assert base_by_name["ALA"].neurotransmitter == "u" and by_name["ALA"].neurotransmitter == "g"
     assert by_name["RIPL"].neurotransmitter == "a"
+    assert by_name["RIML"].neurotransmitter == "blt"  # + betaine (Hardege 2022)
     # held (atlas-hedged "potential" / uptake-only): left unknown
     for held in ("AVJL", "AWAL", "I4", "AVFL", "ASIL"):
         assert by_name[held].neurotransmitter == "u"
