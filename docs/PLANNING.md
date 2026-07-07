@@ -168,3 +168,27 @@ celegans-connectome-kg/
   (KG → per-dataset `{pre,post,typ,syn}` + `datasets.json` with `datatypes`) so the KG can
   feed neuron-graph's `populate-database` directly. See the Outputs finding above.
 ```
+
+## Sex extension — male + hermaphrodite (unified sex-aware graph)
+
+Extend the KG from hermaphrodite-only to **both sexes**, as one sex-aware graph. Source: **Cook
+et al. 2019** whole-animal connectomes (both sexes) — pinned in
+[`data/cook-2019-connectome/`](../data/cook-2019-connectome/MANIFEST.md) (SI 5 adjacency
+matrices, corrected July 2020). Decided scope: ingest **both** the Cook male **and** Cook
+hermaphrodite matrices; include **muscles and end organs**.
+
+Design: Cook 2019 is added as datasets in the existing multi-dataset model
+(`cook_2019_male`, `cook_2019_hermaphrodite`), tagged by a new `sex` dimension. Cell sex-presence
+is derived from which datasets a cell appears in; male-specific cells (ray neurons R1–R9, CEM,
+HOA/HOB, SPC, PCA/B/C, PDC, MCM, …) are grounded to their male WBbt terms.
+
+- **M1 — pin data + provenance:** ✅ SI 5 (corrected 2020) vendored with MANIFEST + sha256.
+- **M2 — schema:** add a `Sex` enum + `Dataset.sex`; derive `Cell` sex-presence. Regenerate.
+- **M3 — ingest parser:** parse the SI 5 adjacency sheets (`{sex} chemical`, `{sex} gap jn
+  symmetric`) → normalized edges. **Weights are EM serial-section counts (synapse number × size),
+  not raw synapse counts** — tag distinctly from neuron-graph datasets.
+- **M4 — match/ground:** reconcile Cook cell names against the existing registry; ground
+  male-specific cells to male WBbt terms; curation work-list as before.
+- **M5 — build + export:** assemble the sex-aware Connectome; emit RDF/OWL + a male neuron-graph
+  JSON projection; verify via SPARQL (sex partition, shared vs sex-specific counts).
+- **M6 — (later, separate) viz:** sex selector + male neuron set/layout, or defer to WormWiring.
