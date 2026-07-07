@@ -5,19 +5,28 @@ cells:
     name: ADAL
     cell_type: neuron
     anatomy: WBbt:0004013
+    sexes:
+      - hermaphrodite
+      - male
   - id: ADAR
     name: ADAR
     cell_type: neuron
     anatomy: WBbt:0004011
+    sexes:
+      - hermaphrodite
+      - male
   - id: ADEL
     name: ADEL
     cell_type: neuron
+    sexes:
+      - hermaphrodite
 
 datasets:
   - id: randi_funconn_wildty
     name: Randi FunCoNN (wild-type)
     description: Functional connectivity, wild-type specimen.
     strain: N2
+    sex: hermaphrodite
 
 connections:
   - id: conn:0001

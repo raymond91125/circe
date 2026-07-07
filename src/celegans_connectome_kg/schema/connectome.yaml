@@ -61,6 +61,7 @@ classes:
       - embryonic
       - in_head
       - in_tail
+      - sexes
     slot_usage:
       id:
         description: The neuron-graph cell name, used as the stable key (e.g. "ADAL").
@@ -86,12 +87,15 @@ classes:
         required: true
 
   Dataset:
-    description: A neuron-graph specimen/dataset that observes connections.
+    description: >-
+      A specimen/dataset that observes connections (an EM reconstruction or functional-imaging
+      dataset), from neuron-graph (White 1986, Witvliet 2020, Randi funconn) or Cook et al. 2019.
     slots:
       - id
       - name
       - description
       - strain
+      - sex
 
   Evidence:
     description: >-
@@ -140,6 +144,13 @@ slots:
   in_tail:
     description: Whether the cell is in the tail.
     range: boolean
+  sexes:
+    description: >-
+      The sex(es) in which this cell is present, derived from the datasets that observe it.
+      A shared cell has both; sex-specific cells have one — e.g. HSN/VC (hermaphrodite),
+      the male ray neurons R1-R9, CEM, HOA/HOB, SPC, PCA/PCB/PCC, PDC (male).
+    range: Sex
+    multivalued: true
   pre:
     description: The presynaptic / source cell.
     range: Cell
@@ -165,6 +176,9 @@ slots:
     slot_uri: dcterms:description
   strain:
     description: The C. elegans strain/genotype of the specimen, if known.
+  sex:
+    description: The biological sex of the specimen(s) the dataset observed.
+    range: Sex
   evidence_type:
     description: What kind of evidence this record represents.
     range: EvidenceType
@@ -202,3 +216,11 @@ enums:
         description: An aggregated connection weight observed in a dataset (v1).
       synaptic_contact:
         description: An individual synaptic contact (reserved for a later release).
+
+  Sex:
+    description: The biological sex of a C. elegans specimen.
+    permissible_values:
+      hermaphrodite:
+        description: XX self-fertilizing hermaphrodite.
+      male:
+        description: XO male.
