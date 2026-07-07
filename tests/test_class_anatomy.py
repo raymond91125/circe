@@ -3,7 +3,10 @@
 from pathlib import Path
 
 from celegans_connectome_kg.build.assemble import assemble
-from celegans_connectome_kg.export.neuron_graph_json import anatomy_terms_map
+from celegans_connectome_kg.export.neuron_graph_json import (
+    anatomy_labels_map,
+    anatomy_terms_map,
+)
 from celegans_connectome_kg.match.curation import load_class_curation
 from celegans_connectome_kg.match.wbbt import WBBTIndex
 
@@ -35,6 +38,22 @@ def test_anatomy_terms_cover_classes_cells_and_stubs() -> None:
     assert cell_names <= set(terms)
     assert all(k == k.upper() for k in terms)
     assert all(v.startswith("WBbt:") for v in terms.values())
+
+
+def test_anatomy_labels_cover_terms_and_resolve() -> None:
+    connectome, _ = assemble(NEURON_GRAPH, WBBT_JSON, CURATION, ENDPOINT_CELLS)
+    index = WBBTIndex.from_obograph(WBBT_JSON)
+    terms = anatomy_terms_map(connectome, index, load_class_curation(CLASS_CURATION))
+    labels = anatomy_labels_map(terms, index)
+
+    # keyed by WBbt curie; every label maps a curie that the term map actually references
+    assert all(k.startswith("WBbt:") for k in labels)
+    assert set(labels) <= set(terms.values())
+    # descriptive names carried through for non-neuron / pharyngeal cells
+    assert labels["WBbt:0003638"] == "MC neuron"  # terms["MC"]
+    assert labels["WBbt:0003632"] == "pm2DL-pm2DR"  # terms["PM2D"]
+    # coverage: nearly all referenced terms have a label in the ontology
+    assert len(labels) >= len(set(terms.values())) - 5
 
 
 def test_anatomy_terms_resolution_sources() -> None:
