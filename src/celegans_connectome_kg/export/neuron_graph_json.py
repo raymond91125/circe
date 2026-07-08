@@ -198,10 +198,15 @@ def connections_projection(connectome: object) -> list[dict]:
     """
     grouped: dict[tuple[str, str, str], dict[str, int]] = defaultdict(lambda: defaultdict(int))
     for conn in connectome.connections:
+        dataset = _strip(str(conn.dataset), DATASET_PREFIX)
+        # The neuron-graph projection reproduces neuron-graph's own datasets only. Cook 2019
+        # (the sex-aware KG datasets) are excluded here; a sex-aware / male viz projection is
+        # a separate concern (M6), so the existing hermaphrodite viz feed is unchanged.
+        if dataset.startswith("cook_"):
+            continue
         pre = _strip(conn.pre, CELL_PREFIX)
         post = _strip(conn.post, CELL_PREFIX)
         api_type = _API_TYPE[str(conn.connection_type)]
-        dataset = _strip(str(conn.dataset), DATASET_PREFIX)
         grouped[(pre, post, api_type)][dataset] += int(conn.weight)
 
     chemical, electrical, functional = [], [], []

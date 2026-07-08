@@ -1,0 +1,11 @@
+# Count connections by the sex of the observing dataset.
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+
+SELECT ?sex (COUNT(?conn) AS ?count)
+WHERE {
+  ?conn a cckg:Connection ;
+        cckg:dataset ?ds .
+  ?ds cckg:sex ?sex .
+}
+GROUP BY ?sex
+ORDER BY DESC(?count)

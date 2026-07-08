@@ -1,0 +1,17 @@
+# For a neuron present in both sexes (AVAL), partition its connections by the
+# observing dataset's sex -- demonstrating male vs hermaphrodite edges are
+# cleanly distinguishable for the same cell.
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?sex (COUNT(?conn) AS ?count)
+WHERE {
+  ?cell a cckg:Cell ;
+        dcterms:title "AVAL" .
+  ?conn a cckg:Connection ;
+        cckg:dataset ?ds .
+  ?ds cckg:sex ?sex .
+  { ?conn cckg:pre ?cell } UNION { ?conn cckg:post ?cell }
+}
+GROUP BY ?sex
+ORDER BY DESC(?count)

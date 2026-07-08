@@ -15,6 +15,11 @@ DEFAULT_ENDPOINT_CELLS = Path("data/curation/connection_endpoint_cells.csv")
 DEFAULT_CLASS_CURATION = Path("data/curation/class_anatomy_curation.csv")
 DEFAULT_NT_CURATION = Path("data/curation/neurotransmitter_curation.csv")
 DEFAULT_OUTPUT_DIR = Path("outputs")
+DEFAULT_COOK_XLSX = Path(
+    "data/cook-2019-connectome/SI5_connectome_adjacency_matrices_corrected_2020.xlsx"
+)
+DEFAULT_COOK_ALIASES = Path("data/curation/cook_name_aliases.csv")
+DEFAULT_COOK_ANATOMY = Path("data/curation/cook_anatomy_curation.csv")
 
 
 @click.group()
@@ -153,6 +158,13 @@ def match(data_dir: Path, wbbt: Path, out_dir: Path, curation: Path) -> None:
     show_default=True,
     help="Neurotransmitter corrections overriding neuron-graph nt (applied if present).",
 )
+@click.option(
+    "--cook/--no-cook",
+    "with_cook",
+    default=True,
+    show_default=True,
+    help="Merge the Cook et al. 2019 male + hermaphrodite connectomes (sex-aware graph).",
+)
 def build(
     data_dir: Path,
     wbbt: Path,
@@ -160,9 +172,12 @@ def build(
     curation: Path,
     endpoint_cells: Path,
     nt_curation: Path,
+    with_cook: bool,
 ) -> None:
     """Assemble LinkML data (cells, connections, datasets, evidence). [Phase 3]"""
     from celegans_connectome_kg.build.assemble import assemble
+
+    cook_ok = with_cook and DEFAULT_COOK_XLSX.exists()
     from celegans_connectome_kg.export.rdf import write_json
 
     connectome, stats = assemble(
@@ -171,11 +186,17 @@ def build(
         curation if curation.exists() else None,
         endpoint_cells if endpoint_cells.exists() else None,
         nt_curation if nt_curation.exists() else None,
+        cook_xlsx_path=DEFAULT_COOK_XLSX if cook_ok else None,
+        cook_aliases_path=DEFAULT_COOK_ALIASES if cook_ok else None,
+        cook_anatomy_path=DEFAULT_COOK_ANATOMY if cook_ok else None,
     )
     out_path = out_dir / "connectome.json"
     write_json(connectome, out_path)
 
     click.echo(f"cells:       {stats.cells} ({stats.cells_with_anatomy} with WBBT anatomy)")
+    if cook_ok:
+        click.echo(f"  by sex:      {stats.cells_by_sex}")
+        click.echo(f"  datasets:    {stats.datasets_by_sex}")
     click.echo(f"datasets:    {stats.datasets}")
     click.echo(f"connections: {stats.connections}")
     for t in ("chemical", "gap_junction", "functional"):

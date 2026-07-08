@@ -1,0 +1,10 @@
+# Count cells present in each sex (a both-sexes cell is counted under both).
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+
+SELECT ?sex (COUNT(DISTINCT ?cell) AS ?count)
+WHERE {
+  ?cell a cckg:Cell ;
+        cckg:sexes ?sex .
+}
+GROUP BY ?sex
+ORDER BY DESC(?count)
