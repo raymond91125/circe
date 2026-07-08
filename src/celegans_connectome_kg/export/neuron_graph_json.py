@@ -131,7 +131,7 @@ def _is_body_wall_muscle(name: str) -> bool:
 
 
 def wormatlas_links_map(
-    connectome: object, male_class_curation: dict[str, str] | None = None
+    connectome: object, male_url_curation: dict[str, str] | None = None
 ) -> dict[str, str]:
     """Build a node-name → WormAtlas URL map for the viz cell-info link.
 
@@ -141,11 +141,11 @@ def wormatlas_links_map(
     link rather than a broken neuron-pattern URL). Keys are upper-cased; lookup is
     case-insensitive in the viz.
 
-    Male-specific neuron cells (Cook) carry no ``cell_class``, so their WormAtlas class slug is
-    supplied by ``male_class_curation`` (cell name → class page, e.g. ``R1AL`` → ``R1A``); cells
-    absent from it fall back to the KG class / name as before.
+    Male-specific neuron cells (Cook) carry no ``cell_class``, so the neuron-pattern URL can't be
+    derived; ``male_url_curation`` (cell name → exact WormAtlas URL) supplies it directly and
+    takes precedence. Cells absent from it fall back to the KG class / name pattern as before.
     """
-    male_class_curation = male_class_curation or {}
+    male_url_curation = male_url_curation or {}
     members: dict[str, list[object]] = defaultdict(list)
     for cell in connectome.cells:
         if cell.cell_class:
@@ -160,8 +160,9 @@ def wormatlas_links_map(
 
     out: dict[str, str] = {}
     for cell in connectome.cells:
-        cls = male_class_curation.get(cell.name) or cell.cell_class
-        url = url_for(cell.name, str(cell.cell_type), cls)
+        url = male_url_curation.get(cell.name) or url_for(
+            cell.name, str(cell.cell_type), cell.cell_class
+        )
         if url:
             out[cell.name.upper()] = url
     for cls, mem in members.items():

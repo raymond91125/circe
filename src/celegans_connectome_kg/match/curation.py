@@ -75,20 +75,22 @@ def load_class_curation(path: Path) -> dict[str, str]:
     return curated
 
 
-def load_wormatlas_class(path: Path) -> dict[str, str]:
-    """Load cell_name → WormAtlas neuron-class page slug for male-specific cells.
+def load_wormatlas_urls(path: Path) -> dict[str, str]:
+    """Load cell_name → WormAtlas page URL for male-specific cells.
 
     Male-specific cells (Cook) are minted without a ``cell_class``, so the WormAtlas
-    Individual-Neurons URL (keyed by neuron *class*, e.g. ``CEMDL`` → ``CEM``, ``R1AL`` → ``R1A``)
-    can't be derived from the KG. This hand-curated map supplies the class slug; rows without a
-    ``wormatlas_class`` are skipped (no link emitted).
+    Individual-Neurons page (keyed by neuron *class*, e.g. ``CEMDL`` → CEM page, ``R1AL`` → R1A
+    page) can't be derived from the KG. The ``wormatlas_url`` column is authoritative: it is the
+    exact URL emitted for the cell, so a corrected URL flows straight through on re-export. The
+    ``wormatlas_class`` column is informational (which class page the cell shares). Rows without a
+    ``wormatlas_url`` are skipped (no link emitted).
     """
     curated: dict[str, str] = {}
     with Path(path).open(newline="") as fh:
         for row in csv.DictReader(fh):
-            slug = (row.get("wormatlas_class") or "").strip()
-            if slug:
-                curated[row["cell_name"]] = slug
+            url = (row.get("wormatlas_url") or "").strip()
+            if url:
+                curated[row["cell_name"]] = url
     return curated
 
 

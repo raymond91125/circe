@@ -46,8 +46,8 @@ def test_keys_are_upper_cased() -> None:
     assert all(k == k.upper() for k in m)
 
 
-def test_male_class_curation_supplies_neuron_class_page() -> None:
-    """Male-specific neuron cells (no cell_class) use the curated WormAtlas class slug."""
+def test_male_url_curation_supplies_exact_page() -> None:
+    """Male-specific neuron cells (no cell_class) use the curated WormAtlas URL directly."""
     dm = datamodel()
     connectome = dm.Connectome(
         cells=[
@@ -58,10 +58,11 @@ def test_male_class_curation_supplies_neuron_class_page() -> None:
         datasets=[],
         connections=[],
     )
-    curation = {"R1AL": "R1A", "CEMDL": "CEM"}  # HOA intentionally uncurated
+    base = "http://www.wormatlas.org/neurons/Individual%20Neurons/"
+    curation = {"R1AL": base + "R1Aframeset.html", "CEMDL": base + "CEMframeset.html"}
     m = wormatlas_links_map(connectome, curation)
-    assert m["R1AL"].endswith("/R1Aframeset.html")
-    assert m["CEMDL"].endswith("/CEMframeset.html")
+    assert m["R1AL"] == base + "R1Aframeset.html"
+    assert m["CEMDL"] == base + "CEMframeset.html"
     # uncurated male neuron falls back to its own name (no crash, still a neuron page)
     assert m["HOA"].endswith("/HOAframeset.html")
 

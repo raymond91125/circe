@@ -1,91 +1,91 @@
-cell_name,wormatlas_class,confidence,note
-CA1,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
-CA2,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
-CA3,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
-CA4,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
-CA5,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
-CA6,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
-CA7,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
-CA8,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
-CA9,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
-CEMDL,CEM,high,4 CEM cells share the CEM neuron page
-CEMDR,CEM,high,4 CEM cells share the CEM neuron page
-CEMVL,CEM,high,4 CEM cells share the CEM neuron page
-CEMVR,CEM,high,4 CEM cells share the CEM neuron page
-CP1,CP,high,CP page groups CP0-CP9 (confirmed)
-CP2,CP,high,CP page groups CP0-CP9 (confirmed)
-CP3,CP,high,CP page groups CP0-CP9 (confirmed)
-CP4,CP,high,CP page groups CP0-CP9 (confirmed)
-CP5,CP,high,CP page groups CP0-CP9 (confirmed)
-CP6,CP,high,CP page groups CP0-CP9 (confirmed)
-CP7,CP,high,CP page groups CP0-CP9 (confirmed)
-CP8,CP,high,CP page groups CP0-CP9 (confirmed)
-CP9,CP,high,CP page groups CP0-CP9 (confirmed)
-DVE,DVE,medium,singleton neuron; own page assumed
-DVF,DVF,medium,singleton neuron; own page assumed
-DX1,DX,verify,DX1-3 grouping assumed
-DX2,DX,verify,DX1-3 grouping assumed
-DX3,DX,verify,DX1-3 grouping assumed
-EF1,EF,verify,EF1-3 grouping assumed
-EF2,EF,verify,EF1-3 grouping assumed
-EF3,EF,verify,EF1-3 grouping assumed
-HOA,HOA,medium,singleton neuron; own page assumed
-HOB,HOB,medium,singleton neuron; own page assumed
-MCML,MCM,medium,MCML/R -> MCM class page (strip L/R)
-MCMR,MCM,medium,MCML/R -> MCM class page (strip L/R)
-PCAL,PCA,medium,PCAL/R -> PCA class page (strip L/R)
-PCAR,PCA,medium,PCAL/R -> PCA class page (strip L/R)
-PCBL,PCB,medium,PCBL/R -> PCB class page (strip L/R)
-PCBR,PCB,medium,PCBL/R -> PCB class page (strip L/R)
-PCCL,PCC,medium,PCCL/R -> PCC class page (strip L/R)
-PCCR,PCC,medium,PCCL/R -> PCC class page (strip L/R)
-PDC,PDC,medium,singleton neuron; own page assumed
-PGA,PGA,medium,singleton neuron; own page assumed
-PHDL,PHD,medium,PHDL/R -> PHD class page (strip L/R)
-PHDR,PHD,medium,PHDL/R -> PHD class page (strip L/R)
-PVV,PVV,medium,singleton neuron; own page assumed
-PVX,PVX,medium,singleton neuron; own page assumed
-PVY,PVY,medium,singleton neuron; own page assumed
-PVZ,PVZ,medium,singleton neuron; own page assumed
-R1AL,R1A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R1AR,R1A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R1BL,R1B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R1BR,R1B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R2AL,R2A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R2AR,R2A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R2BL,R2B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R2BR,R2B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R3AL,R3A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R3AR,R3A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R3BL,R3B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R3BR,R3B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R4AL,R4A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R4AR,R4A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R4BL,R4B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R4BR,R4B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R5AL,R5A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R5AR,R5A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R5BL,R5B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R5BR,R5B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R6AL,R6A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R6AR,R6A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R6BL,R6B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R6BR,R6B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R7AL,R7A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R7AR,R7A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R7BL,R7B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R7BR,R7B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R8AL,R8A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R8AR,R8A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R8BL,R8B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R8BR,R8B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R9AL,R9A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R9AR,R9A,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R9BL,R9B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-R9BR,R9B,high,ray neuron class page (RnA/RnB); R3B page confirmed
-SPCL,SPC,medium,SPCL/R -> SPC class page (strip L/R)
-SPCR,SPC,medium,SPCL/R -> SPC class page (strip L/R)
-SPDL,SPD,medium,SPDL/R -> SPD class page (strip L/R)
-SPDR,SPD,medium,SPDL/R -> SPD class page (strip L/R)
-SPVL,SPV,medium,SPVL/R -> SPV class page (strip L/R)
-SPVR,SPV,medium,SPVL/R -> SPV class page (strip L/R)
+cell_name,wormatlas_class,wormatlas_url,confidence,note
+CA1,CA,http://www.wormatlas.org/neurons/Individual%20Neurons/CAframeset.html,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA2,CA,http://www.wormatlas.org/neurons/Individual%20Neurons/CAframeset.html,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA3,CA,http://www.wormatlas.org/neurons/Individual%20Neurons/CAframeset.html,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA4,CA,http://www.wormatlas.org/neurons/Individual%20Neurons/CAframeset.html,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA5,CA,http://www.wormatlas.org/neurons/Individual%20Neurons/CAframeset.html,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA6,CA,http://www.wormatlas.org/neurons/Individual%20Neurons/CAframeset.html,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA7,CA,http://www.wormatlas.org/neurons/Individual%20Neurons/CAframeset.html,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA8,CA,http://www.wormatlas.org/neurons/Individual%20Neurons/CAframeset.html,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA9,CA,http://www.wormatlas.org/neurons/Individual%20Neurons/CAframeset.html,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CEMDL,CEM,http://www.wormatlas.org/neurons/Individual%20Neurons/CEMframeset.html,high,4 CEM cells share the CEM neuron page
+CEMDR,CEM,http://www.wormatlas.org/neurons/Individual%20Neurons/CEMframeset.html,high,4 CEM cells share the CEM neuron page
+CEMVL,CEM,http://www.wormatlas.org/neurons/Individual%20Neurons/CEMframeset.html,high,4 CEM cells share the CEM neuron page
+CEMVR,CEM,http://www.wormatlas.org/neurons/Individual%20Neurons/CEMframeset.html,high,4 CEM cells share the CEM neuron page
+CP1,CP,http://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
+CP2,CP,http://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
+CP3,CP,http://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
+CP4,CP,http://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
+CP5,CP,http://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
+CP6,CP,http://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
+CP7,CP,http://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
+CP8,CP,http://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
+CP9,CP,http://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
+DVE,DVE,http://www.wormatlas.org/neurons/Individual%20Neurons/DVEframeset.html,medium,singleton neuron; own page assumed
+DVF,DVF,http://www.wormatlas.org/neurons/Individual%20Neurons/DVFframeset.html,medium,singleton neuron; own page assumed
+DX1,DX,http://www.wormatlas.org/neurons/Individual%20Neurons/DXframeset.html,verify,DX1-3 grouping assumed
+DX2,DX,http://www.wormatlas.org/neurons/Individual%20Neurons/DXframeset.html,verify,DX1-3 grouping assumed
+DX3,DX,http://www.wormatlas.org/neurons/Individual%20Neurons/DXframeset.html,verify,DX1-3 grouping assumed
+EF1,EF,http://www.wormatlas.org/neurons/Individual%20Neurons/EFframeset.html,verify,EF1-3 grouping assumed
+EF2,EF,http://www.wormatlas.org/neurons/Individual%20Neurons/EFframeset.html,verify,EF1-3 grouping assumed
+EF3,EF,http://www.wormatlas.org/neurons/Individual%20Neurons/EFframeset.html,verify,EF1-3 grouping assumed
+HOA,HOA,http://www.wormatlas.org/neurons/Individual%20Neurons/HOAframeset.html,medium,singleton neuron; own page assumed
+HOB,HOB,http://www.wormatlas.org/neurons/Individual%20Neurons/HOBframeset.html,medium,singleton neuron; own page assumed
+MCML,MCM,http://www.wormatlas.org/neurons/Individual%20Neurons/MCMframeset.html,medium,MCML/R -> MCM class page (strip L/R)
+MCMR,MCM,http://www.wormatlas.org/neurons/Individual%20Neurons/MCMframeset.html,medium,MCML/R -> MCM class page (strip L/R)
+PCAL,PCA,http://www.wormatlas.org/neurons/Individual%20Neurons/PCAframeset.html,medium,PCAL/R -> PCA class page (strip L/R)
+PCAR,PCA,http://www.wormatlas.org/neurons/Individual%20Neurons/PCAframeset.html,medium,PCAL/R -> PCA class page (strip L/R)
+PCBL,PCB,http://www.wormatlas.org/neurons/Individual%20Neurons/PCBframeset.html,medium,PCBL/R -> PCB class page (strip L/R)
+PCBR,PCB,http://www.wormatlas.org/neurons/Individual%20Neurons/PCBframeset.html,medium,PCBL/R -> PCB class page (strip L/R)
+PCCL,PCC,http://www.wormatlas.org/neurons/Individual%20Neurons/PCCframeset.html,medium,PCCL/R -> PCC class page (strip L/R)
+PCCR,PCC,http://www.wormatlas.org/neurons/Individual%20Neurons/PCCframeset.html,medium,PCCL/R -> PCC class page (strip L/R)
+PDC,PDC,http://www.wormatlas.org/neurons/Individual%20Neurons/PDCframeset.html,medium,singleton neuron; own page assumed
+PGA,PGA,http://www.wormatlas.org/neurons/Individual%20Neurons/PGAframeset.html,medium,singleton neuron; own page assumed
+PHDL,PHD,http://www.wormatlas.org/neurons/Individual%20Neurons/PHDframeset.html,medium,PHDL/R -> PHD class page (strip L/R)
+PHDR,PHD,http://www.wormatlas.org/neurons/Individual%20Neurons/PHDframeset.html,medium,PHDL/R -> PHD class page (strip L/R)
+PVV,PVV,http://www.wormatlas.org/neurons/Individual%20Neurons/PVVframeset.html,medium,singleton neuron; own page assumed
+PVX,PVX,http://www.wormatlas.org/neurons/Individual%20Neurons/PVXframeset.html,medium,singleton neuron; own page assumed
+PVY,PVY,http://www.wormatlas.org/neurons/Individual%20Neurons/PVYframeset.html,medium,singleton neuron; own page assumed
+PVZ,PVZ,http://www.wormatlas.org/neurons/Individual%20Neurons/PVZframeset.html,medium,singleton neuron; own page assumed
+R1AL,R1A,http://www.wormatlas.org/neurons/Individual%20Neurons/R1Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R1AR,R1A,http://www.wormatlas.org/neurons/Individual%20Neurons/R1Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R1BL,R1B,http://www.wormatlas.org/neurons/Individual%20Neurons/R1Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R1BR,R1B,http://www.wormatlas.org/neurons/Individual%20Neurons/R1Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R2AL,R2A,http://www.wormatlas.org/neurons/Individual%20Neurons/R2Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R2AR,R2A,http://www.wormatlas.org/neurons/Individual%20Neurons/R2Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R2BL,R2B,http://www.wormatlas.org/neurons/Individual%20Neurons/R2Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R2BR,R2B,http://www.wormatlas.org/neurons/Individual%20Neurons/R2Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R3AL,R3A,http://www.wormatlas.org/neurons/Individual%20Neurons/R3Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R3AR,R3A,http://www.wormatlas.org/neurons/Individual%20Neurons/R3Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R3BL,R3B,http://www.wormatlas.org/neurons/Individual%20Neurons/R3Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R3BR,R3B,http://www.wormatlas.org/neurons/Individual%20Neurons/R3Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R4AL,R4A,http://www.wormatlas.org/neurons/Individual%20Neurons/R4Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R4AR,R4A,http://www.wormatlas.org/neurons/Individual%20Neurons/R4Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R4BL,R4B,http://www.wormatlas.org/neurons/Individual%20Neurons/R4Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R4BR,R4B,http://www.wormatlas.org/neurons/Individual%20Neurons/R4Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R5AL,R5A,http://www.wormatlas.org/neurons/Individual%20Neurons/R5Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R5AR,R5A,http://www.wormatlas.org/neurons/Individual%20Neurons/R5Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R5BL,R5B,http://www.wormatlas.org/neurons/Individual%20Neurons/R5Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R5BR,R5B,http://www.wormatlas.org/neurons/Individual%20Neurons/R5Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R6AL,R6A,http://www.wormatlas.org/neurons/Individual%20Neurons/R6Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R6AR,R6A,http://www.wormatlas.org/neurons/Individual%20Neurons/R6Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R6BL,R6B,http://www.wormatlas.org/neurons/Individual%20Neurons/R6Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R6BR,R6B,http://www.wormatlas.org/neurons/Individual%20Neurons/R6Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R7AL,R7A,http://www.wormatlas.org/neurons/Individual%20Neurons/R7Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R7AR,R7A,http://www.wormatlas.org/neurons/Individual%20Neurons/R7Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R7BL,R7B,http://www.wormatlas.org/neurons/Individual%20Neurons/R7Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R7BR,R7B,http://www.wormatlas.org/neurons/Individual%20Neurons/R7Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R8AL,R8A,http://www.wormatlas.org/neurons/Individual%20Neurons/R8Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R8AR,R8A,http://www.wormatlas.org/neurons/Individual%20Neurons/R8Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R8BL,R8B,http://www.wormatlas.org/neurons/Individual%20Neurons/R8Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R8BR,R8B,http://www.wormatlas.org/neurons/Individual%20Neurons/R8Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R9AL,R9A,http://www.wormatlas.org/neurons/Individual%20Neurons/R9Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R9AR,R9A,http://www.wormatlas.org/neurons/Individual%20Neurons/R9Aframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R9BL,R9B,http://www.wormatlas.org/neurons/Individual%20Neurons/R9Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R9BR,R9B,http://www.wormatlas.org/neurons/Individual%20Neurons/R9Bframeset.html,high,ray neuron class page (RnA/RnB); R3B page confirmed
+SPCL,SPC,http://www.wormatlas.org/neurons/Individual%20Neurons/SPCframeset.html,medium,SPCL/R -> SPC class page (strip L/R)
+SPCR,SPC,http://www.wormatlas.org/neurons/Individual%20Neurons/SPCframeset.html,medium,SPCL/R -> SPC class page (strip L/R)
+SPDL,SPD,http://www.wormatlas.org/neurons/Individual%20Neurons/SPDframeset.html,medium,SPDL/R -> SPD class page (strip L/R)
+SPDR,SPD,http://www.wormatlas.org/neurons/Individual%20Neurons/SPDframeset.html,medium,SPDL/R -> SPD class page (strip L/R)
+SPVL,SPV,http://www.wormatlas.org/neurons/Individual%20Neurons/SPVframeset.html,medium,SPVL/R -> SPV class page (strip L/R)
+SPVR,SPV,http://www.wormatlas.org/neurons/Individual%20Neurons/SPVframeset.html,medium,SPVL/R -> SPV class page (strip L/R)

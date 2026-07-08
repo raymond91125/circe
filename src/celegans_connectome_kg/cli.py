@@ -256,7 +256,7 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     from celegans_connectome_kg.export.rdf import load_json, write_turtle
     from celegans_connectome_kg.match.curation import (
         load_class_curation,
-        load_wormatlas_class,
+        load_wormatlas_urls,
     )
     from celegans_connectome_kg.match.wbbt import WBBTIndex
 
@@ -285,7 +285,7 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     (ng_dir / "anatomy_labels.json").write_text(json.dumps(labels, indent=1))
     click.echo(f"wrote: {ng_dir}/anatomy_labels.json ({len(labels)} WBbt→label)")
 
-    male_atlas = load_wormatlas_class(DEFAULT_COOK_WORMATLAS) if DEFAULT_COOK_WORMATLAS.exists() else {}
+    male_atlas = load_wormatlas_urls(DEFAULT_COOK_WORMATLAS) if DEFAULT_COOK_WORMATLAS.exists() else {}
     atlas = wormatlas_links_map(connectome, male_atlas)
     (ng_dir / "wormatlas_links.json").write_text(json.dumps(atlas, indent=1))
     click.echo(f"wrote: {ng_dir}/wormatlas_links.json ({len(atlas)} name→WormAtlas)")
