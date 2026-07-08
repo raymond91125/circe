@@ -72,6 +72,22 @@ def test_worklist_fully_curated() -> None:
     assert rows == [], f"M4 worklist should be empty; {len(rows)} residual cells remain"
 
 
+def test_male_nonneuron_wormatlas_pages() -> None:
+    """Male-specific non-neurons link to the general WormAtlas male-anatomy section pages."""
+    from celegans_connectome_kg.match.curation import load_wormatlas_urls
+
+    urls = load_wormatlas_urls("data/curation/cook_wormatlas_class.csv")
+    # ray structural/support cells -> male rays page
+    assert "male/rays/Rayframeset" in urls["R3stL"] and "male/rays/Rayframeset" in urls["R9stL"]
+    # M-derived sex muscles -> male-specific muscle page (spicule, gubernacular, diagonal, ...)
+    for muscle in ("dglL1", "vsrR", "dspL", "gecL", "ailL"):
+        assert "male/musclemale/Musmaleframeset" in urls[muscle]
+    # gonad / proctodeum -> male reproductive-system page
+    assert "male/reproductive" in urls["gonad"] and "male/reproductive" in urls["proctodeum"]
+    # every curated WormAtlas URL is https
+    assert all(u.startswith("https://") for u in urls.values())
+
+
 def test_naming_variant_aliases() -> None:
     aliases = load_cook_aliases(DEFAULT_COOK_ALIASES_PATH)
     # Cook naming variants of existing neuron-graph cells
