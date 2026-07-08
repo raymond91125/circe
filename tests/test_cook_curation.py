@@ -42,9 +42,10 @@ def test_cook_anatomy_curation_grounds_male_cells() -> None:
     # known male-specific / new cells are grounded
     for cell in ("CEMDL", "CA9", "CP9", "HOA", "PCAL", "proctodeum"):
         assert cell in curated
-    # ray sheath cells map to their WBbt ray structural term (Cook sh == WBbt st)
-    assert curated["R1shL"] == "WBbt:0004044"  # R1stL
-    assert curated["R8shR"] == "WBbt:0003972"  # R8stR
+    # ray structural cells (Cook 'Rnsh' == Rnst; aliased sh->st, then grounded under the st name)
+    assert curated["R1stL"] == "WBbt:0004044"
+    assert curated["R8stR"] == "WBbt:0003972"
+    assert "R1shL" not in curated and "R8shR" not in curated  # sh names no longer curated cells
     # M4b external-term-lookup groundings
     assert curated["ailL"] == "WBbt:0003790"  # anterior inner longitudinal muscle L (male)
     assert curated["vsrR"] == "WBbt:0004908"  # ventral spicule retractor R
@@ -76,3 +77,6 @@ def test_naming_variant_aliases() -> None:
     assert aliases["hmc"] == "HMC" and aliases["exc_gl"] == "excgl"
     assert aliases["mu_intL"] == "intmuL" and aliases["mu_intR"] == "intmuR"
     assert all(t in NG for t in ("HMC", "excgl", "intmuL", "intmuR"))
+    # Cook 'Rnsh' (SI-only) == ray structural cell Rnst; aliased to merge connectivity
+    assert aliases["R1shL"] == "R1stL" and aliases["R8shR"] == "R8stR"
+    assert "R1shL" not in NG

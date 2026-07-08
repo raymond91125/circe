@@ -51,35 +51,31 @@ R1AL,WBbt:0004052,R1AL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R1AR,WBbt:0004050,R1AR,high,WBBT label match (Cook 2019 male-specific/new cell)
 R1BL,WBbt:0004048,R1BL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R1BR,WBbt:0004046,R1BR,high,WBBT label match (Cook 2019 male-specific/new cell)
-R1shL,WBbt:0004044,R1stL,high,Cook ray sheath cell; maps to WBbt R1stL (Emmons/WormWiring naming: sh=st).
-R1shR,WBbt:0004043,R1stR,high,Cook ray sheath cell; maps to WBbt R1stR (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R1stR grounded to the same term (shares anatomy).
-R1stR,WBbt:0004043,R1stR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R1stL,WBbt:0004044,R1stL,high,ray structural cell; Cook SI tables labeled this 'R1shL' (= R1stL). No distinct 'ray sheath cell' in the literature; Rnsh is Cook SI-only nomenclature.
+R1stR,WBbt:0004043,R1stR,high,WBBT label match (Cook 2019 male-specific/new cell). Cook SI also labeled this 'R1shR' (merged via alias; Rnsh = Rnst).
 R2AL,WBbt:0004042,R2AL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R2AR,WBbt:0004041,R2AR,high,WBBT label match (Cook 2019 male-specific/new cell)
 R2BL,WBbt:0004040,R2BL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R2BR,WBbt:0004039,R2BR,high,WBBT label match (Cook 2019 male-specific/new cell)
-R2shL,WBbt:0004038,R2stL,high,Cook ray sheath cell; maps to WBbt R2stL (Emmons/WormWiring naming: sh=st).
-R2shR,WBbt:0004037,R2stR,high,Cook ray sheath cell; maps to WBbt R2stR (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R2stR grounded to the same term (shares anatomy).
-R2stR,WBbt:0004037,R2stR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R2stL,WBbt:0004038,R2stL,high,ray structural cell; Cook SI tables labeled this 'R2shL' (= R2stL). No distinct 'ray sheath cell' in the literature; Rnsh is Cook SI-only nomenclature.
+R2stR,WBbt:0004037,R2stR,high,WBBT label match (Cook 2019 male-specific/new cell). Cook SI also labeled this 'R2shR' (merged via alias; Rnsh = Rnst).
 R3AL,WBbt:0004036,R3AL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R3AR,WBbt:0004035,R3AR,high,WBBT label match (Cook 2019 male-specific/new cell)
 R3BL,WBbt:0004034,R3BL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R3BR,WBbt:0004033,R3BR,high,WBBT label match (Cook 2019 male-specific/new cell)
-R3shL,WBbt:0004032,R3stL,high,Cook ray sheath cell; maps to WBbt R3stL (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R3stL grounded to the same term (shares anatomy).
-R3shR,WBbt:0004031,R3stR,high,Cook ray sheath cell; maps to WBbt R3stR (Emmons/WormWiring naming: sh=st).
-R3stL,WBbt:0004032,R3stL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R3stR,WBbt:0004031,R3stR,high,ray structural cell; Cook SI tables labeled this 'R3shR' (= R3stR). No distinct 'ray sheath cell' in the literature; Rnsh is Cook SI-only nomenclature.
+R3stL,WBbt:0004032,R3stL,high,WBBT label match (Cook 2019 male-specific/new cell). Cook SI also labeled this 'R3shL' (merged via alias; Rnsh = Rnst).
 R4AL,WBbt:0004030,R4AL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R4AR,WBbt:0004029,R4AR,high,WBBT label match (Cook 2019 male-specific/new cell)
 R4BL,WBbt:0004028,R4BL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R4BR,WBbt:0004027,R4BR,high,WBBT label match (Cook 2019 male-specific/new cell)
-R4shL,WBbt:0004026,R4stL,high,Cook ray sheath cell; maps to WBbt R4stL (Emmons/WormWiring naming: sh=st).
+R4stL,WBbt:0004026,R4stL,high,ray structural cell; Cook SI tables labeled this 'R4shL' (= R4stL). No distinct 'ray sheath cell' in the literature; Rnsh is Cook SI-only nomenclature.
 R5AL,WBbt:0004024,R5AL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R5AR,WBbt:0004023,R5AR,high,WBBT label match (Cook 2019 male-specific/new cell)
 R5BL,WBbt:0004022,R5BL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R5BR,WBbt:0004021,R5BR,high,WBBT label match (Cook 2019 male-specific/new cell)
-R5shL,WBbt:0004020,R5stL,high,Cook ray sheath cell; maps to WBbt R5stL (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R5stL grounded to the same term (shares anatomy).
-R5shR,WBbt:0004019,R5stR,high,Cook ray sheath cell; maps to WBbt R5stR (Emmons/WormWiring naming: sh=st).
-R5stL,WBbt:0004020,R5stL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R5stR,WBbt:0004019,R5stR,high,ray structural cell; Cook SI tables labeled this 'R5shR' (= R5stR). No distinct 'ray sheath cell' in the literature; Rnsh is Cook SI-only nomenclature.
+R5stL,WBbt:0004020,R5stL,high,WBBT label match (Cook 2019 male-specific/new cell). Cook SI also labeled this 'R5shL' (merged via alias; Rnsh = Rnst).
 R6AL,WBbt:0004018,R6AL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R6AR,WBbt:0004016,R6AR,high,WBBT label match (Cook 2019 male-specific/new cell)
 R6BL,WBbt:0004014,R6BL,high,WBBT label match (Cook 2019 male-specific/new cell)
@@ -88,14 +84,13 @@ R7AL,WBbt:0004006,R7AL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R7AR,WBbt:0004002,R7AR,high,WBBT label match (Cook 2019 male-specific/new cell)
 R7BL,WBbt:0004001,R7BL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R7BR,WBbt:0004000,R7BR,high,WBBT label match (Cook 2019 male-specific/new cell)
-R7shR,WBbt:0003996,R7stR,high,Cook ray sheath cell; maps to WBbt R7stR (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R7stR grounded to the same term (shares anatomy).
 R7stL,WBbt:0003998,R7stL,high,WBBT label match (Cook 2019 male-specific/new cell)
-R7stR,WBbt:0003996,R7stR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R7stR,WBbt:0003996,R7stR,high,WBBT label match (Cook 2019 male-specific/new cell). Cook SI also labeled this 'R7shR' (merged via alias; Rnsh = Rnst).
 R8AL,WBbt:0003994,R8AL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R8AR,WBbt:0003992,R8AR,high,WBBT label match (Cook 2019 male-specific/new cell)
 R8BL,WBbt:0003990,R8BL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R8BR,WBbt:0003988,R8BR,high,WBBT label match (Cook 2019 male-specific/new cell)
-R8shR,WBbt:0003972,R8stR,high,Cook ray sheath cell; maps to WBbt R8stR (Emmons/WormWiring naming: sh=st).
+R8stR,WBbt:0003972,R8stR,high,ray structural cell; Cook SI tables labeled this 'R8shR' (= R8stR). No distinct 'ray sheath cell' in the literature; Rnsh is Cook SI-only nomenclature.
 R9AL,WBbt:0003971,R9AL,high,WBBT label match (Cook 2019 male-specific/new cell)
 R9AR,WBbt:0003970,R9AR,high,WBBT label match (Cook 2019 male-specific/new cell)
 R9BL,WBbt:0003968,R9BL,high,WBBT label match (Cook 2019 male-specific/new cell)
