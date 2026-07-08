@@ -119,7 +119,7 @@ def anatomy_labels_map(terms: dict[str, str], index: WBBTIndex) -> dict[str, str
 
 #: WormAtlas handbook pages are hand-curated (not ontology-derived). The neuron pattern is
 #: keyed by neuron class; non-neuron categories need explicit handbook URLs.
-_WORMATLAS_NEURON = "http://www.wormatlas.org/neurons/Individual%20Neurons/{}frameset.html"
+_WORMATLAS_NEURON = "https://www.wormatlas.org/neurons/Individual%20Neurons/{}frameset.html"
 _WORMATLAS_BODY_WALL_MUSCLE = (
     "https://wormatlas.org/hermaphrodite/musclesomatic/MusSomaticframeset.html"
 )

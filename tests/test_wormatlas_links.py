@@ -22,7 +22,7 @@ def _map() -> dict[str, str]:
 
 def test_neuron_links_use_class_page() -> None:
     m = _map()
-    assert m["AVA"] == "http://www.wormatlas.org/neurons/Individual%20Neurons/AVAframeset.html"
+    assert m["AVA"] == "https://www.wormatlas.org/neurons/Individual%20Neurons/AVAframeset.html"
     # an individual neuron cell points at its class page
     assert m["AVAL"].endswith("/AVAframeset.html")
 
@@ -58,7 +58,7 @@ def test_male_url_curation_supplies_exact_page() -> None:
         datasets=[],
         connections=[],
     )
-    base = "http://www.wormatlas.org/neurons/Individual%20Neurons/"
+    base = "https://www.wormatlas.org/neurons/Individual%20Neurons/"
     curation = {"R1AL": base + "R1Aframeset.html", "CEMDL": base + "CEMframeset.html"}
     m = wormatlas_links_map(connectome, curation)
     assert m["R1AL"] == base + "R1Aframeset.html"
