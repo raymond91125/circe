@@ -51,8 +51,23 @@ def test_cook_anatomy_curation_grounds_male_cells() -> None:
     assert curated["dglL1"] == "WBbt:0008381"  # male diagonal muscle left (Cook 'dgl')
     assert curated["um1AL"] == "WBbt:0006915" and curated["vm1AL"] == "WBbt:0006917"
     assert curated["exc_cell"] == "WBbt:0005812" and curated["int"] == "WBbt:0005772"
+    assert curated["bm"] == "WBbt:0005756"  # basement membrane (NSM secretion target)
+    # e2 pharyngeal cells: Cook 2019 mislabels; connectivity-confirmed canonical identity
+    # (Cook 2020 pharynx connectome / WBBT): e2D=e2DR, e2VL=e2DL, e2VR=e2V
+    assert curated["e2D"] == "WBbt:0004552"  # e2DR
+    assert curated["e2VL"] == "WBbt:0004554"  # e2DL
+    assert curated["e2VR"] == "WBbt:0004550"  # e2V
     # curated Cook cells are genuinely outside the hermaphrodite registry
     assert all(cell not in NG for cell in curated)
+
+
+def test_worklist_fully_curated() -> None:
+    import csv
+    from pathlib import Path
+
+    wl = Path("data/curation/cook_curation_worklist.csv")
+    rows = list(csv.DictReader(wl.open()))
+    assert rows == [], f"M4 worklist should be empty; {len(rows)} residual cells remain"
 
 
 def test_naming_variant_aliases() -> None:
