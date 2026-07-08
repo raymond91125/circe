@@ -226,3 +226,82 @@ def connections_projection(connectome: object) -> list[dict]:
             functional.append(obj)
 
     return [*_merge_gap_junctions(electrical), *chemical, *functional]
+
+
+# --- Male projection (M6): the sex-aware KG projected as a "male" viz database -----------------
+
+#: KG cell_type → a neuron-graph `type` code for male-specific cells lacking a NemaNode type.
+#: The subtype (sensory/inter/motor) isn't in the KG for Cook-only cells, so neurons get the
+#: generic interneuron code; coloring by neurotransmitter is unaffected.
+_MALE_TYPE_FALLBACK = {"neuron": "i", "muscle": "b", "other": ""}
+
+
+def _viz_type(cell: object) -> str:
+    if cell.nemanode_type:
+        return str(cell.nemanode_type)
+    return _MALE_TYPE_FALLBACK.get(str(cell.cell_type), "")
+
+
+def male_cells_projection(connectome: object) -> list[dict]:
+    """Project the cells present in the male (shared + male-specific) into the /api/cells shape.
+
+    Unlike :func:`cells_projection` (neuron-graph only), this includes Cook male-specific cells,
+    synthesizing a ``type`` from the KG ``cell_type`` and defaulting ``class`` to the cell name
+    when the KG has no ``cell_class`` (so male-specific cells render individually).
+    """
+    out = []
+    for c in connectome.cells:
+        if "male" not in {str(s) for s in (c.sexes or [])}:
+            continue
+        out.append(
+            {
+                "name": c.name,
+                "class": c.cell_class or c.name,
+                "type": _viz_type(c),
+                "neurotransmitter": c.neurotransmitter or "u",
+                "embryonic": bool(c.embryonic),
+                "inhead": bool(c.in_head),
+                "intail": bool(c.in_tail),
+            }
+        )
+    return out
+
+
+def male_connections_projection(
+    connectome: object, dataset_id: str = "cook_2019_male"
+) -> list[dict]:
+    """Project the male connectome (one dataset) into the /api/connections shape."""
+    grouped: dict[tuple[str, str, str], dict[str, int]] = defaultdict(lambda: defaultdict(int))
+    for conn in connectome.connections:
+        dataset = _strip(str(conn.dataset), DATASET_PREFIX)
+        if dataset != dataset_id:
+            continue
+        pre = _strip(conn.pre, CELL_PREFIX)
+        post = _strip(conn.post, CELL_PREFIX)
+        api_type = _API_TYPE[str(conn.connection_type)]
+        grouped[(pre, post, api_type)][dataset] += int(conn.weight)
+
+    chemical, electrical = [], []
+    for (pre, post, api_type), synapses in grouped.items():
+        obj = {
+            "pre": pre,
+            "post": post,
+            "type": api_type,
+            "annotations": [],
+            "synapses": dict(synapses),
+        }
+        (electrical if api_type == "electrical" else chemical).append(obj)
+    return [*_merge_gap_junctions(electrical), *chemical]
+
+
+def male_dataset(dataset_id: str = "cook_2019_male") -> dict:
+    """The neuron-graph dataset entry for the male connectome (a 'male' viz database)."""
+    return {
+        "id": dataset_id,
+        "name": "Cook et al. 2019 (male)",
+        "type": "male",
+        "time": None,
+        "visualTime": None,
+        "description": "Whole-animal male connectome, Cook et al. 2019 (Nature 571:63-71).",
+        "datatypes": "cs,gj",
+    }

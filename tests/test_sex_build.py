@@ -68,3 +68,28 @@ def test_build_stats_partition(built) -> None:
     # most cells are shared; a substantial male-only and herm-only tail exist
     assert stats.cells_by_sex["hermaphrodite+male"] > 400
     assert stats.cells_by_sex.get("male", 0) > 100
+
+
+def test_male_viz_projection(built) -> None:
+    from celegans_connectome_kg.export.neuron_graph_json import (
+        male_cells_projection,
+        male_connections_projection,
+        male_dataset,
+    )
+
+    connectome, _ = built
+    cells = male_cells_projection(connectome)
+    by_name = {c["name"]: c for c in cells}
+    # shared + male-specific present; hermaphrodite-only excluded
+    assert {"AVAL", "CEMDL", "R1AL"} <= set(by_name)
+    assert "HSNL" not in by_name
+    # type synthesis for male-specific cells (subtype absent -> neuron=i, muscle=b)
+    assert by_name["CEMDL"]["type"] == "i" and by_name["ailL"]["type"] == "b"
+    # shared cells keep their real NemaNode type + class
+    assert by_name["AVAL"]["type"] == "i" and by_name["AVAL"]["class"] == "AVA"
+
+    conns = male_connections_projection(connectome)
+    assert conns and all("cook_2019_male" in c["synapses"] for c in conns)
+
+    ds = male_dataset()
+    assert ds["type"] == "male" and ds["datatypes"] == "cs,gj"
