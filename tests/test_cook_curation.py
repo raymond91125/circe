@@ -53,11 +53,12 @@ def test_cook_anatomy_curation_grounds_male_cells() -> None:
     assert curated["um1AL"] == "WBbt:0006915" and curated["vm1AL"] == "WBbt:0006917"
     assert curated["exc_cell"] == "WBbt:0005812" and curated["int"] == "WBbt:0005772"
     assert curated["bm"] == "WBbt:0005756"  # basement membrane (NSM secretion target)
-    # e2 pharyngeal cells: Cook 2019 mislabels; connectivity-confirmed canonical identity
-    # (Cook 2020 pharynx connectome / WBBT): e2D=e2DR, e2VL=e2DL, e2VR=e2V
-    assert curated["e2D"] == "WBbt:0004552"  # e2DR
-    assert curated["e2VL"] == "WBbt:0004554"  # e2DL
-    assert curated["e2VR"] == "WBbt:0004550"  # e2V
+    # e2 pharyngeal cells: Cook 2019 mislabels, relabeled to canonical (aliased e2D->e2DR etc.);
+    # connectivity-confirmed via Cook 2020 pharynx connectome / WBBT.
+    assert curated["e2DR"] == "WBbt:0004552"
+    assert curated["e2DL"] == "WBbt:0004554"
+    assert curated["e2V"] == "WBbt:0004550"
+    assert not {"e2D", "e2VL", "e2VR"} & set(curated)  # old Cook labels no longer curated cells
     # curated Cook cells are genuinely outside the hermaphrodite registry
     assert all(cell not in NG for cell in curated)
 
@@ -80,3 +81,5 @@ def test_naming_variant_aliases() -> None:
     # Cook 'Rnsh' (SI-only) == ray structural cell Rnst; aliased to merge connectivity
     assert aliases["R1shL"] == "R1stL" and aliases["R8shR"] == "R8stR"
     assert "R1shL" not in NG
+    # Cook e2 relabeling to canonical pharyngeal-muscle names
+    assert aliases["e2D"] == "e2DR" and aliases["e2VL"] == "e2DL" and aliases["e2VR"] == "e2V"

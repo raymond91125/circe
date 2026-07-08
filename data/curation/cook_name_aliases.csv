@@ -192,3 +192,6 @@ R5shL,R5stL,Cook SI-table label for the ray structural cell Rnst; no distinct 'r
 R5shR,R5stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
 R7shR,R7stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
 R8shR,R8stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+e2D,e2DR,"Cook 2019 e2 labels are non-standard (dorsal/ventral scheme scrambled); connectivity-confirmed canonical identity via Cook 2020 pharynx connectome (PMC7601127) / WBBT: e2D=e2DR, e2VL=e2DL, e2VR=e2V. Curator-confirmed."
+e2VL,e2DL,"Cook 2019 e2 labels are non-standard (dorsal/ventral scheme scrambled); connectivity-confirmed canonical identity via Cook 2020 pharynx connectome (PMC7601127) / WBBT: e2D=e2DR, e2VL=e2DL, e2VR=e2V. Curator-confirmed."
+e2VR,e2V,"Cook 2019 e2 labels are non-standard (dorsal/ventral scheme scrambled); connectivity-confirmed canonical identity via Cook 2020 pharynx connectome (PMC7601127) / WBBT: e2D=e2DR, e2VL=e2DL, e2VR=e2V. Curator-confirmed."
