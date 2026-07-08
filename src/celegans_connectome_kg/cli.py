@@ -247,6 +247,9 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         anatomy_terms_map,
         cells_projection,
         connections_projection,
+        male_cells_projection,
+        male_connections_projection,
+        male_dataset,
         wormatlas_links_map,
     )
     from celegans_connectome_kg.export.rdf import load_json, write_turtle
@@ -281,6 +284,19 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     atlas = wormatlas_links_map(connectome)
     (ng_dir / "wormatlas_links.json").write_text(json.dumps(atlas, indent=1))
     click.echo(f"wrote: {ng_dir}/wormatlas_links.json ({len(atlas)} name→WormAtlas)")
+
+    # Male viz projection (M6): the male connectome as a "male" neuron-graph database.
+    male_cells = male_cells_projection(connectome)
+    if male_cells:
+        ng_male = out_dir / "neuron-graph-male"
+        ng_male.mkdir(parents=True, exist_ok=True)
+        male_conns = male_connections_projection(connectome)
+        (ng_male / "cells.json").write_text(json.dumps(male_cells, indent=2))
+        (ng_male / "connections.json").write_text(json.dumps(male_conns, indent=2))
+        (ng_male / "datasets.json").write_text(json.dumps([male_dataset()], indent=2))
+        click.echo(
+            f"wrote: {ng_male}/ (male: {len(male_cells)} cells, {len(male_conns)} connections)"
+        )
 
 
 @main.command()
