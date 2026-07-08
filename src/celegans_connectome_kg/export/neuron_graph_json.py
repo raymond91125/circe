@@ -119,7 +119,7 @@ def anatomy_labels_map(terms: dict[str, str], index: WBBTIndex) -> dict[str, str
 
 #: WormAtlas handbook pages are hand-curated (not ontology-derived). The neuron pattern is
 #: keyed by neuron class; non-neuron categories need explicit handbook URLs.
-_WORMATLAS_NEURON = "http://www.wormatlas.org/neurons/Individual%20Neurons/{}frameset.html"
+_WORMATLAS_NEURON = "https://www.wormatlas.org/neurons/Individual%20Neurons/{}frameset.html"
 _WORMATLAS_BODY_WALL_MUSCLE = (
     "https://wormatlas.org/hermaphrodite/musclesomatic/MusSomaticframeset.html"
 )
@@ -130,7 +130,9 @@ def _is_body_wall_muscle(name: str) -> bool:
     return u.startswith("BWM") or u in ("BODYWALLMUSCLES", "LEGACYBODYWALLMUSCLES")
 
 
-def wormatlas_links_map(connectome: object) -> dict[str, str]:
+def wormatlas_links_map(
+    connectome: object, male_url_curation: dict[str, str] | None = None
+) -> dict[str, str]:
     """Build a node-name → WormAtlas URL map for the viz cell-info link.
 
     WormAtlas links to handbook pages, which are not derivable from the cell name except for
@@ -138,7 +140,12 @@ def wormatlas_links_map(connectome: object) -> dict[str, str]:
     handbook page; other non-neuron categories are omitted for now (the viz then renders no
     link rather than a broken neuron-pattern URL). Keys are upper-cased; lookup is
     case-insensitive in the viz.
+
+    Male-specific neuron cells (Cook) carry no ``cell_class``, so the neuron-pattern URL can't be
+    derived; ``male_url_curation`` (cell name → exact WormAtlas URL) supplies it directly and
+    takes precedence. Cells absent from it fall back to the KG class / name pattern as before.
     """
+    male_url_curation = male_url_curation or {}
     members: dict[str, list[object]] = defaultdict(list)
     for cell in connectome.cells:
         if cell.cell_class:
@@ -153,7 +160,9 @@ def wormatlas_links_map(connectome: object) -> dict[str, str]:
 
     out: dict[str, str] = {}
     for cell in connectome.cells:
-        url = url_for(cell.name, str(cell.cell_type), cell.cell_class)
+        url = male_url_curation.get(cell.name) or url_for(
+            cell.name, str(cell.cell_type), cell.cell_class
+        )
         if url:
             out[cell.name.upper()] = url
     for cls, mem in members.items():
