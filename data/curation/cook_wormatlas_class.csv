@@ -1,0 +1,91 @@
+cell_name,wormatlas_class,confidence,note
+CA1,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA2,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA3,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA4,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA5,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA6,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA7,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA8,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CA9,CA,verify,"CP1-9 confirmed to share a ""CP"" page; CA assumed analogous"
+CEMDL,CEM,high,4 CEM cells share the CEM neuron page
+CEMDR,CEM,high,4 CEM cells share the CEM neuron page
+CEMVL,CEM,high,4 CEM cells share the CEM neuron page
+CEMVR,CEM,high,4 CEM cells share the CEM neuron page
+CP1,CP,high,CP page groups CP0-CP9 (confirmed)
+CP2,CP,high,CP page groups CP0-CP9 (confirmed)
+CP3,CP,high,CP page groups CP0-CP9 (confirmed)
+CP4,CP,high,CP page groups CP0-CP9 (confirmed)
+CP5,CP,high,CP page groups CP0-CP9 (confirmed)
+CP6,CP,high,CP page groups CP0-CP9 (confirmed)
+CP7,CP,high,CP page groups CP0-CP9 (confirmed)
+CP8,CP,high,CP page groups CP0-CP9 (confirmed)
+CP9,CP,high,CP page groups CP0-CP9 (confirmed)
+DVE,DVE,medium,singleton neuron; own page assumed
+DVF,DVF,medium,singleton neuron; own page assumed
+DX1,DX,verify,DX1-3 grouping assumed
+DX2,DX,verify,DX1-3 grouping assumed
+DX3,DX,verify,DX1-3 grouping assumed
+EF1,EF,verify,EF1-3 grouping assumed
+EF2,EF,verify,EF1-3 grouping assumed
+EF3,EF,verify,EF1-3 grouping assumed
+HOA,HOA,medium,singleton neuron; own page assumed
+HOB,HOB,medium,singleton neuron; own page assumed
+MCML,MCM,medium,MCML/R -> MCM class page (strip L/R)
+MCMR,MCM,medium,MCML/R -> MCM class page (strip L/R)
+PCAL,PCA,medium,PCAL/R -> PCA class page (strip L/R)
+PCAR,PCA,medium,PCAL/R -> PCA class page (strip L/R)
+PCBL,PCB,medium,PCBL/R -> PCB class page (strip L/R)
+PCBR,PCB,medium,PCBL/R -> PCB class page (strip L/R)
+PCCL,PCC,medium,PCCL/R -> PCC class page (strip L/R)
+PCCR,PCC,medium,PCCL/R -> PCC class page (strip L/R)
+PDC,PDC,medium,singleton neuron; own page assumed
+PGA,PGA,medium,singleton neuron; own page assumed
+PHDL,PHD,medium,PHDL/R -> PHD class page (strip L/R)
+PHDR,PHD,medium,PHDL/R -> PHD class page (strip L/R)
+PVV,PVV,medium,singleton neuron; own page assumed
+PVX,PVX,medium,singleton neuron; own page assumed
+PVY,PVY,medium,singleton neuron; own page assumed
+PVZ,PVZ,medium,singleton neuron; own page assumed
+R1AL,R1A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R1AR,R1A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R1BL,R1B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R1BR,R1B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R2AL,R2A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R2AR,R2A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R2BL,R2B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R2BR,R2B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R3AL,R3A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R3AR,R3A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R3BL,R3B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R3BR,R3B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R4AL,R4A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R4AR,R4A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R4BL,R4B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R4BR,R4B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R5AL,R5A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R5AR,R5A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R5BL,R5B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R5BR,R5B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R6AL,R6A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R6AR,R6A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R6BL,R6B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R6BR,R6B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R7AL,R7A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R7AR,R7A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R7BL,R7B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R7BR,R7B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R8AL,R8A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R8AR,R8A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R8BL,R8B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R8BR,R8B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R9AL,R9A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R9AR,R9A,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R9BL,R9B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+R9BR,R9B,high,ray neuron class page (RnA/RnB); R3B page confirmed
+SPCL,SPC,medium,SPCL/R -> SPC class page (strip L/R)
+SPCR,SPC,medium,SPCL/R -> SPC class page (strip L/R)
+SPDL,SPD,medium,SPDL/R -> SPD class page (strip L/R)
+SPDR,SPD,medium,SPDL/R -> SPD class page (strip L/R)
+SPVL,SPV,medium,SPVL/R -> SPV class page (strip L/R)
+SPVR,SPV,medium,SPVL/R -> SPV class page (strip L/R)

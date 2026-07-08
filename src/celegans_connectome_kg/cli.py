@@ -20,6 +20,7 @@ DEFAULT_COOK_XLSX = Path(
 )
 DEFAULT_COOK_ALIASES = Path("data/curation/cook_name_aliases.csv")
 DEFAULT_COOK_ANATOMY = Path("data/curation/cook_anatomy_curation.csv")
+DEFAULT_COOK_WORMATLAS = Path("data/curation/cook_wormatlas_class.csv")
 
 
 @click.group()
@@ -253,7 +254,10 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         wormatlas_links_map,
     )
     from celegans_connectome_kg.export.rdf import load_json, write_turtle
-    from celegans_connectome_kg.match.curation import load_class_curation
+    from celegans_connectome_kg.match.curation import (
+        load_class_curation,
+        load_wormatlas_class,
+    )
     from celegans_connectome_kg.match.wbbt import WBBTIndex
 
     connectome = load_json(in_path)
@@ -281,7 +285,8 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     (ng_dir / "anatomy_labels.json").write_text(json.dumps(labels, indent=1))
     click.echo(f"wrote: {ng_dir}/anatomy_labels.json ({len(labels)} WBbt→label)")
 
-    atlas = wormatlas_links_map(connectome)
+    male_atlas = load_wormatlas_class(DEFAULT_COOK_WORMATLAS) if DEFAULT_COOK_WORMATLAS.exists() else {}
+    atlas = wormatlas_links_map(connectome, male_atlas)
     (ng_dir / "wormatlas_links.json").write_text(json.dumps(atlas, indent=1))
     click.echo(f"wrote: {ng_dir}/wormatlas_links.json ({len(atlas)} name→WormAtlas)")
 
