@@ -1,0 +1,181 @@
+cell_name,wbbt_id,wbbt_label,confidence,note
+CA1,WBbt:0003809,CA1,high,WBBT label match (Cook 2019 male-specific/new cell)
+CA2,WBbt:0003808,CA2,high,WBBT label match (Cook 2019 male-specific/new cell)
+CA3,WBbt:0003807,CA3,high,WBBT label match (Cook 2019 male-specific/new cell)
+CA4,WBbt:0003806,CA4,high,WBBT label match (Cook 2019 male-specific/new cell)
+CA5,WBbt:0003805,CA5,high,WBBT label match (Cook 2019 male-specific/new cell)
+CA6,WBbt:0003804,CA6,high,WBBT label match (Cook 2019 male-specific/new cell)
+CA7,WBbt:0003803,CA7,high,WBBT label match (Cook 2019 male-specific/new cell)
+CA8,WBbt:0006853,CA8,high,WBBT label match (Cook 2019 male-specific/new cell)
+CA9,WBbt:0006854,CA9,high,WBBT label match (Cook 2019 male-specific/new cell)
+CEMDL,WBbt:0004945,CEMDL,high,WBBT label match (Cook 2019 male-specific/new cell)
+CEMDR,WBbt:0004943,CEMDR,high,WBBT label match (Cook 2019 male-specific/new cell)
+CEMVL,WBbt:0004941,CEMVL,high,WBBT label match (Cook 2019 male-specific/new cell)
+CEMVR,WBbt:0004939,CEMVR,high,WBBT label match (Cook 2019 male-specific/new cell)
+CP1,WBbt:0004901,CP1,high,WBBT label match (Cook 2019 male-specific/new cell)
+CP2,WBbt:0004899,CP2,high,WBBT label match (Cook 2019 male-specific/new cell)
+CP3,WBbt:0004897,CP3,high,WBBT label match (Cook 2019 male-specific/new cell)
+CP4,WBbt:0004895,CP4,high,WBBT label match (Cook 2019 male-specific/new cell)
+CP5,WBbt:0004893,CP5,high,WBBT label match (Cook 2019 male-specific/new cell)
+CP6,WBbt:0004891,CP6,high,WBBT label match (Cook 2019 male-specific/new cell)
+CP7,WBbt:0004889,CP7,high,WBBT label match (Cook 2019 male-specific/new cell)
+CP8,WBbt:0004888,CP8,high,WBBT label match (Cook 2019 male-specific/new cell)
+CP9,WBbt:0004887,CP9,high,WBBT label match (Cook 2019 male-specific/new cell)
+DVE,WBbt:0004820,DVE,high,WBBT label match (Cook 2019 male-specific/new cell)
+DVF,WBbt:0004819,DVF,high,WBBT label match (Cook 2019 male-specific/new cell)
+DX1,WBbt:0007842,DX1,high,WBBT label match (Cook 2019 male-specific/new cell)
+DX2,WBbt:0007843,DX2,high,WBBT label match (Cook 2019 male-specific/new cell)
+DX3,WBbt:0007844,DX3,high,WBBT label match (Cook 2019 male-specific/new cell)
+EF1,WBbt:0007838,EF1,high,WBBT label match (Cook 2019 male-specific/new cell)
+EF2,WBbt:0007839,EF2,high,WBBT label match (Cook 2019 male-specific/new cell)
+EF3,WBbt:0007840,EF3,high,WBBT label match (Cook 2019 male-specific/new cell)
+HOA,WBbt:0004762,HOA,high,WBBT label match (Cook 2019 male-specific/new cell)
+HOB,WBbt:0004761,HOB,high,WBBT label match (Cook 2019 male-specific/new cell)
+MCML,WBbt:0008613,MCML,high,WBBT label match (Cook 2019 male-specific/new cell)
+MCMR,WBbt:0008614,MCMR,high,WBBT label match (Cook 2019 male-specific/new cell)
+PCAL,WBbt:0004408,PCAL,high,WBBT label match (Cook 2019 male-specific/new cell)
+PCAR,WBbt:0004407,PCAR,high,WBBT label match (Cook 2019 male-specific/new cell)
+PCBL,WBbt:0004406,PCBL,high,WBBT label match (Cook 2019 male-specific/new cell)
+PCBR,WBbt:0004405,PCBR,high,WBBT label match (Cook 2019 male-specific/new cell)
+PCCL,WBbt:0004404,PCCL,high,WBBT label match (Cook 2019 male-specific/new cell)
+PCCR,WBbt:0004403,PCCR,high,WBBT label match (Cook 2019 male-specific/new cell)
+PDC,WBbt:0004384,PDC,high,WBBT label match (Cook 2019 male-specific/new cell)
+PGA,WBbt:0004367,PGA,high,WBBT label match (Cook 2019 male-specific/new cell)
+PHDL,WBbt:0008631,PHDL,high,WBBT label match (Cook 2019 male-specific/new cell)
+PHDR,WBbt:0008632,PHDR,high,WBBT label match (Cook 2019 male-specific/new cell)
+PVV,WBbt:0004068,PVV,high,WBBT label match (Cook 2019 male-specific/new cell)
+PVX,WBbt:0004063,PVX,high,WBBT label match (Cook 2019 male-specific/new cell)
+PVY,WBbt:0004062,PVY,high,WBBT label match (Cook 2019 male-specific/new cell)
+PVZ,WBbt:0004058,PVZ,high,WBBT label match (Cook 2019 male-specific/new cell)
+R1AL,WBbt:0004052,R1AL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R1AR,WBbt:0004050,R1AR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R1BL,WBbt:0004048,R1BL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R1BR,WBbt:0004046,R1BR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R1shL,WBbt:0004044,R1stL,high,Cook ray sheath cell; maps to WBbt R1stL (Emmons/WormWiring naming: sh=st).
+R1shR,WBbt:0004043,R1stR,high,Cook ray sheath cell; maps to WBbt R1stR (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R1stR grounded to the same term (shares anatomy).
+R1stR,WBbt:0004043,R1stR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R2AL,WBbt:0004042,R2AL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R2AR,WBbt:0004041,R2AR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R2BL,WBbt:0004040,R2BL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R2BR,WBbt:0004039,R2BR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R2shL,WBbt:0004038,R2stL,high,Cook ray sheath cell; maps to WBbt R2stL (Emmons/WormWiring naming: sh=st).
+R2shR,WBbt:0004037,R2stR,high,Cook ray sheath cell; maps to WBbt R2stR (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R2stR grounded to the same term (shares anatomy).
+R2stR,WBbt:0004037,R2stR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R3AL,WBbt:0004036,R3AL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R3AR,WBbt:0004035,R3AR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R3BL,WBbt:0004034,R3BL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R3BR,WBbt:0004033,R3BR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R3shL,WBbt:0004032,R3stL,high,Cook ray sheath cell; maps to WBbt R3stL (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R3stL grounded to the same term (shares anatomy).
+R3shR,WBbt:0004031,R3stR,high,Cook ray sheath cell; maps to WBbt R3stR (Emmons/WormWiring naming: sh=st).
+R3stL,WBbt:0004032,R3stL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R4AL,WBbt:0004030,R4AL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R4AR,WBbt:0004029,R4AR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R4BL,WBbt:0004028,R4BL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R4BR,WBbt:0004027,R4BR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R4shL,WBbt:0004026,R4stL,high,Cook ray sheath cell; maps to WBbt R4stL (Emmons/WormWiring naming: sh=st).
+R5AL,WBbt:0004024,R5AL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R5AR,WBbt:0004023,R5AR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R5BL,WBbt:0004022,R5BL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R5BR,WBbt:0004021,R5BR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R5shL,WBbt:0004020,R5stL,high,Cook ray sheath cell; maps to WBbt R5stL (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R5stL grounded to the same term (shares anatomy).
+R5shR,WBbt:0004019,R5stR,high,Cook ray sheath cell; maps to WBbt R5stR (Emmons/WormWiring naming: sh=st).
+R5stL,WBbt:0004020,R5stL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R6AL,WBbt:0004018,R6AL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R6AR,WBbt:0004016,R6AR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R6BL,WBbt:0004014,R6BL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R6BR,WBbt:0004012,R6BR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R7AL,WBbt:0004006,R7AL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R7AR,WBbt:0004002,R7AR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R7BL,WBbt:0004001,R7BL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R7BR,WBbt:0004000,R7BR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R7shR,WBbt:0003996,R7stR,high,Cook ray sheath cell; maps to WBbt R7stR (Emmons/WormWiring naming: sh=st). NOTE: Cook also has R7stR grounded to the same term (shares anatomy).
+R7stL,WBbt:0003998,R7stL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R7stR,WBbt:0003996,R7stR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R8AL,WBbt:0003994,R8AL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R8AR,WBbt:0003992,R8AR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R8BL,WBbt:0003990,R8BL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R8BR,WBbt:0003988,R8BR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R8shR,WBbt:0003972,R8stR,high,Cook ray sheath cell; maps to WBbt R8stR (Emmons/WormWiring naming: sh=st).
+R9AL,WBbt:0003971,R9AL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R9AR,WBbt:0003970,R9AR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R9BL,WBbt:0003968,R9BL,high,WBBT label match (Cook 2019 male-specific/new cell)
+R9BR,WBbt:0003966,R9BR,high,WBBT label match (Cook 2019 male-specific/new cell)
+R9stL,WBbt:0003964,R9stL,high,WBBT label match (Cook 2019 male-specific/new cell)
+SPCL,WBbt:0004968,SPCL,high,WBBT label match (Cook 2019 male-specific/new cell)
+SPCR,WBbt:0004967,SPCR,high,WBBT label match (Cook 2019 male-specific/new cell)
+SPDL,WBbt:0004966,SPDL,high,WBBT label match (Cook 2019 male-specific/new cell)
+SPDR,WBbt:0004965,SPDR,high,WBBT label match (Cook 2019 male-specific/new cell)
+SPVL,WBbt:0004964,SPVL,high,WBBT label match (Cook 2019 male-specific/new cell)
+SPVR,WBbt:0004963,SPVR,high,WBBT label match (Cook 2019 male-specific/new cell)
+ailL,WBbt:0003790,anterior inner longitudinal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+ailR,WBbt:0003785,anterior inner longitudinal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+aobL,WBbt:0004916,anterior oblique muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+aobR,WBbt:0004914,anterior oblique muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+bm,WBbt:0005756,basal lamina,high,Cook 2019: basement membrane (NSM/pharyngeal secretion target; NSML/NSMR->bm confirm)
+cdlL,WBbt:0003788,caudal longitudinal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+cdlR,WBbt:0003783,caudal longitudinal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+dglL1,WBbt:0008381,diagonal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglL2,WBbt:0008381,diagonal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglL3,WBbt:0008381,diagonal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglL4,WBbt:0008381,diagonal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglL5,WBbt:0008381,diagonal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglL6,WBbt:0008381,diagonal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglL7,WBbt:0008381,diagonal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglR1,WBbt:0008380,diagonal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglR2,WBbt:0008380,diagonal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglR3,WBbt:0008380,diagonal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglR4,WBbt:0008380,diagonal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglR5,WBbt:0008380,diagonal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglR6,WBbt:0008380,diagonal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglR7,WBbt:0008380,diagonal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dglR8,WBbt:0008380,diagonal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male tail diagonal muscle (Cook 'dgl'); individual -> side term"
+dspL,WBbt:0004886,dorsal spicule protractor left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+dspR,WBbt:0004885,dorsal spicule protractor right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+dsrL,WBbt:0004910,dorsal spicule retractor muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+dsrR,WBbt:0004907,dorsal spicule retractor muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+e2D,WBbt:0004552,e2DR,high,Cook 2019 label 'e2D' is non-standard; connectivity-confirmed = e2DR (Cook 2020 pharynx connectome PMC7601127: e2D~e3D matches e2DR~e3D). WBBT/WormBase canonical.
+e2VL,WBbt:0004554,e2DL,high,Cook 2019 'e2VL' = e2DL (connectivity: e2VL~e3VL matches e2DL~e3VL; Cook 2020 pharynx connectome).
+e2VR,WBbt:0004550,e2V,high,"Cook 2019 'e2VR' = e2V (connectivity: e2VR~{e3D,e3VR} matches e2V~{e3D,e3VR}; Cook 2020 pharynx connectome)."
+e3D,WBbt:0004548,e3D,high,WBBT label match (Cook 2019 male-specific/new cell)
+e3VL,WBbt:0004546,e3VL,high,WBBT label match (Cook 2019 male-specific/new cell)
+e3VR,WBbt:0004544,e3VR,high,WBBT label match (Cook 2019 male-specific/new cell)
+exc_cell,WBbt:0005812,excretory cell,high,"Cook 2019 (M4b, external-term-lookup): excretory (canal) cell"
+g1p,WBbt:0004528,g1P,high,WBBT label match (Cook 2019 male-specific/new cell)
+gecL,WBbt:0003796,gubernacular erector left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+gecR,WBbt:0003795,gubernacular erector right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+gonad,WBbt:0005175,gonad,high,WBBT label match (Cook 2019 male-specific/new cell)
+grtL,WBbt:0003794,gubernacular retractor muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+grtR,WBbt:0003793,gubernacular retractor muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+int,WBbt:0005772,intestine,high,"Cook 2019 (M4b, external-term-lookup): intestine"
+mu_anal,WBbt:0004292,anal depressor muscle,high,"Cook 2019 (M4b, external-term-lookup): anal depressor muscle (syn 'mu anal')"
+mu_sph,WBbt:0005798,anal sphincter muscle,high,"Cook 2019 (M4b, external-term-lookup): anal sphincter muscle (syn 'mu sph')"
+pilL,WBbt:0003789,posterior inner longitudinal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+pilR,WBbt:0003784,posterior inner longitudinal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+pm4D,WBbt:0003743,pm4DL-pm4DR,high,"Cook 2019 (M4b, external-term-lookup): pharyngeal muscle pm4 dorsal (pm4DL-pm4DR)"
+pm4VL,WBbt:0004316,pm4VL,high,WBBT label match (Cook 2019 male-specific/new cell)
+pm4VR,WBbt:0004315,pm4VR,high,WBBT label match (Cook 2019 male-specific/new cell)
+pobL,WBbt:0004915,posterior oblique muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+pobR,WBbt:0004913,posterior oblique muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+polL,WBbt:0003791,posterior outer longitudinal muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+polR,WBbt:0003786,posterior outer longitudinal muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+proctodeum,WBbt:0006795,proctodeum,high,WBBT label match (Cook 2019 male-specific/new cell)
+um1AL,WBbt:0006915,um1,high,"Cook 2019 (M4b, external-term-lookup): positional instance of um1 (uterine/vulval sex muscle)"
+um1AR,WBbt:0006915,um1,high,"Cook 2019 (M4b, external-term-lookup): positional instance of um1 (uterine/vulval sex muscle)"
+um1PL,WBbt:0006915,um1,high,"Cook 2019 (M4b, external-term-lookup): positional instance of um1 (uterine/vulval sex muscle)"
+um1PR,WBbt:0006915,um1,high,"Cook 2019 (M4b, external-term-lookup): positional instance of um1 (uterine/vulval sex muscle)"
+um2AL,WBbt:0006916,um2,high,"Cook 2019 (M4b, external-term-lookup): positional instance of um2 (uterine/vulval sex muscle)"
+um2AR,WBbt:0006916,um2,high,"Cook 2019 (M4b, external-term-lookup): positional instance of um2 (uterine/vulval sex muscle)"
+um2PL,WBbt:0006916,um2,high,"Cook 2019 (M4b, external-term-lookup): positional instance of um2 (uterine/vulval sex muscle)"
+um2PR,WBbt:0006916,um2,high,"Cook 2019 (M4b, external-term-lookup): positional instance of um2 (uterine/vulval sex muscle)"
+vm1AL,WBbt:0006917,vm1,high,"Cook 2019 (M4b, external-term-lookup): positional instance of vm1 (uterine/vulval sex muscle)"
+vm1AR,WBbt:0006917,vm1,high,"Cook 2019 (M4b, external-term-lookup): positional instance of vm1 (uterine/vulval sex muscle)"
+vm1PL,WBbt:0006917,vm1,high,"Cook 2019 (M4b, external-term-lookup): positional instance of vm1 (uterine/vulval sex muscle)"
+vm1PR,WBbt:0006917,vm1,high,"Cook 2019 (M4b, external-term-lookup): positional instance of vm1 (uterine/vulval sex muscle)"
+vm2AL,WBbt:0006918,vm2,high,"Cook 2019 (M4b, external-term-lookup): positional instance of vm2 (uterine/vulval sex muscle)"
+vm2AR,WBbt:0006918,vm2,high,"Cook 2019 (M4b, external-term-lookup): positional instance of vm2 (uterine/vulval sex muscle)"
+vm2PL,WBbt:0006918,vm2,high,"Cook 2019 (M4b, external-term-lookup): positional instance of vm2 (uterine/vulval sex muscle)"
+vm2PR,WBbt:0006918,vm2,high,"Cook 2019 (M4b, external-term-lookup): positional instance of vm2 (uterine/vulval sex muscle)"
+vspL,WBbt:0004912,ventral spicule protractor muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+vspR,WBbt:0004909,ventral spicule protrctor muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+vsrL,WBbt:0004911,ventral spicule retractor muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+vsrR,WBbt:0004908,ventral spicule retractor muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"

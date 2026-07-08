@@ -1,0 +1,182 @@
+cook_name,canonical_name,note
+AS01,AS1,zero-pad -> canonical (shared)
+AS02,AS2,zero-pad -> canonical (shared)
+AS03,AS3,zero-pad -> canonical (shared)
+AS04,AS4,zero-pad -> canonical (shared)
+AS05,AS5,zero-pad -> canonical (shared)
+AS06,AS6,zero-pad -> canonical (shared)
+AS07,AS7,zero-pad -> canonical (shared)
+AS08,AS8,zero-pad -> canonical (shared)
+AS09,AS9,zero-pad -> canonical (shared)
+CA01,CA1,zero-pad -> canonical (male-specific)
+CA02,CA2,zero-pad -> canonical (male-specific)
+CA03,CA3,zero-pad -> canonical (male-specific)
+CA04,CA4,zero-pad -> canonical (male-specific)
+CA05,CA5,zero-pad -> canonical (male-specific)
+CA06,CA6,zero-pad -> canonical (male-specific)
+CA07,CA7,zero-pad -> canonical (male-specific)
+CA08,CA8,zero-pad -> canonical (male-specific)
+CA09,CA9,zero-pad -> canonical (male-specific)
+CP01,CP1,zero-pad -> canonical (male-specific)
+CP02,CP2,zero-pad -> canonical (male-specific)
+CP03,CP3,zero-pad -> canonical (male-specific)
+CP04,CP4,zero-pad -> canonical (male-specific)
+CP05,CP5,zero-pad -> canonical (male-specific)
+CP06,CP6,zero-pad -> canonical (male-specific)
+CP07,CP7,zero-pad -> canonical (male-specific)
+CP08,CP8,zero-pad -> canonical (male-specific)
+CP09,CP9,zero-pad -> canonical (male-specific)
+DA01,DA1,zero-pad -> canonical (shared)
+DA02,DA2,zero-pad -> canonical (shared)
+DA03,DA3,zero-pad -> canonical (shared)
+DA04,DA4,zero-pad -> canonical (shared)
+DA05,DA5,zero-pad -> canonical (shared)
+DA06,DA6,zero-pad -> canonical (shared)
+DA07,DA7,zero-pad -> canonical (shared)
+DA08,DA8,zero-pad -> canonical (shared)
+DA09,DA9,zero-pad -> canonical (shared)
+DB01,DB1,zero-pad -> canonical (shared)
+DB02,DB2,zero-pad -> canonical (shared)
+DB03,DB3,zero-pad -> canonical (shared)
+DB04,DB4,zero-pad -> canonical (shared)
+DB05,DB5,zero-pad -> canonical (shared)
+DB06,DB6,zero-pad -> canonical (shared)
+DB07,DB7,zero-pad -> canonical (shared)
+DD01,DD1,zero-pad -> canonical (shared)
+DD02,DD2,zero-pad -> canonical (shared)
+DD03,DD3,zero-pad -> canonical (shared)
+DD04,DD4,zero-pad -> canonical (shared)
+DD05,DD5,zero-pad -> canonical (shared)
+DD06,DD6,zero-pad -> canonical (shared)
+VA01,VA1,zero-pad -> canonical (shared)
+VA02,VA2,zero-pad -> canonical (shared)
+VA03,VA3,zero-pad -> canonical (shared)
+VA04,VA4,zero-pad -> canonical (shared)
+VA05,VA5,zero-pad -> canonical (shared)
+VA06,VA6,zero-pad -> canonical (shared)
+VA07,VA7,zero-pad -> canonical (shared)
+VA08,VA8,zero-pad -> canonical (shared)
+VA09,VA9,zero-pad -> canonical (shared)
+VB01,VB1,zero-pad -> canonical (shared)
+VB02,VB2,zero-pad -> canonical (shared)
+VB03,VB3,zero-pad -> canonical (shared)
+VB04,VB4,zero-pad -> canonical (shared)
+VB05,VB5,zero-pad -> canonical (shared)
+VB06,VB6,zero-pad -> canonical (shared)
+VB07,VB7,zero-pad -> canonical (shared)
+VB08,VB8,zero-pad -> canonical (shared)
+VB09,VB9,zero-pad -> canonical (shared)
+VC01,VC1,zero-pad -> canonical (shared)
+VC02,VC2,zero-pad -> canonical (shared)
+VC03,VC3,zero-pad -> canonical (shared)
+VC04,VC4,zero-pad -> canonical (shared)
+VC05,VC5,zero-pad -> canonical (shared)
+VC06,VC6,zero-pad -> canonical (shared)
+VD01,VD1,zero-pad -> canonical (shared)
+VD02,VD2,zero-pad -> canonical (shared)
+VD03,VD3,zero-pad -> canonical (shared)
+VD04,VD4,zero-pad -> canonical (shared)
+VD05,VD5,zero-pad -> canonical (shared)
+VD06,VD6,zero-pad -> canonical (shared)
+VD07,VD7,zero-pad -> canonical (shared)
+VD08,VD8,zero-pad -> canonical (shared)
+VD09,VD9,zero-pad -> canonical (shared)
+dBWML1,BWM-DL01,Cook naming -> neuron-graph BWM cell
+dBWML10,BWM-DL10,Cook naming -> neuron-graph BWM cell
+dBWML11,BWM-DL11,Cook naming -> neuron-graph BWM cell
+dBWML12,BWM-DL12,Cook naming -> neuron-graph BWM cell
+dBWML13,BWM-DL13,Cook naming -> neuron-graph BWM cell
+dBWML14,BWM-DL14,Cook naming -> neuron-graph BWM cell
+dBWML15,BWM-DL15,Cook naming -> neuron-graph BWM cell
+dBWML16,BWM-DL16,Cook naming -> neuron-graph BWM cell
+dBWML17,BWM-DL17,Cook naming -> neuron-graph BWM cell
+dBWML18,BWM-DL18,Cook naming -> neuron-graph BWM cell
+dBWML19,BWM-DL19,Cook naming -> neuron-graph BWM cell
+dBWML2,BWM-DL02,Cook naming -> neuron-graph BWM cell
+dBWML20,BWM-DL20,Cook naming -> neuron-graph BWM cell
+dBWML21,BWM-DL21,Cook naming -> neuron-graph BWM cell
+dBWML22,BWM-DL22,Cook naming -> neuron-graph BWM cell
+dBWML23,BWM-DL23,Cook naming -> neuron-graph BWM cell
+dBWML24,BWM-DL24,Cook naming -> neuron-graph BWM cell
+dBWML3,BWM-DL03,Cook naming -> neuron-graph BWM cell
+dBWML4,BWM-DL04,Cook naming -> neuron-graph BWM cell
+dBWML5,BWM-DL05,Cook naming -> neuron-graph BWM cell
+dBWML6,BWM-DL06,Cook naming -> neuron-graph BWM cell
+dBWML7,BWM-DL07,Cook naming -> neuron-graph BWM cell
+dBWML8,BWM-DL08,Cook naming -> neuron-graph BWM cell
+dBWML9,BWM-DL09,Cook naming -> neuron-graph BWM cell
+dBWMR1,BWM-DR01,Cook naming -> neuron-graph BWM cell
+dBWMR10,BWM-DR10,Cook naming -> neuron-graph BWM cell
+dBWMR11,BWM-DR11,Cook naming -> neuron-graph BWM cell
+dBWMR12,BWM-DR12,Cook naming -> neuron-graph BWM cell
+dBWMR13,BWM-DR13,Cook naming -> neuron-graph BWM cell
+dBWMR14,BWM-DR14,Cook naming -> neuron-graph BWM cell
+dBWMR15,BWM-DR15,Cook naming -> neuron-graph BWM cell
+dBWMR16,BWM-DR16,Cook naming -> neuron-graph BWM cell
+dBWMR17,BWM-DR17,Cook naming -> neuron-graph BWM cell
+dBWMR18,BWM-DR18,Cook naming -> neuron-graph BWM cell
+dBWMR19,BWM-DR19,Cook naming -> neuron-graph BWM cell
+dBWMR2,BWM-DR02,Cook naming -> neuron-graph BWM cell
+dBWMR20,BWM-DR20,Cook naming -> neuron-graph BWM cell
+dBWMR21,BWM-DR21,Cook naming -> neuron-graph BWM cell
+dBWMR22,BWM-DR22,Cook naming -> neuron-graph BWM cell
+dBWMR23,BWM-DR23,Cook naming -> neuron-graph BWM cell
+dBWMR24,BWM-DR24,Cook naming -> neuron-graph BWM cell
+dBWMR3,BWM-DR03,Cook naming -> neuron-graph BWM cell
+dBWMR4,BWM-DR04,Cook naming -> neuron-graph BWM cell
+dBWMR5,BWM-DR05,Cook naming -> neuron-graph BWM cell
+dBWMR6,BWM-DR06,Cook naming -> neuron-graph BWM cell
+dBWMR7,BWM-DR07,Cook naming -> neuron-graph BWM cell
+dBWMR8,BWM-DR08,Cook naming -> neuron-graph BWM cell
+dBWMR9,BWM-DR09,Cook naming -> neuron-graph BWM cell
+exc_gl,excgl,Cook naming variant -> existing neuron-graph cell
+hmc,HMC,Cook naming variant -> existing neuron-graph cell
+mu_intL,intmuL,Cook naming variant -> existing neuron-graph cell
+mu_intR,intmuR,Cook naming variant -> existing neuron-graph cell
+vBWML1,BWM-VL01,Cook naming -> neuron-graph BWM cell
+vBWML10,BWM-VL10,Cook naming -> neuron-graph BWM cell
+vBWML11,BWM-VL11,Cook naming -> neuron-graph BWM cell
+vBWML12,BWM-VL12,Cook naming -> neuron-graph BWM cell
+vBWML13,BWM-VL13,Cook naming -> neuron-graph BWM cell
+vBWML14,BWM-VL14,Cook naming -> neuron-graph BWM cell
+vBWML15,BWM-VL15,Cook naming -> neuron-graph BWM cell
+vBWML16,BWM-VL16,Cook naming -> neuron-graph BWM cell
+vBWML17,BWM-VL17,Cook naming -> neuron-graph BWM cell
+vBWML18,BWM-VL18,Cook naming -> neuron-graph BWM cell
+vBWML19,BWM-VL19,Cook naming -> neuron-graph BWM cell
+vBWML2,BWM-VL02,Cook naming -> neuron-graph BWM cell
+vBWML20,BWM-VL20,Cook naming -> neuron-graph BWM cell
+vBWML21,BWM-VL21,Cook naming -> neuron-graph BWM cell
+vBWML22,BWM-VL22,Cook naming -> neuron-graph BWM cell
+vBWML23,BWM-VL23,Cook naming -> neuron-graph BWM cell
+vBWML3,BWM-VL03,Cook naming -> neuron-graph BWM cell
+vBWML4,BWM-VL04,Cook naming -> neuron-graph BWM cell
+vBWML5,BWM-VL05,Cook naming -> neuron-graph BWM cell
+vBWML6,BWM-VL06,Cook naming -> neuron-graph BWM cell
+vBWML7,BWM-VL07,Cook naming -> neuron-graph BWM cell
+vBWML8,BWM-VL08,Cook naming -> neuron-graph BWM cell
+vBWML9,BWM-VL09,Cook naming -> neuron-graph BWM cell
+vBWMR1,BWM-VR01,Cook naming -> neuron-graph BWM cell
+vBWMR10,BWM-VR10,Cook naming -> neuron-graph BWM cell
+vBWMR11,BWM-VR11,Cook naming -> neuron-graph BWM cell
+vBWMR12,BWM-VR12,Cook naming -> neuron-graph BWM cell
+vBWMR13,BWM-VR13,Cook naming -> neuron-graph BWM cell
+vBWMR14,BWM-VR14,Cook naming -> neuron-graph BWM cell
+vBWMR15,BWM-VR15,Cook naming -> neuron-graph BWM cell
+vBWMR16,BWM-VR16,Cook naming -> neuron-graph BWM cell
+vBWMR17,BWM-VR17,Cook naming -> neuron-graph BWM cell
+vBWMR18,BWM-VR18,Cook naming -> neuron-graph BWM cell
+vBWMR19,BWM-VR19,Cook naming -> neuron-graph BWM cell
+vBWMR2,BWM-VR02,Cook naming -> neuron-graph BWM cell
+vBWMR20,BWM-VR20,Cook naming -> neuron-graph BWM cell
+vBWMR21,BWM-VR21,Cook naming -> neuron-graph BWM cell
+vBWMR22,BWM-VR22,Cook naming -> neuron-graph BWM cell
+vBWMR23,BWM-VR23,Cook naming -> neuron-graph BWM cell
+vBWMR24,BWM-VR24,Cook naming -> neuron-graph BWM cell
+vBWMR3,BWM-VR03,Cook naming -> neuron-graph BWM cell
+vBWMR4,BWM-VR04,Cook naming -> neuron-graph BWM cell
+vBWMR5,BWM-VR05,Cook naming -> neuron-graph BWM cell
+vBWMR6,BWM-VR06,Cook naming -> neuron-graph BWM cell
+vBWMR7,BWM-VR07,Cook naming -> neuron-graph BWM cell
+vBWMR8,BWM-VR08,Cook naming -> neuron-graph BWM cell
+vBWMR9,BWM-VR09,Cook naming -> neuron-graph BWM cell
