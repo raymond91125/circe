@@ -130,6 +130,7 @@ dBWMR7,BWM-DR07,Cook naming -> neuron-graph BWM cell
 dBWMR8,BWM-DR08,Cook naming -> neuron-graph BWM cell
 dBWMR9,BWM-DR09,Cook naming -> neuron-graph BWM cell
 exc_gl,excgl,Cook naming variant -> existing neuron-graph cell
+g1p,g1P,case variant -> existing neuron-graph g1 posterior gland cell (shared)
 hmc,HMC,Cook naming variant -> existing neuron-graph cell
 mu_intL,intmuL,Cook naming variant -> existing neuron-graph cell
 mu_intR,intmuR,Cook naming variant -> existing neuron-graph cell
