@@ -9,6 +9,22 @@ Sheets used per sex: ``{sex} chemical`` (directed: row = pre, col = post) and
 ``{sex} gap jn symmetric`` (undirected — emitted once per unordered pair to match the KG's
 single-record-per-gap-junction convention; the mirror entry is skipped).
 
+Tabs deliberately NOT parsed (7 tabs total, 4 used):
+  * ``TITLE AND LEGEND`` — metadata, no connectivity.
+  * ``{sex} gap jn asymmetric`` — redundant with the symmetric sheet, not a separate data source.
+    Gap junctions are undirected; per the workbook's July-2020 correction note the *symmetric*
+    sheet is the corrected canonical form (its across-diagonal values were made consistent with
+    the asymmetric sheet). The symmetric sheet is also a strict superset of the asymmetric one for
+    real cells: 0 male and 0 hermaphrodite individual-cell pairs appear only in the asymmetric
+    sheet (the sole asymmetric-only entries are to aggregate category rows, which are dropped
+    anyway — see below). Parsing the asymmetric sheet would add no real edges and risk
+    double-counting, so it is skipped.
+
+Aggregate category rows/columns (e.g. ``SENSORY NEURONS``, ``INTERNEURONS``, ``MUSCLES``,
+``SEX-SPECIFIC CELLS``) are per-category *summary totals*, not cells. They are excluded implicitly:
+header detection locks onto the row/column densest in individual cell-name labels, so the summary
+band never supplies cell names or edges.
+
 IMPORTANT — weight semantics: Cook weights are **EM serial-section counts** (synapse number ×
 size), NOT raw synapse counts like the neuron-graph datasets (White 1986, Witvliet). They are
 carried through verbatim; downstream must keep them tagged to their dataset/source so weights are
