@@ -181,3 +181,17 @@ vBWMR6,BWM-VR06,Cook naming -> neuron-graph BWM cell
 vBWMR7,BWM-VR07,Cook naming -> neuron-graph BWM cell
 vBWMR8,BWM-VR08,Cook naming -> neuron-graph BWM cell
 vBWMR9,BWM-VR09,Cook naming -> neuron-graph BWM cell
+R1shL,R1stL,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R1shR,R1stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R2shL,R2stL,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R2shR,R2stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R3shL,R3stL,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R3shR,R3stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R4shL,R4stL,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R5shL,R5stL,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R5shR,R5stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R7shR,R7stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+R8shR,R8stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'ray sheath cell' in the literature (Rnsh appears only in Cook SI). Merges connectivity into Rnst.
+e2D,e2DR,"Cook 2019 e2 labels are non-standard (dorsal/ventral scheme scrambled); connectivity-confirmed canonical identity via Cook 2020 pharynx connectome (PMC7601127) / WBBT: e2D=e2DR, e2VL=e2DL, e2VR=e2V. Curator-confirmed."
+e2VL,e2DL,"Cook 2019 e2 labels are non-standard (dorsal/ventral scheme scrambled); connectivity-confirmed canonical identity via Cook 2020 pharynx connectome (PMC7601127) / WBBT: e2D=e2DR, e2VL=e2DL, e2VR=e2V. Curator-confirmed."
+e2VR,e2V,"Cook 2019 e2 labels are non-standard (dorsal/ventral scheme scrambled); connectivity-confirmed canonical identity via Cook 2020 pharynx connectome (PMC7601127) / WBBT: e2D=e2DR, e2VL=e2DL, e2VR=e2V. Curator-confirmed."
