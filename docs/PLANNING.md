@@ -194,3 +194,17 @@ HOA/HOB, SPC, PCA/B/C, PDC, MCM, …) are grounded to their male WBbt terms.
   explicit check that a **shared neuron's connections partition cleanly by `dataset.sex`** (a
   neuron present in both sexes has its male vs hermaphrodite edges distinguishable).
 - **M6 — (later, separate) viz:** sex selector + male neuron set/layout, or defer to WormWiring.
+
+### Candidate future phase — Cook 2020 pharyngeal connectome (optional)
+
+Import the dedicated **pharyngeal connectome** (Cook, Crouse, Yakovlev, Nguyen, Hall, Emmons
+2020, *J Comp Neurol*; PMC7601127) as a distinct dataset `cook_2020_pharynx` (sex-agnostic — the
+pharynx is shared). Not needed for the sex extension (the pharynx is already covered in both
+sexes by Cook 2019), but valuable as the **authoritative, directly-reconstructed pharyngeal
+reference** for comparison. A comparison of its 264 edges against the 2019 whole-animal
+pharyngeal subset (e2 names reconciled) showed strong core agreement — all 67 gap junctions and
+156/175 chemical edges shared, most weights identical — but Cook 2019 carries ~40–50% more edges,
+consistent with its stated **extrapolation "in gaps where no data were available"** vs. the 2020
+direct reconstruction. So the KG could hold both to let users compare direct-vs-extrapolated
+pharyngeal connectivity. Cost: parse the 252-page supplement PDF (vs. clean Excel) and reconcile
+naming (`mc2` upper/lower, `pm3` case, `g1P`, and the same e2 mislabel resolved in M4).
