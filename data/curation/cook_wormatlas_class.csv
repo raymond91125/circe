@@ -143,3 +143,64 @@ vspL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.h
 vspR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
 vsrL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
 vsrR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+CANL,CAN neuron,https://www.wormatlas.org/neurons/Individual%20Neurons/CANframeset.html,medium,CAN neuron; WormAtlas Individual-Neurons CAN page
+CANR,CAN neuron,https://www.wormatlas.org/neurons/Individual%20Neurons/CANframeset.html,medium,CAN neuron; WormAtlas Individual-Neurons CAN page
+CEPshDL,CEP sheath cell,https://www.wormatlas.org/hermaphrodite/neuronalsupport/Neurosupportframeset.html,medium,CEP sheath cell (glia); WormAtlas neuronal-support-cells page
+CEPshDR,CEP sheath cell,https://www.wormatlas.org/hermaphrodite/neuronalsupport/Neurosupportframeset.html,medium,CEP sheath cell (glia); WormAtlas neuronal-support-cells page
+CEPshVL,CEP sheath cell,https://www.wormatlas.org/hermaphrodite/neuronalsupport/Neurosupportframeset.html,medium,CEP sheath cell (glia); WormAtlas neuronal-support-cells page
+CEPshVR,CEP sheath cell,https://www.wormatlas.org/hermaphrodite/neuronalsupport/Neurosupportframeset.html,medium,CEP sheath cell (glia); WormAtlas neuronal-support-cells page
+GLRDL,GLR cell,https://www.wormatlas.org/hermaphrodite/muscleGLR/MusGLRframeset.html,medium,GLR cell (head mesoderm); WormAtlas GLR-cells page
+GLRDR,GLR cell,https://www.wormatlas.org/hermaphrodite/muscleGLR/MusGLRframeset.html,medium,GLR cell (head mesoderm); WormAtlas GLR-cells page
+GLRL,GLR cell,https://www.wormatlas.org/hermaphrodite/muscleGLR/MusGLRframeset.html,medium,GLR cell (head mesoderm); WormAtlas GLR-cells page
+GLRR,GLR cell,https://www.wormatlas.org/hermaphrodite/muscleGLR/MusGLRframeset.html,medium,GLR cell (head mesoderm); WormAtlas GLR-cells page
+GLRVL,GLR cell,https://www.wormatlas.org/hermaphrodite/muscleGLR/MusGLRframeset.html,medium,GLR cell (head mesoderm); WormAtlas GLR-cells page
+GLRVR,GLR cell,https://www.wormatlas.org/hermaphrodite/muscleGLR/MusGLRframeset.html,medium,GLR cell (head mesoderm); WormAtlas GLR-cells page
+HMC,head mesodermal cell,https://www.wormatlas.org/hermaphrodite/muscleheadcell/Mushmcframeset.html,medium,head mesodermal cell; WormAtlas HMC page
+e2DL,pharyngeal epithelial cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal epithelial cell; WormAtlas pharynx handbook
+e2DR,pharyngeal epithelial cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal epithelial cell; WormAtlas pharynx handbook
+e2V,pharyngeal epithelial cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal epithelial cell; WormAtlas pharynx handbook
+e3D,pharyngeal epithelial cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal epithelial cell; WormAtlas pharynx handbook
+e3VL,pharyngeal epithelial cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal epithelial cell; WormAtlas pharynx handbook
+e3VR,pharyngeal epithelial cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal epithelial cell; WormAtlas pharynx handbook
+exc_cell,excretory cell,https://www.wormatlas.org/hermaphrodite/excretory/Excframeset.html,medium,excretory system cell; WormAtlas excretory-system page
+excgl,excretory cell,https://www.wormatlas.org/hermaphrodite/excretory/Excframeset.html,medium,excretory system cell; WormAtlas excretory-system page
+g1AL,pharyngeal gland cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal gland cell; WormAtlas pharynx handbook
+g1AR,pharyngeal gland cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal gland cell; WormAtlas pharynx handbook
+g1P,pharyngeal gland cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal gland cell; WormAtlas pharynx handbook
+g2L,pharyngeal gland cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal gland cell; WormAtlas pharynx handbook
+g2R,pharyngeal gland cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal gland cell; WormAtlas pharynx handbook
+hyp,hypodermis,https://www.wormatlas.org/hermaphrodite/hypodermis/mainframe.htm,medium,hypodermis; WormAtlas hypodermis handbook
+int,intestine,https://www.wormatlas.org/hermaphrodite/intestine/Intframeset.html,medium,intestine; WormAtlas intestine handbook
+intmuL,enteric muscle,https://www.wormatlas.org/hermaphrodite/musclenonstriated/MusNonstriframeset.html,medium,enteric/nonstriated muscle; WormAtlas nonstriated-muscle page
+intmuR,enteric muscle,https://www.wormatlas.org/hermaphrodite/musclenonstriated/MusNonstriframeset.html,medium,enteric/nonstriated muscle; WormAtlas nonstriated-muscle page
+mc1DL,pharyngeal marginal cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal marginal cell; WormAtlas pharynx handbook
+mc1DR,pharyngeal marginal cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal marginal cell; WormAtlas pharynx handbook
+mc1V,pharyngeal marginal cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal marginal cell; WormAtlas pharynx handbook
+mc2DL,pharyngeal marginal cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal marginal cell; WormAtlas pharynx handbook
+mc2DR,pharyngeal marginal cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal marginal cell; WormAtlas pharynx handbook
+mc2V,pharyngeal marginal cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal marginal cell; WormAtlas pharynx handbook
+mc3DL,pharyngeal marginal cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal marginal cell; WormAtlas pharynx handbook
+mc3DR,pharyngeal marginal cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal marginal cell; WormAtlas pharynx handbook
+mc3V,pharyngeal marginal cell,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal marginal cell; WormAtlas pharynx handbook
+mu_anal,enteric muscle,https://www.wormatlas.org/hermaphrodite/musclenonstriated/MusNonstriframeset.html,medium,enteric/nonstriated muscle; WormAtlas nonstriated-muscle page
+mu_sph,enteric muscle,https://www.wormatlas.org/hermaphrodite/musclenonstriated/MusNonstriframeset.html,medium,enteric/nonstriated muscle; WormAtlas nonstriated-muscle page
+pm1,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm2D,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm2VL,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm2VR,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm3D,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm3VL,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm3VR,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm4D,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm4VL,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm4VR,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm5D,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm5VL,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm5VR,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm6D,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm6VL,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm6VR,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm7D,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm7VL,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm7VR,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook
+pm8,pharyngeal muscle,https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html,medium,pharyngeal muscle; WormAtlas hermaphrodite pharynx handbook

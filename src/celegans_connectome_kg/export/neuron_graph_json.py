@@ -141,9 +141,11 @@ def wormatlas_links_map(
     link rather than a broken neuron-pattern URL). Keys are upper-cased; lookup is
     case-insensitive in the viz.
 
-    Male-specific neuron cells (Cook) carry no ``cell_class``, so the neuron-pattern URL can't be
-    derived; ``male_url_curation`` (cell name → exact WormAtlas URL) supplies it directly and
-    takes precedence. Cells absent from it fall back to the KG class / name pattern as before.
+    Non-neurons have no neuron-pattern URL; ``male_url_curation`` (cell name → exact WormAtlas URL)
+    supplies it directly and takes precedence. For a curated cell that groups under a real
+    ``cell_class`` (e.g. ``pm3D`` → class ``pm3``), the class key is emitted too, so the grouped
+    node the viz actually clicks (the class) resolves as well as the individual cell. Cells absent
+    from the curation fall back to the KG class / name neuron pattern as before.
     """
     male_url_curation = male_url_curation or {}
     members: dict[str, list[object]] = defaultdict(list)
@@ -160,15 +162,17 @@ def wormatlas_links_map(
 
     out: dict[str, str] = {}
     for cell in connectome.cells:
-        url = male_url_curation.get(cell.name) or url_for(
-            cell.name, str(cell.cell_type), cell.cell_class
-        )
+        curated = male_url_curation.get(cell.name)
+        url = curated or url_for(cell.name, str(cell.cell_type), cell.cell_class)
         if url:
             out[cell.name.upper()] = url
+        # A curated grouped cell is clicked in the viz as its class; emit that key too.
+        if curated and cell.cell_class:
+            out.setdefault(cell.cell_class.upper(), curated)
     for cls, mem in members.items():
         url = url_for(cls, str(mem[0].cell_type), cls)
         if url:
-            out[cls.upper()] = url
+            out.setdefault(cls.upper(), url)
     return dict(sorted(out.items()))
 
 
