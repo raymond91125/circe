@@ -88,6 +88,23 @@ def test_male_nonneuron_wormatlas_pages() -> None:
     assert all(u.startswith("https://") for u in urls.values())
 
 
+def test_shared_nonneuron_wormatlas_pages() -> None:
+    """Shared (male+herm) non-neurons link to the hermaphrodite/general handbook pages."""
+    from celegans_connectome_kg.match.curation import load_wormatlas_urls
+
+    urls = load_wormatlas_urls("data/curation/cook_wormatlas_class.csv")
+    # pharyngeal cells (muscle/marginal/epithelial/gland) -> pharynx handbook
+    for cell in ("pm3D", "mc2DL", "e2DL", "g1AL"):
+        assert "hermaphrodite/pharynx/" in urls[cell]
+    assert "muscleGLR" in urls["GLRDL"]  # GLR cells
+    assert "neuronalsupport" in urls["CEPshDL"]  # CEP sheath (glia)
+    assert "Individual%20Neurons/CANframeset" in urls["CANL"]  # CAN is a neuron
+    assert "musclenonstriated" in urls["mu_anal"]  # enteric muscle
+    assert "excretory" in urls["exc_cell"] and "intestine" in urls["int"]
+    assert "muscleheadcell" in urls["HMC"] and "hypodermis" in urls["hyp"]
+    assert "bm" not in urls  # basal lamina = ECM, no handbook cell page
+
+
 def test_naming_variant_aliases() -> None:
     aliases = load_cook_aliases(DEFAULT_COOK_ALIASES_PATH)
     # Cook naming variants of existing neuron-graph cells

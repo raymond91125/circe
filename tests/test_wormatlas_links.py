@@ -77,3 +77,24 @@ def test_no_male_curation_falls_back_to_name() -> None:
     )
     m = wormatlas_links_map(connectome)
     assert m["R1AL"].endswith("/R1ALframeset.html")
+
+
+def test_curated_grouped_cell_emits_class_key() -> None:
+    """A curated cell with a real cell_class emits both the cell and class keys (grouped node)."""
+    dm = datamodel()
+    connectome = dm.Connectome(
+        cells=[
+            dm.Cell(
+                id="cckg:cell/pm3D",
+                name="pm3D",
+                cell_type="muscle",
+                cell_class="pm3",
+                sexes=["hermaphrodite", "male"],
+            )
+        ],
+        datasets=[],
+        connections=[],
+    )
+    pharynx = "https://www.wormatlas.org/hermaphrodite/pharynx/Phaframeset.html"
+    m = wormatlas_links_map(connectome, {"pm3D": pharynx})
+    assert m["PM3D"] == pharynx and m["PM3"] == pharynx  # both cell and grouped-class node resolve
