@@ -89,3 +89,57 @@ SPDL,SPD,https://www.wormatlas.org/neurons/Individual%20Neurons/SPDframeset.html
 SPDR,SPD,https://www.wormatlas.org/neurons/Individual%20Neurons/SPDframeset.html,medium,SPDL/R -> SPD class page (strip L/R)
 SPVL,SPV,https://www.wormatlas.org/neurons/Individual%20Neurons/SPVframeset.html,medium,SPVL/R -> SPV class page (strip L/R)
 SPVR,SPV,https://www.wormatlas.org/neurons/Individual%20Neurons/SPVframeset.html,medium,SPVL/R -> SPV class page (strip L/R)
+R1stL,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R1stR,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R2stL,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R2stR,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R3stL,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R3stR,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R4stL,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R5stL,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R5stR,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R7stL,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R7stR,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R8stR,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+R9stL,male ray structural cell,https://www.wormatlas.org/male/rays/Rayframeset.html,high,ray structural/support cell; general WormAtlas male-rays page
+ailL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+ailR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+aobL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+aobR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+cdlL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+cdlR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglL1,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglL2,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglL3,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglL4,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglL5,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglL6,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglL7,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglR1,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglR2,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglR3,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglR4,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglR5,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglR6,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglR7,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dglR8,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dspL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dspR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dsrL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+dsrR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+gecL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+gecR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+gonad,male gonad,https://www.wormatlas.org/male/reproductive/Reprointroframeset.html,high,male gonad; general WormAtlas male reproductive-system page
+grtL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+grtR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+pilL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+pilR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+pobL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+pobR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+polL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+polR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+proctodeum,male proctodeum,https://www.wormatlas.org/male/reproductive/Reprointroframeset.html,high,male proctodeum (posterior gut/cloaca); WormAtlas male reproductive-system page
+vspL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+vspR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+vsrL,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
+vsrR,male sex muscle,https://www.wormatlas.org/male/musclemale/Musmaleframeset.html,high,M-derived male-specific muscle; general WormAtlas male-muscle page
