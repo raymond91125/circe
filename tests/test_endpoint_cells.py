@@ -18,7 +18,9 @@ def test_load_endpoint_cells() -> None:
     assert len(endpoints) == 11
     by_name = {e.name: e for e in endpoints}
     assert by_name["pm5"].wbbt_id == "WBbt:0003737" and by_name["pm5"].cell_type == "muscle"
-    assert by_name["G1"].wbbt_id == "WBbt:0003712" and by_name["G1"].cell_type == "other"
+    # gland cells are lowercase (G1/G2 are uppercase misnomers of g1/g2)
+    assert by_name["g1"].wbbt_id == "WBbt:0003712" and by_name["g1"].cell_type == "other"
+    assert by_name["g2"].wbbt_id == "WBbt:0003710"
     assert by_name["VAn"].cell_type == "neuron"
     # The 3 reconstruction fragments are intentionally not mapped.
     assert {"Fragment", "NR_fragment", "vncfrag"}.isdisjoint(by_name)
@@ -40,4 +42,4 @@ def test_stub_cells_excluded_from_viz_projection() -> None:
     connectome, _ = assemble(NEURON_GRAPH, WBBT_JSON, CURATION, ENDPOINT_CELLS)
     names = {c["name"] for c in cells_projection(connectome)}
     assert len(names) == 447  # stubs excluded -> still matches neuron-graph /api/cells
-    assert "pm5" not in names and "G1" not in names
+    assert "pm5" not in names and "g1" not in names

@@ -70,11 +70,15 @@ def test_gap_junctions_fully_merged(connectome: object) -> None:
 
 def test_projection_matches_source_grouping(connectome: object) -> None:
     """Independently regroup the ingest records and compare to the KG-derived projection."""
+    from celegans_connectome_kg.build.assemble import _NEURON_GRAPH_ALIAS as GA
+
     data = load_neuron_graph(NEURON_GRAPH)
     grouped: dict[tuple[str, str, str], dict[str, int]] = defaultdict(lambda: defaultdict(int))
     for r in data.connections:
-        # Sum duplicate listings, as neuron-graph populate does.
-        grouped[(r.pre, r.post, _API_TYPE[r.connection_type])][r.dataset_id] += int(r.weight)
+        # Sum duplicate listings, as neuron-graph populate does; apply the same G1/G2->g1/g2
+        # gland-misnomer rename the build applies to neuron-graph endpoints.
+        pre, post = GA.get(r.pre, r.pre), GA.get(r.post, r.post)
+        grouped[(pre, post, _API_TYPE[r.connection_type])][r.dataset_id] += int(r.weight)
 
     # Merge electrical the same way neuron-graph does.
     def regroup(items: dict) -> dict:

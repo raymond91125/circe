@@ -195,3 +195,14 @@ R8shR,R8stR,Cook SI-table label for the ray structural cell Rnst; no distinct 'r
 e2D,e2DR,"Cook 2019 e2 labels are non-standard (dorsal/ventral scheme scrambled); connectivity-confirmed canonical identity via Cook 2020 pharynx connectome (PMC7601127) / WBBT: e2D=e2DR, e2VL=e2DL, e2VR=e2V. Curator-confirmed."
 e2VL,e2DL,"Cook 2019 e2 labels are non-standard (dorsal/ventral scheme scrambled); connectivity-confirmed canonical identity via Cook 2020 pharynx connectome (PMC7601127) / WBBT: e2D=e2DR, e2VL=e2DL, e2VR=e2V. Curator-confirmed."
 e2VR,e2V,"Cook 2019 e2 labels are non-standard (dorsal/ventral scheme scrambled); connectivity-confirmed canonical identity via Cook 2020 pharynx connectome (PMC7601127) / WBBT: e2D=e2DR, e2VL=e2DL, e2VR=e2V. Curator-confirmed."
+mc2dl,mc2DL,Cook 2020 pharynx lowercase case-variant -> canonical (same cell)
+mc2dr,mc2DR,Cook 2020 pharynx lowercase case-variant -> canonical (same cell)
+pm4d,pm4D,Cook 2020 pharynx (SI 3) lowercase case-variant -> canonical
+pm4vl,pm4VL,Cook 2020 pharynx (SI 3) lowercase case-variant -> canonical
+pm4vr,pm4VR,Cook 2020 pharynx (SI 3) lowercase case-variant -> canonical
+pm5d,pm5D,Cook 2020 pharynx (SI 3) lowercase case-variant -> canonical
+pm5vl,pm5VL,Cook 2020 pharynx (SI 3) lowercase case-variant -> canonical
+pm5vr,pm5VR,Cook 2020 pharynx (SI 3) lowercase case-variant -> canonical
+mc3v,mc3V,Cook 2020 pharynx (SI 3) lowercase case-variant -> canonical
+g1vl,g1,Cook 2020 pharynx g1 gland ventral process compiled to the g1 gland cell (g1)
+g1vr,g1,Cook 2020 pharynx g1 gland ventral process compiled to the g1 gland cell (g1)

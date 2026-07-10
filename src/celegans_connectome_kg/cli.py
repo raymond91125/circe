@@ -20,6 +20,7 @@ DEFAULT_COOK_XLSX = Path(
 )
 DEFAULT_COOK_ALIASES = Path("data/curation/cook_name_aliases.csv")
 DEFAULT_COOK_ANATOMY = Path("data/curation/cook_anatomy_curation.csv")
+DEFAULT_COOK_2020_EDGES = Path("data/cook-2020-pharynx/edges.csv")
 DEFAULT_COOK_WORMATLAS = Path("data/curation/cook_wormatlas_class.csv")
 
 
@@ -190,6 +191,9 @@ def build(
         cook_xlsx_path=DEFAULT_COOK_XLSX if cook_ok else None,
         cook_aliases_path=DEFAULT_COOK_ALIASES if cook_ok else None,
         cook_anatomy_path=DEFAULT_COOK_ANATOMY if cook_ok else None,
+        cook_2020_edges_path=(
+            DEFAULT_COOK_2020_EDGES if (with_cook and DEFAULT_COOK_2020_EDGES.exists()) else None
+        ),
     )
     out_path = out_dir / "connectome.json"
     write_json(connectome, out_path)

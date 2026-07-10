@@ -21,6 +21,7 @@ from types import ModuleType
 
 from celegans_connectome_kg.build.datamodel import datamodel
 from celegans_connectome_kg.ingest.cook_2019 import read_cook
+from celegans_connectome_kg.ingest.cook_2020 import read_cook_2020
 from celegans_connectome_kg.ingest.neuron_graph import (
     CellRecord,
     ConnectionRecord,
@@ -43,6 +44,11 @@ CONN_PREFIX = "cckg:conn/"
 _TYPE_CODE = {"chemical": "0", "gap_junction": "2", "functional": "4"}
 
 _HERMAPHRODITE = "hermaphrodite"
+
+#: neuron-graph endpoint name normalization. G1/G2 are uppercase misnomers of the pharyngeal
+#: gland cells g1/g2 (gland cells are conventionally lowercase); rename so they unify with the
+#: g1/g2 gland cells shared by the Cook datasets.
+_NEURON_GRAPH_ALIAS = {"G1": "g1", "G2": "g2"}
 
 
 def classify_cell_type(nemanode_type: str | None) -> str:
@@ -147,12 +153,15 @@ def assemble(
     cook_xlsx_path: Path | None = None,
     cook_aliases_path: Path | None = None,
     cook_anatomy_path: Path | None = None,
+    cook_2020_edges_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
     Curation/endpoint/nt args behave as before. When ``cook_xlsx_path`` is given (with its
     ``cook_aliases_path`` and ``cook_anatomy_path``), the Cook et al. 2019 male + hermaphrodite
-    connectomes are merged in as sex-tagged datasets, producing a unified sex-aware graph.
+    connectomes are merged in as sex-tagged datasets, producing a unified sex-aware graph. When
+    ``cook_2020_edges_path`` is given, the Cook et al. 2020 pharyngeal connectome is merged in as
+    an additional (hermaphrodite) dataset over the same cells.
     """
     dm: ModuleType = datamodel()
     data = load_neuron_graph(data_dir)
@@ -162,6 +171,7 @@ def assemble(
     nt_curation = load_nt_curation(nt_curation_path) if nt_curation_path else {}
 
     cell_records: dict[str, CellRecord] = {c.name: c for c in data.cells}
+    stub_names = {ec.name for ec in endpoint_cells}
     anatomy_by_name = {
         m.cell_name: m.wbbt_id for m in match_cells(data.cells, index, curation) if m.wbbt_id
     }
@@ -173,20 +183,23 @@ def assemble(
     for ec in endpoint_cells:
         sexes[ec.name].add(_HERMAPHRODITE)
 
-    # --- Cook 2019 (optional): reconcile names, mint male-specific cells, tag datasets by sex ---
+    # --- Cook (optional): reconcile names, mint new cells, tag datasets by sex ---
+    # Two bundles, folded identically: 2019 whole-animal (male + hermaphrodite) and 2020 pharynx.
     cook = read_cook(cook_xlsx_path) if cook_xlsx_path else None
+    cook_2020 = read_cook_2020(cook_2020_edges_path) if cook_2020_edges_path else None
+    cook_bundles = [b for b in (cook, cook_2020) if b]
     cook_alias = load_cook_aliases(cook_aliases_path) if cook_aliases_path else {}
     cook_anatomy = load_curation(cook_anatomy_path) if cook_anatomy_path else {}
     dataset_sex: dict[str, str] = {d.id: _HERMAPHRODITE for d in data.datasets}
     cook_new_cells: dict[str, str] = {}  # canonical name -> wbbt id (cells not in neuron-graph)
-    if cook:
-        for d in cook.datasets:
+    for bundle in cook_bundles:
+        for d in bundle.datasets:
             dataset_sex[d.id] = d.sex
-        for sex, names in cook.cells_by_sex.items():
+        for sex, names in bundle.cells_by_sex.items():
             for n in names:
                 canonical = cook_alias.get(n, n)
                 sexes[canonical].add(sex)
-                if canonical not in cell_records:
+                if canonical not in cell_records and canonical not in stub_names:
                     cook_new_cells[canonical] = cook_anatomy.get(canonical, "")
 
     kind_label, kind_parents = _wbbt_ancestry(wbbt_path)
@@ -211,7 +224,6 @@ def assemble(
         )
         for c in sorted(data.cells, key=lambda c: c.name)
     ]
-    stub_names = {ec.name for ec in endpoint_cells}
     cells += [
         dm.Cell(
             id=_cell_id(ec.name),
@@ -235,17 +247,17 @@ def assemble(
 
     # --- Datasets (with sex) ---
     dataset_defs = [(d.id, d.name, d.description) for d in data.datasets]
-    if cook:
-        dataset_defs += [(d.id, d.name, d.description) for d in cook.datasets]
+    for bundle in cook_bundles:
+        dataset_defs += [(d.id, d.name, d.description) for d in bundle.datasets]
     datasets = [
         dm.Dataset(id=_dataset_id(did), name=name, description=desc, sex=dataset_sex[did])
         for did, name, desc in sorted(dataset_defs)
     ]
 
-    # --- Connections: neuron-graph (no alias) + Cook (aliased), aggregated by key ---
-    summed = _aggregate(data.connections, {})
-    if cook:
-        for key, w in _aggregate(cook.connections, cook_alias).items():
+    # --- Connections: neuron-graph (G1/G2 gland-misnomer rename) + Cook bundles (aliased) ---
+    summed = _aggregate(data.connections, _NEURON_GRAPH_ALIAS)
+    for bundle in cook_bundles:
+        for key, w in _aggregate(bundle.connections, cook_alias).items():
             summed[key] = summed.get(key, 0.0) + w
 
     connections = []
