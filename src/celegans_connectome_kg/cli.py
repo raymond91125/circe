@@ -250,10 +250,12 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     from celegans_connectome_kg.export.neuron_graph_json import (
         anatomy_labels_map,
         anatomy_terms_map,
+        cell_sexes_map,
         cells_projection,
         connections_projection,
         kg_connections_map,
         male_cells_projection,
+        pharynx_database_cells,
         male_connections_projection,
         male_dataset,
         pharyngeal_cells,
@@ -294,6 +296,14 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     pharynx = pharyngeal_cells(connectome, wbbt)
     (ng_dir / "pharyngeal_cells.json").write_text(json.dumps(pharynx, indent=1))
     click.echo(f"wrote: {ng_dir}/pharyngeal_cells.json ({len(pharynx)} pharyngeal cells)")
+
+    sexes = cell_sexes_map(connectome)
+    (ng_dir / "cell_sexes.json").write_text(json.dumps(sexes, indent=1))
+    click.echo(f"wrote: {ng_dir}/cell_sexes.json ({len(sexes)} cell→sexes)")
+
+    pharynx_db = pharynx_database_cells(connectome)
+    (ng_dir / "pharynx_cells.json").write_text(json.dumps(pharynx_db, indent=1))
+    click.echo(f"wrote: {ng_dir}/pharynx_cells.json ({len(pharynx_db)} pharynx-database nodes)")
 
     # Full class-level connectivity for the cell-info "Connections (knowledge graph)" panel —
     # every KG dataset, unfiltered by the viz's per-type weight threshold. Compact (no indent).

@@ -141,6 +141,46 @@ def pharyngeal_cells(connectome: object, wbbt_path: object) -> list[str]:
     return sorted(out)
 
 
+def cell_sexes_map(connectome: object) -> dict[str, list[str]]:
+    """Cell name → sexes present, for every cell the viz loads (hermaphrodite + male projections).
+
+    Drives which viz database a cell is a valid node of (hermaphrodite views vs the additive male
+    view) in cell-info.js. Restricted to *projected* cells — those with a NemaNode or synthesised
+    type; class/endpoint stubs are not viz nodes. Keys and each cell's sexes are sorted for a
+    stable output (``hermaphrodite`` sorts before ``male``).
+    """
+    viz_names = {c["name"] for c in cells_projection(connectome)} | {
+        c["name"] for c in male_cells_projection(connectome)
+    }
+    out = {
+        cell.name: sorted(str(s) for s in cell.sexes)
+        for cell in connectome.cells
+        if cell.name in viz_names and cell.sexes
+    }
+    return dict(sorted(out.items()))
+
+
+def pharynx_database_cells(connectome: object, dataset_id: str = "cook_2020_pharynx") -> list[str]:
+    """Upper-cased nodes of the Cook 2020 pharyngeal viz database (the additive "pharynx" database).
+
+    Every cell appearing in the ``cook_2020_pharynx`` connections plus their classes, upper-cased to
+    match the viz's case-insensitive node lookup. Populates ``validNodes['pharynx']`` so those cells
+    are valid nodes there. Distinct from :func:`pharyngeal_cells` (WBbt "pharyngeal cell" ancestry,
+    used for the *location* label): this is the concrete node set of one dataset's connectome.
+    """
+    class_of = {c.name: c.cell_class for c in connectome.cells}
+    names: set[str] = set()
+    for conn in connectome.connections:
+        if _strip(str(conn.dataset), DATASET_PREFIX) != dataset_id:
+            continue
+        for end in (_strip(conn.pre, CELL_PREFIX), _strip(conn.post, CELL_PREFIX)):
+            names.add(end.upper())
+            cls = class_of.get(end)
+            if cls:
+                names.add(cls.upper())
+    return sorted(names)
+
+
 def anatomy_labels_map(terms: dict[str, str], index: WBBTIndex) -> dict[str, str]:
     """WBbt curie → human-readable term label, for every curie referenced in ``terms``.
 
