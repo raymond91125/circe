@@ -20,8 +20,11 @@ from __future__ import annotations
 
 from collections import defaultdict
 
-from celegans_connectome_kg.build.assemble import CELL_PREFIX, DATASET_PREFIX
+from celegans_connectome_kg.build.assemble import CELL_PREFIX, DATASET_PREFIX, _wbbt_ancestry
 from celegans_connectome_kg.match.wbbt import STRONG_KINDS, WBBTIndex
+
+#: WBBT "pharyngeal cell" — all pharyngeal neurons/muscles/marginal/epithelial/gland cells is_a this.
+_PHARYNGEAL_CELL = "WBbt:0005460"
 
 #: our CellType-enum connection label → neuron-graph API `type` string.
 _API_TYPE = {"chemical": "chemical", "gap_junction": "electrical", "functional": "functional"}
@@ -100,6 +103,42 @@ def anatomy_terms_map(
                 continue
         out[cls.upper()] = wbbt
     return dict(sorted(out.items()))
+
+
+def pharyngeal_cells(connectome: object, wbbt_path: object) -> list[str]:
+    """Upper-cased cell names + classes whose WBbt term is_a "pharyngeal cell" (WBbt:0005460).
+
+    The viz cell-info shows these as location "Pharynx": NemaNode's inhead/intail flags mark
+    membership in the somatic head/tail *ganglia*, which excludes the pharyngeal nervous system,
+    so pharyngeal cells otherwise fall through to the misleading "Body". Keys are upper-cased to
+    match the viz's case-insensitive (uppercased) node lookup.
+    """
+    label, parents = _wbbt_ancestry(wbbt_path)
+
+    def is_pharyngeal(curie: str) -> bool:
+        seen: set[str] = set()
+        stack = [curie]
+        while stack:
+            c = stack.pop()
+            if c == _PHARYNGEAL_CELL:
+                return True
+            if c in seen:
+                continue
+            seen.add(c)
+            stack.extend(parents.get(c, ()))
+        return False
+
+    members: dict[str, list[object]] = defaultdict(list)
+    out: set[str] = set()
+    for cell in connectome.cells:
+        if cell.cell_class:
+            members[cell.cell_class].append(cell)
+        if cell.anatomy and is_pharyngeal(str(cell.anatomy)):
+            out.add(cell.name.upper())
+    for cls, mem in members.items():
+        if any(m.anatomy and is_pharyngeal(str(m.anatomy)) for m in mem):
+            out.add(cls.upper())
+    return sorted(out)
 
 
 def anatomy_labels_map(terms: dict[str, str], index: WBBTIndex) -> dict[str, str]:
