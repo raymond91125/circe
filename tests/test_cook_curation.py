@@ -21,8 +21,11 @@ def test_aliases_reconcile_naming() -> None:
     assert aliases["DA01"] == "DA1" and aliases["AS09"] == "AS9"
     # male-specific series normalized to canonical (still absent from the herm registry)
     assert aliases["CA01"] == "CA1" and "CA1" not in NG
-    # every alias key is a real Cook cell, and the map is non-trivial
+    # every alias key is a real Cook cell (2019 whole-animal or 2020 pharynx), map non-trivial
+    from celegans_connectome_kg.ingest.cook_2020 import read_cook_2020
+
     cook_cells = set().union(*read_cook().cells_by_sex.values())
+    cook_cells |= set().union(*read_cook_2020().cells_by_sex.values())
     assert set(aliases) <= cook_cells
     assert len(aliases) >= 150
 

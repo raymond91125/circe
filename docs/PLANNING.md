@@ -195,16 +195,23 @@ HOA/HOB, SPC, PCA/B/C, PDC, MCM, …) are grounded to their male WBbt terms.
   neuron present in both sexes has its male vs hermaphrodite edges distinguishable).
 - **M6 — (later, separate) viz:** sex selector + male neuron set/layout, or defer to WormWiring.
 
-### Candidate future phase — Cook 2020 pharyngeal connectome (optional)
+### Cook 2020 pharyngeal connectome — DONE
 
-Import the dedicated **pharyngeal connectome** (Cook, Crouse, Yakovlev, Nguyen, Hall, Emmons
-2020, *J Comp Neurol*; PMC7601127) as a distinct dataset `cook_2020_pharynx` (sex-agnostic — the
-pharynx is shared). Not needed for the sex extension (the pharynx is already covered in both
-sexes by Cook 2019), but valuable as the **authoritative, directly-reconstructed pharyngeal
-reference** for comparison. A comparison of its 264 edges against the 2019 whole-animal
-pharyngeal subset (e2 names reconciled) showed strong core agreement — all 67 gap junctions and
-156/175 chemical edges shared, most weights identical — but Cook 2019 carries ~40–50% more edges,
-consistent with its stated **extrapolation "in gaps where no data were available"** vs. the 2020
-direct reconstruction. So the KG could hold both to let users compare direct-vs-extrapolated
-pharyngeal connectivity. Cost: parse the 252-page supplement PDF (vs. clean Excel) and reconcile
-naming (`mc2` upper/lower, `pm3` case, `g1P`, and the same e2 mislabel resolved in M4).
+Imported the dedicated **pharyngeal connectome** (Cook, Crouse, Yakovlev, Nguyen, Hall, Emmons
+2020, *J Comp Neurol*; PMC7601127) as dataset `cook_2020_pharynx`, tagged `hermaphrodite` (the
+pharynx is shared, but the reconstruction is from N2 hermaphrodite specimens — no sex-agnostic
+assumption). Valuable as the **authoritative, directly-reconstructed pharyngeal reference** vs.
+Cook 2019's extrapolated whole-animal pharynx.
+
+Source decision (see `data/cook-2020-pharynx/MANIFEST.md`): the published **SI 4** edge-list CSV is
+an internally inconsistent export (36 directed pairs listed twice with per-series weights it never
+averages) and the supplement PDF renders those weights glued/`########`. So we ingest **SI 3**, the
+raw combined synapse list (matches the Elegance MySQL dumps SI 1 `n2w` / SI 2 `jsa`), aggregated by
+`aggregate_edges.py`. **Weight = total EM serial sections summed per pair across all
+synapses/series** — the *same* metric as Cook 2019, so the two are directly comparable (the whole
+point of the reference). Reconciliation: non-cell endpoints (`obj…`, `unk`) dropped; lowercase
+case-variants (`pm4d→pm4D`, `pm5d→pm5D`, `mc3v→mc3V`, `mc2dl/dr`, …) aliased in
+`cook_name_aliases.csv`; `g1vl`/`g1vr` (non-standard g1 names, 3 tiny edges) excluded pending
+curation. Result: **309 edges (254 chemical, 55 gap junction)** over pharyngeal cells already in the
+KG. Ingested by `ingest/cook_2020.py`, folded in by `assemble` alongside the Cook 2019 bundles;
+KG-only (excluded from the neuron-graph/male viz projections, like the other `cook_*` datasets).
