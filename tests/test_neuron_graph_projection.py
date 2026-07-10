@@ -15,9 +15,12 @@ import pytest
 from celegans_connectome_kg.build.assemble import assemble
 from celegans_connectome_kg.build.datamodel import datamodel
 from celegans_connectome_kg.export.neuron_graph_json import (
+    cell_sexes_map,
     cells_projection,
     connections_projection,
+    kg_connections_map,
     pharyngeal_cells,
+    pharynx_database_cells,
 )
 from celegans_connectome_kg.ingest.neuron_graph import load_neuron_graph
 
@@ -118,6 +121,118 @@ def test_total_synapse_weight_conserved(connectome: object) -> None:
     source_total = sum(int(c.weight) for c in data.connections)
     proj_total = sum(v for c in connections_projection(connectome) for v in c["synapses"].values())
     assert proj_total == source_total
+
+
+def _kg_conn_fixture() -> object:
+    dm = datamodel()
+
+    def conn(i, pre, post, t, w, ds):
+        return dm.Connection(
+            id=f"cckg:conn/{ds}.{pre}.{post}.{i}",
+            pre=f"cckg:cell/{pre}",
+            post=f"cckg:cell/{post}",
+            connection_type=t,
+            weight=float(w),
+            dataset=f"cckg:dataset/{ds}",
+        )
+
+    return dm.Connectome(
+        cells=[
+            dm.Cell(id="cckg:cell/AVAL", name="AVAL", cell_type="neuron", cell_class="AVA"),
+            dm.Cell(id="cckg:cell/AVAR", name="AVAR", cell_type="neuron", cell_class="AVA"),
+            dm.Cell(id="cckg:cell/M5", name="M5", cell_type="neuron", cell_class="M5"),
+            dm.Cell(id="cckg:cell/g2L", name="g2L", cell_type="other", cell_class="g2"),
+            dm.Cell(id="cckg:cell/g2R", name="g2R", cell_type="other", cell_class="g2"),
+        ],
+        datasets=[],
+        connections=[
+            conn(0, "M5", "g2R", "chemical", 1, "cook_2020_pharynx"),
+            conn(1, "M5", "g2L", "chemical", 5, "cook_2020_pharynx"),
+            # Gap junction stored redundantly in both orientations (equal weight) — count once.
+            conn(2, "AVAL", "AVAR", "gap_junction", 2, "white_1986_whole"),
+            conn(3, "AVAR", "AVAL", "gap_junction", 2, "white_1986_whole"),
+        ],
+    )
+
+
+def test_kg_connections_map_class_level_directional() -> None:
+    m = kg_connections_map(_kg_conn_fixture())
+    datasets = m["datasets"]
+    ph = str(datasets.index("cook_2020_pharynx"))
+    conn = m["conn"]
+
+    # Chemical is directional and aggregates members to the class: M5 → g2 (g2L+g2R) = 1+5 = 6.
+    assert conn["M5"]["o"]["g2"][ph] == 6
+    assert conn["g2"]["i"]["M5"][ph] == 6
+    assert "i" not in conn["M5"]  # M5 has no chemical inputs here
+    # Integer EM section counts stay ints, not floats.
+    assert isinstance(conn["M5"]["o"]["g2"][ph], int)
+
+
+def test_kg_connections_gap_junction_symmetric_and_deduped() -> None:
+    m = kg_connections_map(_kg_conn_fixture())
+    w86 = str(m["datasets"].index("white_1986_whole"))
+    # Both orientations of the AVAL-AVAR gap junction collapse to one within-class edge (weight 2,
+    # not 4), stored symmetrically under the single "e" relation.
+    assert m["conn"]["AVA"]["e"]["AVA"][w86] == 2
+    assert "o" not in m["conn"]["AVA"] and "i" not in m["conn"]["AVA"]
+
+
+def test_cell_sexes_map_covers_projected_cells_only() -> None:
+    dm = datamodel()
+    connectome = dm.Connectome(
+        cells=[
+            # Projected hermaphrodite cell present in both sexes.
+            dm.Cell(
+                id="cckg:cell/AVAL",
+                name="AVAL",
+                cell_type="neuron",
+                nemanode_type="i",
+                cell_class="AVA",
+                sexes=["male", "hermaphrodite"],
+            ),
+            # Male-specific cell without a NemaNode type — reaches the map via the male projection.
+            dm.Cell(id="cckg:cell/CEMDL", name="CEMDL", cell_type="neuron", sexes=["male"]),
+            # Hermaphrodite-only stub with no type — not a viz node, so excluded.
+            dm.Cell(id="cckg:cell/int", name="int", cell_type="other", sexes=["hermaphrodite"]),
+        ],
+        datasets=[],
+        connections=[],
+    )
+    m = cell_sexes_map(connectome)
+    assert m["AVAL"] == ["hermaphrodite", "male"]  # sorted, hermaphrodite first
+    assert m["CEMDL"] == ["male"]
+    assert "int" not in m  # no NemaNode type and not male → not a viz node
+
+
+def test_pharynx_database_cells_from_dataset() -> None:
+    dm = datamodel()
+
+    def conn(i, pre, post, ds):
+        return dm.Connection(
+            id=f"cckg:conn/{ds}.{pre}.{post}.{i}",
+            pre=f"cckg:cell/{pre}",
+            post=f"cckg:cell/{post}",
+            connection_type="chemical",
+            weight=1.0,
+            dataset=f"cckg:dataset/{ds}",
+        )
+
+    connectome = dm.Connectome(
+        cells=[
+            dm.Cell(id="cckg:cell/M5", name="M5", cell_type="neuron", cell_class="M5"),
+            dm.Cell(id="cckg:cell/g1AL", name="g1AL", cell_type="other", cell_class="g1"),
+            dm.Cell(id="cckg:cell/AVAL", name="AVAL", cell_type="neuron", cell_class="AVA"),
+        ],
+        datasets=[],
+        connections=[
+            conn(0, "M5", "g1AL", "cook_2020_pharynx"),
+            conn(1, "AVAL", "M5", "white_1986_whole"),  # other dataset — must not contribute
+        ],
+    )
+    nodes = pharynx_database_cells(connectome)
+    assert nodes == ["G1", "G1AL", "M5"]  # cook_2020 cells + classes, upper-cased, sorted
+    assert "AVAL" not in nodes  # only in the non-pharynx dataset
 
 
 def test_pharyngeal_cells_from_wbbt_ancestry() -> None:
