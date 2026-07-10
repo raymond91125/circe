@@ -13,8 +13,8 @@ sections), so the pharynx is directly comparable to the 2019 pharyngeal subset. 
 NOT reproduce SI 4's per-series average (its published CSV export is internally inconsistent).
 
 Non-cell endpoints (raw object ids `obj...`, `unk`) are dropped; lowercase name variants are left
-for `cook_name_aliases.csv` to reconcile. `g1vl`/`g1vr` (non-standard g1 names, 3 tiny edges)
-are excluded pending curation.
+for `cook_name_aliases.csv` to reconcile, including `g1vl`/`g1vr` (non-standard names for the g1
+gland ventral processes) which are compiled into the `g1` gland cell.
 
 Usage: python aggregate_edges.py  ->  writes edges.csv (source,target,weight,type)
 """
@@ -26,7 +26,9 @@ from pathlib import Path
 
 HERE = Path(__file__).parent
 DROP = re.compile(r"^(obj\d+|unk\d*)$", re.I)
-EXCLUDE = {"g1vl", "g1vr"}  # non-standard g1 names, pending curation
+# g1vl/g1vr are non-standard names for g1 gland ventral processes; kept and compiled to the
+# `g1` gland cell via cook_name_aliases.csv (g1vl/g1vr -> g1). Only raw object/unk ids are dropped.
+EXCLUDE: set[str] = set()
 
 
 def aggregate() -> list[tuple[str, str, int, str]]:

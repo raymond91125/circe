@@ -136,6 +136,8 @@ I5,bm,1,chemical
 I5,g1AL,3,electrical
 I5,g1AL,7,chemical
 I5,g1AR,4,chemical
+I5,g1vl,2,chemical
+I5,g1vr,2,chemical
 I5,pm5VL,4,chemical
 I5,pm5VR,8,chemical
 I5,pm5d,15,chemical
@@ -218,6 +220,7 @@ M3R,MI,6,chemical
 M3R,bm,1,chemical
 M3R,g1AR,3,chemical
 M3R,g1AR,4,electrical
+M3R,g1vr,1,chemical
 M3R,pm4d,12,chemical
 M3R,pm5d,1,chemical
 M3R,pm5vr,1,chemical

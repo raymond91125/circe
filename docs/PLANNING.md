@@ -211,7 +211,7 @@ raw combined synapse list (matches the Elegance MySQL dumps SI 1 `n2w` / SI 2 `j
 synapses/series** — the *same* metric as Cook 2019, so the two are directly comparable (the whole
 point of the reference). Reconciliation: non-cell endpoints (`obj…`, `unk`) dropped; lowercase
 case-variants (`pm4d→pm4D`, `pm5d→pm5D`, `mc3v→mc3V`, `mc2dl/dr`, …) aliased in
-`cook_name_aliases.csv`; `g1vl`/`g1vr` (non-standard g1 names, 3 tiny edges) excluded pending
-curation. Result: **309 edges (254 chemical, 55 gap junction)** over pharyngeal cells already in the
+`cook_name_aliases.csv`; `g1vl`/`g1vr` (non-standard g1 gland ventral-process names) compiled into
+a `g1` gland cell (grounded to WBbt:0003712). Result: **311 edges (256 chemical, 55 gap junction)** over pharyngeal cells already in the
 KG. Ingested by `ingest/cook_2020.py`, folded in by `assemble` alongside the Cook 2019 bundles;
 KG-only (excluded from the neuron-graph/male viz projections, like the other `cook_*` datasets).

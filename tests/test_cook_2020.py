@@ -17,9 +17,9 @@ def test_edges_counts_and_types() -> None:
     conns = data.connections
     chem = [c for c in conns if c.connection_type == "chemical"]
     gap = [c for c in conns if c.connection_type == "gap_junction"]
-    # SI 3 aggregation: 329 edges (273 chemical, 56 electrical->gap_junction)
-    assert len(conns) == 329
-    assert len(chem) == 273
+    # SI 3 aggregation: 332 edges (276 chemical, 56 electrical->gap_junction)
+    assert len(conns) == 332
+    assert len(chem) == 276
     assert len(gap) == 56
     assert all(c.dataset_id == DATASET_ID for c in conns)
 
@@ -41,8 +41,8 @@ def test_gap_junctions_canonical_and_no_reciprocals() -> None:
 
 
 def test_noncell_endpoints_excluded() -> None:
-    """Raw object ids / unk / non-standard g1 names are dropped by the aggregator."""
+    """Raw object ids / unk are dropped by the aggregator (g1vl/g1vr are kept, compiled to g1
+    by cook_name_aliases at assemble time — so they still appear in the raw edge list here)."""
     conns = read_cook_2020().connections
     names = {c.pre for c in conns} | {c.post for c in conns}
     assert not any(n.lower().startswith(("obj", "unk")) for n in names)
-    assert "g1vl" not in names and "g1vr" not in names
