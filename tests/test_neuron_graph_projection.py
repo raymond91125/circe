@@ -13,9 +13,11 @@ from pathlib import Path
 import pytest
 
 from celegans_connectome_kg.build.assemble import assemble
+from celegans_connectome_kg.build.datamodel import datamodel
 from celegans_connectome_kg.export.neuron_graph_json import (
     cells_projection,
     connections_projection,
+    pharyngeal_cells,
 )
 from celegans_connectome_kg.ingest.neuron_graph import load_neuron_graph
 
@@ -112,3 +114,35 @@ def test_total_synapse_weight_conserved(connectome: object) -> None:
     source_total = sum(int(c.weight) for c in data.connections)
     proj_total = sum(v for c in connections_projection(connectome) for v in c["synapses"].values())
     assert proj_total == source_total
+
+
+def test_pharyngeal_cells_from_wbbt_ancestry() -> None:
+    """Pharyngeal cells (is_a WBbt pharyngeal cell) are collected, upper-cased, with classes."""
+    dm = datamodel()
+    connectome = dm.Connectome(
+        cells=[
+            # g1 gland cell (is_a pharyngeal gland cell is_a pharyngeal cell)
+            dm.Cell(
+                id="cckg:cell/g1AL",
+                name="g1AL",
+                cell_type="other",
+                cell_class="g1",
+                anatomy="WBbt:0004532",
+            ),
+            # pharyngeal muscle pm3 dorsal
+            dm.Cell(
+                id="cckg:cell/pm3D",
+                name="pm3D",
+                cell_type="muscle",
+                cell_class="pm3",
+                anatomy="WBbt:0003630",
+            ),
+            # somatic neuron — not pharyngeal
+            dm.Cell(id="cckg:cell/AVAL", name="AVAL", cell_type="neuron", anatomy="WBbt:0003870"),
+        ],
+        datasets=[],
+        connections=[],
+    )
+    ph = set(pharyngeal_cells(connectome, WBBT_JSON))
+    assert {"G1AL", "G1", "PM3D", "PM3"} <= ph  # cells + their classes, upper-cased
+    assert "AVAL" not in ph

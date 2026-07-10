@@ -251,6 +251,7 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         male_cells_projection,
         male_connections_projection,
         male_dataset,
+        pharyngeal_cells,
         wormatlas_links_map,
     )
     from celegans_connectome_kg.export.rdf import load_json, write_turtle
@@ -284,6 +285,10 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     labels = anatomy_labels_map(terms, wbbt_index)
     (ng_dir / "anatomy_labels.json").write_text(json.dumps(labels, indent=1))
     click.echo(f"wrote: {ng_dir}/anatomy_labels.json ({len(labels)} WBbt→label)")
+
+    pharynx = pharyngeal_cells(connectome, wbbt)
+    (ng_dir / "pharyngeal_cells.json").write_text(json.dumps(pharynx, indent=1))
+    click.echo(f"wrote: {ng_dir}/pharyngeal_cells.json ({len(pharynx)} pharyngeal cells)")
 
     male_atlas = (
         load_wormatlas_urls(DEFAULT_COOK_WORMATLAS) if DEFAULT_COOK_WORMATLAS.exists() else {}
