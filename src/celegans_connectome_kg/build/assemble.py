@@ -45,6 +45,11 @@ _TYPE_CODE = {"chemical": "0", "gap_junction": "2", "functional": "4"}
 
 _HERMAPHRODITE = "hermaphrodite"
 
+#: neuron-graph endpoint name normalization. G1/G2 are uppercase misnomers of the pharyngeal
+#: gland cells g1/g2 (gland cells are conventionally lowercase); rename so they unify with the
+#: g1/g2 gland cells shared by the Cook datasets.
+_NEURON_GRAPH_ALIAS = {"G1": "g1", "G2": "g2"}
+
 
 def classify_cell_type(nemanode_type: str | None) -> str:
     """Map the NemaNode ``typ`` code to our CellType enum.
@@ -166,6 +171,7 @@ def assemble(
     nt_curation = load_nt_curation(nt_curation_path) if nt_curation_path else {}
 
     cell_records: dict[str, CellRecord] = {c.name: c for c in data.cells}
+    stub_names = {ec.name for ec in endpoint_cells}
     anatomy_by_name = {
         m.cell_name: m.wbbt_id for m in match_cells(data.cells, index, curation) if m.wbbt_id
     }
@@ -193,7 +199,7 @@ def assemble(
             for n in names:
                 canonical = cook_alias.get(n, n)
                 sexes[canonical].add(sex)
-                if canonical not in cell_records:
+                if canonical not in cell_records and canonical not in stub_names:
                     cook_new_cells[canonical] = cook_anatomy.get(canonical, "")
 
     kind_label, kind_parents = _wbbt_ancestry(wbbt_path)
@@ -218,7 +224,6 @@ def assemble(
         )
         for c in sorted(data.cells, key=lambda c: c.name)
     ]
-    stub_names = {ec.name for ec in endpoint_cells}
     cells += [
         dm.Cell(
             id=_cell_id(ec.name),
@@ -249,8 +254,8 @@ def assemble(
         for did, name, desc in sorted(dataset_defs)
     ]
 
-    # --- Connections: neuron-graph (no alias) + Cook bundles (aliased), aggregated by key ---
-    summed = _aggregate(data.connections, {})
+    # --- Connections: neuron-graph (G1/G2 gland-misnomer rename) + Cook bundles (aliased) ---
+    summed = _aggregate(data.connections, _NEURON_GRAPH_ALIAS)
     for bundle in cook_bundles:
         for key, w in _aggregate(bundle.connections, cook_alias).items():
             summed[key] = summed.get(key, 0.0) + w

@@ -36,5 +36,5 @@ Elegance MySQL dumps, pinned by sha256:
 - Non-cell endpoints dropped: `obj560962`, `obj586937`, `unk`, `unk1`.
 - Lowercase name variants reconciled via `cook_name_aliases.csv` (pm4d->pm4D, pm5d->pm5D, mc3v->mc3V, ...).
 - `g1vl`/`g1vr` (non-standard names for the g1 gland ventral processes) are compiled into the
-  `g1` gland cell via `cook_name_aliases.csv` (g1vl/g1vr -> g1); `g1` is grounded to the
-  pharyngeal g1 gland term WBbt:0003712 in `cook_anatomy_curation.csv`.
+  `g1` gland cell via `cook_name_aliases.csv` (g1vl/g1vr -> g1); `g1` is the pharyngeal g1 gland cell (endpoint stub in `connection_endpoint_cells.csv`,
+  grounded to WBbt:0003712; the White-1986 `G1` uppercase misnomer is normalized to it too).
