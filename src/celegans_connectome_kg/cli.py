@@ -252,6 +252,7 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         anatomy_terms_map,
         cells_projection,
         connections_projection,
+        kg_connections_map,
         male_cells_projection,
         male_connections_projection,
         male_dataset,
@@ -293,6 +294,15 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
     pharynx = pharyngeal_cells(connectome, wbbt)
     (ng_dir / "pharyngeal_cells.json").write_text(json.dumps(pharynx, indent=1))
     click.echo(f"wrote: {ng_dir}/pharyngeal_cells.json ({len(pharynx)} pharyngeal cells)")
+
+    # Full class-level connectivity for the cell-info "Connections (knowledge graph)" panel —
+    # every KG dataset, unfiltered by the viz's per-type weight threshold. Compact (no indent).
+    kg_conn = kg_connections_map(connectome)
+    (ng_dir / "kg_connections.json").write_text(json.dumps(kg_conn, separators=(",", ":")))
+    click.echo(
+        f"wrote: {ng_dir}/kg_connections.json ({len(kg_conn['conn'])} classes,"
+        f" {len(kg_conn['datasets'])} datasets)"
+    )
 
     male_atlas = (
         load_wormatlas_urls(DEFAULT_COOK_WORMATLAS) if DEFAULT_COOK_WORMATLAS.exists() else {}

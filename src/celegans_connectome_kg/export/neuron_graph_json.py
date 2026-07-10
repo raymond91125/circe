@@ -215,6 +215,85 @@ def wormatlas_links_map(
     return dict(sorted(out.items()))
 
 
+#: KG connection type → (out-relation, in-relation) codes for the class-level cell-info map.
+#: Chemical & functional are directional; gap junctions are symmetric (single "e").
+_KG_REL = {
+    "chemical": ("o", "i"),
+    "functional": ("fo", "fi"),
+    "gap_junction": ("e", "e"),
+}
+
+
+def _kg_num(weight: float) -> float | int:
+    """Integer EM section counts stay ints; functional (float) weights round to 3 places."""
+    return int(weight) if float(weight).is_integer() else round(float(weight), 3)
+
+
+def kg_connections_map(connectome: object) -> dict:
+    """Class-level *complete* connectivity for the viz cell-info "Connections (knowledge graph)".
+
+    The viz only draws connections for the currently-selected database at/above the per-type
+    weight threshold, so a weak edge (below threshold) or one from a KG dataset not loaded into
+    the viz DB looks like "no connections" — e.g. ``g2R``'s only input, ``M5→g2R`` (weight 1), is
+    hidden by the default chemical threshold of 3. This map is the full KG connectivity so the
+    panel can show what exists regardless of view/threshold, keyed by cell *class* (what the
+    cell-info panel resolves the clicked node to).
+
+    Shape (compact for bundling into the client):
+
+        {"datasets": [dataset_id, ...],      # list index i ↔ code str(i)
+         "conn": {class: {rel: {partner_class: {dataset_code: weight}}}}}
+
+    ``rel`` is ``o``/``i`` (chemical out/in), ``e`` (gap junction, symmetric), or ``fo``/``fi``
+    (functional out/in). Cells with no KG ``cell_class`` key by their own name (matching the male
+    projection's individual display). Gap junctions are stored redundantly in both orientations in
+    the KG (equal weights), so each unordered pair is counted once, then attributed to both
+    endpoints' classes.
+    """
+    datasets = sorted({_strip(str(c.dataset), DATASET_PREFIX) for c in connectome.connections})
+    code = {d: str(i) for i, d in enumerate(datasets)}
+    cls = {c.name: (c.cell_class or c.name) for c in connectome.cells}
+
+    def klass(curie: str) -> str:
+        name = _strip(curie, CELL_PREFIX)
+        return cls.get(name, name)
+
+    # class -> rel -> partner_class -> dataset_code -> summed weight
+    conn: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(float))))
+    # Gap junctions first canonicalised per (dataset, unordered cell pair) to drop the redundant
+    # reverse orientation, keyed at cell level so distinct member pairs still aggregate by class.
+    gap_seen: set[tuple[str, str, str]] = set()
+
+    for c in connectome.connections:
+        ctype = str(c.connection_type)
+        dset = code[_strip(str(c.dataset), DATASET_PREFIX)]
+        pre_cls, post_cls = klass(c.pre), klass(c.post)
+        if ctype == "gap_junction":
+            a, b = _strip(c.pre, CELL_PREFIX), _strip(c.post, CELL_PREFIX)
+            key = (dset, *sorted((a, b)))
+            if key in gap_seen:
+                continue
+            gap_seen.add(key)
+            conn[pre_cls]["e"][post_cls][dset] += c.weight
+            if post_cls != pre_cls:
+                conn[post_cls]["e"][pre_cls][dset] += c.weight
+        else:
+            rel_out, rel_in = _KG_REL[ctype]
+            conn[pre_cls][rel_out][post_cls][dset] += c.weight
+            conn[post_cls][rel_in][pre_cls][dset] += c.weight
+
+    out = {
+        cell: {
+            rel: {
+                p: {d: _kg_num(w) for d, w in sorted(ds.items())} for p, ds in sorted(parts.items())
+            }
+            for rel, parts in sorted(rels.items())
+        }
+        for cell, rels in sorted(conn.items())
+    }
+    return {"datasets": datasets, "conn": out}
+
+
 def _merge_gap_junctions(gap_junctions: list[dict]) -> list[dict]:
     """Merge flipped pre/post electrical pairs additively (neuron-graph mergeGapJunctions)."""
     by_key: dict[str, dict] = {}
