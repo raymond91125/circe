@@ -74,13 +74,42 @@ upstreams — this repo does not fork them.
 
 ## Data sources & credits
 
-CIRCE integrates published data: chemical-synapse and gap-junction wiring from John White and
-the [Zhen](https://www.zhenlab.com), [Samuel](https://scholar.harvard.edu/aravisamuel), and
-[Lichtman](https://lichtmanlab.fas.harvard.edu) labs
-([NemaNode](https://nemanode.org/) / Witvliet et al., 2021; Cook et al., 2019), and functional
-connectivity from the [Leifer Lab](http://leiferlab.princeton.edu)
-([Randi et al., 2023](https://www.nature.com/articles/s41586-023-06683-4)) — all grounded in the
-_C. elegans_ Gross Anatomy Ontology (WBBT).
+CIRCE integrates published data across several modalities. Each source is pinned under `data/`
+with provenance and checksums in its `MANIFEST.md`.
+
+**Connectomes — chemical synapses & gap junctions**
+
+- **White et al., 1986** — the original serial-section EM reconstruction of the adult
+  hermaphrodite ([10.1098/rstb.1986.0056](https://doi.org/10.1098/rstb.1986.0056)).
+- **Witvliet et al., 2021** — connectomes across development (Zhen / Samuel / Lichtman labs)
+  ([10.1038/s41586-021-03778-8](https://doi.org/10.1038/s41586-021-03778-8)).
+- **Cook et al., 2019** — whole-animal connectomes of both sexes (Emmons Lab / WormWiring)
+  ([10.1038/s41586-019-1352-7](https://doi.org/10.1038/s41586-019-1352-7)).
+- **Cook et al., 2020** — the pharyngeal connectome (Emmons Lab)
+  ([10.1002/cne.24932](https://doi.org/10.1002/cne.24932)).
+
+**Functional connectivity**
+
+- **Randi et al., 2023** — a neural signal-propagation atlas from optogenetic activation +
+  calcium imaging (Leifer Lab)
+  ([10.1038/s41586-023-06683-4](https://doi.org/10.1038/s41586-023-06683-4)).
+
+**Neurotransmitter identity**
+
+- **Wang et al., 2024** — a *C. elegans* neurotransmitter atlas
+  ([10.7554/eLife.95402](https://doi.org/10.7554/eLife.95402)).
+- **Hardege et al., 2022** — betaine neurotransmission at RIM
+  ([10.1073/pnas.2201783119](https://doi.org/10.1073/pnas.2201783119)).
+- [WormAtlas Neurotransmitters Table](https://www.wormatlas.org/neurotransmitterstable.htm).
+
+**Anatomy ontology**
+
+- Every cell is grounded in the *C. elegans* Gross Anatomy Ontology (**WBBT**), maintained by
+  [WormBase](https://wormbase.org/).
+
+The connectome and functional data reach CIRCE via a pinned snapshot of
+[NemaNode](https://nemanode.org/) / [FunCoNN](https://funconn.princeton.edu/) (White, Witvliet,
+Randi); Cook, the neurotransmitter sources, and WBBT are pinned directly.
 
 ## License & contact
 
