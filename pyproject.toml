@@ -19,6 +19,10 @@ dev = [
     "pytest>=8.0",
     "ruff>=0.6",
 ]
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+]
 
 [project.scripts]
 cckg = "celegans_connectome_kg.cli:main"

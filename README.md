@@ -66,6 +66,22 @@ Source data is pinned under `data/` for reproducibility; provenance and checksum
 recorded in each subdirectory's `MANIFEST.md`. neuron-graph and WBBT remain external
 upstreams — this repo does not fork them.
 
+## Schema
+
+The LinkML schema is the single source of truth
+([`src/celegans_connectome_kg/schema/connectome.yaml`](src/celegans_connectome_kg/schema/connectome.yaml)).
+Browsable docs and machine-readable exports are generated from it:
+
+- **Docs site:** <https://raymond91125.github.io/circe/> (classes, slots, enums; published to
+  GitHub Pages by [`.github/workflows/schema-docs.yml`](.github/workflows/schema-docs.yml)).
+- **OWL:** [`docs/schema/connectome.owl.ttl`](docs/schema/connectome.owl.ttl) — the schema/TBox
+  for triplestores and reasoners (pairs with the RDF data from `cckg export`).
+- **JSON Schema:** [`docs/schema/connectome.schema.json`](docs/schema/connectome.schema.json) —
+  for validating data.
+
+Regenerate all three with `sh scripts/gen-schema-docs.sh` (preview the site:
+`uv run --extra docs mkdocs serve`).
+
 ## Related repositories
 
 - [CIRCE](https://github.com/raymond91125/circe) (knowledge-graph core + project home — this repo)
