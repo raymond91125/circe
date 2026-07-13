@@ -101,6 +101,41 @@ updates. The shipped example queries in
 [`src/celegans_connectome_kg/verify/queries/`](src/celegans_connectome_kg/verify/queries/) are
 loadable from the console. Pass `--host 0.0.0.0 --port <p>` to expose it beyond localhost.
 
+### Hosting (port 3001)
+
+In production the endpoint runs alongside the viz (`:3000`) on **port 3001**:
+
+```bash
+sh scripts/serve-sparql.sh --host 0.0.0.0 --port 3001
+```
+
+Run it persistently with `nohup`:
+
+```bash
+nohup sh scripts/serve-sparql.sh --host 0.0.0.0 --port 3001 > /tmp/circe-sparql.log 2>&1 &
+```
+
+…or as a systemd service (`/etc/systemd/system/circe-sparql.service`):
+
+```ini
+[Unit]
+Description=CIRCE SPARQL endpoint
+After=network.target
+
+[Service]
+WorkingDirectory=/home/raymond/local/src/git/circe
+ExecStart=/usr/bin/env sh scripts/serve-sparql.sh --host 0.0.0.0 --port 3001
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+The graph is loaded into memory at startup from `outputs/connectome.ttl`, so after rebuilding
+the KG (`uv run cckg build && uv run cckg export`) **restart** the endpoint to serve the new
+data. It is read-only (SPARQL Update is refused); if exposed publicly, front it with a reverse
+proxy / firewall as appropriate.
+
 ## Related repositories
 
 - [CIRCE](https://github.com/raymond91125/circe) (knowledge-graph core + project home — this repo)
