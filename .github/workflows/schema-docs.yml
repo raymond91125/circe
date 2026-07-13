@@ -1,0 +1,40 @@
+name: schema-docs
+
+# Regenerate the schema artifacts (OWL, JSON Schema, docs) from the LinkML source
+# and publish the docs site to GitHub Pages.
+# One-time setup: repo Settings -> Pages -> Build and deployment -> Source = "GitHub Actions".
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/celegans_connectome_kg/schema/**"
+      - "mkdocs.yml"
+      - "scripts/gen-schema-docs.sh"
+      - ".github/workflows/schema-docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Generate schema artifacts + docs
+        run: sh scripts/gen-schema-docs.sh
+      - name: Build docs site
+        run: uv run --extra docs mkdocs build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

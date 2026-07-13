@@ -1,0 +1,327 @@
+{
+    "$defs": {
+        "Cell": {
+            "additionalProperties": false,
+            "description": "A C. elegans cell (neuron or muscle, or other non-neuronal cell carried by neuron-graph), keyed by its neuron-graph name and grounded in a WBBT anatomy term. Carries the neuron-graph-native attributes so the viz JSON projection is lossless.",
+            "properties": {
+                "anatomy": {
+                    "description": "The WBBT anatomy term this cell is grounded in.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "cell_class": {
+                    "description": "The neuron-graph cell class (e.g. \"ADA\" for ADAL/ADAR).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "cell_type": {
+                    "$ref": "#/$defs/CellType",
+                    "description": "The broad kind of cell."
+                },
+                "embryonic": {
+                    "description": "Whether the cell is born embryonically.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "The neuron-graph cell name, used as the stable key (e.g. \"ADAL\").",
+                    "type": "string"
+                },
+                "in_head": {
+                    "description": "Whether the cell is in the head.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "in_tail": {
+                    "description": "Whether the cell is in the tail.",
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Human-readable label.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "nemanode_type": {
+                    "description": "Raw NemaNode cell-type code (e.g. \"i\", \"s\", \"sm\", \"b\"). Retained verbatim for the lossless viz projection; the curated CellType is in `cell_type`.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "neurotransmitter": {
+                    "description": "neuron-graph neurotransmitter code (e.g. \"l\", \"a\", \"g\", \"n\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "sexes": {
+                    "description": "The sex(es) in which this cell is present, derived from the datasets that observe it. A shared cell has both; sex-specific cells have one \u2014 e.g. HSN/VC (hermaphrodite), the male ray neurons R1-R9, CEM, HOA/HOB, SPC, PCA/PCB/PCC, PDC (male).",
+                    "items": {
+                        "$ref": "#/$defs/Sex"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Cell",
+            "type": "object"
+        },
+        "CellType": {
+            "description": "",
+            "enum": [
+                "neuron",
+                "muscle",
+                "other"
+            ],
+            "title": "CellType",
+            "type": "string"
+        },
+        "Connection": {
+            "additionalProperties": false,
+            "description": "A reified, n-ary connection between two cells observed in one dataset. Reified (not a plain triple) because it carries type, weight, dataset, and evidence.",
+            "properties": {
+                "connection_type": {
+                    "$ref": "#/$defs/ConnectionType",
+                    "description": "The kind of connection."
+                },
+                "dataset": {
+                    "description": "The dataset in which this was observed.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "evidence": {
+                    "description": "Provenance records supporting this connection (open-world, additive).",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Stable identifier for the record.",
+                    "type": "string"
+                },
+                "post": {
+                    "description": "The postsynaptic / target cell.",
+                    "type": "string"
+                },
+                "pre": {
+                    "description": "The presynaptic / source cell.",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "Aggregated connection weight as reported by the observing dataset.",
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id",
+                "pre",
+                "post",
+                "connection_type"
+            ],
+            "title": "Connection",
+            "type": "object"
+        },
+        "ConnectionType": {
+            "description": "",
+            "enum": [
+                "chemical",
+                "gap_junction",
+                "functional"
+            ],
+            "title": "ConnectionType",
+            "type": "string"
+        },
+        "Connectome": {
+            "additionalProperties": false,
+            "description": "Top-level container holding all cells, connections, and datasets of one build. Serves as the tree root for data files and validation.",
+            "properties": {
+                "cells": {
+                    "items": {
+                        "$ref": "#/$defs/Cell"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "connections": {
+                    "items": {
+                        "$ref": "#/$defs/Connection"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "datasets": {
+                    "items": {
+                        "$ref": "#/$defs/Dataset"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "title": "Connectome",
+            "type": "object"
+        },
+        "Dataset": {
+            "additionalProperties": false,
+            "description": "A specimen/dataset that observes connections (an EM reconstruction or functional-imaging dataset), from neuron-graph (White 1986, Witvliet 2020, Randi funconn) or Cook et al. 2019.",
+            "properties": {
+                "description": {
+                    "description": "Free-text description.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Stable identifier for the record.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable label.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "sex": {
+                    "$ref": "#/$defs/Sex",
+                    "description": "The biological sex of the specimen(s) the dataset observed."
+                },
+                "strain": {
+                    "description": "The C. elegans strain/genotype of the specimen, if known.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Dataset",
+            "type": "object"
+        },
+        "Evidence": {
+            "additionalProperties": false,
+            "description": "Provenance for a connection. Designed to be additive: v1 records an aggregated weight observed in a dataset; later releases can add individual synaptic-contact detail (section, volume, image) by adding optional slots, without schema churn.",
+            "properties": {
+                "dataset": {
+                    "description": "The dataset in which this was observed.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "evidence_type": {
+                    "$ref": "#/$defs/EvidenceType",
+                    "description": "What kind of evidence this record represents."
+                },
+                "source": {
+                    "description": "Pointer to the source data (file, URL, or upstream identifier).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "value": {
+                    "description": "The evidence payload as text (e.g. the aggregated weight value).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "Evidence",
+            "type": "object"
+        },
+        "EvidenceType": {
+            "description": "",
+            "enum": [
+                "aggregated_weight",
+                "synaptic_contact"
+            ],
+            "title": "EvidenceType",
+            "type": "string"
+        },
+        "Sex": {
+            "description": "The biological sex of a C. elegans specimen.",
+            "enum": [
+                "hermaphrodite",
+                "male"
+            ],
+            "title": "Sex",
+            "type": "string"
+        }
+    },
+    "$id": "https://wormbase.org/resources/connectome/schema",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "description": "Top-level container holding all cells, connections, and datasets of one build. Serves as the tree root for data files and validation.",
+    "metamodel_version": "1.11.0",
+    "properties": {
+        "cells": {
+            "items": {
+                "$ref": "#/$defs/Cell"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "connections": {
+            "items": {
+                "$ref": "#/$defs/Connection"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "datasets": {
+            "items": {
+                "$ref": "#/$defs/Dataset"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        }
+    },
+    "title": "celegans-connectome",
+    "type": "object",
+    "version": null
+}
+
