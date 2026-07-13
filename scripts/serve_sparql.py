@@ -137,7 +137,10 @@ class Handler(BaseHTTPRequestHandler):
     def _run(self, query, fmt):
         if not query or not query.strip():
             return self._send(400, "empty query")
-        if _UPDATE.search(query):
+        # Friendly early rejection of updates. Strip line comments first so update keywords
+        # inside comments (e.g. "add") don't trip it; read-only is guaranteed regardless,
+        # since store.query() below raises on any update operation.
+        if _UPDATE.search(re.sub(r"(?m)#.*$", "", query)):
             return self._send(403, "read-only endpoint: SPARQL Update is not allowed")
         try:
             res = self.store.query(PREFIXES + query)
