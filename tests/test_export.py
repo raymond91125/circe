@@ -70,8 +70,8 @@ def test_json_roundtrip_preserves_counts(built: object, tmp_path: Path) -> None:
     write_json(built, path)
     reloaded = load_json(path)
     assert len(reloaded.cells) == len(built.cells) == 447
-    assert len(reloaded.connections) == len(built.connections) == 25026
-    assert len(reloaded.datasets) == len(built.datasets) == 15
+    assert len(reloaded.connections) == len(built.connections) == 23895
+    assert len(reloaded.datasets) == len(built.datasets) == 14
     # A spot-checked cell survives the round-trip with its anatomy.
     adal = next(c for c in reloaded.cells if c.id == "cckg:cell/ADAL")
     assert str(adal.anatomy) == "WBbt:0004013"

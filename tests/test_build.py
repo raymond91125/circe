@@ -37,15 +37,16 @@ def built() -> tuple[object, object]:
 def test_build_stats(built: tuple[object, object]) -> None:
     _, stats = built
     assert stats.cells == 447
-    assert stats.datasets == 15
-    # 25036 source records aggregate to 25026 connections: 10 duplicate (dataset,pre,post,
-    # type) listings in white_1986_jse are summed (mirrors neuron-graph populate).
-    assert stats.connections == 25026
+    assert stats.datasets == 14  # 15 neuron-graph datasets minus de-duplicated randi_funconn_wildcp
+    # Source records aggregate by (dataset,pre,post,type); duplicate listings are summed (mirrors
+    # neuron-graph populate). randi_funconn_wildcp is dropped as a byte-identical duplicate of
+    # randi_funconn_wildty (assemble._REDUNDANT_NG_DATASETS), leaving 23895 connections.
+    assert stats.connections == 23895
     assert stats.cells_with_anatomy == 333  # equals the matched count from Phase 2
     assert stats.connections_by_type == {
         "chemical": 16945,
         "gap_junction": 5467,
-        "functional": 2614,
+        "functional": 1483,  # 2614 minus randi_funconn_wildcp's 1131 (functional-only duplicate)
     }
     # Distinct class-level / fragment endpoint names absent from neurons.json.
     assert stats.unknown_connection_cells == 14
