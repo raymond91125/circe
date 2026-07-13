@@ -76,10 +76,13 @@ def test_gap_junctions_fully_merged(connectome: object) -> None:
 def test_projection_matches_source_grouping(connectome: object) -> None:
     """Independently regroup the ingest records and compare to the KG-derived projection."""
     from celegans_connectome_kg.build.assemble import _NEURON_GRAPH_ALIAS as GA
+    from celegans_connectome_kg.build.assemble import _REDUNDANT_NG_DATASETS
 
     data = load_neuron_graph(NEURON_GRAPH)
     grouped: dict[tuple[str, str, str], dict[str, int]] = defaultdict(lambda: defaultdict(int))
     for r in data.connections:
+        if r.dataset_id in _REDUNDANT_NG_DATASETS:  # build drops these duplicates
+            continue
         # Sum duplicate listings, as neuron-graph populate does; apply the same G1/G2->g1/g2
         # gland-misnomer rename the build applies to neuron-graph endpoints.
         pre, post = GA.get(r.pre, r.pre), GA.get(r.post, r.post)
@@ -117,8 +120,12 @@ def test_projection_matches_source_grouping(connectome: object) -> None:
 
 
 def test_total_synapse_weight_conserved(connectome: object) -> None:
+    from celegans_connectome_kg.build.assemble import _REDUNDANT_NG_DATASETS
+
     data = load_neuron_graph(NEURON_GRAPH)
-    source_total = sum(int(c.weight) for c in data.connections)
+    source_total = sum(
+        int(c.weight) for c in data.connections if c.dataset_id not in _REDUNDANT_NG_DATASETS
+    )
     proj_total = sum(v for c in connections_projection(connectome) for v in c["synapses"].values())
     assert proj_total == source_total
 

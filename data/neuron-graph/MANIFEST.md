@@ -47,8 +47,10 @@ concern, not applied at ingest.
 | `connections/randi_funconn_unc31.json`  | `a52d23f9e7dd27a0ec96250e77ba7bc41ea062ca6334612a7267ee94d797e812` | 0 / 0 / 352 | 352 |
 
 **`wildcp` ≡ `wildty`:** identical sha256 — the upstream ships the same wild-type functional
-data under two dataset labels (resolves the Phase 0 note). Ingest reads both faithfully; the
-build stage should decide whether to keep both as distinct dataset records or alias them.
+data under two dataset labels (they map to neuron-graph's "complete" vs "head" database
+collections). Ingest reads both faithfully; the **build drops `randi_funconn_wildcp`** as a
+duplicate (see `assemble._REDUNDANT_NG_DATASETS`) so KG aggregates don't double-count wild-type
+functional weights. `randi_funconn_wildty` is kept.
 
 ## Superseded
 

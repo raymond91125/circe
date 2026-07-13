@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import json
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from types import ModuleType
 
@@ -42,6 +42,13 @@ CONN_PREFIX = "cckg:conn/"
 
 #: neuron-graph connection typ name → typ code, for stable connection ids.
 _TYPE_CODE = {"chemical": "0", "gap_junction": "2", "functional": "4"}
+
+#: Redundant neuron-graph datasets dropped at build. `randi_funconn_wildcp` is byte-identical to
+#: `randi_funconn_wildty` — the same Randi wild-type functional recording that neuron-graph loads
+#: twice (into its "complete" and "head" database collections). Keeping both would double-count
+#: every wild-type functional weight in KG aggregates, so we keep one (`wildty`). The pinned
+#: source snapshot still contains both; this is a build-time de-duplication.
+_REDUNDANT_NG_DATASETS = frozenset({"randi_funconn_wildcp"})
 
 _HERMAPHRODITE = "hermaphrodite"
 
@@ -165,6 +172,12 @@ def assemble(
     """
     dm: ModuleType = datamodel()
     data = load_neuron_graph(data_dir)
+    # Drop byte-identical duplicate datasets (see _REDUNDANT_NG_DATASETS) before assembly.
+    data = replace(
+        data,
+        datasets=[d for d in data.datasets if d.id not in _REDUNDANT_NG_DATASETS],
+        connections=[c for c in data.connections if c.dataset_id not in _REDUNDANT_NG_DATASETS],
+    )
     index = WBBTIndex.from_obograph(wbbt_path)
     curation = load_curation(curation_path) if curation_path else None
     endpoint_cells = load_endpoint_cells(endpoint_cells_path) if endpoint_cells_path else []
