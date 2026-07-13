@@ -1,0 +1,33 @@
+# Compare the connectivity of two cells side by side. For each partner and
+# connection type, sums the connection weight (across all datasets) to each of the
+# two cells — so left/right or class-member asymmetries stand out. Example: M3L vs M3R.
+#
+# To compare a different pair, replace every .../cell/M3L and .../cell/M3R below
+# (they appear in the two SUM(IF ...) columns and in the FILTER).
+#
+# Notes:
+#  - Weights are summed across all 18 datasets. Rows are split by ?type because units
+#    differ: chemical / gap_junction = EM serial-section counts; functional = signed
+#    Randi values (can be negative). Don't compare across types.
+#  - To restrict to one dataset, add inside WHERE:
+#      ?c cckg:dataset <https://wormbase.org/resources/connectome/dataset/white_1986_whole> .
+#  - To show only partners that differ between the two cells, append:
+#      HAVING (?cell_M3L != ?cell_M3R)
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?partner ?type
+       (SUM(IF(?f = <https://wormbase.org/resources/connectome/cell/M3L>, ?w, 0)) AS ?cell_M3L)
+       (SUM(IF(?f = <https://wormbase.org/resources/connectome/cell/M3R>, ?w, 0)) AS ?cell_M3R)
+WHERE {
+  ?c cckg:connection_type ?type ;
+     cckg:weight ?w .
+  { ?c cckg:pre ?f ; cckg:post ?pc }
+  UNION
+  { ?c cckg:post ?f ; cckg:pre ?pc }
+  FILTER(?f IN (<https://wormbase.org/resources/connectome/cell/M3L>,
+                <https://wormbase.org/resources/connectome/cell/M3R>))
+  ?pc dcterms:title ?partner .
+}
+GROUP BY ?partner ?type
+ORDER BY ?type ?partner
