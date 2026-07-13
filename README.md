@@ -82,6 +82,25 @@ Browsable docs and machine-readable exports are generated from it:
 Regenerate all three with `sh scripts/gen-schema-docs.sh` (preview the site:
 `uv run --extra docs mkdocs serve`).
 
+## Query it (SPARQL)
+
+The full graph is available as RDF/Turtle — download `connectome.ttl` from the
+[latest release](https://github.com/raymond91125/circe/releases/latest) and load it into any
+triplestore or `rdflib`/[Oxigraph](https://github.com/oxigraph/oxigraph).
+
+To explore interactively, run a local read-only SPARQL endpoint over your build:
+
+```bash
+uv run cckg build && uv run cckg export   # produces outputs/connectome.ttl
+sh scripts/serve-sparql.sh                # -> http://127.0.0.1:7878/  (query console)
+```
+
+It serves a browser query console plus a `/query` HTTP endpoint (SPARQL-JSON / CSV / TSV, and
+Turtle for CONSTRUCT), auto-prepends the common prefixes (`cckg:`, `WBbt:`, …), and refuses
+updates. The shipped example queries in
+[`src/celegans_connectome_kg/verify/queries/`](src/celegans_connectome_kg/verify/queries/) are
+loadable from the console. Pass `--host 0.0.0.0 --port <p>` to expose it beyond localhost.
+
 ## Related repositories
 
 - [CIRCE](https://github.com/raymond91125/circe) (knowledge-graph core + project home — this repo)
