@@ -438,10 +438,8 @@ def male_cells_projection(connectome: object) -> list[dict]:
     return out
 
 
-def male_connections_projection(
-    connectome: object, dataset_id: str = "cook_2019_male"
-) -> list[dict]:
-    """Project the male connectome (one dataset) into the /api/connections shape."""
+def _single_dataset_connections(connectome: object, dataset_id: str) -> list[dict]:
+    """Project one dataset's connections into the /api/connections shape (chemical + gap only)."""
     grouped: dict[tuple[str, str, str], dict[str, int]] = defaultdict(lambda: defaultdict(int))
     for conn in connectome.connections:
         dataset = _strip(str(conn.dataset), DATASET_PREFIX)
@@ -465,14 +463,74 @@ def male_connections_projection(
     return [*_merge_gap_junctions(electrical), *chemical]
 
 
+def male_connections_projection(
+    connectome: object, dataset_id: str = "cook_2019_male"
+) -> list[dict]:
+    """Project the male connectome (one dataset) into the /api/connections shape."""
+    return _single_dataset_connections(connectome, dataset_id)
+
+
 def male_dataset(dataset_id: str = "cook_2019_male") -> dict:
     """The neuron-graph dataset entry for the male connectome (a 'male' viz database)."""
     return {
         "id": dataset_id,
         "name": "Cook et al. 2019 (male)",
         "type": "male",
-        "time": None,
-        "visualTime": None,
+        "time": 50,
+        "visualTime": 50,
         "description": "Whole-animal male connectome, Cook et al. 2019 (Nature 571:63-71).",
+        "datatypes": "cs,gj",
+    }
+
+
+# --- Pharynx projection: the Cook 2020 pharyngeal connectome as a "pharynx" viz database --------
+
+
+def pharynx_cells_projection(
+    connectome: object, dataset_id: str = "cook_2020_pharynx"
+) -> list[dict]:
+    """Project the cells of the Cook 2020 pharyngeal connectome into the /api/cells shape.
+
+    The cell set is every endpoint of a ``cook_2020_pharynx`` connection (the full-record analogue
+    of :func:`pharynx_database_cells`), sharing :func:`_viz_type` and class defaulting with the
+    male projection.
+    """
+    endpoints: set[str] = set()
+    for conn in connectome.connections:
+        if _strip(str(conn.dataset), DATASET_PREFIX) != dataset_id:
+            continue
+        endpoints.add(_strip(conn.pre, CELL_PREFIX))
+        endpoints.add(_strip(conn.post, CELL_PREFIX))
+    return [
+        {
+            "name": c.name,
+            "class": c.cell_class or c.name,
+            "type": _viz_type(c),
+            "neurotransmitter": c.neurotransmitter or "u",
+            "embryonic": bool(c.embryonic),
+            "inhead": bool(c.in_head),
+            "intail": bool(c.in_tail),
+        }
+        for c in connectome.cells
+        if c.name in endpoints
+    ]
+
+
+def pharynx_connections_projection(
+    connectome: object, dataset_id: str = "cook_2020_pharynx"
+) -> list[dict]:
+    """Project the pharyngeal connectome (one dataset) into the /api/connections shape."""
+    return _single_dataset_connections(connectome, dataset_id)
+
+
+def pharynx_dataset(dataset_id: str = "cook_2020_pharynx") -> dict:
+    """The neuron-graph dataset entry for the pharyngeal connectome (a 'pharynx' viz database)."""
+    return {
+        "id": dataset_id,
+        "name": "Cook et al. 2020 (pharynx)",
+        "type": "pharynx",
+        "time": 50,
+        "visualTime": 50,
+        "description": "Pharyngeal connectome, Cook et al. 2020 (J Comp Neurol 528:2767-2784).",
         "datatypes": "cs,gj",
     }

@@ -255,7 +255,10 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         connections_projection,
         kg_connections_map,
         male_cells_projection,
+        pharynx_cells_projection,
+        pharynx_connections_projection,
         pharynx_database_cells,
+        pharynx_dataset,
         male_connections_projection,
         male_dataset,
         pharyngeal_cells,
@@ -332,6 +335,20 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         (ng_male / "datasets.json").write_text(json.dumps([male_dataset()], indent=2))
         click.echo(
             f"wrote: {ng_male}/ (male: {len(male_cells)} cells, {len(male_conns)} connections)"
+        )
+
+    # Pharynx viz projection: the Cook 2020 pharyngeal connectome as a "pharynx" database.
+    pharynx_cells = pharynx_cells_projection(connectome)
+    if pharynx_cells:
+        ng_pharynx = out_dir / "neuron-graph-pharynx"
+        ng_pharynx.mkdir(parents=True, exist_ok=True)
+        pharynx_conns = pharynx_connections_projection(connectome)
+        (ng_pharynx / "cells.json").write_text(json.dumps(pharynx_cells, indent=2))
+        (ng_pharynx / "connections.json").write_text(json.dumps(pharynx_conns, indent=2))
+        (ng_pharynx / "datasets.json").write_text(json.dumps([pharynx_dataset()], indent=2))
+        click.echo(
+            f"wrote: {ng_pharynx}/ (pharynx: {len(pharynx_cells)} cells,"
+            f" {len(pharynx_conns)} connections)"
         )
 
 
