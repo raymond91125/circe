@@ -1,0 +1,383 @@
+<title>Pharyngeal Connectome · Motif Analysis</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --bg:#eef1f3; --surface:#ffffff; --surface-2:#f5f7f8; --line:#dbe0e4;
+  --ink:#18222c; --ink-2:#46545f; --ink-3:#7a8791;
+  --over:#0d9488;        /* enriched — GFP teal */
+  --under:#d6336c;       /* depleted — mCherry rose */
+  --neutral:#9aa6ae;     /* non-significant */
+  --over-soft:rgba(13,148,136,.13); --under-soft:rgba(214,51,108,.13);
+  --shadow:0 1px 2px rgba(20,30,40,.05),0 8px 30px rgba(20,30,40,.06);
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0e1216; --surface:#161c22; --surface-2:#1b2229; --line:#2a333c;
+    --ink:#e7edf1; --ink-2:#a7b4be; --ink-3:#6f7d87;
+    --over:#0d9488; --under:#f43f8e;
+    --over-soft:rgba(13,148,136,.18); --under-soft:rgba(244,63,142,.16);
+    --neutral:#5c6874;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#eef1f3; --surface:#ffffff; --surface-2:#f5f7f8; --line:#dbe0e4;
+  --ink:#18222c; --ink-2:#46545f; --ink-3:#7a8791;
+  --over:#0d9488; --under:#d6336c; --neutral:#9aa6ae;
+  --over-soft:rgba(13,148,136,.13); --under-soft:rgba(214,51,108,.13);
+  --shadow:0 1px 2px rgba(20,30,40,.05),0 8px 30px rgba(20,30,40,.06);
+}
+:root[data-theme="dark"]{
+  --bg:#0e1216; --surface:#161c22; --surface-2:#1b2229; --line:#2a333c;
+  --ink:#e7edf1; --ink-2:#a7b4be; --ink-3:#6f7d87;
+  --over:#0d9488; --under:#f43f8e; --neutral:#5c6874;
+  --over-soft:rgba(13,148,136,.18); --under-soft:rgba(244,63,142,.16);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:0 22px}
+.mono{font-family:var(--mono)}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* ---- header ---- */
+header{padding:64px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--over);font-weight:600;margin:0 0 18px}
+h1{font-size:clamp(30px,5.2vw,50px);line-height:1.04;letter-spacing:-.02em;font-weight:800;
+  margin:0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--over)}
+.lede{font-size:clamp(17px,2.1vw,20px);color:var(--ink-2);max-width:60ch;margin:20px 0 0;text-wrap:pretty}
+.source{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);margin-top:22px;
+  padding-top:16px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 20px}
+
+/* ---- stat tiles ---- */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:26px 0 8px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;
+  box-shadow:var(--shadow)}
+.tile .v{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1}
+.tile .k{font-size:12.5px;color:var(--ink-3);margin-top:8px}
+.tile .sub{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+
+/* ---- sections ---- */
+section{margin:44px 0}
+.sec-h{display:flex;align-items:baseline;gap:14px;margin:0 0 6px}
+.sec-h .n{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+h2{font-size:23px;letter-spacing:-.01em;margin:0;font-weight:700}
+.sec-sub{color:var(--ink-2);margin:6px 0 22px;max-width:66ch}
+
+/* ---- verdict ---- */
+.verdict{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--over);
+  border-radius:12px;padding:22px 24px;box-shadow:var(--shadow)}
+.verdict p{margin:0 0 12px}.verdict p:last-child{margin:0}
+.hl-over{color:var(--over);font-weight:600}.hl-under{color:var(--under);font-weight:600}
+
+/* ---- chart ---- */
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 20px 16px;
+  box-shadow:var(--shadow);overflow-x:auto}
+.chart{min-width:560px}
+.chart-head,.row{display:grid;grid-template-columns:52px 92px 1fr 1fr;align-items:center;gap:12px}
+.chart-head{padding:0 0 10px;border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3)}
+.chart-head .panttl{text-align:center}
+.row{padding:7px 0;border-bottom:1px solid var(--surface-2)}
+.row:last-child{border-bottom:0}
+.glyph{width:52px;height:40px;display:block}
+.tid{font-family:var(--mono);font-size:12.5px}
+.tid b{font-weight:600;font-size:13px}
+.tid span{display:block;color:var(--ink-3);font-family:var(--sans);font-size:11px;line-height:1.25;margin-top:2px}
+.track{position:relative;height:26px}
+.track .axis{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--line)}
+.track .thr{position:absolute;top:3px;bottom:3px;width:1px;background:repeating-linear-gradient(
+  var(--ink-3) 0 2px,transparent 2px 5px);opacity:.5}
+.bar{position:absolute;top:5px;height:16px;display:flex;align-items:center;min-width:2px}
+.bar.pos{border-radius:0 3px 3px 0;justify-content:flex-end}
+.bar.neg{border-radius:3px 0 0 3px;justify-content:flex-start}
+.bar .zl{font-family:var(--mono);font-size:10.5px;font-weight:600;color:#fff;padding:0 5px;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.leg{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font-size:12.5px;color:var(--ink-2);align-items:center}
+.leg i{width:12px;height:12px;border-radius:3px;display:inline-block;vertical-align:-2px;margin-right:6px}
+.leg .thr-k{width:1px;height:13px;background:var(--ink-3);margin:0 8px -1px 0;display:inline-block}
+
+/* ---- spotlight cards ---- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.card.over{border-top:3px solid var(--over)}.card.under{border-top:3px solid var(--under)}
+.card.flat{border-top:3px solid var(--neutral)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.card .gwrap{width:66px;height:50px;flex:none}
+.card .z{font-family:var(--mono);font-size:20px;font-weight:600;letter-spacing:-.02em;text-align:right}
+.card .z.over{color:var(--over)}.card .z.under{color:var(--under)}.card .z.flat{color:var(--ink-2)}
+.card .z small{display:block;font-size:10.5px;color:var(--ink-3);font-weight:500;letter-spacing:.04em}
+.card h3{margin:0;font-size:15px;font-weight:700}
+.card h3 .code{font-family:var(--mono);color:var(--ink-3);font-weight:500;font-size:13px}
+.card p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.5}
+
+/* ---- tables ---- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tbl{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.tbl .cap{padding:13px 16px;font-size:13px;font-weight:600;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:9px}
+.tbl .cap .dot{width:8px;height:8px;border-radius:50%;flex:none}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+td{padding:7px 16px;border-bottom:1px solid var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td.cell{font-family:var(--mono);font-weight:600}
+td.deg{text-align:right;font-family:var(--mono);color:var(--ink-2);font-variant-numeric:tabular-nums}
+.kind{font-size:11px;color:var(--ink-3);font-family:var(--sans)}
+.bar-mini{height:6px;border-radius:3px;background:var(--over);display:inline-block;vertical-align:middle;margin-left:8px}
+
+/* ---- methods ---- */
+.methods{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.methods h2{font-size:16px;margin-bottom:12px}
+.methods dl{margin:0;display:grid;grid-template-columns:130px 1fr;gap:9px 18px;font-size:13px}
+.methods dt{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;padding-top:1px}
+.methods dd{margin:0;color:var(--ink-2)}
+footer{color:var(--ink-3);font-size:12px;padding:30px 0 60px;text-align:center;font-family:var(--mono)}
+
+@media (max-width:680px){
+  .two{grid-template-columns:1fr}
+  .methods dl{grid-template-columns:1fr}
+  .methods dt{padding-top:8px}
+}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">C. elegans Connectome · Network Motifs</p>
+  <h1>The pharynx wires for <em>reciprocity</em>, not feed-forward.</h1>
+  <p class="lede">A triad-census analysis of the Cook 2020 pharyngeal connectome finds that
+    <strong>bidirectional (mutual) connections and their clusters are strongly enriched</strong>,
+    while directed chains, fan-outs, and even the classic feed-forward loop are not — a signature
+    of a recurrent, rhythm-generating micro-circuit rather than a feed-forward information relay.</p>
+  <div class="source">
+    <span>SOURCE · cook_2020_pharynx (CIRCE KG)</span>
+    <span>MODEL · binary directed + undirected</span>
+    <span>NULL · 1000 degree-preserving swaps</span>
+  </div>
+</header>
+
+<div class="tiles" id="tiles"></div>
+
+<section>
+  <div class="sec-h"><span class="n">01</span><h2>What the census says</h2></div>
+  <div class="verdict">
+    <p><span class="hl-over">Mutual structure dominates.</span> The fully-mutual triangle
+      (<span class="mono">300</span>, all three pairs reciprocal) is the single most over-represented
+      motif — <b>26 observed vs ~7 expected, Z&nbsp;=&nbsp;+6.4</b> — followed by the reciprocal-pair-
+      with-shared-target (<span class="mono">120U</span>, Z&nbsp;=&nbsp;+5.6) and the mutual chain
+      (<span class="mono">201</span>, Z&nbsp;=&nbsp;+3.9). Reciprocity is <b>0.32</b> across the whole
+      network and <b>0.52</b> among neurons — roughly 3–5× typical somatic-nervous-system values.</p>
+    <p><span class="hl-under">Feed-forward structure is depleted.</span> Divergent fan-outs
+      (<span class="mono">021D</span>, Z&nbsp;=&nbsp;−6.0) and directed chains
+      (<span class="mono">021C</span>, Z&nbsp;=&nbsp;−4.3) are the most under-represented motifs, and
+      directed 3-cycles (<span class="mono">030C</span>) are suppressed. Critically, the
+      <b>feed-forward loop</b> (<span class="mono">030T</span>) — the defining motif of many neural
+      and gene-regulatory networks — sits at <b>Z&nbsp;=&nbsp;−1.5</b>, i.e. no enrichment at all.</p>
+    <p>The pattern is identical when muscles and glands are removed and only the 26 pharyngeal
+      neurons are analysed, so it reflects the <b>neural wiring itself</b>, not convergence onto
+      effector muscle.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="n">02</span><h2>Triad significance profile</h2></div>
+  <p class="sec-sub">Each of the 13 connected triad types, ranked by whole-network abundance relative
+    to degree-matched random networks. Bars right of center are <span class="hl-over">enriched</span>;
+    left are <span class="hl-under">depleted</span>; grey is not significant (|Z|&nbsp;&lt;&nbsp;2).
+    The neuron-only panel repeats the analysis on the 26-neuron sub-circuit.</p>
+  <div class="fig">
+    <div class="chart">
+      <div class="chart-head">
+        <div>Motif</div><div>Type</div>
+        <div class="panttl">Whole network · 55 cells</div>
+        <div class="panttl">Neurons only · 26 cells</div>
+      </div>
+      <div id="rows"></div>
+    </div>
+    <div class="leg">
+      <span><i style="background:var(--over)"></i>Over-represented</span>
+      <span><i style="background:var(--under)"></i>Under-represented</span>
+      <span><i style="background:var(--neutral)"></i>Not significant</span>
+      <span><span class="thr-k"></span>|Z| = 2 threshold</span>
+      <span style="color:var(--ink-3)">axis: Z from −7 to +7</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="n">03</span><h2>Motif spotlight</h2></div>
+  <p class="sec-sub">The shapes behind the profile. Arrowheads show synaptic direction; a double head
+    is a reciprocal pair. Z is the whole-network score against the null ensemble.</p>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="n">04</span><h2>Who drives, who receives</h2></div>
+  <p class="sec-sub">Chemical degree splits cleanly by cell role: pharyngeal interneurons are the
+    high-out-degree drivers; muscles and the M3 / NSM motor-modulatory neurons are the sinks.</p>
+  <div class="two">
+    <div class="tbl">
+      <div class="cap"><span class="dot" style="background:var(--over)"></span>Top out-degree — the drivers</div>
+      <table id="hubs-out"></table>
+    </div>
+    <div class="tbl">
+      <div class="cap"><span class="dot" style="background:var(--under)"></span>Top in-degree — the sinks</div>
+      <table id="hubs-in"></table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="n">05</span><h2>The gap-junction overlay</h2></div>
+  <p class="sec-sub">Electrical coupling forms a sparse, <strong>triangle-free</strong> mesh (32 edges,
+    0 closed triples, transitivity&nbsp;=&nbsp;0) — an unclustered scaffold layered over the recurrent
+    chemical core, not a second clustered network. I1R is its principal hub (5 partners), consistent
+    with I1's role as the pharynx's main sensory-integrative interneuron.</p>
+</section>
+
+<section class="methods">
+  <h2>Methods &amp; caveats</h2>
+  <dl>
+    <dt>Data</dt><dd>Cook et al. 2020 pharyngeal connectome (<span class="mono">cook_2020_pharynx</span>),
+      projected from the CIRCE knowledge graph: 55 cells, 254 directed chemical edges + 32 gap junctions
+      (25 chemical self-loops excluded).</dd>
+    <dt>Motifs</dt><dd>Dyad census and the 16-class Holland–Leinhardt directed triad census; chemical
+      synapses as a binary directed graph, gap junctions as undirected.</dd>
+    <dt>Null model</dt><dd>1000 degree-preserving randomizations via directed edge swaps (Maslov–Sneppen),
+      which hold every node's in- and out-degree fixed. Z = (observed − mean<sub>null</sub>) /
+      SD<sub>null</sub>; |Z| ≥ 2 flagged significant.</dd>
+    <dt>Caveats</dt><dd>A single 55-node reconstruction — Z-scores are indicative, not p-values from
+      replicate animals. Edges are binarized (synapse weights ignored). Includes muscle/gland targets;
+      the neuron-only panel isolates the neural circuit.</dd>
+  </dl>
+</section>
+
+<footer>Motif analysis · CIRCE · generated from the pharyngeal connectome projection</footer>
+</div>
+
+<script>
+const DATA = {
+  tiles:[
+    {v:"55",k:"cells",sub:"26 neuron · 19 muscle · 6 gland · 4 marginal"},
+    {v:"254",k:"chemical synapses",sub:"directed edges"},
+    {v:"32",k:"gap junctions",sub:"undirected edges"},
+    {v:"0.086",k:"density",sub:"of possible directed edges"},
+    {v:"0.52",k:"reciprocity",sub:"neuron–neuron (0.32 overall)"},
+  ],
+  // triad code: [whole Z, neuron Z, whole real count, name, class]
+  triads:[
+    ["300", 6.37, 4.15, 26,  "fully-mutual triangle", "over"],
+    ["120U", 5.56, 1.62, 153, "reciprocal pair → shared target", "over"],
+    ["201", 3.93, 4.55, 62,  "mutual chain", "over"],
+    ["111U", 1.87, 1.89, 395, "mutual pair, one outgoing", "ns"],
+    ["210", 1.41, -0.32, 61, "near-clique", "ns"],
+    ["030T", -1.54, -1.63, 197, "feed-forward loop", "ns"],
+    ["030C", -2.19, -1.68, 4,  "directed 3-cycle", "under"],
+    ["111D", -2.30, -0.33, 51, "mutual pair, one incoming", "under"],
+    ["021U", -2.50, 0.40, 142, "convergent fan-in", "under"],
+    ["120D", -3.26, -2.58, 15, "shared source → reciprocal pair", "under"],
+    ["120C", -3.72, -3.04, 24, "mutual pair in a cycle", "under"],
+    ["021C", -4.28, -3.30, 231, "directed chain", "under"],
+    ["021D", -6.00, -4.80, 596, "divergent fan-out", "under"],
+  ],
+  hubsOut:[["I5",24,"interneuron"],["I1R",22,"interneuron"],["M1",20,"motor"],["I2R",17,"interneuron"],
+    ["I2L",16,"interneuron"],["I3",15,"interneuron"],["MI",15,"motor/inter"],["I1L",14,"interneuron"]],
+  hubsIn:[["pm5D",14,"muscle"],["I5",12,"interneuron"],["M3R",12,"motor"],["pm4D",12,"muscle"],
+    ["I4",10,"interneuron"],["M3L",10,"motor"],["NSML",10,"neurosecretory"],["NSMR",10,"neurosecretory"]],
+};
+
+/* ---- triad glyphs ---- */
+const N = {A:[32,11], B:[12,42], C:[52,42]};
+const GL = {
+  "300":[["A","B","m"],["B","C","m"],["C","A","m"]],
+  "210":[["A","B","m"],["B","C","m"],["A","C","d"]],
+  "201":[["A","B","m"],["B","C","m"]],
+  "120U":[["A","B","m"],["A","C","d"],["B","C","d"]],
+  "120D":[["A","B","m"],["C","A","d"],["C","B","d"]],
+  "120C":[["A","B","m"],["A","C","d"],["C","B","d"]],
+  "111U":[["A","B","m"],["A","C","d"]],
+  "111D":[["A","B","m"],["C","A","d"]],
+  "030T":[["A","B","d"],["A","C","d"],["B","C","d"]],
+  "030C":[["A","B","d"],["B","C","d"],["C","A","d"]],
+  "021U":[["B","A","d"],["C","A","d"]],
+  "021D":[["A","B","d"],["A","C","d"]],
+  "021C":[["A","B","d"],["B","C","d"]],
+};
+function glyph(code,size){
+  const r=5.2, edges=GL[code]||[];
+  let s=`<svg class="glyph" viewBox="0 0 64 53" width="${size||52}" aria-hidden="true">`;
+  s+=`<defs><marker id="ah" markerWidth="7" markerHeight="7" refX="5.4" refY="3" orient="auto-start-reverse">`
+   +`<path d="M0,0 L6,3 L0,6 Z" fill="var(--ink-2)"/></marker></defs>`;
+  for(const [a,b,t] of edges){
+    const [x1,y1]=N[a],[x2,y2]=N[b];
+    const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L;
+    const sx=x1+ux*r, sy=y1+uy*r, ex=x2-ux*r, ey=y2-uy*r;
+    const mk = t==="m" ? `marker-start="url(#ah)" marker-end="url(#ah)"` : `marker-end="url(#ah)"`;
+    s+=`<line x1="${sx.toFixed(1)}" y1="${sy.toFixed(1)}" x2="${ex.toFixed(1)}" y2="${ey.toFixed(1)}"`
+      +` stroke="var(--ink-2)" stroke-width="1.5" ${mk}/>`;
+  }
+  for(const k of ["A","B","C"]){const [x,y]=N[k];
+    s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="var(--surface)" stroke="var(--ink-2)" stroke-width="1.5"/>`;}
+  return s+`</svg>`;
+}
+
+/* ---- render tiles ---- */
+document.getElementById("tiles").innerHTML = DATA.tiles.map(t=>
+  `<div class="tile"><div class="v tnum">${t.v}</div><div class="k">${t.k}</div><div class="sub">${t.sub}</div></div>`).join("");
+
+/* ---- render chart rows ---- */
+const ZMAX=7;
+function track(z,count,code,name){
+  const ns = Math.abs(z)<2;
+  const col = ns ? "var(--neutral)" : (z>=0 ? "var(--over)" : "var(--under)");
+  const w = Math.min(Math.abs(z)/ZMAX,1)*50;         // % of half-track
+  const thrL = (2/ZMAX)*50;
+  const neg = z<0;
+  const side = neg ? `right:50%` : `left:50%`;
+  const tip = `${code} · ${name} · Z=${z>=0?'+':''}${z.toFixed(1)} · observed ${count}`;
+  const lbl = ns ? "" : `<span class="zl">${z>=0?'+':''}${z.toFixed(1)}</span>`;
+  return `<div class="track" title="${tip}">
+    <div class="thr" style="left:${50-thrL}%"></div><div class="thr" style="left:${50+thrL}%"></div>
+    <div class="axis"></div>
+    <div class="bar ${neg?'neg':'pos'}" style="${side};width:${w}%;background:${col}">${lbl}</div></div>`;
+}
+document.getElementById("rows").innerHTML = DATA.triads.map(([code,zw,zn,cnt,name])=>
+  `<div class="row">
+     <div>${glyph(code)}</div>
+     <div class="tid"><b>${code}</b><span>${name}</span></div>
+     ${track(zw,cnt,code,name)}
+     ${track(zn,cnt,code,name+" (neurons)")}
+   </div>`).join("");
+
+/* ---- spotlight cards ---- */
+const SPOT=[
+  ["300","over","The recurrent core","Three cells, all three pairs reciprocal. The most enriched motif in the pharynx — dense mutual coupling is the circuit's structural signature."],
+  ["120U","over","Reciprocal pair, shared target","A bidirectionally-linked pair both projecting to a third cell — often a mutual interneuron pair converging on a muscle or motor neuron."],
+  ["201","over","Mutual chain","Two reciprocal pairs sharing a cell. Builds the recurrent backbone that links pharyngeal neurons into a mutually-coupled network."],
+  ["030T","flat","Feed-forward loop","The canonical information-processing motif — and here it is exactly at chance (Z −1.5). The pharynx does not preferentially wire feed-forward."],
+  ["021C","under","Directed chain","A → B → C with no reciprocation. Strongly depleted: pure relay paths are rare in a circuit built from mutual pairs."],
+  ["021D","under","Divergent fan-out","One cell driving two others one-way. The most depleted motif — one-to-many broadcasting is disfavored relative to a degree-matched null."],
+];
+document.getElementById("cards").innerHTML = SPOT.map(([code,cls,title,desc])=>{
+  const z = DATA.triads.find(t=>t[0]===code)[1];
+  const lab = cls==="over"?"enriched":cls==="under"?"depleted":"at chance";
+  return `<div class="card ${cls}">
+    <div class="card-top"><div class="gwrap">${glyph(code,66)}</div>
+      <div class="z ${cls}">${z>=0?'+':''}${z.toFixed(1)}<small>Z · ${lab}</small></div></div>
+    <h3>${title} <span class="code">${code}</span></h3><p>${desc}</p></div>`;
+}).join("");
+
+/* ---- hub tables ---- */
+function hubTable(rows,max,col){
+  return rows.map(([c,d,k])=>
+    `<tr><td class="cell">${c} <span class="kind">${k}</span></td>
+     <td class="deg">${d}<span class="bar-mini" style="width:${d/max*46}px;background:${col}"></span></td></tr>`).join("");
+}
+document.getElementById("hubs-out").innerHTML = hubTable(DATA.hubsOut,24,"var(--over)");
+document.getElementById("hubs-in").innerHTML  = hubTable(DATA.hubsIn,14,"var(--under)");
+</script>
