@@ -16,6 +16,7 @@ COOK_XLSX = (
     / "cook-2019-connectome"
     / ("SI5_connectome_adjacency_matrices_corrected_2020.xlsx")
 )
+COOK_2020_EDGES = REPO / "data" / "cook-2020-pharynx" / "edges.csv"
 
 
 @pytest.fixture(scope="module")
@@ -29,6 +30,7 @@ def built():
         cook_xlsx_path=COOK_XLSX,
         cook_aliases_path=CUR / "cook_name_aliases.csv",
         cook_anatomy_path=CUR / "cook_anatomy_curation.csv",
+        cook_2020_edges_path=COOK_2020_EDGES,
     )
     return connectome, stats
 
@@ -112,3 +114,25 @@ def test_male_viz_projection(built) -> None:
 
     ds = male_dataset()
     assert ds["type"] == "male" and ds["datatypes"] == "cs,gj"
+
+
+def test_pharynx_viz_projection(built) -> None:
+    from celegans_connectome_kg.export.neuron_graph_json import (
+        pharynx_cells_projection,
+        pharynx_connections_projection,
+        pharynx_dataset,
+    )
+
+    connectome, _ = built
+    cells = pharynx_cells_projection(connectome)
+    by_name = {c["name"]: c for c in cells}
+    # pharyngeal cells present, with class grouping (M3L -> M3); non-pharyngeal excluded
+    assert {"M3L", "M3R", "I1L", "MCL"} <= set(by_name)
+    assert by_name["M3L"]["class"] == "M3" and by_name["M3R"]["class"] == "M3"
+    assert "AVAL" not in by_name  # somatic neuron, not a pharynx-dataset endpoint
+
+    conns = pharynx_connections_projection(connectome)
+    assert conns and all("cook_2020_pharynx" in c["synapses"] for c in conns)
+
+    ds = pharynx_dataset()
+    assert ds["type"] == "pharynx" and ds["datatypes"] == "cs,gj"
