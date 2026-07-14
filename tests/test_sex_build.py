@@ -61,6 +61,23 @@ def test_cook_specific_cells_present_and_grounded(built) -> None:
     assert str(by_name["ailL"].cell_type) == "muscle"  # anterior inner longitudinal muscle
 
 
+def test_male_specific_cell_classes_from_wbbt(built) -> None:
+    """Cook-only cells derive a class from their WBbt ``is_a`` parent (bare class token only).
+
+    Bilateral male-specific cells group to their class; serially-repeated neurons and
+    pharyngeal endpoints stay classless, matching neuron-graph.
+    """
+    connectome, _ = built
+    cls = {c.name: (str(c.cell_class) if c.cell_class else None) for c in connectome.cells}
+    # bilateral pairs group to their WBbt class term
+    assert cls["R5AL"] == cls["R5AR"] == "R5A"
+    assert cls["CEMDL"] == cls["CEMDR"] == cls["CEMVL"] == cls["CEMVR"] == "CEM"
+    assert cls["PCAL"] == "PCA" and cls["MCML"] == "MCM"
+    # serial neurons (parent "CA neuron"/"CP neuron") and pharyngeal endpoints keep no class
+    assert cls["CA1"] is None and cls["CA9"] is None and cls["CP6"] is None
+    assert cls["pm3"] is None and cls["g1"] is None
+
+
 def test_build_stats_partition(built) -> None:
     _, stats = built
     assert stats.datasets_by_sex["male"] == 1  # cook_2019_male
@@ -87,6 +104,8 @@ def test_male_viz_projection(built) -> None:
     assert by_name["CEMDL"]["type"] == "i" and by_name["ailL"]["type"] == "b"
     # shared cells keep their real NemaNode type + class
     assert by_name["AVAL"]["type"] == "i" and by_name["AVAL"]["class"] == "AVA"
+    # male-specific bilateral pairs group by their WBbt class term (R5AL/R5AR -> R5A)
+    assert by_name["R5AL"]["class"] == "R5A" and by_name["R5AR"]["class"] == "R5A"
 
     conns = male_connections_projection(connectome)
     assert conns and all("cook_2019_male" in c["synapses"] for c in conns)

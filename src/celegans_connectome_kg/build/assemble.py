@@ -111,6 +111,26 @@ def _cell_kind_from_wbbt(curie: str, label: dict[str, str], parents: dict[str, s
     return "other"
 
 
+def _wbbt_class(
+    name: str, curie: str, label: dict[str, str], parents: dict[str, set[str]]
+) -> str | None:
+    """Cell-class name for a Cook-only cell, from its WBBT term's ``is_a`` parents.
+
+    A parent qualifies as the cell's class when its label is a strict name-prefix of the
+    cell (e.g. R5AL/R5AR ``is_a`` "R5A"; CEM{D,V}{L,R} ``is_a`` "CEM") -- i.e. a bare
+    cell-class token, not a generic type ("CA neuron", "pharyngeal muscle cell"). This
+    reproduces the neuron-graph hermaphrodite classes exactly (validated) and, as neuron-graph
+    does, leaves serially-repeated cells (CA1..CA9, CP1..CP6) and pharyngeal endpoints without
+    a class. Returns the longest qualifying parent label, or None.
+    """
+    cands = [
+        lab
+        for p in parents.get(curie, ())
+        if (lab := label.get(p)) and lab != name and name.startswith(lab)
+    ]
+    return max(cands, key=len) if cands else None
+
+
 def _cell_id(name: str) -> str:
     return CELL_PREFIX + name
 
@@ -253,6 +273,7 @@ def assemble(
             name=name,
             cell_type=_cell_kind_from_wbbt(wbbt, kind_label, kind_parents) if wbbt else "other",
             anatomy=wbbt or None,
+            cell_class=_wbbt_class(name, wbbt, kind_label, kind_parents) if wbbt else None,
             sexes=sexes_of(name),
         )
         for name, wbbt in sorted(cook_new_cells.items())
