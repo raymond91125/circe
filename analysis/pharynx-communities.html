@@ -1,0 +1,2100 @@
+<title>Pharyngeal Connectome · Community Detection</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  --bg:#eef1f3; --surface:#ffffff; --surface-2:#f5f7f8; --line:#dbe0e4;
+  --ink:#18222c; --ink-2:#46545f; --ink-3:#7a8791;
+  --m0:#0d9488; --m1:#c2710c; --m2:#7c5cff; --m3:#d6336c;   /* pumping / grinding / neuromod / peristalsis */
+  --edge:rgba(70,84,95,.20);
+  --shadow:0 1px 2px rgba(20,30,40,.05),0 8px 30px rgba(20,30,40,.06);
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0e1216; --surface:#161c22; --surface-2:#1b2229; --line:#2a333c;
+    --ink:#e7edf1; --ink-2:#a7b4be; --ink-3:#6f7d87;
+    --m0:#0d9488; --m1:#c77d1e; --m2:#8266e8; --m3:#e0448a;
+    --edge:rgba(167,180,190,.16);
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="light"]{
+  --bg:#eef1f3; --surface:#ffffff; --surface-2:#f5f7f8; --line:#dbe0e4;
+  --ink:#18222c; --ink-2:#46545f; --ink-3:#7a8791;
+  --m0:#0d9488; --m1:#c2710c; --m2:#7c5cff; --m3:#d6336c; --edge:rgba(70,84,95,.20);
+  --shadow:0 1px 2px rgba(20,30,40,.05),0 8px 30px rgba(20,30,40,.06);
+}
+:root[data-theme="dark"]{
+  --bg:#0e1216; --surface:#161c22; --surface-2:#1b2229; --line:#2a333c;
+  --ink:#e7edf1; --ink-2:#a7b4be; --ink-3:#6f7d87;
+  --m0:#0d9488; --m1:#c77d1e; --m2:#8266e8; --m3:#e0448a; --edge:rgba(167,180,190,.16);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 34px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:0 22px}
+.mono{font-family:var(--mono)}
+.tnum{font-variant-numeric:tabular-nums}
+
+header{padding:64px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--m0);font-weight:600;margin:0 0 18px}
+h1{font-size:clamp(29px,5vw,48px);line-height:1.05;letter-spacing:-.02em;font-weight:800;margin:0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--m0)}
+.lede{font-size:clamp(17px,2.1vw,20px);color:var(--ink-2);max-width:62ch;margin:20px 0 0;text-wrap:pretty}
+.source{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);margin-top:22px;padding-top:16px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 20px}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:26px 0 8px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;box-shadow:var(--shadow)}
+.tile .v{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1}
+.tile .k{font-size:12.5px;color:var(--ink-3);margin-top:8px}
+.tile .sub{font-size:11.5px;color:var(--ink-3);margin-top:3px}
+
+section{margin:44px 0}
+.sec-h{display:flex;align-items:baseline;gap:14px;margin:0 0 6px}
+.sec-h .n{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+h2{font-size:23px;letter-spacing:-.01em;margin:0;font-weight:700}
+.sec-sub{color:var(--ink-2);margin:6px 0 22px;max-width:66ch}
+
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);overflow-x:auto}
+#mat{width:100%;max-width:760px;height:auto;display:block;margin:0 auto;color:var(--ink)}
+#mat text{font-family:var(--mono);font-size:10.5px;font-weight:600}
+.leg{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 6px 2px;font-size:12.5px;color:var(--ink-2);align-items:center}
+.leg i{width:12px;height:12px;border-radius:50%;display:inline-block;vertical-align:-2px;margin-right:6px}
+.leg .sz{color:var(--ink-3);margin-left:auto;font-family:var(--mono);font-size:11.5px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:9px;border-top:3px solid var(--c)}
+.card .ct{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.card h3{margin:0;font-size:16px;font-weight:700}
+.card .rg{font-family:var(--mono);font-size:11px;color:var(--c);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.card .fn{font-size:13px;color:var(--ink-2);margin:0}
+.card .sig{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--surface-2);
+  border:1px solid var(--line);border-radius:7px;padding:7px 9px;line-height:1.5}
+.card .comp{font-size:11.5px;color:var(--ink-3);margin:0}
+
+.grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow)}
+.panel h3{margin:0 0 12px;font-size:14px;font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3)}
+.stat{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--surface-2);font-size:13.5px}
+.stat:last-child{border-bottom:0}
+.stat .l{color:var(--ink-2)}.stat .r{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
+.sweep{display:flex;flex-direction:column;gap:7px}
+.srow{display:grid;grid-template-columns:58px 1fr 42px;align-items:center;gap:10px;font-family:var(--mono);font-size:12px}
+.srow .track{position:relative;height:16px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+.srow .fill{position:absolute;top:0;bottom:0;left:0;background:var(--m0);border-radius:4px;opacity:.55}
+.srow .kk{color:var(--ink-3)}
+.srow.hl .fill{opacity:.9}
+.note{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:16px}
+.note p{margin:0 0 10px;font-size:14px;color:var(--ink-2)}.note p:last-child{margin:0}
+.note b{color:var(--ink)}
+
+.methods{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.methods h2{font-size:16px;margin-bottom:12px}
+.methods dl{margin:0;display:grid;grid-template-columns:140px 1fr;gap:9px 18px;font-size:13px}
+.methods dt{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;padding-top:1px}
+.methods dd{margin:0;color:var(--ink-2)}
+footer{color:var(--ink-3);font-size:12px;padding:30px 0 60px;text-align:center;font-family:var(--mono)}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}.methods dl{grid-template-columns:1fr}.methods dt{padding-top:8px}}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">C. elegans Connectome · Community Detection</p>
+  <h1>Four modules — <em>one per functional domain</em>.</h1>
+  <p class="lede">Louvain modularity maximization on the weighted chemical + gap-junction network
+    partitions the pharynx into modules that mirror its anatomy: a corpus <b>pumping</b> module, an
+    isthmus <b>peristalsis</b> module, a terminal-bulb <b>grinding</b> module, and a systemic
+    <b>neuromodulatory</b> group — reproducing Cook et&nbsp;al. 2020 (Q&nbsp;=&nbsp;0.40 vs their 0.352).</p>
+  <div class="source">
+    <span>SOURCE · cook_2020_pharynx (CIRCE KG)</span>
+    <span>METHOD · Louvain (Blondel et al. 2008)</span>
+    <span>GRAPH · weighted, chemical + gap, undirected</span>
+  </div>
+</header>
+
+<div class="tiles" id="tiles"></div>
+
+<section>
+  <div class="sec-h"><span class="n">01</span><h2>The module block structure</h2></div>
+  <p class="sec-sub">Cells ordered by module (then by degree); each square is the synaptic weight
+    between two cells — darker is stronger. The dense blocks on the diagonal are the modules; the
+    sparser off-diagonal shows they remain coupled, not isolated — the pharynx's shallow,
+    interconnected architecture. (A force-directed layout can't cleanly separate a network this
+    dense, so the matrix is the honest view.)</p>
+  <div class="fig">
+    <svg id="mat" role="img" aria-label="Pharyngeal connectome adjacency matrix ordered by module"></svg>
+    <div class="leg" id="leg"></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="n">02</span><h2>The four modules</h2></div>
+  <p class="sec-sub">Signature cells and function per Cook et al. 2020. Three modules coincide with the
+    pharynx's three anatomical domains; the fourth is a systemic neuromodulatory group.</p>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="n">03</span><h2>Is the partition real?</h2></div>
+  <p class="sec-sub">Louvain is stochastic and modularity has near-degenerate optima, so a single run
+    proves nothing. Three checks: the partition is stable across seeds, its modularity beats a
+    degree-preserving null, and the module count is well-behaved across resolutions.</p>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Robustness</h3>
+      <div id="stats"></div>
+    </div>
+    <div class="panel">
+      <h3>Resolution sweep (γ → modules, Q)</h3>
+      <div class="sweep" id="sweep"></div>
+    </div>
+  </div>
+  <div class="note">
+    <p><b>Reconciles with Cook 2020.</b> At the coarse resolution (γ&nbsp;=&nbsp;0.75) the network splits
+      into exactly <b>four</b> modules at <b>Q&nbsp;=&nbsp;0.40</b>, matching Cook's four functional
+      modules (their Q&nbsp;=&nbsp;0.352). At the default γ&nbsp;=&nbsp;1 it resolves into <b>six</b>
+      stable communities (Q&nbsp;=&nbsp;0.32) — the extra splits subdivide the large corpus module;
+      the grinding, peristalsis, and neuromodulation modules are unchanged.</p>
+    <p>Modularity Q&nbsp;=&nbsp;0.32–0.40 is modest in absolute terms, consistent with Cook's own point
+      that the pharynx is a <b>shallow, highly interconnected</b> network — the modules are functional
+      domains, not electrically isolated circuits.</p>
+  </div>
+</section>
+
+<section class="methods">
+  <h2>Methods &amp; caveats</h2>
+  <dl>
+    <dt>Data</dt><dd>Cook et al. 2020 pharyngeal connectome (<span class="mono">cook_2020_pharynx</span>),
+      projected from the CIRCE knowledge graph: 55 cells. A single weighted undirected graph combining
+      chemical synapses (both directions summed) and gap junctions; weights = EM serial sections.</dd>
+    <dt>Method</dt><dd>Louvain / fast-unfolding modularity maximization (Blondel, Guillaume, Lambiotte
+      &amp; Lefebvre 2008), as used by Cook et al. 2020.</dd>
+    <dt>Stability</dt><dd>200 random seeds; the community count and a pairwise co-assignment
+      decisiveness score are reported; the maximum-modularity partition is shown. Deterministic
+      (explicit seed lists).</dd>
+    <dt>Significance</dt><dd>Q compared to Louvain on 100 degree-preserving randomizations
+      (double-edge-swap).</dd>
+    <dt>Caveats</dt><dd>55-node network; modularity has degenerate near-optima and depends on the
+      resolution γ (reported as a sweep). Community labels ("pumping" etc.) follow Cook's functional
+      interpretation.</dd>
+  </dl>
+</section>
+
+<footer>Community detection · CIRCE · reproducible via analysis/pharynx_communities.py</footer>
+</div>
+
+<script>
+const R = {
+ "nodes_total": 55,
+ "edges": 223,
+ "q_default": 0.322,
+ "k_default": 6,
+ "k_distribution": {
+  "5": 8,
+  "6": 192
+ },
+ "stability": 0.983,
+ "q_null_mean": 0.217,
+ "q_null_sd": 0.031,
+ "q_z": 3.4,
+ "sweep": [
+  {
+   "gamma": 0.5,
+   "k": 4,
+   "Q": 0.526
+  },
+  {
+   "gamma": 0.75,
+   "k": 4,
+   "Q": 0.4
+  },
+  {
+   "gamma": 1.0,
+   "k": 6,
+   "Q": 0.322
+  },
+  {
+   "gamma": 1.25,
+   "k": 6,
+   "Q": 0.249
+  },
+  {
+   "gamma": 1.5,
+   "k": 8,
+   "Q": 0.197
+  }
+ ],
+ "q_modules": 0.4,
+ "modules": [
+  {
+   "name": "Pumping",
+   "region": "corpus",
+   "n": 28,
+   "kinds": {
+    "muscle": 10,
+    "neuron": 14,
+    "marginal": 3,
+    "gland": 1
+   },
+   "cells": [
+    "I1L",
+    "I1R",
+    "I3",
+    "I5",
+    "M1",
+    "M2L",
+    "M2R",
+    "M3L",
+    "MCL",
+    "MCR",
+    "MI",
+    "e2DR",
+    "e3D",
+    "e3VL",
+    "g1",
+    "mc2DL",
+    "mc2DR",
+    "mc2V",
+    "pm1",
+    "pm2D",
+    "pm2VL",
+    "pm2VR",
+    "pm3D",
+    "pm3VL",
+    "pm3VR",
+    "pm4D",
+    "pm4VL",
+    "pm4VR"
+   ]
+  },
+  {
+   "name": "Grinding",
+   "region": "terminal bulb",
+   "n": 10,
+   "kinds": {
+    "neuron": 1,
+    "gland": 2,
+    "muscle": 6,
+    "marginal": 1
+   },
+   "cells": [
+    "M5",
+    "g2L",
+    "g2R",
+    "mc3V",
+    "pm6D",
+    "pm6VL",
+    "pm6VR",
+    "pm7D",
+    "pm7VL",
+    "pm7VR"
+   ]
+  },
+  {
+   "name": "Neuromodulation",
+   "region": "systemic",
+   "n": 10,
+   "kinds": {
+    "neuron": 9,
+    "muscle": 1
+   },
+   "cells": [
+    "I2L",
+    "I2R",
+    "I4",
+    "M3R",
+    "NSML",
+    "NSMR",
+    "bm",
+    "e2V",
+    "e3VR",
+    "pm5VL"
+   ]
+  },
+  {
+   "name": "Peristalsis",
+   "region": "isthmus",
+   "n": 7,
+   "kinds": {
+    "gland": 3,
+    "neuron": 2,
+    "muscle": 2
+   },
+   "cells": [
+    "I6",
+    "M4",
+    "g1AL",
+    "g1AR",
+    "g1P",
+    "pm5D",
+    "pm5VR"
+   ]
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": "I1L",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 108,
+    "xy": [
+     0.3719,
+     0.3005
+    ]
+   },
+   {
+    "id": "I1R",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 113,
+    "xy": [
+     0.4175,
+     0.2949
+    ]
+   },
+   {
+    "id": "I2L",
+    "kind": "neuron",
+    "mod": 2,
+    "deg": 197,
+    "xy": [
+     0.3459,
+     0.3425
+    ]
+   },
+   {
+    "id": "I2R",
+    "kind": "neuron",
+    "mod": 2,
+    "deg": 209,
+    "xy": [
+     0.3848,
+     0.3493
+    ]
+   },
+   {
+    "id": "I3",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 104,
+    "xy": [
+     0.3882,
+     0.3245
+    ]
+   },
+   {
+    "id": "I4",
+    "kind": "neuron",
+    "mod": 2,
+    "deg": 253,
+    "xy": [
+     0.3778,
+     0.374
+    ]
+   },
+   {
+    "id": "I5",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 309,
+    "xy": [
+     0.3708,
+     0.3996
+    ]
+   },
+   {
+    "id": "I6",
+    "kind": "neuron",
+    "mod": 3,
+    "deg": 89,
+    "xy": [
+     0.302,
+     0.4072
+    ]
+   },
+   {
+    "id": "M1",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 112,
+    "xy": [
+     0.3019,
+     0.324
+    ]
+   },
+   {
+    "id": "M2L",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 114,
+    "xy": [
+     0.4034,
+     0.4102
+    ]
+   },
+   {
+    "id": "M2R",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 90,
+    "xy": [
+     0.409,
+     0.3298
+    ]
+   },
+   {
+    "id": "M3L",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 179,
+    "xy": [
+     0.3962,
+     0.3684
+    ]
+   },
+   {
+    "id": "M3R",
+    "kind": "neuron",
+    "mod": 2,
+    "deg": 156,
+    "xy": [
+     0.408,
+     0.369
+    ]
+   },
+   {
+    "id": "M4",
+    "kind": "neuron",
+    "mod": 3,
+    "deg": 464,
+    "xy": [
+     0.3406,
+     0.4334
+    ]
+   },
+   {
+    "id": "M5",
+    "kind": "neuron",
+    "mod": 1,
+    "deg": 70,
+    "xy": [
+     0.2978,
+     0.6601
+    ]
+   },
+   {
+    "id": "MCL",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 56,
+    "xy": [
+     0.4655,
+     0.246
+    ]
+   },
+   {
+    "id": "MCR",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 66,
+    "xy": [
+     0.4422,
+     0.2336
+    ]
+   },
+   {
+    "id": "MI",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 143,
+    "xy": [
+     0.3683,
+     0.3295
+    ]
+   },
+   {
+    "id": "NSML",
+    "kind": "neuron",
+    "mod": 2,
+    "deg": 487,
+    "xy": [
+     0.3467,
+     0.3776
+    ]
+   },
+   {
+    "id": "NSMR",
+    "kind": "neuron",
+    "mod": 2,
+    "deg": 362,
+    "xy": [
+     0.3554,
+     0.3656
+    ]
+   },
+   {
+    "id": "bm",
+    "kind": "neuron",
+    "mod": 2,
+    "deg": 162,
+    "xy": [
+     0.3173,
+     0.3644
+    ]
+   },
+   {
+    "id": "e2DR",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 2,
+    "xy": [
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "id": "e2V",
+    "kind": "neuron",
+    "mod": 2,
+    "deg": 1,
+    "xy": [
+     1.0,
+     0.3059
+    ]
+   },
+   {
+    "id": "e3D",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 8,
+    "xy": [
+     0.1511,
+     0.1559
+    ]
+   },
+   {
+    "id": "e3VL",
+    "kind": "neuron",
+    "mod": 0,
+    "deg": 6,
+    "xy": [
+     0.2661,
+     0.0928
+    ]
+   },
+   {
+    "id": "e3VR",
+    "kind": "neuron",
+    "mod": 2,
+    "deg": 2,
+    "xy": [
+     0.7589,
+     0.3265
+    ]
+   },
+   {
+    "id": "g1",
+    "kind": "gland",
+    "mod": 0,
+    "deg": 5,
+    "xy": [
+     0.5018,
+     0.516
+    ]
+   },
+   {
+    "id": "g1AL",
+    "kind": "gland",
+    "mod": 3,
+    "deg": 68,
+    "xy": [
+     0.3469,
+     0.4902
+    ]
+   },
+   {
+    "id": "g1AR",
+    "kind": "gland",
+    "mod": 3,
+    "deg": 64,
+    "xy": [
+     0.3729,
+     0.4735
+    ]
+   },
+   {
+    "id": "g1P",
+    "kind": "gland",
+    "mod": 3,
+    "deg": 53,
+    "xy": [
+     0.2883,
+     0.4522
+    ]
+   },
+   {
+    "id": "g2L",
+    "kind": "gland",
+    "mod": 1,
+    "deg": 8,
+    "xy": [
+     0.2559,
+     0.6035
+    ]
+   },
+   {
+    "id": "g2R",
+    "kind": "gland",
+    "mod": 1,
+    "deg": 1,
+    "xy": [
+     0.2801,
+     1.0
+    ]
+   },
+   {
+    "id": "mc2DL",
+    "kind": "marginal",
+    "mod": 0,
+    "deg": 12,
+    "xy": [
+     0.4741,
+     0.1146
+    ]
+   },
+   {
+    "id": "mc2DR",
+    "kind": "marginal",
+    "mod": 0,
+    "deg": 19,
+    "xy": [
+     0.5296,
+     0.1885
+    ]
+   },
+   {
+    "id": "mc2V",
+    "kind": "marginal",
+    "mod": 0,
+    "deg": 26,
+    "xy": [
+     0.4927,
+     0.1727
+    ]
+   },
+   {
+    "id": "mc3V",
+    "kind": "marginal",
+    "mod": 1,
+    "deg": 4,
+    "xy": [
+     0.2499,
+     0.838
+    ]
+   },
+   {
+    "id": "pm1",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 13,
+    "xy": [
+     0.2624,
+     0.2184
+    ]
+   },
+   {
+    "id": "pm2D",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 1,
+    "xy": [
+     0.1234,
+     0.0383
+    ]
+   },
+   {
+    "id": "pm2VL",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 1,
+    "xy": [
+     0.0092,
+     0.324
+    ]
+   },
+   {
+    "id": "pm2VR",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 1,
+    "xy": [
+     0.0256,
+     0.2062
+    ]
+   },
+   {
+    "id": "pm3D",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 2,
+    "xy": [
+     0.594,
+     0.1056
+    ]
+   },
+   {
+    "id": "pm3VL",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 13,
+    "xy": [
+     0.3162,
+     0.1671
+    ]
+   },
+   {
+    "id": "pm3VR",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 9,
+    "xy": [
+     0.5311,
+     0.2867
+    ]
+   },
+   {
+    "id": "pm4D",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 104,
+    "xy": [
+     0.4297,
+     0.3466
+    ]
+   },
+   {
+    "id": "pm4VL",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 41,
+    "xy": [
+     0.4493,
+     0.3986
+    ]
+   },
+   {
+    "id": "pm4VR",
+    "kind": "muscle",
+    "mod": 0,
+    "deg": 21,
+    "xy": [
+     0.3829,
+     0.2423
+    ]
+   },
+   {
+    "id": "pm5D",
+    "kind": "muscle",
+    "mod": 3,
+    "deg": 224,
+    "xy": [
+     0.3378,
+     0.3925
+    ]
+   },
+   {
+    "id": "pm5VL",
+    "kind": "muscle",
+    "mod": 2,
+    "deg": 166,
+    "xy": [
+     0.3621,
+     0.4257
+    ]
+   },
+   {
+    "id": "pm5VR",
+    "kind": "muscle",
+    "mod": 3,
+    "deg": 193,
+    "xy": [
+     0.356,
+     0.4013
+    ]
+   },
+   {
+    "id": "pm6D",
+    "kind": "muscle",
+    "mod": 1,
+    "deg": 2,
+    "xy": [
+     0.1739,
+     0.8701
+    ]
+   },
+   {
+    "id": "pm6VL",
+    "kind": "muscle",
+    "mod": 1,
+    "deg": 6,
+    "xy": [
+     0.2148,
+     0.6592
+    ]
+   },
+   {
+    "id": "pm6VR",
+    "kind": "muscle",
+    "mod": 1,
+    "deg": 7,
+    "xy": [
+     0.3043,
+     0.8031
+    ]
+   },
+   {
+    "id": "pm7D",
+    "kind": "muscle",
+    "mod": 1,
+    "deg": 8,
+    "xy": [
+     0.3476,
+     0.7736
+    ]
+   },
+   {
+    "id": "pm7VL",
+    "kind": "muscle",
+    "mod": 1,
+    "deg": 11,
+    "xy": [
+     0.2415,
+     0.7448
+    ]
+   },
+   {
+    "id": "pm7VR",
+    "kind": "muscle",
+    "mod": 1,
+    "deg": 13,
+    "xy": [
+     0.2914,
+     0.7464
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "u": "I1L",
+    "v": "I2L",
+    "w": 16
+   },
+   {
+    "u": "I1L",
+    "v": "M3L",
+    "w": 21
+   },
+   {
+    "u": "I1L",
+    "v": "I3",
+    "w": 6
+   },
+   {
+    "u": "I1L",
+    "v": "I5",
+    "w": 12
+   },
+   {
+    "u": "I1L",
+    "v": "M2L",
+    "w": 6
+   },
+   {
+    "u": "I1L",
+    "v": "M3R",
+    "w": 9
+   },
+   {
+    "u": "I1L",
+    "v": "MCL",
+    "w": 4
+   },
+   {
+    "u": "I1L",
+    "v": "MCR",
+    "w": 4
+   },
+   {
+    "u": "I1L",
+    "v": "MI",
+    "w": 5
+   },
+   {
+    "u": "I1L",
+    "v": "NSML",
+    "w": 11
+   },
+   {
+    "u": "I1L",
+    "v": "pm1",
+    "w": 3
+   },
+   {
+    "u": "I1L",
+    "v": "pm3VL",
+    "w": 7
+   },
+   {
+    "u": "I1L",
+    "v": "pm4D",
+    "w": 1
+   },
+   {
+    "u": "I1L",
+    "v": "pm4VL",
+    "w": 3
+   },
+   {
+    "u": "I1R",
+    "v": "I3",
+    "w": 9
+   },
+   {
+    "u": "I1R",
+    "v": "MCR",
+    "w": 13
+   },
+   {
+    "u": "I1R",
+    "v": "NSMR",
+    "w": 5
+   },
+   {
+    "u": "I1R",
+    "v": "pm3VR",
+    "w": 7
+   },
+   {
+    "u": "I1R",
+    "v": "pm4VR",
+    "w": 7
+   },
+   {
+    "u": "I1R",
+    "v": "I2L",
+    "w": 2
+   },
+   {
+    "u": "I1R",
+    "v": "I2R",
+    "w": 13
+   },
+   {
+    "u": "I1R",
+    "v": "I5",
+    "w": 8
+   },
+   {
+    "u": "I1R",
+    "v": "M1",
+    "w": 5
+   },
+   {
+    "u": "I1R",
+    "v": "M2L",
+    "w": 1
+   },
+   {
+    "u": "I1R",
+    "v": "M2R",
+    "w": 7
+   },
+   {
+    "u": "I1R",
+    "v": "M3L",
+    "w": 1
+   },
+   {
+    "u": "I1R",
+    "v": "M3R",
+    "w": 12
+   },
+   {
+    "u": "I1R",
+    "v": "M4",
+    "w": 2
+   },
+   {
+    "u": "I1R",
+    "v": "MCL",
+    "w": 8
+   },
+   {
+    "u": "I1R",
+    "v": "MI",
+    "w": 2
+   },
+   {
+    "u": "I1R",
+    "v": "NSML",
+    "w": 2
+   },
+   {
+    "u": "I1R",
+    "v": "pm1",
+    "w": 2
+   },
+   {
+    "u": "I1R",
+    "v": "pm3D",
+    "w": 2
+   },
+   {
+    "u": "I1R",
+    "v": "pm4D",
+    "w": 1
+   },
+   {
+    "u": "I1R",
+    "v": "pm5D",
+    "w": 2
+   },
+   {
+    "u": "I1R",
+    "v": "pm5VR",
+    "w": 2
+   },
+   {
+    "u": "I2L",
+    "v": "M2L",
+    "w": 1
+   },
+   {
+    "u": "I2L",
+    "v": "I2R",
+    "w": 14
+   },
+   {
+    "u": "I2L",
+    "v": "I4",
+    "w": 31
+   },
+   {
+    "u": "I2L",
+    "v": "I5",
+    "w": 11
+   },
+   {
+    "u": "I2L",
+    "v": "I6",
+    "w": 6
+   },
+   {
+    "u": "I2L",
+    "v": "M1",
+    "w": 7
+   },
+   {
+    "u": "I2L",
+    "v": "M3R",
+    "w": 4
+   },
+   {
+    "u": "I2L",
+    "v": "M4",
+    "w": 5
+   },
+   {
+    "u": "I2L",
+    "v": "NSML",
+    "w": 33
+   },
+   {
+    "u": "I2L",
+    "v": "NSMR",
+    "w": 52
+   },
+   {
+    "u": "I2L",
+    "v": "e3VL",
+    "w": 1
+   },
+   {
+    "u": "I2L",
+    "v": "pm3VL",
+    "w": 1
+   },
+   {
+    "u": "I2L",
+    "v": "pm4VL",
+    "w": 4
+   },
+   {
+    "u": "I2L",
+    "v": "pm5D",
+    "w": 2
+   },
+   {
+    "u": "I2L",
+    "v": "pm5VL",
+    "w": 3
+   },
+   {
+    "u": "I2L",
+    "v": "pm5VR",
+    "w": 4
+   },
+   {
+    "u": "I2R",
+    "v": "M2R",
+    "w": 4
+   },
+   {
+    "u": "I2R",
+    "v": "NSMR",
+    "w": 19
+   },
+   {
+    "u": "I2R",
+    "v": "I4",
+    "w": 45
+   },
+   {
+    "u": "I2R",
+    "v": "I5",
+    "w": 14
+   },
+   {
+    "u": "I2R",
+    "v": "M1",
+    "w": 10
+   },
+   {
+    "u": "I2R",
+    "v": "M4",
+    "w": 2
+   },
+   {
+    "u": "I2R",
+    "v": "MCL",
+    "w": 1
+   },
+   {
+    "u": "I2R",
+    "v": "NSML",
+    "w": 66
+   },
+   {
+    "u": "I2R",
+    "v": "e3VR",
+    "w": 1
+   },
+   {
+    "u": "I2R",
+    "v": "pm1",
+    "w": 1
+   },
+   {
+    "u": "I2R",
+    "v": "pm3VR",
+    "w": 2
+   },
+   {
+    "u": "I2R",
+    "v": "pm4D",
+    "w": 6
+   },
+   {
+    "u": "I2R",
+    "v": "pm4VL",
+    "w": 1
+   },
+   {
+    "u": "I2R",
+    "v": "pm5VL",
+    "w": 2
+   },
+   {
+    "u": "I2R",
+    "v": "pm5VR",
+    "w": 8
+   },
+   {
+    "u": "I3",
+    "v": "pm4D",
+    "w": 9
+   },
+   {
+    "u": "I3",
+    "v": "I5",
+    "w": 26
+   },
+   {
+    "u": "I3",
+    "v": "M1",
+    "w": 11
+   },
+   {
+    "u": "I3",
+    "v": "M2L",
+    "w": 6
+   },
+   {
+    "u": "I3",
+    "v": "M2R",
+    "w": 1
+   },
+   {
+    "u": "I3",
+    "v": "M3L",
+    "w": 4
+   },
+   {
+    "u": "I3",
+    "v": "M3R",
+    "w": 6
+   },
+   {
+    "u": "I3",
+    "v": "M4",
+    "w": 4
+   },
+   {
+    "u": "I3",
+    "v": "MCL",
+    "w": 5
+   },
+   {
+    "u": "I3",
+    "v": "MCR",
+    "w": 5
+   },
+   {
+    "u": "I3",
+    "v": "MI",
+    "w": 4
+   },
+   {
+    "u": "I3",
+    "v": "NSMR",
+    "w": 3
+   },
+   {
+    "u": "I3",
+    "v": "pm5D",
+    "w": 5
+   },
+   {
+    "u": "I4",
+    "v": "I5",
+    "w": 11
+   },
+   {
+    "u": "I4",
+    "v": "M2L",
+    "w": 17
+   },
+   {
+    "u": "I4",
+    "v": "M3L",
+    "w": 13
+   },
+   {
+    "u": "I4",
+    "v": "M3R",
+    "w": 47
+   },
+   {
+    "u": "I4",
+    "v": "MI",
+    "w": 4
+   },
+   {
+    "u": "I4",
+    "v": "NSML",
+    "w": 21
+   },
+   {
+    "u": "I4",
+    "v": "NSMR",
+    "w": 34
+   },
+   {
+    "u": "I4",
+    "v": "pm4D",
+    "w": 1
+   },
+   {
+    "u": "I4",
+    "v": "pm4VR",
+    "w": 3
+   },
+   {
+    "u": "I4",
+    "v": "pm5VL",
+    "w": 15
+   },
+   {
+    "u": "I4",
+    "v": "pm5VR",
+    "w": 4
+   },
+   {
+    "u": "I4",
+    "v": "M1",
+    "w": 1
+   },
+   {
+    "u": "I4",
+    "v": "M2R",
+    "w": 1
+   },
+   {
+    "u": "I4",
+    "v": "M4",
+    "w": 5
+   },
+   {
+    "u": "I5",
+    "v": "M2L",
+    "w": 7
+   },
+   {
+    "u": "I5",
+    "v": "M2R",
+    "w": 4
+   },
+   {
+    "u": "I5",
+    "v": "M5",
+    "w": 6
+   },
+   {
+    "u": "I5",
+    "v": "g1AL",
+    "w": 10
+   },
+   {
+    "u": "I5",
+    "v": "M1",
+    "w": 11
+   },
+   {
+    "u": "I5",
+    "v": "M3L",
+    "w": 25
+   },
+   {
+    "u": "I5",
+    "v": "M3R",
+    "w": 2
+   },
+   {
+    "u": "I5",
+    "v": "M4",
+    "w": 47
+   },
+   {
+    "u": "I5",
+    "v": "MCR",
+    "w": 7
+   },
+   {
+    "u": "I5",
+    "v": "MI",
+    "w": 15
+   },
+   {
+    "u": "I5",
+    "v": "NSML",
+    "w": 11
+   },
+   {
+    "u": "I5",
+    "v": "NSMR",
+    "w": 38
+   },
+   {
+    "u": "I5",
+    "v": "bm",
+    "w": 1
+   },
+   {
+    "u": "I5",
+    "v": "g1",
+    "w": 4
+   },
+   {
+    "u": "I5",
+    "v": "g1AR",
+    "w": 4
+   },
+   {
+    "u": "I5",
+    "v": "pm5D",
+    "w": 15
+   },
+   {
+    "u": "I5",
+    "v": "pm5VL",
+    "w": 4
+   },
+   {
+    "u": "I5",
+    "v": "pm5VR",
+    "w": 15
+   },
+   {
+    "u": "I5",
+    "v": "pm6VL",
+    "w": 1
+   },
+   {
+    "u": "I6",
+    "v": "M4",
+    "w": 27
+   },
+   {
+    "u": "I6",
+    "v": "NSML",
+    "w": 29
+   },
+   {
+    "u": "I6",
+    "v": "NSMR",
+    "w": 9
+   },
+   {
+    "u": "I6",
+    "v": "g1P",
+    "w": 2
+   },
+   {
+    "u": "I6",
+    "v": "pm5D",
+    "w": 16
+   },
+   {
+    "u": "M1",
+    "v": "pm5D",
+    "w": 7
+   },
+   {
+    "u": "M1",
+    "v": "M4",
+    "w": 1
+   },
+   {
+    "u": "M1",
+    "v": "M5",
+    "w": 2
+   },
+   {
+    "u": "M1",
+    "v": "MI",
+    "w": 29
+   },
+   {
+    "u": "M1",
+    "v": "NSML",
+    "w": 10
+   },
+   {
+    "u": "M1",
+    "v": "e3D",
+    "w": 3
+   },
+   {
+    "u": "M1",
+    "v": "e3VL",
+    "w": 1
+   },
+   {
+    "u": "M1",
+    "v": "g1P",
+    "w": 5
+   },
+   {
+    "u": "M1",
+    "v": "pm1",
+    "w": 4
+   },
+   {
+    "u": "M1",
+    "v": "pm2D",
+    "w": 1
+   },
+   {
+    "u": "M1",
+    "v": "pm2VL",
+    "w": 1
+   },
+   {
+    "u": "M1",
+    "v": "pm2VR",
+    "w": 1
+   },
+   {
+    "u": "M1",
+    "v": "pm3VL",
+    "w": 1
+   },
+   {
+    "u": "M1",
+    "v": "pm4D",
+    "w": 1
+   },
+   {
+    "u": "M2L",
+    "v": "M3L",
+    "w": 6
+   },
+   {
+    "u": "M2L",
+    "v": "M3R",
+    "w": 1
+   },
+   {
+    "u": "M2L",
+    "v": "g1AL",
+    "w": 8
+   },
+   {
+    "u": "M2L",
+    "v": "pm4D",
+    "w": 5
+   },
+   {
+    "u": "M2L",
+    "v": "pm4VL",
+    "w": 18
+   },
+   {
+    "u": "M2L",
+    "v": "pm5D",
+    "w": 7
+   },
+   {
+    "u": "M2L",
+    "v": "pm5VL",
+    "w": 20
+   },
+   {
+    "u": "M2L",
+    "v": "M2R",
+    "w": 2
+   },
+   {
+    "u": "M2L",
+    "v": "M4",
+    "w": 2
+   },
+   {
+    "u": "M2L",
+    "v": "MI",
+    "w": 7
+   },
+   {
+    "u": "M2R",
+    "v": "MCR",
+    "w": 9
+   },
+   {
+    "u": "M2R",
+    "v": "MI",
+    "w": 9
+   },
+   {
+    "u": "M2R",
+    "v": "M3L",
+    "w": 4
+   },
+   {
+    "u": "M2R",
+    "v": "M3R",
+    "w": 4
+   },
+   {
+    "u": "M2R",
+    "v": "NSMR",
+    "w": 2
+   },
+   {
+    "u": "M2R",
+    "v": "g1AR",
+    "w": 3
+   },
+   {
+    "u": "M2R",
+    "v": "pm4D",
+    "w": 11
+   },
+   {
+    "u": "M2R",
+    "v": "pm4VR",
+    "w": 6
+   },
+   {
+    "u": "M2R",
+    "v": "pm5D",
+    "w": 8
+   },
+   {
+    "u": "M2R",
+    "v": "pm5VR",
+    "w": 15
+   },
+   {
+    "u": "M3L",
+    "v": "NSMR",
+    "w": 1
+   },
+   {
+    "u": "M3L",
+    "v": "g1AL",
+    "w": 2
+   },
+   {
+    "u": "M3L",
+    "v": "M3R",
+    "w": 2
+   },
+   {
+    "u": "M3L",
+    "v": "MCL",
+    "w": 1
+   },
+   {
+    "u": "M3L",
+    "v": "MI",
+    "w": 12
+   },
+   {
+    "u": "M3L",
+    "v": "NSML",
+    "w": 28
+   },
+   {
+    "u": "M3L",
+    "v": "pm4D",
+    "w": 36
+   },
+   {
+    "u": "M3L",
+    "v": "pm4VL",
+    "w": 12
+   },
+   {
+    "u": "M3L",
+    "v": "pm5D",
+    "w": 7
+   },
+   {
+    "u": "M3L",
+    "v": "pm5VL",
+    "w": 2
+   },
+   {
+    "u": "M3L",
+    "v": "M4",
+    "w": 2
+   },
+   {
+    "u": "M3R",
+    "v": "g1AR",
+    "w": 7
+   },
+   {
+    "u": "M3R",
+    "v": "M4",
+    "w": 3
+   },
+   {
+    "u": "M3R",
+    "v": "MCL",
+    "w": 2
+   },
+   {
+    "u": "M3R",
+    "v": "MI",
+    "w": 10
+   },
+   {
+    "u": "M3R",
+    "v": "bm",
+    "w": 1
+   },
+   {
+    "u": "M3R",
+    "v": "g1",
+    "w": 1
+   },
+   {
+    "u": "M3R",
+    "v": "pm4D",
+    "w": 12
+   },
+   {
+    "u": "M3R",
+    "v": "pm5D",
+    "w": 1
+   },
+   {
+    "u": "M3R",
+    "v": "pm5VR",
+    "w": 1
+   },
+   {
+    "u": "M3R",
+    "v": "NSML",
+    "w": 1
+   },
+   {
+    "u": "M3R",
+    "v": "NSMR",
+    "w": 30
+   },
+   {
+    "u": "M4",
+    "v": "M5",
+    "w": 2
+   },
+   {
+    "u": "M4",
+    "v": "g1AL",
+    "w": 45
+   },
+   {
+    "u": "M4",
+    "v": "MCL",
+    "w": 1
+   },
+   {
+    "u": "M4",
+    "v": "g1AR",
+    "w": 49
+   },
+   {
+    "u": "M4",
+    "v": "g1P",
+    "w": 46
+   },
+   {
+    "u": "M4",
+    "v": "g2L",
+    "w": 3
+   },
+   {
+    "u": "M4",
+    "v": "pm4VR",
+    "w": 2
+   },
+   {
+    "u": "M4",
+    "v": "pm5D",
+    "w": 69
+   },
+   {
+    "u": "M4",
+    "v": "pm5VL",
+    "w": 50
+   },
+   {
+    "u": "M4",
+    "v": "pm5VR",
+    "w": 72
+   },
+   {
+    "u": "M4",
+    "v": "NSML",
+    "w": 25
+   },
+   {
+    "u": "M5",
+    "v": "pm6VL",
+    "w": 5
+   },
+   {
+    "u": "M5",
+    "v": "pm6VR",
+    "w": 7
+   },
+   {
+    "u": "M5",
+    "v": "g1AL",
+    "w": 3
+   },
+   {
+    "u": "M5",
+    "v": "g1AR",
+    "w": 1
+   },
+   {
+    "u": "M5",
+    "v": "g2L",
+    "w": 5
+   },
+   {
+    "u": "M5",
+    "v": "g2R",
+    "w": 1
+   },
+   {
+    "u": "M5",
+    "v": "mc3V",
+    "w": 4
+   },
+   {
+    "u": "M5",
+    "v": "pm6D",
+    "w": 2
+   },
+   {
+    "u": "M5",
+    "v": "pm7D",
+    "w": 8
+   },
+   {
+    "u": "M5",
+    "v": "pm7VL",
+    "w": 11
+   },
+   {
+    "u": "M5",
+    "v": "pm7VR",
+    "w": 13
+   },
+   {
+    "u": "MCL",
+    "v": "mc2DR",
+    "w": 14
+   },
+   {
+    "u": "MCL",
+    "v": "mc2V",
+    "w": 15
+   },
+   {
+    "u": "MCL",
+    "v": "MI",
+    "w": 5
+   },
+   {
+    "u": "MCR",
+    "v": "mc2DL",
+    "w": 12
+   },
+   {
+    "u": "MCR",
+    "v": "mc2DR",
+    "w": 5
+   },
+   {
+    "u": "MCR",
+    "v": "mc2V",
+    "w": 11
+   },
+   {
+    "u": "MI",
+    "v": "pm4D",
+    "w": 16
+   },
+   {
+    "u": "MI",
+    "v": "NSML",
+    "w": 4
+   },
+   {
+    "u": "MI",
+    "v": "NSMR",
+    "w": 3
+   },
+   {
+    "u": "MI",
+    "v": "pm4VL",
+    "w": 2
+   },
+   {
+    "u": "MI",
+    "v": "pm4VR",
+    "w": 3
+   },
+   {
+    "u": "MI",
+    "v": "pm5D",
+    "w": 13
+   },
+   {
+    "u": "NSML",
+    "v": "NSMR",
+    "w": 16
+   },
+   {
+    "u": "NSML",
+    "v": "bm",
+    "w": 88
+   },
+   {
+    "u": "NSML",
+    "v": "pm4VL",
+    "w": 1
+   },
+   {
+    "u": "NSML",
+    "v": "pm5D",
+    "w": 54
+   },
+   {
+    "u": "NSML",
+    "v": "pm5VL",
+    "w": 68
+   },
+   {
+    "u": "NSML",
+    "v": "pm5VR",
+    "w": 19
+   },
+   {
+    "u": "NSMR",
+    "v": "bm",
+    "w": 72
+   },
+   {
+    "u": "NSMR",
+    "v": "pm4D",
+    "w": 5
+   },
+   {
+    "u": "NSMR",
+    "v": "pm5D",
+    "w": 18
+   },
+   {
+    "u": "NSMR",
+    "v": "pm5VL",
+    "w": 2
+   },
+   {
+    "u": "NSMR",
+    "v": "pm5VR",
+    "w": 53
+   },
+   {
+    "u": "pm1",
+    "v": "e3D",
+    "w": 3
+   },
+   {
+    "u": "pm3VL",
+    "v": "e3VL",
+    "w": 4
+   },
+   {
+    "u": "e2DR",
+    "v": "e3D",
+    "w": 2
+   },
+   {
+    "u": "e2V",
+    "v": "e3VR",
+    "w": 1
+   }
+  ]
+ }
+};
+const MC = ["var(--m0)","var(--m1)","var(--m2)","var(--m3)"];
+
+// tiles
+document.getElementById("tiles").innerHTML = [
+  {v:R.nodes_total,k:"cells",sub:"26 neuron · 19 muscle · 6 gland · 4 marginal"},
+  {v:"4",k:"functional modules",sub:"corpus · isthmus · term. bulb · systemic"},
+  {v:R.q_modules.toFixed(2),k:"modularity Q",sub:"Cook 2020: 0.352 · default γ=1: "+R.q_default.toFixed(2)},
+  {v:R.stability.toFixed(2),k:"partition stability",sub:R.k_distribution["6"]+"/200 seeds agree on 6"},
+  {v:"Z "+(R.q_z>=0?"+":"")+R.q_z,k:"Q vs null",sub:"vs "+R.q_null_mean.toFixed(2)+" degree-matched"},
+].map(t=>`<div class="tile"><div class="v tnum">${t.v}</div><div class="k">${t.k}</div><div class="sub">${t.sub}</div></div>`).join("");
+
+// module cards
+const FN = {
+  "Pumping":"Corpus contraction and pumping-rate control — the I-neurons, MI and M3 driving the anterior pharyngeal muscle.",
+  "Grinding":"Terminal-bulb grinding — M5 and the pm6/pm7 grinder muscles that crush ingested bacteria.",
+  "Neuromodulation":"Systemic relaxation and modulation — serotonergic NSM with M3, I2, I4 tuning activity across the organ.",
+  "Peristalsis":"Isthmus peristalsis and digestive coupling — M4 (largest neuromuscular junction) with the gland cells.",
+};
+const SIG = {"Pumping":["I1L","I1R","I3","MI","MCL","MCR"],"Grinding":["M5"],
+  "Neuromodulation":["NSML","NSMR","M3R","I2L","I4"],"Peristalsis":["M4","g1AL","g1AR","g1P"]};
+document.getElementById("cards").innerHTML = R.modules.map((m,i)=>{
+  const kinds = Object.entries(m.kinds).map(([k,v])=>`${v} ${k}`).join(" · ");
+  return `<div class="card" style="--c:${MC[i]}">
+    <div class="ct"><h3>${m.name}</h3><span class="rg">${m.region}</span></div>
+    <p class="fn">${FN[m.name]||""}</p>
+    <div class="sig">${SIG[m.name].join(" · ")}</div>
+    <p class="comp">${m.n} cells — ${kinds}</p></div>`;
+}).join("");
+
+// legend
+document.getElementById("leg").innerHTML =
+  R.modules.map((m,i)=>`<span><i style="background:${MC[i]};border-radius:3px"></i>${m.name} <span style="color:var(--ink-3)">· ${m.n}</span></span>`).join("")
+  + `<span class="sz">square shade ∝ synaptic weight</span>`;
+
+// ordered adjacency matrix
+(function(){
+  const svg=document.getElementById("mat");
+  const nodes=R.graph.nodes, edges=R.graph.edges;
+  const order=[...nodes].sort((a,b)=> a.mod-b.mod || b.deg-a.deg);
+  const K=order.length;
+  const w={}; let maxw=0;
+  edges.forEach(e=>{ w[e.u+"|"+e.v]=e.w; w[e.v+"|"+e.u]=e.w; if(e.w>maxw)maxw=e.w; });
+  const cell=13, band=8, topPad=20, gap=3;
+  const ox=band+gap, oy=topPad+band+gap;
+  const W=ox+K*cell+3, H=oy+K*cell+3;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  // module block ranges (contiguous after ordering)
+  let ranges=[], start=0;
+  R.modules.forEach((m,mi)=>{ const c=order.filter(n=>n.mod===mi).length; ranges.push([start,c,mi]); start+=c; });
+  let s="";
+  // margin colour bands + labels
+  ranges.forEach(([st,c,mi])=>{
+    const x=ox+st*cell, y=oy+st*cell, len=c*cell;
+    s+=`<rect x="${x}" y="${topPad}" width="${len}" height="${band}" fill="${MC[mi]}" rx="2"/>`;
+    s+=`<rect x="0" y="${y}" width="${band}" height="${len}" fill="${MC[mi]}" rx="2"/>`;
+    s+=`<text x="${x+len/2}" y="13" text-anchor="middle" fill="${MC[mi]}">${R.modules[mi].name}</text>`;
+  });
+  // weight cells (symmetric)
+  for(let i=0;i<K;i++){
+    for(let j=0;j<K;j++){
+      if(i===j) continue;
+      const wt=w[order[i].id+"|"+order[j].id];
+      if(!wt) continue;
+      const op=(0.16+0.84*Math.sqrt(wt/maxw)).toFixed(3);
+      s+=`<rect x="${ox+j*cell}" y="${oy+i*cell}" width="${cell-1}" height="${cell-1}" rx="1.5" fill="var(--ink)" fill-opacity="${op}"><title>${order[i].id} — ${order[j].id} · weight ${wt}</title></rect>`;
+    }
+  }
+  // diagonal block outlines in module colour
+  ranges.forEach(([st,c,mi])=>{
+    s+=`<rect x="${ox+st*cell-0.5}" y="${oy+st*cell-0.5}" width="${c*cell}" height="${c*cell}" fill="none" stroke="${MC[mi]}" stroke-width="1.5" rx="3"/>`;
+  });
+  svg.innerHTML=s;
+})();
+
+// robustness stats
+document.getElementById("stats").innerHTML = [
+  ["Modularity Q (γ=1 default)", R.q_default.toFixed(3)],
+  ["Modularity Q (4-module, γ=0.75)", R.q_modules.toFixed(3)],
+  ["Communities (γ=1)", R.k_default+"  ("+R.k_distribution["6"]+"/200 seeds)"],
+  ["Stability (pairwise decisiveness)", R.stability.toFixed(3)],
+  ["Null Q (degree-matched)", R.q_null_mean.toFixed(3)+" ± "+R.q_null_sd.toFixed(3)],
+  ["Q vs null", "Z "+(R.q_z>=0?"+":"")+R.q_z],
+].map(([l,r])=>`<div class="stat"><span class="l">${l}</span><span class="r">${r}</span></div>`).join("");
+
+// resolution sweep bars
+const maxQ=Math.max(...R.sweep.map(s=>s.Q));
+document.getElementById("sweep").innerHTML = R.sweep.map(s=>{
+  const hl = s.gamma===1.0 ? " hl":"";
+  return `<div class="srow${hl}"><span>γ=${s.gamma}</span>
+    <span class="track"><span class="fill" style="width:${(s.Q/maxQ*100).toFixed(0)}%"></span></span>
+    <span class="kk">${s.k}·${s.Q.toFixed(2)}</span></div>`;
+}).join("");
+</script>
