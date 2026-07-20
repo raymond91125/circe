@@ -155,6 +155,8 @@ class BuildStats:
     unknown_connection_cells: int
     cells_by_sex: dict[str, int]
     datasets_by_sex: dict[str, int]
+    genes: int = 0
+    gene_expressions: int = 0
 
 
 def _aggregate(records: list[ConnectionRecord], alias: dict[str, str]):
@@ -171,6 +173,53 @@ def _aggregate(records: list[ConnectionRecord], alias: dict[str, str]):
     return summed
 
 
+#: Dataset id for the Cook 2020 SI6 gene-expression compilation.
+_GENE_EXPRESSION_DATASET = "cook_2020_pharynx_expression"
+
+
+def _si6_class(label: str, valid_classes: set[str]) -> str | None:
+    """Map an SI6 class label ("I1L/R", "M3L/R", "MCL", "I3") to a CIRCE cell_class."""
+    for cand in (label, label.replace("L/R", ""), label[:-1] if label[-1:] in "LR" else label):
+        if cand in valid_classes:
+            return cand
+    return None
+
+
+def _build_gene_expression(dm, ge_data, cells):
+    """Genes + per-cell GeneExpression records (SI6 class rows expanded to member cells)."""
+    by_class: dict[str, list[str]] = defaultdict(list)
+    for c in cells:
+        if c.cell_class:
+            by_class[str(c.cell_class)].append(c.name)
+    valid = set(by_class)
+    genes = [
+        dm.Gene(
+            id=g.wbgene, symbol=g.symbol, category=g.category, systematic_name=g.systematic_name
+        )
+        for g in sorted(ge_data.genes, key=lambda g: g.symbol)
+    ]
+    exprs, unmapped = [], set()
+    for e in ge_data.expressions:
+        cls = _si6_class(e.class_label, valid)
+        if cls is None:
+            unmapped.add(e.class_label)
+            continue
+        wbid = e.wbgene.split(":")[-1]
+        suffix = f".{e.isoform}" if e.isoform else ""
+        for name in sorted(by_class[cls]):
+            exprs.append(
+                dm.GeneExpression(
+                    id=f"cckg:expr/{_GENE_EXPRESSION_DATASET}.{name}.{wbid}{suffix}",
+                    cell=_cell_id(name),
+                    gene=e.wbgene,
+                    isoform=e.isoform or None,
+                    dataset=_dataset_id(_GENE_EXPRESSION_DATASET),
+                    confidence=e.confidence,
+                )
+            )
+    return genes, exprs, sorted(unmapped)
+
+
 def assemble(
     data_dir: Path,
     wbbt_path: Path,
@@ -181,6 +230,8 @@ def assemble(
     cook_aliases_path: Path | None = None,
     cook_anatomy_path: Path | None = None,
     cook_2020_edges_path: Path | None = None,
+    gene_expr_xlsx_path: Path | None = None,
+    gene_map_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
@@ -318,7 +369,35 @@ def assemble(
     known = set(cell_records) | stub_names | set(cook_new_cells)
     unknown_cells = sorted(name for name in referenced if name not in known)
 
-    connectome = dm.Connectome(cells=cells, datasets=datasets, connections=connections)
+    # --- Gene expression (optional): Cook 2020 SI6 per-cell expression ---
+    genes, gene_expressions = [], []
+    if gene_expr_xlsx_path and gene_map_path:
+        from celegans_connectome_kg.ingest.gene_expression import read_gene_expression
+
+        ge_data = read_gene_expression(gene_expr_xlsx_path, gene_map_path)
+        datasets.append(
+            dm.Dataset(
+                id=_dataset_id(_GENE_EXPRESSION_DATASET),
+                name="Cook et al. 2020 pharyngeal gene expression",
+                description=(
+                    "Per-cell expression of neurotransmitter-receptor, innexin and neuropeptide "
+                    "genes in pharyngeal neurons, compiled from the literature by Cook et al. 2020 "
+                    "(Supplemental Data 6). Genes keyed to WormBase gene ids via the Alliance."
+                ),
+                sex=_HERMAPHRODITE,
+            )
+        )
+        genes, gene_expressions, unmapped = _build_gene_expression(dm, ge_data, cells)
+        if unmapped:
+            raise ValueError(f"SI6 class labels not mapped to a cell_class: {unmapped}")
+
+    connectome = dm.Connectome(
+        cells=cells,
+        datasets=datasets,
+        connections=connections,
+        genes=genes,
+        gene_expressions=gene_expressions,
+    )
     stats = BuildStats(
         cells=len(cells),
         datasets=len(datasets),
@@ -328,5 +407,7 @@ def assemble(
         unknown_connection_cells=len(unknown_cells),
         cells_by_sex=dict(Counter("+".join(str(s) for s in c.sexes) or "none" for c in cells)),
         datasets_by_sex=dict(Counter(str(d.sex) for d in datasets)),
+        genes=len(genes),
+        gene_expressions=len(gene_expressions),
     )
     return connectome, stats

@@ -17,6 +17,8 @@ COOK_XLSX = (
     / ("SI5_connectome_adjacency_matrices_corrected_2020.xlsx")
 )
 COOK_2020_EDGES = REPO / "data" / "cook-2020-pharynx" / "edges.csv"
+GENE_EXPR_XLSX = REPO / "data" / "cook-2020-pharynx" / "SI6_gene_expression.xlsx"
+GENE_MAP = REPO / "data" / "cook-2020-pharynx" / "si6_genes.csv"
 
 
 @pytest.fixture(scope="module")
@@ -31,6 +33,8 @@ def built():
         cook_aliases_path=CUR / "cook_name_aliases.csv",
         cook_anatomy_path=CUR / "cook_anatomy_curation.csv",
         cook_2020_edges_path=COOK_2020_EDGES,
+        gene_expr_xlsx_path=GENE_EXPR_XLSX,
+        gene_map_path=GENE_MAP,
     )
     return connectome, stats
 
@@ -78,6 +82,38 @@ def test_male_specific_cell_classes_from_wbbt(built) -> None:
     # serial neurons (parent "CA neuron"/"CP neuron") and pharyngeal endpoints keep no class
     assert cls["CA1"] is None and cls["CA9"] is None and cls["CP6"] is None
     assert cls["pm3"] is None and cls["g1"] is None
+
+
+def test_gene_expression_ingest(built) -> None:
+    connectome, stats = built
+    genes = connectome.genes
+    assert len(genes) == 46 == stats.genes
+    assert all(g.id.startswith("WB:WBGene") for g in genes)
+    assert {str(g.category) for g in genes} == {
+        "metabotropic_receptor",
+        "ionotropic_receptor",
+        "innexin",
+        "neuropeptide",
+    }
+    assert len(connectome.gene_expressions) == stats.gene_expressions == 309
+    assert any(d.id.endswith("cook_2020_pharynx_expression") for d in connectome.datasets)
+    assert {str(e.confidence) for e in connectome.gene_expressions} <= {"reported", "putative"}
+
+
+def test_gene_expression_per_cell_and_isoform(built) -> None:
+    connectome, _ = built
+    ge = connectome.gene_expressions
+
+    def genes_of(cell):
+        return {str(e.gene) for e in ge if str(e.cell).endswith("/" + cell)}
+
+    # SI6's I1L/R class row expands to both member cells; gar-2 expressed, gar-1 not.
+    for c in ("I1L", "I1R"):
+        assert "WB:WBGene00001518" in genes_of(c)  # gar-2
+        assert "WB:WBGene00001517" not in genes_of(c)  # gar-1 (blank in SI6)
+    # inx-1 isoforms a and b are kept distinct (transcript qualifier), same persistent gene id.
+    inx1 = [e for e in ge if str(e.cell).endswith("/I1L") and str(e.gene) == "WB:WBGene00002123"]
+    assert {str(e.isoform) for e in inx1} == {"a", "b"}
 
 
 def test_build_stats_partition(built) -> None:

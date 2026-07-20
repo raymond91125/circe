@@ -189,6 +189,24 @@
                         "array",
                         "null"
                     ]
+                },
+                "gene_expressions": {
+                    "items": {
+                        "$ref": "#/$defs/GeneExpression"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "genes": {
+                    "items": {
+                        "$ref": "#/$defs/Gene"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "Connectome",
@@ -276,6 +294,112 @@
             "title": "EvidenceType",
             "type": "string"
         },
+        "ExpressionConfidence": {
+            "description": "The source's expression mark. Cook 2020 SI6 uses uppercase \"X\" and lowercase \"x\"; the distinction is not defined in the source, so lowercase is taken as lower-confidence.",
+            "enum": [
+                "reported",
+                "putative"
+            ],
+            "title": "ExpressionConfidence",
+            "type": "string"
+        },
+        "Gene": {
+            "additionalProperties": false,
+            "description": "A C. elegans gene, keyed by its persistent WormBase gene id (WB:WBGene\u2026) as resolved via the Alliance of Genome Resources. Carries the gene symbol, WormBase systematic name, and a functional category. Genes are shared across gene-expression datasets.",
+            "properties": {
+                "category": {
+                    "$ref": "#/$defs/GeneCategory",
+                    "description": "The functional category of the gene, as grouped by the source dataset."
+                },
+                "id": {
+                    "description": "The persistent WormBase gene id as a curie (e.g. \"WB:WBGene00001517\").",
+                    "type": "string"
+                },
+                "symbol": {
+                    "description": "The gene's WormBase symbol (e.g. \"gar-1\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "systematic_name": {
+                    "description": "The WormBase systematic / sequence name (e.g. \"C15B12.5\").",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id"
+            ],
+            "title": "Gene",
+            "type": "object"
+        },
+        "GeneCategory": {
+            "description": "Functional category a gene is grouped under in an expression dataset.",
+            "enum": [
+                "metabotropic_receptor",
+                "ionotropic_receptor",
+                "innexin",
+                "neuropeptide"
+            ],
+            "title": "GeneCategory",
+            "type": "string"
+        },
+        "GeneExpression": {
+            "additionalProperties": false,
+            "description": "A reified assertion that a cell expresses a gene, compiled in one dataset. Reified (not a plain triple) because it carries the source dataset, evidence, an optional transcript-isoform qualifier (when the source resolves expression to an isoform), and a confidence mark.",
+            "properties": {
+                "cell": {
+                    "description": "The cell in which the gene is expressed.",
+                    "type": "string"
+                },
+                "confidence": {
+                    "$ref": "#/$defs/ExpressionConfidence",
+                    "description": "The source's expression mark for this assertion."
+                },
+                "dataset": {
+                    "description": "The dataset in which this was observed.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "evidence": {
+                    "description": "Provenance records supporting this connection (open-world, additive).",
+                    "items": {
+                        "$ref": "#/$defs/Evidence"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "gene": {
+                    "description": "The expressed gene.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Stable identifier for the record.",
+                    "type": "string"
+                },
+                "isoform": {
+                    "description": "Transcript-isoform qualifier from the source (e.g. \"a\", \"b\") when it distinguishes isoforms; expression stays keyed to the persistent gene. Absent when the source is gene-level.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id",
+                "cell",
+                "gene"
+            ],
+            "title": "GeneExpression",
+            "type": "object"
+        },
         "Sex": {
             "description": "The biological sex of a C. elegans specimen.",
             "enum": [
@@ -313,6 +437,24 @@
         "datasets": {
             "items": {
                 "$ref": "#/$defs/Dataset"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "gene_expressions": {
+            "items": {
+                "$ref": "#/$defs/GeneExpression"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "genes": {
+            "items": {
+                "$ref": "#/$defs/Gene"
             },
             "type": [
                 "array",

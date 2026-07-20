@@ -10,23 +10,35 @@
 cckg:Connectome a owl:Class ;
     rdfs:label "Connectome" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom cckg:Dataset ;
+            owl:minCardinality 0 ;
             owl:onProperty cckg:datasets ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cckg:Cell ;
-            owl:onProperty cckg:cells ],
         [ a owl:Restriction ;
             owl:allValuesFrom cckg:Connection ;
             owl:onProperty cckg:connections ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:datasets ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom cckg:Cell ;
             owl:onProperty cckg:cells ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cckg:connections ] ;
+            owl:onProperty cckg:connections ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:genes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Gene ;
+            owl:onProperty cckg:genes ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:gene_expressions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:GeneExpression ;
+            owl:onProperty cckg:gene_expressions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Dataset ;
+            owl:onProperty cckg:datasets ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:cells ] ;
     skos:definition "Top-level container holding all cells, connections, and datasets of one build. Serves as the tree root for data files and validation." ;
     skos:inScheme cckg:schema .
 
@@ -39,38 +51,29 @@ cckg:schema.owl.ttl a owl:Ontology ;
 cckg:Connection a owl:Class ;
     rdfs:label "Connection" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:post ],
+            owl:allValuesFrom xsd:float ;
+            owl:onProperty cckg:weight ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Dataset ;
+            owl:onProperty cckg:dataset ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:dataset ],
         [ a owl:Restriction ;
             owl:allValuesFrom cckg:Cell ;
             owl:onProperty cckg:post ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty cckg:weight ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cckg:weight ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:float ;
             owl:onProperty cckg:weight ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cckg:connection_type ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:evidence ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cckg:post ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cckg:Dataset ;
-            owl:onProperty cckg:dataset ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cckg:pre ],
         [ a owl:Restriction ;
             owl:allValuesFrom cckg:ConnectionType ;
             owl:onProperty cckg:connection_type ],
@@ -78,27 +81,101 @@ cckg:Connection a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty cckg:dataset ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cckg:Evidence ;
-            owl:onProperty cckg:evidence ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom cckg:Cell ;
             owl:onProperty cckg:pre ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cckg:connection_type ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cckg:Cell ;
+            owl:minCardinality 1 ;
             owl:onProperty cckg:pre ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:evidence ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:post ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:pre ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:post ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Evidence ;
+            owl:onProperty cckg:evidence ] ;
+    skos:definition "A reified, n-ary connection between two cells observed in one dataset. Reified (not a plain triple) because it carries type, weight, dataset, and evidence." ;
+    skos:inScheme cckg:schema .
+
+cckg:GeneExpression a owl:Class ;
+    rdfs:label "GeneExpression" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:gene ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:ExpressionConfidence ;
+            owl:onProperty cckg:confidence ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:dataset ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:isoform ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:isoform ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:confidence ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Gene ;
+            owl:onProperty cckg:gene ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:isoform ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Evidence ;
+            owl:onProperty cckg:evidence ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:evidence ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:gene ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Cell ;
+            owl:onProperty cckg:cell ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:cell ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Dataset ;
+            owl:onProperty cckg:dataset ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:confidence ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cckg:id ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cckg:id ],
+            owl:onProperty cckg:cell ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:maxCardinality 1 ;
             owl:onProperty cckg:dataset ] ;
-    skos:definition "A reified, n-ary connection between two cells observed in one dataset. Reified (not a plain triple) because it carries type, weight, dataset, and evidence." ;
+    skos:definition "A reified assertion that a cell expresses a gene, compiled in one dataset. Reified (not a plain triple) because it carries the source dataset, evidence, an optional transcript-isoform qualifier (when the source resolves expression to an isoform), and a confidence mark." ;
     skos:inScheme cckg:schema .
 
 <https://wormbase.org/resources/connectome/CellType#muscle> a owl:Class ;
@@ -131,47 +208,6 @@ cckg:Connection a owl:Class ;
     rdfs:subClassOf cckg:ConnectionType ;
     skos:definition "Electrical / gap-junction connection (EM)." .
 
-cckg:Evidence a owl:Class ;
-    rdfs:label "Evidence" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:source ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:dataset ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:evidence_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:value ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:evidence_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cckg:Dataset ;
-            owl:onProperty cckg:dataset ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:dataset ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cckg:EvidenceType ;
-            owl:onProperty cckg:evidence_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:anyURI ;
-            owl:onProperty cckg:source ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:value ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:value ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:source ] ;
-    skos:definition "Provenance for a connection. Designed to be additive: v1 records an aggregated weight observed in a dataset; later releases can add individual synaptic-contact detail (section, volume, image) by adding optional slots, without schema churn." ;
-    skos:inScheme cckg:schema .
-
 <https://wormbase.org/resources/connectome/EvidenceType#aggregated_weight> a owl:Class ;
     rdfs:label "aggregated_weight" ;
     rdfs:subClassOf cckg:EvidenceType ;
@@ -181,6 +217,36 @@ cckg:Evidence a owl:Class ;
     rdfs:label "synaptic_contact" ;
     rdfs:subClassOf cckg:EvidenceType ;
     skos:definition "An individual synaptic contact (reserved for a later release)." .
+
+<https://wormbase.org/resources/connectome/ExpressionConfidence#putative> a owl:Class ;
+    rdfs:label "putative" ;
+    rdfs:subClassOf cckg:ExpressionConfidence ;
+    skos:definition "Weaker / putative expression (SI6 lowercase \"x\"); semantics unstated in source." .
+
+<https://wormbase.org/resources/connectome/ExpressionConfidence#reported> a owl:Class ;
+    rdfs:label "reported" ;
+    rdfs:subClassOf cckg:ExpressionConfidence ;
+    skos:definition "Expression reported (SI6 uppercase \"X\")." .
+
+<https://wormbase.org/resources/connectome/GeneCategory#innexin> a owl:Class ;
+    rdfs:label "innexin" ;
+    rdfs:subClassOf cckg:GeneCategory ;
+    skos:definition "Innexin / gap-junction channel gene." .
+
+<https://wormbase.org/resources/connectome/GeneCategory#ionotropic_receptor> a owl:Class ;
+    rdfs:label "ionotropic_receptor" ;
+    rdfs:subClassOf cckg:GeneCategory ;
+    skos:definition "Ionotropic (ligand-gated ion channel) neurotransmitter receptor." .
+
+<https://wormbase.org/resources/connectome/GeneCategory#metabotropic_receptor> a owl:Class ;
+    rdfs:label "metabotropic_receptor" ;
+    rdfs:subClassOf cckg:GeneCategory ;
+    skos:definition "Metabotropic (G-protein-coupled) neurotransmitter receptor." .
+
+<https://wormbase.org/resources/connectome/GeneCategory#neuropeptide> a owl:Class ;
+    rdfs:label "neuropeptide" ;
+    rdfs:subClassOf cckg:GeneCategory ;
+    skos:definition "Neuropeptide-encoding gene." .
 
 <https://wormbase.org/resources/connectome/Sex#hermaphrodite> a owl:Class ;
     rdfs:label "hermaphrodite" ;
@@ -204,10 +270,12 @@ cckg:datasets a owl:ObjectProperty ;
     rdfs:label "datasets" ;
     skos:inScheme cckg:schema .
 
-cckg:evidence a owl:ObjectProperty ;
-    rdfs:label "evidence" ;
-    rdfs:range cckg:Evidence ;
-    skos:definition "Provenance records supporting this connection (open-world, additive)." ;
+cckg:gene_expressions a owl:ObjectProperty ;
+    rdfs:label "gene_expressions" ;
+    skos:inScheme cckg:schema .
+
+cckg:genes a owl:ObjectProperty ;
+    rdfs:label "genes" ;
     skos:inScheme cckg:schema .
 
 cckg:sexes a owl:ObjectProperty ;
@@ -216,10 +284,104 @@ cckg:sexes a owl:ObjectProperty ;
     skos:definition "The sex(es) in which this cell is present, derived from the datasets that observe it. A shared cell has both; sex-specific cells have one — e.g. HSN/VC (hermaphrodite), the male ray neurons R1-R9, CEM, HOA/HOB, SPC, PCA/PCB/PCC, PDC (male)." ;
     skos:inScheme cckg:schema .
 
+cckg:Evidence a owl:Class ;
+    rdfs:label "Evidence" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:anyURI ;
+            owl:onProperty cckg:source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:dataset ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:evidence_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:dataset ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:source ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:EvidenceType ;
+            owl:onProperty cckg:evidence_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:value ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:evidence_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:source ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Dataset ;
+            owl:onProperty cckg:dataset ] ;
+    skos:definition "Provenance for a connection. Designed to be additive: v1 records an aggregated weight observed in a dataset; later releases can add individual synaptic-contact detail (section, volume, image) by adding optional slots, without schema churn." ;
+    skos:inScheme cckg:schema .
+
+cckg:Gene a owl:Class ;
+    rdfs:label "Gene" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:category ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:GeneCategory ;
+            owl:onProperty cckg:category ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:systematic_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:symbol ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:systematic_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:category ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:symbol ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:symbol ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:systematic_name ] ;
+    skos:definition "A C. elegans gene, keyed by its persistent WormBase gene id (WB:WBGene…) as resolved via the Alliance of Genome Resources. Carries the gene symbol, WormBase systematic name, and a functional category. Genes are shared across gene-expression datasets." ;
+    skos:inScheme cckg:schema .
+
 cckg:anatomy a owl:DatatypeProperty ;
     rdfs:label "anatomy" ;
     rdfs:range xsd:anyURI ;
     skos:definition "The WBBT anatomy term this cell is grounded in." ;
+    skos:inScheme cckg:schema .
+
+cckg:category a owl:ObjectProperty ;
+    rdfs:label "category" ;
+    rdfs:range cckg:GeneCategory ;
+    skos:definition "The functional category of the gene, as grouped by the source dataset." ;
+    skos:inScheme cckg:schema .
+
+cckg:cell a owl:ObjectProperty ;
+    rdfs:label "cell" ;
+    rdfs:range cckg:Cell ;
+    skos:definition "The cell in which the gene is expressed." ;
     skos:inScheme cckg:schema .
 
 cckg:cell_class a owl:DatatypeProperty ;
@@ -231,6 +393,12 @@ cckg:cell_type a owl:ObjectProperty ;
     rdfs:label "cell_type" ;
     rdfs:range cckg:CellType ;
     skos:definition "The broad kind of cell." ;
+    skos:inScheme cckg:schema .
+
+cckg:confidence a owl:ObjectProperty ;
+    rdfs:label "confidence" ;
+    rdfs:range cckg:ExpressionConfidence ;
+    skos:definition "The source's expression mark for this assertion." ;
     skos:inScheme cckg:schema .
 
 cckg:connection_type a owl:ObjectProperty ;
@@ -256,6 +424,12 @@ cckg:evidence_type a owl:ObjectProperty ;
     skos:definition "What kind of evidence this record represents." ;
     skos:inScheme cckg:schema .
 
+cckg:gene a owl:ObjectProperty ;
+    rdfs:label "gene" ;
+    rdfs:range cckg:Gene ;
+    skos:definition "The expressed gene." ;
+    skos:inScheme cckg:schema .
+
 cckg:in_head a owl:DatatypeProperty ;
     rdfs:label "in_head" ;
     rdfs:range xsd:boolean ;
@@ -266,6 +440,11 @@ cckg:in_tail a owl:DatatypeProperty ;
     rdfs:label "in_tail" ;
     rdfs:range xsd:boolean ;
     skos:definition "Whether the cell is in the tail." ;
+    skos:inScheme cckg:schema .
+
+cckg:isoform a owl:DatatypeProperty ;
+    rdfs:label "isoform" ;
+    skos:definition "Transcript-isoform qualifier from the source (e.g. \"a\", \"b\") when it distinguishes isoforms; expression stays keyed to the persistent gene. Absent when the source is gene-level." ;
     skos:inScheme cckg:schema .
 
 cckg:nemanode_type a owl:DatatypeProperty ;
@@ -307,6 +486,16 @@ cckg:strain a owl:DatatypeProperty ;
     skos:definition "The C. elegans strain/genotype of the specimen, if known." ;
     skos:inScheme cckg:schema .
 
+cckg:symbol a owl:DatatypeProperty ;
+    rdfs:label "symbol" ;
+    skos:definition "The gene's WormBase symbol (e.g. \"gar-1\")." ;
+    skos:inScheme cckg:schema .
+
+cckg:systematic_name a owl:DatatypeProperty ;
+    rdfs:label "systematic_name" ;
+    skos:definition "The WormBase systematic / sequence name (e.g. \"C15B12.5\")." ;
+    skos:inScheme cckg:schema .
+
 cckg:value a owl:DatatypeProperty ;
     rdfs:label "value" ;
     skos:definition "The evidence payload as text (e.g. the aggregated weight value)." ;
@@ -318,56 +507,6 @@ cckg:weight a owl:DatatypeProperty ;
     skos:definition "Aggregated connection weight as reported by the observing dataset." ;
     skos:inScheme cckg:schema .
 
-cckg:Dataset a owl:Class ;
-    rdfs:label "Dataset" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cckg:id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:name ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:sex ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:strain ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:sex ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:description ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:description ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cckg:Sex ;
-            owl:onProperty cckg:sex ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:description ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:strain ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:strain ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:name ] ;
-    skos:definition "A specimen/dataset that observes connections (an EM reconstruction or functional-imaging dataset), from neuron-graph (White 1986, Witvliet 2020, Randi funconn) or Cook et al. 2019." ;
-    skos:inScheme cckg:schema .
-
 cckg:EvidenceType a owl:Class ;
     rdfs:label "EvidenceType" ;
     owl:unionOf ( <https://wormbase.org/resources/connectome/EvidenceType#aggregated_weight> <https://wormbase.org/resources/connectome/EvidenceType#synaptic_contact> ) ;
@@ -375,105 +514,18 @@ cckg:EvidenceType a owl:Class ;
     linkml:permissible_values <https://wormbase.org/resources/connectome/EvidenceType#aggregated_weight>,
         <https://wormbase.org/resources/connectome/EvidenceType#synaptic_contact> .
 
-cckg:Cell a owl:Class ;
-    rdfs:label "Cell" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:embryonic ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:neurotransmitter ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:in_tail ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:anyURI ;
-            owl:onProperty cckg:anatomy ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:anatomy ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:in_head ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:nemanode_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cckg:CellType ;
-            owl:onProperty cckg:cell_type ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:in_head ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:cell_class ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:nemanode_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cckg:id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cckg:Sex ;
-            owl:onProperty cckg:sexes ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:nemanode_type ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:anatomy ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:cell_type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:boolean ;
-            owl:onProperty cckg:in_tail ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:sexes ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cckg:neurotransmitter ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:embryonic ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:cell_type ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:cell_class ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:neurotransmitter ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:cell_class ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:boolean ;
-            owl:onProperty cckg:embryonic ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cckg:in_tail ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cckg:name ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:boolean ;
-            owl:onProperty cckg:in_head ] ;
-    skos:definition "A C. elegans cell (neuron or muscle, or other non-neuronal cell carried by neuron-graph), keyed by its neuron-graph name and grounded in a WBBT anatomy term. Carries the neuron-graph-native attributes so the viz JSON projection is lossless." ;
+cckg:ExpressionConfidence a owl:Class ;
+    rdfs:label "ExpressionConfidence" ;
+    owl:unionOf ( <https://wormbase.org/resources/connectome/ExpressionConfidence#reported> <https://wormbase.org/resources/connectome/ExpressionConfidence#putative> ) ;
+    skos:definition "The source's expression mark. Cook 2020 SI6 uses uppercase \"X\" and lowercase \"x\"; the distinction is not defined in the source, so lowercase is taken as lower-confidence." ;
+    skos:inScheme cckg:schema ;
+    linkml:permissible_values <https://wormbase.org/resources/connectome/ExpressionConfidence#putative>,
+        <https://wormbase.org/resources/connectome/ExpressionConfidence#reported> .
+
+cckg:evidence a owl:ObjectProperty ;
+    rdfs:label "evidence" ;
+    rdfs:range cckg:Evidence ;
+    skos:definition "Provenance records supporting this connection (open-world, additive)." ;
     skos:inScheme cckg:schema .
 
 cckg:CellType a owl:Class ;
@@ -492,6 +544,66 @@ cckg:ConnectionType a owl:Class ;
         <https://wormbase.org/resources/connectome/ConnectionType#functional>,
         <https://wormbase.org/resources/connectome/ConnectionType#gap_junction> .
 
+cckg:Dataset a owl:Class ;
+    rdfs:label "Dataset" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:sex ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Sex ;
+            owl:onProperty cckg:sex ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:strain ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:sex ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:strain ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:strain ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:id ] ;
+    skos:definition "A specimen/dataset that observes connections (an EM reconstruction or functional-imaging dataset), from neuron-graph (White 1986, Witvliet 2020, Randi funconn) or Cook et al. 2019." ;
+    skos:inScheme cckg:schema .
+
+cckg:GeneCategory a owl:Class ;
+    rdfs:label "GeneCategory" ;
+    owl:unionOf ( <https://wormbase.org/resources/connectome/GeneCategory#metabotropic_receptor> <https://wormbase.org/resources/connectome/GeneCategory#ionotropic_receptor> <https://wormbase.org/resources/connectome/GeneCategory#innexin> <https://wormbase.org/resources/connectome/GeneCategory#neuropeptide> ) ;
+    skos:definition "Functional category a gene is grouped under in an expression dataset." ;
+    skos:inScheme cckg:schema ;
+    linkml:permissible_values <https://wormbase.org/resources/connectome/GeneCategory#innexin>,
+        <https://wormbase.org/resources/connectome/GeneCategory#ionotropic_receptor>,
+        <https://wormbase.org/resources/connectome/GeneCategory#metabotropic_receptor>,
+        <https://wormbase.org/resources/connectome/GeneCategory#neuropeptide> .
+
 cckg:Sex a owl:Class ;
     rdfs:label "Sex" ;
     owl:unionOf ( <https://wormbase.org/resources/connectome/Sex#hermaphrodite> <https://wormbase.org/resources/connectome/Sex#male> ) ;
@@ -500,15 +612,116 @@ cckg:Sex a owl:Class ;
     linkml:permissible_values <https://wormbase.org/resources/connectome/Sex#hermaphrodite>,
         <https://wormbase.org/resources/connectome/Sex#male> .
 
+cckg:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    skos:definition "Human-readable label." ;
+    skos:inScheme cckg:schema .
+
+cckg:Cell a owl:Class ;
+    rdfs:label "Cell" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:neurotransmitter ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty cckg:in_head ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:cell_class ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:neurotransmitter ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:in_head ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:in_head ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Sex ;
+            owl:onProperty cckg:sexes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:CellType ;
+            owl:onProperty cckg:cell_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:cell_class ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty cckg:in_tail ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:embryonic ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:nemanode_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:cell_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:nemanode_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:nemanode_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:in_tail ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:cell_class ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:in_tail ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty cckg:embryonic ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:neurotransmitter ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:sexes ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:anatomy ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:anatomy ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:embryonic ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:anyURI ;
+            owl:onProperty cckg:anatomy ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:cell_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:name ] ;
+    skos:definition "A C. elegans cell (neuron or muscle, or other non-neuronal cell carried by neuron-graph), keyed by its neuron-graph name and grounded in a WBBT anatomy term. Carries the neuron-graph-native attributes so the viz JSON projection is lossless." ;
+    skos:inScheme cckg:schema .
+
 cckg:dataset a owl:ObjectProperty ;
     rdfs:label "dataset" ;
     rdfs:range cckg:Dataset ;
     skos:definition "The dataset in which this was observed." ;
-    skos:inScheme cckg:schema .
-
-cckg:name a owl:DatatypeProperty ;
-    rdfs:label "name" ;
-    skos:definition "Human-readable label." ;
     skos:inScheme cckg:schema .
 
 cckg:id a owl:DatatypeProperty ;

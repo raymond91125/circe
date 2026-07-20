@@ -55,6 +55,27 @@ Elegance MySQL dumps, pinned by sha256:
 - SI 1 `cne24932-sup-0001-supinfo1.sql` (database `n2w`): `abc82e86615a2d7f429e27300c0fd4285e43aca073d179e728caeca9c4ec46b4`
 - SI 2 `cne24932-sup-0002-supinfo2.sql` (database `jsa`): `fb3c005d02a90e76b066596ea9e63e684963182372489d5ac3882b6f575ab991`
 
+## Gene expression (SI 6)
+`SI6_gene_expression.xlsx` — **Supplemental Data 6**, Cook's literature-compiled table of pharyngeal
+neuron classes × genes (metabotropic / ionotropic neurotransmitter receptors, innexins, neuropeptides),
+marked where a class expresses a gene. Ingested as `GeneExpression` records (dataset
+`cook_2020_pharynx_expression`); class rows are expanded to their member cells.
+
+`si6_genes.csv` — the resolved, vendored gene map (`si6_label,symbol,isoform,wbgene,category,
+systematic_name`). Genes are keyed to persistent **WormBase gene ids** (`WB:WBGene…`) resolved via
+the Alliance of Genome Resources (exact C. elegans symbol match); committed so the build is offline
+and deterministic. 47 columns → 46 distinct genes.
+
+Notes:
+- **Innexin names are mangled in SI 6** (`inx1-2`, `inx1-1a`, …) and don't resolve as-is; curated to
+  standard innexins (`inx1-2`→inx-2, `inx1-1a`/`inx1-1b`→inx-1, `inx1-10a`→inx-10, `inx1-18a`→inx-18,
+  …). The trailing a/b are transcript isoforms, kept as the `GeneExpression.isoform` qualifier so the
+  distinction survives while expression stays keyed to the persistent gene.
+- **Confidence:** SI 6 uses uppercase `X` (→ `reported`) and lowercase `x` (→ `putative`); the
+  lowercase meaning is not stated in the source.
+- The Alliance API has no transcript lookup (transcripts appear only as variant consequences), so
+  isoforms are carried as a qualifier rather than as first-class transcript entities.
+
 ## Curation notes
 - Non-cell endpoints dropped: `obj560962`, `obj586937`, `unk`, `unk1`.
 - Lowercase name variants reconciled via `cook_name_aliases.csv` (pm4d->pm4D, pm5d->pm5D, mc3v->mc3V, ...).
