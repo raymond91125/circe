@@ -1,0 +1,19 @@
+# Genes a cell expresses, from the Cook 2020 SI6 literature compilation. Grouped by functional
+# category; ?isoform is set only where the source resolved expression to a transcript isoform,
+# and ?confidence is the source mark (reported = SI6 "X", putative = "x").
+#
+# To query a different cell, replace .../cell/M3L below. (A cell CURIE with a slash —
+# cckg:cell/M3L — is not a valid prefixed name, so the full IRI is used.)
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?category ?gene ?isoform ?confidence WHERE {
+  ?e a cckg:GeneExpression ;
+     cckg:cell <https://wormbase.org/resources/connectome/cell/M3L> ;
+     cckg:gene ?g ;
+     cckg:confidence ?confidence .
+  OPTIONAL { ?e cckg:isoform ?isoform }
+  ?g dcterms:title ?gene ;
+     cckg:category ?category .
+}
+ORDER BY ?category ?gene

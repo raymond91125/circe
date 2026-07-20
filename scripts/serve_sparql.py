@@ -35,6 +35,7 @@ QUERY_DIR = ROOT / "src" / "celegans_connectome_kg" / "verify" / "queries"
 PREFIXES = """\
 PREFIX cckg: <https://wormbase.org/resources/connectome/>
 PREFIX WBbt: <http://purl.obolibrary.org/obo/WBbt_>
+PREFIX WB: <https://www.wormbase.org/species/c_elegans/gene/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

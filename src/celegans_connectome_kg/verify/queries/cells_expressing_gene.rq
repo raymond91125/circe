@@ -1,0 +1,19 @@
+# Cells that express a given gene, from the Cook 2020 SI6 compilation. Match the gene by its
+# WormBase symbol (change "flp-1"); the persistent WB:WBGene id and category come back too.
+# ?isoform is set only where the source resolved expression to a transcript isoform.
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?cell ?isoform ?confidence ?gene_id ?category WHERE {
+  ?g a cckg:Gene ;
+     dcterms:title "flp-1" ;
+     cckg:category ?category .
+  BIND(?g AS ?gene_id)
+  ?e a cckg:GeneExpression ;
+     cckg:gene ?g ;
+     cckg:cell ?c ;
+     cckg:confidence ?confidence .
+  OPTIONAL { ?e cckg:isoform ?isoform }
+  ?c dcterms:title ?cell .
+}
+ORDER BY ?cell
