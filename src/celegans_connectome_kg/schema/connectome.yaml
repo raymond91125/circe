@@ -13,6 +13,7 @@ prefixes:
   linkml: https://w3id.org/linkml/
   cckg: https://wormbase.org/resources/connectome/
   WBbt: http://purl.obolibrary.org/obo/WBbt_
+  WB: https://www.wormbase.org/species/c_elegans/gene/
   xsd: http://www.w3.org/2001/XMLSchema#
   dcterms: http://purl.org/dc/terms/
 default_prefix: cckg
@@ -42,6 +43,14 @@ classes:
         inlined_as_list: true
       datasets:
         range: Dataset
+        multivalued: true
+        inlined_as_list: true
+      genes:
+        range: Gene
+        multivalued: true
+        inlined_as_list: true
+      gene_expressions:
+        range: GeneExpression
         multivalued: true
         inlined_as_list: true
 
@@ -107,6 +116,39 @@ classes:
       - dataset
       - value
       - source
+
+  Gene:
+    description: >-
+      A C. elegans gene, keyed by its persistent WormBase gene id (WB:WBGene…) as resolved via
+      the Alliance of Genome Resources. Carries the gene symbol, WormBase systematic name, and a
+      functional category. Genes are shared across gene-expression datasets.
+    slots:
+      - id
+      - symbol
+      - category
+      - systematic_name
+    slot_usage:
+      id:
+        description: The persistent WormBase gene id as a curie (e.g. "WB:WBGene00001517").
+
+  GeneExpression:
+    description: >-
+      A reified assertion that a cell expresses a gene, compiled in one dataset. Reified (not a
+      plain triple) because it carries the source dataset, evidence, an optional transcript-isoform
+      qualifier (when the source resolves expression to an isoform), and a confidence mark.
+    slots:
+      - id
+      - cell
+      - gene
+      - isoform
+      - dataset
+      - confidence
+      - evidence
+    slot_usage:
+      cell:
+        required: true
+      gene:
+        required: true
 
 # ---------------------------------------------------------------------------
 # Slots
@@ -187,6 +229,27 @@ slots:
   source:
     description: Pointer to the source data (file, URL, or upstream identifier).
     range: uriorcurie
+  symbol:
+    description: The gene's WormBase symbol (e.g. "gar-1").
+    slot_uri: dcterms:title
+  category:
+    description: The functional category of the gene, as grouped by the source dataset.
+    range: GeneCategory
+  systematic_name:
+    description: The WormBase systematic / sequence name (e.g. "C15B12.5").
+  cell:
+    description: The cell in which the gene is expressed.
+    range: Cell
+  gene:
+    description: The expressed gene.
+    range: Gene
+  isoform:
+    description: >-
+      Transcript-isoform qualifier from the source (e.g. "a", "b") when it distinguishes isoforms;
+      expression stays keyed to the persistent gene. Absent when the source is gene-level.
+  confidence:
+    description: The source's expression mark for this assertion.
+    range: ExpressionConfidence
 
 # ---------------------------------------------------------------------------
 # Enums
@@ -224,3 +287,25 @@ enums:
         description: XX self-fertilizing hermaphrodite.
       male:
         description: XO male.
+
+  GeneCategory:
+    description: Functional category a gene is grouped under in an expression dataset.
+    permissible_values:
+      metabotropic_receptor:
+        description: Metabotropic (G-protein-coupled) neurotransmitter receptor.
+      ionotropic_receptor:
+        description: Ionotropic (ligand-gated ion channel) neurotransmitter receptor.
+      innexin:
+        description: Innexin / gap-junction channel gene.
+      neuropeptide:
+        description: Neuropeptide-encoding gene.
+
+  ExpressionConfidence:
+    description: >-
+      The source's expression mark. Cook 2020 SI6 uses uppercase "X" and lowercase "x"; the
+      distinction is not defined in the source, so lowercase is taken as lower-confidence.
+    permissible_values:
+      reported:
+        description: Expression reported (SI6 uppercase "X").
+      putative:
+        description: Weaker / putative expression (SI6 lowercase "x"); semantics unstated in source.
