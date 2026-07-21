@@ -50,6 +50,9 @@ def test_sex_enum_and_slots(view: SchemaView) -> None:
     assert "sexes" in cell_slots
     sexes = view.get_slot("sexes")
     assert sexes.range == "Sex" and sexes.multivalued is True
+    # Cell flags class-level placeholder endpoints (boolean)
+    assert "unspecified" in cell_slots
+    assert view.get_slot("unspecified").range == "boolean"
 
 
 def test_sample_instance_validates() -> None:

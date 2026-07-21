@@ -1,0 +1,21 @@
+# Neurons present in exactly one sex -- the sex-specific neurons.
+#   hermaphrodite -> HSNL/R + VC1-6 (8);  male -> the ~90 ray / CEM / spicule / CA-CP neurons.
+# Class-level placeholder endpoints (cckg:unspecified) carry no sexes and are excluded; the
+# explicit filter documents that intent (e.g. "VAn", an unresolved VA-class motor neuron, is
+# NOT a hermaphrodite-specific neuron even though it appears only in a hermaphrodite dataset).
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?sex ?name
+WHERE {
+  ?cell a cckg:Cell ;
+        cckg:cell_type "neuron" ;
+        cckg:sexes ?sex ;
+        dcterms:title ?name .
+  FILTER NOT EXISTS { ?cell cckg:unspecified true }
+  FILTER NOT EXISTS {
+    ?cell cckg:sexes ?other .
+    FILTER(?other != ?sex)
+  }
+}
+ORDER BY ?sex ?name
