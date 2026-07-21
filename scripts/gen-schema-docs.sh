@@ -22,6 +22,9 @@ mkdir -p "$out"
 
 echo "==> OWL              -> docs/schema/connectome.owl.ttl"
 uv run python -m linkml.generators.owlgen "$schema" > "$out/connectome.owl.ttl"
+# owlgen output is non-deterministic (unstable blank-node labels/order); canonicalize so the
+# committed artifact only changes when the schema does. See scripts/canonicalize_ttl.py.
+uv run python "$root/scripts/canonicalize_ttl.py" "$out/connectome.owl.ttl"
 
 echo "==> JSON Schema      -> docs/schema/connectome.schema.json"
 uv run python -m linkml.generators.jsonschemagen "$schema" > "$out/connectome.schema.json"
