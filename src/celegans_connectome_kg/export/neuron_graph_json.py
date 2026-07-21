@@ -370,10 +370,11 @@ def connections_projection(connectome: object) -> list[dict]:
     grouped: dict[tuple[str, str, str], dict[str, int]] = defaultdict(lambda: defaultdict(int))
     for conn in connectome.connections:
         dataset = _strip(str(conn.dataset), DATASET_PREFIX)
-        # The neuron-graph projection reproduces neuron-graph's own datasets only. Cook 2019
-        # (the sex-aware KG datasets) are excluded here; a sex-aware / male viz projection is
-        # a separate concern (M6), so the existing hermaphrodite viz feed is unchanged.
-        if dataset.startswith("cook_"):
+        # The hermaphrodite neuron-graph projection reproduces neuron-graph's own datasets only.
+        # Allowlist the neuron-graph-native ids so KG-added datasets (Cook 2019/2020, Bhatla 2015,
+        # and any future addition) never leak into the viz's complete/head/tail databases — where
+        # their differing weight scales would be mixed with the White/Witvliet synapse counts.
+        if not dataset.startswith(("white_1986_", "witvliet_2020_", "randi_funconn_")):
             continue
         pre = _strip(conn.pre, CELL_PREFIX)
         post = _strip(conn.post, CELL_PREFIX)
