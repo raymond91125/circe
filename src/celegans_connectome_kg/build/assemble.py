@@ -266,8 +266,8 @@ def assemble(
     sexes: dict[str, set[str]] = defaultdict(set)
     for c in data.cells:
         sexes[c.name].add(_HERMAPHRODITE)  # neuron-graph is hermaphrodite
-    for ec in endpoint_cells:
-        sexes[ec.name].add(_HERMAPHRODITE)
+    # Endpoint cells are class-level placeholders (see below): they carry no sex-presence,
+    # so they are deliberately NOT seeded here.
 
     # --- Cook (optional): reconcile names, mint new cells, tag datasets by sex ---
     # Two bundles, folded identically: 2019 whole-animal (male + hermaphrodite) and 2020 pharynx.
@@ -319,7 +319,10 @@ def assemble(
             name=ec.name,
             cell_type=ec.cell_type,
             anatomy=ec.wbbt_id,
-            sexes=sexes_of(ec.name),
+            # Class-level placeholder for an unresolved connection endpoint: not an individual
+            # cell, so it carries no sex-presence (empty sexes) and is flagged unspecified.
+            sexes=[],
+            unspecified=True,
         )
         for ec in sorted(endpoint_cells, key=lambda ec: ec.name)
     ]

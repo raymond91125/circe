@@ -68,6 +68,33 @@ def test_kg_added_datasets_excluded_from_herm_projection(built) -> None:
     assert all(d.startswith(("white_1986_", "witvliet_2020_", "randi_funconn_")) for d in datasets)
 
 
+def test_placeholder_endpoint_cells_flagged_and_sexless(built) -> None:
+    """Class-level endpoint placeholders (the unspecified VA-class 'VAn', pharyngeal muscle
+    classes, glands, etc.) are flagged ``unspecified`` and carry no sex-presence, so they can't
+    masquerade as sex-specific cells in per-cell analyses."""
+    connectome, _ = built
+    placeholders = [c for c in connectome.cells if c.unspecified]
+    names = {c.name for c in placeholders}
+    assert {"VAn", "pm3", "g1"} <= names  # a VA-class neuron endpoint + pharyngeal muscle/gland
+    assert all(list(c.sexes) == [] for c in placeholders)  # no sex-presence
+    # VAn stays a grounded neuron with its one edge preserved — only the spurious sex tag is gone
+    van = next(c for c in connectome.cells if c.name == "VAn")
+    assert van.unspecified and str(van.cell_type) == "neuron"
+    assert str(van.anatomy) == "WBbt:0005339"  # "VA neuron" (the class)
+
+
+def test_hermaphrodite_specific_neurons_are_canonical(built) -> None:
+    """Only the true hermaphrodite-specific neurons (HSN + VC1-6) are hermaphrodite-only; the
+    'VAn' placeholder no longer leaks in now that placeholders are sexless/unspecified."""
+    connectome, _ = built
+    herm_only = {
+        c.name
+        for c in connectome.cells
+        if str(c.cell_type) == "neuron" and {str(s) for s in c.sexes} == {"hermaphrodite"}
+    }
+    assert herm_only == {"HSNL", "HSNR", "VC1", "VC2", "VC3", "VC4", "VC5", "VC6"}
+
+
 def test_datasets_tagged_by_sex(built) -> None:
     connectome, _ = built
     sex = {d.id.split("/")[-1]: str(d.sex) for d in connectome.datasets}

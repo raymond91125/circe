@@ -71,6 +71,7 @@ classes:
       - in_head
       - in_tail
       - sexes
+      - unspecified
     slot_usage:
       id:
         description: The neuron-graph cell name, used as the stable key (e.g. "ADAL").
@@ -190,9 +191,21 @@ slots:
     description: >-
       The sex(es) in which this cell is present, derived from the datasets that observe it.
       A shared cell has both; sex-specific cells have one — e.g. HSN/VC (hermaphrodite),
-      the male ray neurons R1-R9, CEM, HOA/HOB, SPC, PCA/PCB/PCC, PDC (male).
+      the male ray neurons R1-R9, CEM, HOA/HOB, SPC, PCA/PCB/PCC, PDC (male). Class-level
+      placeholder cells (``unspecified`` = true) carry no sexes: they stand in for
+      unresolved individual cells, so asserting a sex-presence from dataset membership
+      would be spurious (e.g. "VAn" appears only in a hermaphrodite dataset, but VA-class
+      neurons are not hermaphrodite-specific).
     range: Sex
     multivalued: true
+  unspecified:
+    description: >-
+      True when this cell is a class- or group-level placeholder minted for a connection
+      endpoint that the source did not resolve to a specific individual cell — e.g. "VAn"
+      (an unspecified VA-class motor neuron) or a pharyngeal muscle class such as "pm3".
+      Such nodes are not individual cells and carry no sex-presence (empty ``sexes``), so
+      per-cell analyses (sex-specificity, cell counts) can exclude them.
+    range: boolean
   pre:
     description: The presynaptic / source cell.
     range: Cell
