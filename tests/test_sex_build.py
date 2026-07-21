@@ -55,6 +55,19 @@ def test_bhatla_i2_dataset(built) -> None:
     assert any(strip(c.post).startswith("pm") for c in bh)
 
 
+def test_kg_added_datasets_excluded_from_herm_projection(built) -> None:
+    """The hermaphrodite viz projection is neuron-graph-native only: KG-added datasets
+    (Cook 2019/2020, Bhatla 2015) must not leak in, or their differing weight scales would
+    contaminate the viz's complete/head/tail databases."""
+    from celegans_connectome_kg.export.neuron_graph_json import connections_projection
+
+    connectome, _ = built
+    datasets = {d for c in connections_projection(connectome) for d in c["synapses"]}
+    assert datasets  # projection is non-empty
+    assert not any(d.startswith(("cook_", "bhatla_")) for d in datasets)
+    assert all(d.startswith(("white_1986_", "witvliet_2020_", "randi_funconn_")) for d in datasets)
+
+
 def test_datasets_tagged_by_sex(built) -> None:
     connectome, _ = built
     sex = {d.id.split("/")[-1]: str(d.sex) for d in connectome.datasets}
