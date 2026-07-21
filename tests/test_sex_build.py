@@ -19,6 +19,7 @@ COOK_XLSX = (
 COOK_2020_EDGES = REPO / "data" / "cook-2020-pharynx" / "edges.csv"
 GENE_EXPR_XLSX = REPO / "data" / "cook-2020-pharynx" / "SI6_gene_expression.xlsx"
 GENE_MAP = REPO / "data" / "cook-2020-pharynx" / "si6_genes.csv"
+BHATLA_I2 = REPO / "data" / "bhatla-2015-i2" / "i2_synapses.csv"
 
 
 @pytest.fixture(scope="module")
@@ -33,10 +34,25 @@ def built():
         cook_aliases_path=CUR / "cook_name_aliases.csv",
         cook_anatomy_path=CUR / "cook_anatomy_curation.csv",
         cook_2020_edges_path=COOK_2020_EDGES,
+        bhatla_i2_path=BHATLA_I2,
         gene_expr_xlsx_path=GENE_EXPR_XLSX,
         gene_map_path=GENE_MAP,
     )
     return connectome, stats
+
+
+def test_bhatla_i2_dataset(built) -> None:
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+    sex = {strip(d.id): str(d.sex) for d in connectome.datasets}
+    assert sex.get("bhatla_2015_i2") == "hermaphrodite"
+    bh = [c for c in connectome.connections if strip(c.dataset) == "bhatla_2015_i2"]
+    assert len(bh) == 26
+    assert {strip(c.pre) for c in bh} == {"I2L", "I2R"}
+    # weight = EM sections; the novel I2 -> pharyngeal-muscle edges are present
+    edge = {(strip(c.pre), strip(c.post)): c.weight for c in bh}
+    assert edge[("I2L", "pm3VL")] == 133.0
+    assert any(strip(c.post).startswith("pm") for c in bh)
 
 
 def test_datasets_tagged_by_sex(built) -> None:
