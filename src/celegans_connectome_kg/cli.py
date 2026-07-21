@@ -21,6 +21,7 @@ DEFAULT_COOK_XLSX = Path(
 DEFAULT_COOK_ALIASES = Path("data/curation/cook_name_aliases.csv")
 DEFAULT_COOK_ANATOMY = Path("data/curation/cook_anatomy_curation.csv")
 DEFAULT_COOK_2020_EDGES = Path("data/cook-2020-pharynx/edges.csv")
+DEFAULT_BHATLA_I2 = Path("data/bhatla-2015-i2/i2_synapses.csv")
 DEFAULT_GENE_EXPR_XLSX = Path("data/cook-2020-pharynx/SI6_gene_expression.xlsx")
 DEFAULT_GENE_MAP = Path("data/cook-2020-pharynx/si6_genes.csv")
 DEFAULT_COOK_WORMATLAS = Path("data/curation/cook_wormatlas_class.csv")
@@ -196,6 +197,7 @@ def build(
         cook_2020_edges_path=(
             DEFAULT_COOK_2020_EDGES if (with_cook and DEFAULT_COOK_2020_EDGES.exists()) else None
         ),
+        bhatla_i2_path=DEFAULT_BHATLA_I2 if DEFAULT_BHATLA_I2.exists() else None,
         gene_expr_xlsx_path=(
             DEFAULT_GENE_EXPR_XLSX
             if (DEFAULT_GENE_EXPR_XLSX.exists() and DEFAULT_GENE_MAP.exists())
