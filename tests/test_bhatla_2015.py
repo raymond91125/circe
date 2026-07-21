@@ -16,9 +16,9 @@ def test_read_bhatla_i2() -> None:
     # all presynaptic I2, all chemical, weight = EM sections (positive)
     assert {c.pre for c in conns} == {"I2L", "I2R"}
     assert all(c.connection_type == "chemical" and c.weight > 0 for c in conns)
-    # spot-check the strongest edge and a novel I2->muscle edge
+    # spot-check the strongest edge and the basal-lamina ("bm") synapse
     by = {(c.pre, c.post): c.weight for c in conns}
     assert by[("I2L", "pm3VL")] == 133.0
-    assert by[("I2R", "bm")] == 2.0
-    # I2->pharyngeal-muscle synapses are present (absent from White/Cook)
+    assert by[("I2R", "bm")] == 2.0  # bm = basal lamina (WBbt:0005756), not a muscle
+    # I2->pharyngeal-muscle synapses are present (heavily weighted here vs. minimal in Cook 2020)
     assert any(c.post.startswith("pm") for c in conns)

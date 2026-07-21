@@ -8,9 +8,14 @@ pharyngeal I2 neurons (I2L, I2R), reconstructed by electron microscopy.
 The source table is image-only in the PDF, so it is transcribed to a vendored CSV
 (``i2_synapses.csv``: pre, post, sections, synapses) with partner names normalized to CIRCE cell
 names. Weight = the number of EM sections over which the synapses onto each recipient are
-distributed (the column comparable to the Cook EM-serial-section metric). Rows with zero synapses
-in this work (reported by Albertson & Thomson 1976 but not confirmed here) are not vendored. This
-dataset notably includes I2->pharyngeal-muscle synapses absent from the White/Cook connectomes.
+distributed. Rows with zero synapses in this work (reported by Albertson & Thomson 1976 but not
+confirmed here) are not vendored.
+
+This dataset adds no new I2 cell partners: every partner (pm1-pm5, e3, I1, I4, I6, M1, M3, NSM,
+and the basal lamina) already appears in the White and/or Cook connectomes. Its distinctive
+contribution is the much larger synaptic weight on the I2->pharyngeal-muscle projection, which
+Cook 2020 records only minimally. The postsynaptic ``bm`` partner is the basal lamina
+(WBbt:0005756), not a muscle.
 """
 
 from __future__ import annotations
@@ -58,8 +63,10 @@ def read_bhatla_i2(csv_path: Path) -> BhatlaI2Data:
         dataset_description=(
             "Electron-microscopy reconstruction of all chemical synapses of the pharyngeal I2 "
             "neurons (I2L, I2R), from Bhatla et al. 2015 (Curr Biol 25:2075-2089, Fig S6E). "
-            "Weight = EM serial sections spanned by the synapses onto each partner. Adds "
-            "I2->pharyngeal-muscle synapses not present in the White/Cook connectomes."
+            "Weight = EM serial sections spanned by the synapses onto each partner. Every partner "
+            "already appears in the White/Cook connectomes; the distinctive contribution is the "
+            "much greater weight on the I2->pharyngeal-muscle projection, recorded only minimally "
+            "by Cook 2020 (the 'bm' partner is the basal lamina, not a muscle)."
         ),
         sex="hermaphrodite",
     )
