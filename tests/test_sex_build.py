@@ -49,7 +49,7 @@ def test_bhatla_i2_dataset(built) -> None:
     bh = [c for c in connectome.connections if strip(c.dataset) == "bhatla_2015_i2"]
     assert len(bh) == 26
     assert {strip(c.pre) for c in bh} == {"I2L", "I2R"}
-    # weight = EM sections; the novel I2 -> pharyngeal-muscle edges are present
+    # weight = EM sections; the heavily-weighted I2 -> pharyngeal-muscle edges are present
     edge = {(strip(c.pre), strip(c.post)): c.weight for c in bh}
     assert edge[("I2L", "pm3VL")] == 133.0
     assert any(strip(c.post).startswith("pm") for c in bh)

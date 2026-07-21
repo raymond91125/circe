@@ -22,8 +22,18 @@ pharyngeal I2 neurons reconstructed by EM (anterior neurites from worm #1, poste
 
 ## Build
 Ingested as the hermaphrodite dataset **`bhatla_2015_i2`** (26 chemical connections) over cells that
-already exist in the KG. Notably includes **I2 → pharyngeal-muscle synapses** (pm1, pm3VL/VR,
-pm4/pm4VR, pm5, bm) that are **absent from the White/Cook connectomes**.
+already exist in the KG.
+
+This dataset adds **no new I2 cell partners** — every partner (pm1–pm5, e3, I1, I4, I6, M1, M3, NSM,
+and the basal lamina) already appears in the White and/or Cook connectomes. Cook 2020 already records
+I2 → pharyngeal-muscle connectivity (White 1986 has I2 → neuron edges but no I2 → muscle). Bhatla's
+distinctive contribution is the **much greater synaptic weight** on the I2 → pharyngeal-muscle
+projection — e.g. `I2L → pm3VL` spans 133 sections here vs. 1 in Cook 2020 — reflecting the strong
+I2 → muscle pathway of the spitting reflex. (Pending a metric-comparability check between Bhatla's
+"# sections" and Cook's edge weight before drawing strength conclusions.)
+
+The postsynaptic **`bm`** partner is the **basal lamina** (WBbt:0005756, "basement membrane"),
+*not* a muscle.
 
 ## Not ingested (scope)
 - The **Albertson & Thomson 1976** comparison column and the **DP-volume / vesicle-area**
