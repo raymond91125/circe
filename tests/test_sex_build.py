@@ -20,6 +20,8 @@ COOK_2020_EDGES = REPO / "data" / "cook-2020-pharynx" / "edges.csv"
 GENE_EXPR_XLSX = REPO / "data" / "cook-2020-pharynx" / "SI6_gene_expression.xlsx"
 GENE_MAP = REPO / "data" / "cook-2020-pharynx" / "si6_genes.csv"
 BHATLA_I2 = REPO / "data" / "bhatla-2015-i2" / "i2_synapses.csv"
+DAUER = REPO / "data" / "yim-2024-dauer" / "dauer_connections.csv"
+LIFE_STAGE = CUR / "dataset_life_stage.csv"
 
 
 @pytest.fixture(scope="module")
@@ -35,6 +37,8 @@ def built():
         cook_anatomy_path=CUR / "cook_anatomy_curation.csv",
         cook_2020_edges_path=COOK_2020_EDGES,
         bhatla_i2_path=BHATLA_I2,
+        dauer_path=DAUER,
+        life_stage_path=LIFE_STAGE,
         gene_expr_xlsx_path=GENE_EXPR_XLSX,
         gene_map_path=GENE_MAP,
     )
@@ -57,15 +61,47 @@ def test_bhatla_i2_dataset(built) -> None:
 
 def test_kg_added_datasets_excluded_from_herm_projection(built) -> None:
     """The hermaphrodite viz projection is neuron-graph-native only: KG-added datasets
-    (Cook 2019/2020, Bhatla 2015) must not leak in, or their differing weight scales would
-    contaminate the viz's complete/head/tail databases."""
+    (Cook 2019/2020, Bhatla 2015, Yim 2024 dauer) must not leak in, or their differing weight
+    scales would contaminate the viz's complete/head/tail databases."""
     from celegans_connectome_kg.export.neuron_graph_json import connections_projection
 
     connectome, _ = built
     datasets = {d for c in connections_projection(connectome) for d in c["synapses"]}
     assert datasets  # projection is non-empty
-    assert not any(d.startswith(("cook_", "bhatla_")) for d in datasets)
+    assert not any(d.startswith(("cook_", "bhatla_", "yim_")) for d in datasets)
     assert all(d.startswith(("white_1986_", "witvliet_2020_", "randi_funconn_")) for d in datasets)
+
+
+def test_dauer_dataset(built) -> None:
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+    ds = {strip(d.id): d for d in connectome.datasets}
+    dauer = ds["yim_2024_dauer"]
+    assert str(dauer.sex) == "hermaphrodite"
+    assert str(dauer.life_stage) == "dauer"
+    conns = [c for c in connectome.connections if strip(c.dataset) == "yim_2024_dauer"]
+    assert len(conns) == 2200
+    # chemical only (the study did not reconstruct gap junctions); weight = synapse count
+    assert all(str(c.connection_type) == "chemical" for c in conns)
+    assert int(sum(c.weight for c in conns)) == 6371
+    # the excretory duct cell (only non-neuron-graph partner) is a specific cell, not a placeholder
+    exc = next(c for c in connectome.cells if c.name == "exc_duct")
+    assert exc.unspecified is False and str(exc.anatomy) == "WBbt:0004540"
+
+
+def test_dataset_life_stage_backfill(built) -> None:
+    """Every dataset carries a curated life stage; the Witvliet developmental series and the
+    dauer dataset are distinguishable as structured data."""
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+    stage = {
+        strip(d.id): (str(d.life_stage) if d.life_stage else None) for d in connectome.datasets
+    }
+    assert all(v is not None for v in stage.values())  # no dataset left unstaged
+    assert stage["white_1986_jsh"] == "L4" and stage["white_1986_n2u"] == "adult"
+    assert stage["witvliet_2020_1"] == "L1" and stage["witvliet_2020_5"] == "L2"
+    assert stage["witvliet_2020_6"] == "L3" and stage["witvliet_2020_7"] == "adult"
+    assert stage["cook_2019_male"] == "adult" and stage["yim_2024_dauer"] == "dauer"
 
 
 def test_placeholder_endpoint_cells_flagged_and_sexless(built) -> None:

@@ -28,9 +28,11 @@ from celegans_connectome_kg.ingest.neuron_graph import (
     ConnectionRecord,
     load_neuron_graph,
 )
+from celegans_connectome_kg.ingest.yim_2024_dauer import read_dauer
 from celegans_connectome_kg.match.curation import (
     load_cook_aliases,
     load_curation,
+    load_dataset_life_stage,
     load_endpoint_cells,
     load_nt_curation,
 )
@@ -232,8 +234,10 @@ def assemble(
     cook_anatomy_path: Path | None = None,
     cook_2020_edges_path: Path | None = None,
     bhatla_i2_path: Path | None = None,
+    dauer_path: Path | None = None,
     gene_expr_xlsx_path: Path | None = None,
     gene_map_path: Path | None = None,
+    life_stage_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
@@ -275,12 +279,16 @@ def assemble(
     cook_2020 = read_cook_2020(cook_2020_edges_path) if cook_2020_edges_path else None
     cook_bundles = [b for b in (cook, cook_2020) if b]
     bhatla = read_bhatla_i2(bhatla_i2_path) if bhatla_i2_path else None
+    dauer = read_dauer(dauer_path) if dauer_path else None
     cook_alias = load_cook_aliases(cook_aliases_path) if cook_aliases_path else {}
     cook_anatomy = load_curation(cook_anatomy_path) if cook_anatomy_path else {}
+    dataset_life_stage = load_dataset_life_stage(life_stage_path) if life_stage_path else {}
     dataset_sex: dict[str, str] = {d.id: _HERMAPHRODITE for d in data.datasets}
     cook_new_cells: dict[str, str] = {}  # canonical name -> wbbt id (cells not in neuron-graph)
     if bhatla:
         dataset_sex[bhatla.dataset_id] = bhatla.sex
+    if dauer:
+        dataset_sex[dauer.dataset_id] = dauer.sex
     for bundle in cook_bundles:
         for d in bundle.datasets:
             dataset_sex[d.id] = d.sex
@@ -319,10 +327,12 @@ def assemble(
             name=ec.name,
             cell_type=ec.cell_type,
             anatomy=ec.wbbt_id,
-            # Class-level placeholder for an unresolved connection endpoint: not an individual
-            # cell, so it carries no sex-presence (empty sexes) and is flagged unspecified.
+            # Endpoint stubs carry no sex-presence (empty sexes): they are only observed as
+            # connection endpoints, so inferring sex from dataset membership would be spurious.
+            # Most are class-/group-level placeholders (unspecified=True); a few are specific
+            # cells merely absent from neuron-graph's neuron list (e.g. exc_duct).
             sexes=[],
-            unspecified=True,
+            unspecified=ec.unspecified,
         )
         for ec in sorted(endpoint_cells, key=lambda ec: ec.name)
     ]
@@ -338,14 +348,22 @@ def assemble(
         for name, wbbt in sorted(cook_new_cells.items())
     ]
 
-    # --- Datasets (with sex) ---
+    # --- Datasets (with sex + curated life stage) ---
     dataset_defs = [(d.id, d.name, d.description) for d in data.datasets]
     for bundle in cook_bundles:
         dataset_defs += [(d.id, d.name, d.description) for d in bundle.datasets]
     if bhatla:
         dataset_defs.append((bhatla.dataset_id, bhatla.dataset_name, bhatla.dataset_description))
+    if dauer:
+        dataset_defs.append((dauer.dataset_id, dauer.dataset_name, dauer.dataset_description))
     datasets = [
-        dm.Dataset(id=_dataset_id(did), name=name, description=desc, sex=dataset_sex[did])
+        dm.Dataset(
+            id=_dataset_id(did),
+            name=name,
+            description=desc,
+            sex=dataset_sex[did],
+            life_stage=dataset_life_stage.get(did),
+        )
         for did, name, desc in sorted(dataset_defs)
     ]
 
@@ -356,6 +374,9 @@ def assemble(
             summed[key] = summed.get(key, 0.0) + w
     if bhatla:
         for key, w in _aggregate(bhatla.connections, {}).items():
+            summed[key] = summed.get(key, 0.0) + w
+    if dauer:
+        for key, w in _aggregate(dauer.connections, {}).items():
             summed[key] = summed.get(key, 0.0) + w
 
     connections = []
@@ -398,6 +419,7 @@ def assemble(
                     "(Supplemental Data 6). Genes keyed to WormBase gene ids via the Alliance."
                 ),
                 sex=_HERMAPHRODITE,
+                life_stage=dataset_life_stage.get(_GENE_EXPRESSION_DATASET),
             )
         )
         genes, gene_expressions, unmapped = _build_gene_expression(dm, ge_data, cells)

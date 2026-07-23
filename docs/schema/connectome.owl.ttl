@@ -248,6 +248,46 @@ cckg:GeneExpression a owl:Class ;
     rdfs:subClassOf cckg:GeneCategory ;
     skos:definition "Neuropeptide-encoding gene." .
 
+<https://wormbase.org/resources/connectome/LifeStage#L1> a owl:Class ;
+    rdfs:label "L1" ;
+    rdfs:subClassOf cckg:LifeStage ;
+    skos:definition "First larval stage." .
+
+<https://wormbase.org/resources/connectome/LifeStage#L2> a owl:Class ;
+    rdfs:label "L2" ;
+    rdfs:subClassOf cckg:LifeStage ;
+    skos:definition "Second larval stage." .
+
+<https://wormbase.org/resources/connectome/LifeStage#L2d> a owl:Class ;
+    rdfs:label "L2d" ;
+    rdfs:subClassOf cckg:LifeStage ;
+    skos:definition "Pre-dauer (dauer-committed) second larval stage." .
+
+<https://wormbase.org/resources/connectome/LifeStage#L3> a owl:Class ;
+    rdfs:label "L3" ;
+    rdfs:subClassOf cckg:LifeStage ;
+    skos:definition "Third larval stage." .
+
+<https://wormbase.org/resources/connectome/LifeStage#L4> a owl:Class ;
+    rdfs:label "L4" ;
+    rdfs:subClassOf cckg:LifeStage ;
+    skos:definition "Fourth larval stage." .
+
+<https://wormbase.org/resources/connectome/LifeStage#adult> a owl:Class ;
+    rdfs:label "adult" ;
+    rdfs:subClassOf cckg:LifeStage ;
+    skos:definition "Reproductive adult." .
+
+<https://wormbase.org/resources/connectome/LifeStage#dauer> a owl:Class ;
+    rdfs:label "dauer" ;
+    rdfs:subClassOf cckg:LifeStage ;
+    skos:definition "Stress-induced alternative third larval stage (diapause)." .
+
+<https://wormbase.org/resources/connectome/LifeStage#embryo> a owl:Class ;
+    rdfs:label "embryo" ;
+    rdfs:subClassOf cckg:LifeStage ;
+    skos:definition "Embryonic stage." .
+
 <https://wormbase.org/resources/connectome/Sex#hermaphrodite> a owl:Class ;
     rdfs:label "hermaphrodite" ;
     rdfs:subClassOf cckg:Sex ;
@@ -447,6 +487,12 @@ cckg:isoform a owl:DatatypeProperty ;
     skos:definition "Transcript-isoform qualifier from the source (e.g. \"a\", \"b\") when it distinguishes isoforms; expression stays keyed to the persistent gene. Absent when the source is gene-level." ;
     skos:inScheme cckg:schema .
 
+cckg:life_stage a owl:ObjectProperty ;
+    rdfs:label "life_stage" ;
+    rdfs:range cckg:LifeStage ;
+    skos:definition "The developmental stage of the specimen(s) the dataset observed. Dauer is the stress-induced alternative third larval stage (a hermaphrodite), distinct from the continuous L1->L2->L3->L4->adult progression." ;
+    skos:inScheme cckg:schema .
+
 cckg:nemanode_type a owl:DatatypeProperty ;
     rdfs:label "nemanode_type" ;
     skos:definition "Raw NemaNode cell-type code (e.g. \"i\", \"s\", \"sm\", \"b\"). Retained verbatim for the lossless viz projection; the curated CellType is in `cell_type`." ;
@@ -553,8 +599,17 @@ cckg:ConnectionType a owl:Class ;
 cckg:Dataset a owl:Class ;
     rdfs:label "Dataset" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom cckg:LifeStage ;
+            owl:onProperty cckg:life_stage ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:life_stage ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cckg:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:life_stage ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cckg:name ],
@@ -738,6 +793,20 @@ cckg:dataset a owl:ObjectProperty ;
     rdfs:range cckg:Dataset ;
     skos:definition "The dataset in which this was observed." ;
     skos:inScheme cckg:schema .
+
+cckg:LifeStage a owl:Class ;
+    rdfs:label "LifeStage" ;
+    owl:unionOf ( <https://wormbase.org/resources/connectome/LifeStage#embryo> <https://wormbase.org/resources/connectome/LifeStage#L1> <https://wormbase.org/resources/connectome/LifeStage#L2> <https://wormbase.org/resources/connectome/LifeStage#L2d> <https://wormbase.org/resources/connectome/LifeStage#dauer> <https://wormbase.org/resources/connectome/LifeStage#L3> <https://wormbase.org/resources/connectome/LifeStage#L4> <https://wormbase.org/resources/connectome/LifeStage#adult> ) ;
+    skos:definition "The developmental stage of a C. elegans specimen." ;
+    skos:inScheme cckg:schema ;
+    linkml:permissible_values <https://wormbase.org/resources/connectome/LifeStage#L1>,
+        <https://wormbase.org/resources/connectome/LifeStage#L2>,
+        <https://wormbase.org/resources/connectome/LifeStage#L2d>,
+        <https://wormbase.org/resources/connectome/LifeStage#L3>,
+        <https://wormbase.org/resources/connectome/LifeStage#L4>,
+        <https://wormbase.org/resources/connectome/LifeStage#adult>,
+        <https://wormbase.org/resources/connectome/LifeStage#dauer>,
+        <https://wormbase.org/resources/connectome/LifeStage#embryo> .
 
 cckg:id a owl:DatatypeProperty ;
     rdfs:label "id" ;

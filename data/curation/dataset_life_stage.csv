@@ -1,0 +1,21 @@
+dataset_id,life_stage,note
+white_1986_whole,adult,whole-animal compilation (Varshney et al. 2011)
+white_1986_jsh,L4,JSH L4 legacy dataset
+white_1986_n2u,adult,N2U adult legacy dataset
+white_1986_jse,adult,JSE adult tail (pre-anal ganglion)
+witvliet_2020_1,L1,~0 h after birth
+witvliet_2020_2,L1,~5 h after birth
+witvliet_2020_3,L1,~8 h after birth
+witvliet_2020_4,L1,~16 h after birth
+witvliet_2020_5,L2,~23 h after birth
+witvliet_2020_6,L3,~27 h after birth
+witvliet_2020_7,adult,~50 h after birth
+witvliet_2020_8,adult,~50 h after birth
+randi_funconn_wildty,adult,functional connectivity (WT adult)
+randi_funconn_unc31,adult,functional connectivity (unc-31 adult)
+cook_2019_hermaphrodite,adult,adult hermaphrodite whole-animal (Cook 2019)
+cook_2019_male,adult,adult male whole-animal (Cook 2019)
+cook_2020_pharynx,adult,adult pharyngeal connectome (Cook 2020)
+cook_2020_pharynx_expression,adult,adult pharyngeal gene expression (Cook 2020 SI6)
+bhatla_2015_i2,adult,adult I2 EM synapses (Bhatla 2015)
+yim_2024_dauer,dauer,dauer nerve-ring connectome (Yim/Choe/Bae 2024)
