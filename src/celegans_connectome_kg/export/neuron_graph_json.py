@@ -535,3 +535,58 @@ def pharynx_dataset(dataset_id: str = "cook_2020_pharynx") -> dict:
         "description": "Pharyngeal connectome, Cook et al. 2020 (J Comp Neurol 528:2767-2784).",
         "datatypes": "cs,gj",
     }
+
+
+# --- Dauer projection: the Yim 2024 dauer nerve-ring connectome as a head life-stage dataset -----
+
+#: Dauer is an alternative L3-stage larva, off the continuous L1->adult clock. It is folded into
+#: the "head" developmental series (a nerve-ring reconstruction with synapse-count weights, like
+#: the Witvliet head datasets) and positioned in the L3 region of the shared life-stage timeline.
+_DAUER_VISUAL_TIME = 30
+
+
+def dauer_cells_projection(connectome: object, dataset_id: str = "yim_2024_dauer") -> list[dict]:
+    """Project the cells of the Yim 2024 dauer connectome into the /api/cells shape."""
+    endpoints: set[str] = set()
+    for conn in connectome.connections:
+        if _strip(str(conn.dataset), DATASET_PREFIX) != dataset_id:
+            continue
+        endpoints.add(_strip(conn.pre, CELL_PREFIX))
+        endpoints.add(_strip(conn.post, CELL_PREFIX))
+    return [
+        {
+            "name": c.name,
+            "class": c.cell_class or c.name,
+            "type": _viz_type(c),
+            "neurotransmitter": c.neurotransmitter or "u",
+            "embryonic": bool(c.embryonic),
+            "inhead": bool(c.in_head),
+            "intail": bool(c.in_tail),
+        }
+        for c in connectome.cells
+        if c.name in endpoints
+    ]
+
+
+def dauer_connections_projection(
+    connectome: object, dataset_id: str = "yim_2024_dauer"
+) -> list[dict]:
+    """Project the dauer connectome (one dataset) into the /api/connections shape."""
+    return _single_dataset_connections(connectome, dataset_id)
+
+
+def dauer_dataset(dataset_id: str = "yim_2024_dauer") -> dict:
+    """The neuron-graph dataset entry for the dauer connectome.
+
+    Folded into the "head" collection so it is browsable as a life stage alongside the Witvliet
+    L1->adult series; positioned in the L3 region of the shared timeline (dauer branches near L3).
+    """
+    return {
+        "id": dataset_id,
+        "name": "Yim et al. 2024 (dauer)",
+        "type": "head",
+        "time": _DAUER_VISUAL_TIME,
+        "visualTime": _DAUER_VISUAL_TIME,
+        "description": "Dauer nerve-ring connectome, Yim et al. 2024 (Nat Commun 15:1546).",
+        "datatypes": "cs",
+    }
