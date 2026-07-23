@@ -45,6 +45,11 @@ def test_sex_enum_and_slots(view: SchemaView) -> None:
     dataset_slots = view.class_slots("Dataset")
     assert "sex" in dataset_slots
     assert view.get_slot("sex").range == "Sex"
+    # Dataset carries the developmental life stage (dauer is a distinct value)
+    assert "life_stage" in dataset_slots
+    assert view.get_slot("life_stage").range == "LifeStage"
+    life_stages = set(view.get_enum("LifeStage").permissible_values)
+    assert {"L1", "L2", "dauer", "L3", "L4", "adult"} <= life_stages
     # Cell carries derived sex-presence (multivalued)
     cell_slots = view.class_slots("Cell")
     assert "sexes" in cell_slots

@@ -15,21 +15,24 @@ ENDPOINT_CELLS = REPO / "data" / "curation" / "connection_endpoint_cells.csv"
 
 def test_load_endpoint_cells() -> None:
     endpoints = load_endpoint_cells(ENDPOINT_CELLS)
-    assert len(endpoints) == 11
+    assert len(endpoints) == 12
     by_name = {e.name: e for e in endpoints}
     assert by_name["pm5"].wbbt_id == "WBbt:0003737" and by_name["pm5"].cell_type == "muscle"
     # gland cells are lowercase (G1/G2 are uppercase misnomers of g1/g2)
     assert by_name["g1"].wbbt_id == "WBbt:0003712" and by_name["g1"].cell_type == "other"
     assert by_name["g2"].wbbt_id == "WBbt:0003710"
     assert by_name["VAn"].cell_type == "neuron"
+    # class-/group-level placeholders default to unspecified=True; exc_duct is a specific cell
+    assert by_name["VAn"].unspecified is True and by_name["pm5"].unspecified is True
+    assert by_name["exc_duct"].unspecified is False
     # The 3 reconstruction fragments are intentionally not mapped.
     assert {"Fragment", "NR_fragment", "vncfrag"}.isdisjoint(by_name)
 
 
 def test_build_mints_stub_cells_and_reduces_unknowns() -> None:
     connectome, stats = assemble(NEURON_GRAPH, WBBT_JSON, CURATION, ENDPOINT_CELLS)
-    assert stats.cells == 458  # 447 neuron-graph cells + 11 stubs
-    assert stats.cells_with_anatomy == 458  # every cell grounded
+    assert stats.cells == 459  # 447 neuron-graph cells + 12 stubs
+    assert stats.cells_with_anatomy == 459  # every cell grounded
     assert stats.unknown_connection_cells == 3  # only the unmapped fragments remain
 
     by_id = {c.id: c for c in connectome.cells}

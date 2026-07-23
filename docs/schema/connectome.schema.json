@@ -234,6 +234,10 @@
                     "description": "Stable identifier for the record.",
                     "type": "string"
                 },
+                "life_stage": {
+                    "$ref": "#/$defs/LifeStage",
+                    "description": "The developmental stage of the specimen(s) the dataset observed. Dauer is the stress-induced alternative third larval stage (a hermaphrodite), distinct from the continuous L1->L2->L3->L4->adult progression."
+                },
                 "name": {
                     "description": "Human-readable label.",
                     "type": [
@@ -406,6 +410,21 @@
             ],
             "title": "GeneExpression",
             "type": "object"
+        },
+        "LifeStage": {
+            "description": "The developmental stage of a C. elegans specimen.",
+            "enum": [
+                "embryo",
+                "L1",
+                "L2",
+                "L2d",
+                "dauer",
+                "L3",
+                "L4",
+                "adult"
+            ],
+            "title": "LifeStage",
+            "type": "string"
         },
         "Sex": {
             "description": "The biological sex of a C. elegans specimen.",

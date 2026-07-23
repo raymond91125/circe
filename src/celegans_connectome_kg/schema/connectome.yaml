@@ -106,6 +106,7 @@ classes:
       - description
       - strain
       - sex
+      - life_stage
 
   Evidence:
     description: >-
@@ -234,6 +235,12 @@ slots:
   sex:
     description: The biological sex of the specimen(s) the dataset observed.
     range: Sex
+  life_stage:
+    description: >-
+      The developmental stage of the specimen(s) the dataset observed. Dauer is the
+      stress-induced alternative third larval stage (a hermaphrodite), distinct from the
+      continuous L1->L2->L3->L4->adult progression.
+    range: LifeStage
   evidence_type:
     description: What kind of evidence this record represents.
     range: EvidenceType
@@ -300,6 +307,26 @@ enums:
         description: XX self-fertilizing hermaphrodite.
       male:
         description: XO male.
+
+  LifeStage:
+    description: The developmental stage of a C. elegans specimen.
+    permissible_values:
+      embryo:
+        description: Embryonic stage.
+      L1:
+        description: First larval stage.
+      L2:
+        description: Second larval stage.
+      L2d:
+        description: Pre-dauer (dauer-committed) second larval stage.
+      dauer:
+        description: Stress-induced alternative third larval stage (diapause).
+      L3:
+        description: Third larval stage.
+      L4:
+        description: Fourth larval stage.
+      adult:
+        description: Reproductive adult.
 
   GeneCategory:
     description: Functional category a gene is grouped under in an expression dataset.

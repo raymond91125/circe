@@ -34,6 +34,9 @@ class EndpointCell:
     name: str
     wbbt_id: str
     cell_type: str
+    #: True for class-/group-level placeholders (the default); False for a specific named cell
+    #: that merely isn't in neuron-graph's neuron list (e.g. the excretory duct cell).
+    unspecified: bool = True
 
 
 def load_curation(path: Path) -> dict[str, str]:
@@ -94,6 +97,21 @@ def load_wormatlas_urls(path: Path) -> dict[str, str]:
     return curated
 
 
+def load_dataset_life_stage(path: Path) -> dict[str, str]:
+    """Load dataset_id → developmental life stage (a LifeStage enum value).
+
+    Life stage is not carried in the source data uniformly (neuron-graph encodes it only in
+    free-text names), so it is curated here for every dataset; see the enum in the schema.
+    """
+    stages: dict[str, str] = {}
+    with Path(path).open(newline="") as fh:
+        for row in csv.DictReader(fh):
+            stage = (row.get("life_stage") or "").strip()
+            if stage:
+                stages[row["dataset_id"]] = stage
+    return stages
+
+
 def load_nt_curation(path: Path) -> dict[str, str]:
     """Load cell_name → corrected neurotransmitter code, overriding neuron-graph's `nt`.
 
@@ -121,6 +139,8 @@ def load_endpoint_cells(path: Path) -> list[EndpointCell]:
                         name=row["cell_name"],
                         wbbt_id=wbbt_id,
                         cell_type=(row.get("cell_type") or "other").strip(),
+                        # default True (placeholder); only "false" opts out (a specific cell)
+                        unspecified=(row.get("unspecified") or "true").strip().lower() != "false",
                     )
                 )
     return out
