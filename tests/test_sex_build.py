@@ -23,6 +23,7 @@ BHATLA_I2 = REPO / "data" / "bhatla-2015-i2" / "i2_synapses.csv"
 DAUER = REPO / "data" / "yim-2024-dauer" / "dauer_connections.csv"
 LIFE_STAGE = CUR / "dataset_life_stage.csv"
 NEUROTRANSMITTER = REPO / "data" / "wang-neurotransmitter-atlas" / "sex_neurotransmitters.csv"
+ATLAS_ONLY = CUR / "atlas_only_cells.csv"
 
 
 @pytest.fixture(scope="module")
@@ -43,6 +44,7 @@ def built():
         gene_expr_xlsx_path=GENE_EXPR_XLSX,
         gene_map_path=GENE_MAP,
         neurotransmitter_path=NEUROTRANSMITTER,
+        atlas_only_cells_path=ATLAS_ONLY,
     )
     return connectome, stats
 
@@ -140,7 +142,7 @@ def test_neurotransmitter_assignments_per_sex(built) -> None:
     connectome, stats = built
     strip = lambda s: str(s).split("/")[-1]  # noqa: E731
     na = connectome.neurotransmitter_assignments
-    assert len(na) == stats.neurotransmitter_assignments == 116
+    assert len(na) == stats.neurotransmitter_assignments == 119
     by = {(strip(a.cell), str(a.sex)): str(a.neurotransmitter) for a in na}
     # male-specific neurons now have a neurotransmitter (were None on the cell)
     assert by[("CEMDL", "male")] == "a"  # cholinergic
@@ -153,6 +155,32 @@ def test_neurotransmitter_assignments_per_sex(built) -> None:
     assert all("95402" in str(a.source) for a in na)
     cemdl = next(c for c in connectome.cells if c.name == "CEMDL")
     assert cemdl.neurotransmitter is None  # the per-sex call lives on the assignment, not the cell
+
+
+def test_atlas_only_cells_minted_with_neurotransmitter(built) -> None:
+    """Neurons in the Wang atlas but absent from the Cook connectome (CP0, DX4, EF4) are minted as
+    grounded male neurons so their atlas neurotransmitter attaches; they carry no connections."""
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+    by_name = {c.name: c for c in connectome.cells}
+    nt = {
+        (strip(a.cell), str(a.sex)): str(a.neurotransmitter)
+        for a in connectome.neurotransmitter_assignments
+    }
+    for name, wbbt, code in [
+        ("CP0", "WBbt:0004903", "l"),
+        ("DX4", "WBbt:0007845", "a"),
+        ("EF4", "WBbt:0007841", "g"),
+    ]:
+        cell = by_name[name]
+        assert str(cell.cell_type) == "neuron" and str(cell.anatomy) == wbbt
+        assert {str(s) for s in cell.sexes} == {"male"}
+        assert nt[(name, "male")] == code  # atlas call now attaches
+    # they are connectivity-free (present in no connection)
+    endpoints = {strip(c.pre) for c in connectome.connections} | {
+        strip(c.post) for c in connectome.connections
+    }
+    assert {"CP0", "DX4", "EF4"}.isdisjoint(endpoints)
 
 
 def test_male_projection_uses_male_neurotransmitter(built) -> None:

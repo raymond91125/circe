@@ -25,6 +25,7 @@ DEFAULT_BHATLA_I2 = Path("data/bhatla-2015-i2/i2_synapses.csv")
 DEFAULT_DAUER = Path("data/yim-2024-dauer/dauer_connections.csv")
 DEFAULT_LIFE_STAGE = Path("data/curation/dataset_life_stage.csv")
 DEFAULT_NEUROTRANSMITTER = Path("data/wang-neurotransmitter-atlas/sex_neurotransmitters.csv")
+DEFAULT_ATLAS_ONLY_CELLS = Path("data/curation/atlas_only_cells.csv")
 DEFAULT_GENE_EXPR_XLSX = Path("data/cook-2020-pharynx/SI6_gene_expression.xlsx")
 DEFAULT_GENE_MAP = Path("data/cook-2020-pharynx/si6_genes.csv")
 DEFAULT_COOK_WORMATLAS = Path("data/curation/cook_wormatlas_class.csv")
@@ -205,6 +206,9 @@ def build(
         life_stage_path=DEFAULT_LIFE_STAGE if DEFAULT_LIFE_STAGE.exists() else None,
         neurotransmitter_path=(
             DEFAULT_NEUROTRANSMITTER if DEFAULT_NEUROTRANSMITTER.exists() else None
+        ),
+        atlas_only_cells_path=(
+            DEFAULT_ATLAS_ONLY_CELLS if DEFAULT_ATLAS_ONLY_CELLS.exists() else None
         ),
         gene_expr_xlsx_path=(
             DEFAULT_GENE_EXPR_XLSX

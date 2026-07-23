@@ -1,0 +1,4 @@
+cell_name,wbbt_id,cell_type,sex,note
+CP0,WBbt:0004903,neuron,male,male CP-class ventral-cord neuron; in the Wang 2024 neurotransmitter atlas but not reconstructed by the Cook 2019 connectome (so it has a neurotransmitter but no connectivity)
+DX4,WBbt:0007845,neuron,male,male DX neuron; in the Wang 2024 neurotransmitter atlas but not in the Cook 2019 connectome
+EF4,WBbt:0007841,neuron,male,male EF neuron; in the Wang 2024 neurotransmitter atlas but not in the Cook 2019 connectome
