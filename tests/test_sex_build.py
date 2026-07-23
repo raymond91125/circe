@@ -45,6 +45,8 @@ def built():
         gene_map_path=GENE_MAP,
         neurotransmitter_path=NEUROTRANSMITTER,
         atlas_only_cells_path=ATLAS_ONLY,
+        innexin_expr_path=REPO / "data" / "bhattacharya-2019-innexin" / "innexin_expression.csv",
+        innexin_gene_map_path=REPO / "data" / "bhattacharya-2019-innexin" / "innexin_genes.csv",
     )
     return connectome, stats
 
@@ -101,7 +103,8 @@ def test_dataset_life_stage_backfill(built) -> None:
     stage = {
         strip(d.id): (str(d.life_stage) if d.life_stage else None) for d in connectome.datasets
     }
-    assert all(v is not None for v in stage.values())  # no dataset left unstaged
+    # every dataset is staged except the non-dauer innexin expression dataset, which spans stages
+    assert {k for k, v in stage.items() if v is None} == {"bhattacharya_2019_innexin"}
     assert stage["white_1986_jsh"] == "L4" and stage["white_1986_n2u"] == "adult"
     assert stage["witvliet_2020_1"] == "L1" and stage["witvliet_2020_5"] == "L2"
     assert stage["witvliet_2020_6"] == "L3" and stage["witvliet_2020_7"] == "adult"
@@ -243,18 +246,56 @@ def test_male_specific_cell_classes_from_wbbt(built) -> None:
 
 def test_gene_expression_ingest(built) -> None:
     connectome, stats = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
     genes = connectome.genes
-    assert len(genes) == 46 == stats.genes
+    assert len(genes) == stats.genes
     assert all(g.id.startswith("WB:WBGene") for g in genes)
+    assert len({g.id for g in genes}) == len(genes)  # genes deduped across sources by WBGene id
     assert {str(g.category) for g in genes} == {
         "metabotropic_receptor",
         "ionotropic_receptor",
         "innexin",
         "neuropeptide",
     }
-    assert len(connectome.gene_expressions) == stats.gene_expressions == 309
+    # Cook 2020 SI6 contribution is unchanged (309 records) by the added innexin datasets
+    cook = [
+        e for e in connectome.gene_expressions if strip(e.dataset) == "cook_2020_pharynx_expression"
+    ]
+    assert len(cook) == 309
+    assert len(connectome.gene_expressions) == stats.gene_expressions
     assert any(d.id.endswith("cook_2020_pharynx_expression") for d in connectome.datasets)
     assert {str(e.confidence) for e in connectome.gene_expressions} <= {"reported", "putative"}
+
+
+def test_innexin_expression_dauer_split(built) -> None:
+    """Bhattacharya 2019 Fig 1B innexin expression, split into non-dauer + dauer datasets so the
+    dauer plasticity is explicit; class labels expand to member cells; genes reuse Cook's."""
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+    ge = connectome.gene_expressions
+    nd = [e for e in ge if strip(e.dataset) == "bhattacharya_2019_innexin"]
+    da = [e for e in ge if strip(e.dataset) == "bhattacharya_2019_innexin_dauer"]
+    assert len(nd) == 2118 and len(da) == 1885
+    ds = {strip(d.id): d for d in connectome.datasets}
+    assert str(ds["bhattacharya_2019_innexin_dauer"].life_stage) == "dauer"
+    assert ds["bhattacharya_2019_innexin"].life_stage is None  # non-dauer spans stages
+    # the 6 innexins not already in Cook SI6 were added (keyed to WBGene)
+    innex = {g.symbol for g in connectome.genes if str(g.category) == "innexin"}
+    assert {"che-7", "inx-5", "inx-6", "inx-11", "inx-13", "eat-5"} <= innex
+    # "both" -> record in both datasets (ADA/inx-1a); "non-dauer only" -> non-dauer only (HSN/inx-1)
+    ada_nd = {
+        (strip(e.cell), e.isoform)
+        for e in nd
+        if strip(e.cell) == "ADAL" and str(e.gene) == "WB:WBGene00002123"
+    }
+    ada_da = {
+        (strip(e.cell), e.isoform)
+        for e in da
+        if strip(e.cell) == "ADAL" and str(e.gene) == "WB:WBGene00002123"
+    }
+    assert ("ADAL", "a") in ada_nd and ("ADAL", "a") in ada_da  # both
+    assert any(str(e.cell).endswith("/HSNL") and str(e.gene) == "WB:WBGene00002123" for e in nd)
+    assert not any(str(e.cell).endswith("/HSNL") and str(e.gene) == "WB:WBGene00002123" for e in da)
 
 
 def test_gene_expression_per_cell_and_isoform(built) -> None:
