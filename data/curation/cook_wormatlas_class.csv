@@ -12,6 +12,7 @@ CEMDL,CEM,https://www.wormatlas.org/neurons/Individual%20Neurons/CEMframeset.htm
 CEMDR,CEM,https://www.wormatlas.org/neurons/Individual%20Neurons/CEMframeset.html,high,4 CEM cells share the CEM neuron page
 CEMVL,CEM,https://www.wormatlas.org/neurons/Individual%20Neurons/CEMframeset.html,high,4 CEM cells share the CEM neuron page
 CEMVR,CEM,https://www.wormatlas.org/neurons/Individual%20Neurons/CEMframeset.html,high,4 CEM cells share the CEM neuron page
+CP0,CP,https://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
 CP1,CP,https://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
 CP2,CP,https://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
 CP3,CP,https://www.wormatlas.org/neurons/Individual%20Neurons/CPframeset.html,high,CP page groups CP0-CP9 (confirmed)
@@ -26,9 +27,11 @@ DVF,DVF,https://www.wormatlas.org/neurons/Individual%20Neurons/DVFframeset.html,
 DX1,DX,https://www.wormatlas.org/neurons/Individual%20Neurons/DXframeset.html,verify,DX1-3 grouping assumed
 DX2,DX,https://www.wormatlas.org/neurons/Individual%20Neurons/DXframeset.html,verify,DX1-3 grouping assumed
 DX3,DX,https://www.wormatlas.org/neurons/Individual%20Neurons/DXframeset.html,verify,DX1-3 grouping assumed
+DX4,DX,https://www.wormatlas.org/neurons/Individual%20Neurons/DXframeset.html,verify,DX4 (Wang 2024 atlas) grouped on the DX page (assumed)
 EF1,EF,https://www.wormatlas.org/neurons/Individual%20Neurons/EFframeset.html,verify,EF1-3 grouping assumed
 EF2,EF,https://www.wormatlas.org/neurons/Individual%20Neurons/EFframeset.html,verify,EF1-3 grouping assumed
 EF3,EF,https://www.wormatlas.org/neurons/Individual%20Neurons/EFframeset.html,verify,EF1-3 grouping assumed
+EF4,EF,https://www.wormatlas.org/neurons/Individual%20Neurons/EFframeset.html,verify,EF4 (Wang 2024 atlas) grouped on the EF page (assumed)
 HOA,HOA,https://www.wormatlas.org/neurons/Individual%20Neurons/HOAframeset.html,medium,singleton neuron; own page assumed
 HOB,HOB,https://www.wormatlas.org/neurons/Individual%20Neurons/HOBframeset.html,medium,singleton neuron; own page assumed
 MCML,MCM,https://www.wormatlas.org/neurons/Individual%20Neurons/MCMframeset.html,medium,MCML/R -> MCM class page (strip L/R)
