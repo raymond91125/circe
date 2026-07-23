@@ -23,6 +23,9 @@ cckg:Connectome a owl:Class ;
             owl:onProperty cckg:genes ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
+            owl:onProperty cckg:neurotransmitter_assignments ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty cckg:gene_expressions ],
         [ a owl:Restriction ;
             owl:allValuesFrom cckg:Cell ;
@@ -30,6 +33,9 @@ cckg:Connectome a owl:Class ;
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cckg:cells ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:NeurotransmitterAssignment ;
+            owl:onProperty cckg:neurotransmitter_assignments ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cckg:datasets ],
@@ -178,6 +184,74 @@ cckg:GeneExpression a owl:Class ;
     skos:definition "A reified assertion that a cell expresses a gene, compiled in one dataset. Reified (not a plain triple) because it carries the source dataset, evidence, an optional transcript-isoform qualifier (when the source resolves expression to an isoform), and a confidence mark." ;
     skos:inScheme cckg:schema .
 
+cckg:NeurotransmitterAssignment a owl:Class ;
+    rdfs:label "NeurotransmitterAssignment" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom cckg:ExpressionConfidence ;
+            owl:onProperty cckg:confidence ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:confidence ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:neurotransmitter ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:neurotransmitter ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:confidence ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cckg:source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:neurotransmitter ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:sex ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Cell ;
+            owl:onProperty cckg:cell ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:source ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cckg:Sex ;
+            owl:onProperty cckg:sex ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:sex ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:cell ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:anyURI ;
+            owl:onProperty cckg:source ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cckg:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:cell ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cckg:id ] ;
+    skos:definition "A reified, sex-qualified assertion that a cell uses a neurotransmitter, from the Wang et al. 2024 atlas (eLife 95402). Reified because C. elegans neurotransmitter identity is sexually dimorphic: a male-specific neuron has its own call, and a sex-shared neuron can use different transmitters in the male vs the hermaphrodite. The neurotransmitter code follows the same scheme as ``Cell.neurotransmitter`` (a=ACh, l=Glu, g=GABA, d=dopamine, s=serotonin, u=unknown; letters combine for co-transmission). An assignment is recorded where the call is male-specific or differs between the sexes; the unqualified ``Cell.neurotransmitter`` remains the hermaphrodite / neuron-graph call." ;
+    skos:inScheme cckg:schema .
+
 <https://wormbase.org/resources/connectome/CellType#muscle> a owl:Class ;
     rdfs:label "muscle" ;
     rdfs:subClassOf cckg:CellType ;
@@ -318,6 +392,10 @@ cckg:genes a owl:ObjectProperty ;
     rdfs:label "genes" ;
     skos:inScheme cckg:schema .
 
+cckg:neurotransmitter_assignments a owl:ObjectProperty ;
+    rdfs:label "neurotransmitter_assignments" ;
+    skos:inScheme cckg:schema .
+
 cckg:sexes a owl:ObjectProperty ;
     rdfs:label "sexes" ;
     rdfs:range cckg:Sex ;
@@ -418,12 +496,6 @@ cckg:category a owl:ObjectProperty ;
     skos:definition "The functional category of the gene, as grouped by the source dataset." ;
     skos:inScheme cckg:schema .
 
-cckg:cell a owl:ObjectProperty ;
-    rdfs:label "cell" ;
-    rdfs:range cckg:Cell ;
-    skos:definition "The cell in which the gene is expressed." ;
-    skos:inScheme cckg:schema .
-
 cckg:cell_class a owl:DatatypeProperty ;
     rdfs:label "cell_class" ;
     skos:definition "The neuron-graph cell class (e.g. \"ADA\" for ADAL/ADAR)." ;
@@ -435,21 +507,10 @@ cckg:cell_type a owl:ObjectProperty ;
     skos:definition "The broad kind of cell." ;
     skos:inScheme cckg:schema .
 
-cckg:confidence a owl:ObjectProperty ;
-    rdfs:label "confidence" ;
-    rdfs:range cckg:ExpressionConfidence ;
-    skos:definition "The source's expression mark for this assertion." ;
-    skos:inScheme cckg:schema .
-
 cckg:connection_type a owl:ObjectProperty ;
     rdfs:label "connection_type" ;
     rdfs:range cckg:ConnectionType ;
     skos:definition "The kind of connection." ;
-    skos:inScheme cckg:schema .
-
-cckg:description a owl:DatatypeProperty ;
-    rdfs:label "description" ;
-    skos:definition "Free-text description." ;
     skos:inScheme cckg:schema .
 
 cckg:embryonic a owl:DatatypeProperty ;
@@ -498,11 +559,6 @@ cckg:nemanode_type a owl:DatatypeProperty ;
     skos:definition "Raw NemaNode cell-type code (e.g. \"i\", \"s\", \"sm\", \"b\"). Retained verbatim for the lossless viz projection; the curated CellType is in `cell_type`." ;
     skos:inScheme cckg:schema .
 
-cckg:neurotransmitter a owl:DatatypeProperty ;
-    rdfs:label "neurotransmitter" ;
-    skos:definition "neuron-graph neurotransmitter code (e.g. \"l\", \"a\", \"g\", \"n\")." ;
-    skos:inScheme cckg:schema .
-
 cckg:post a owl:ObjectProperty ;
     rdfs:label "post" ;
     rdfs:range cckg:Cell ;
@@ -513,18 +569,6 @@ cckg:pre a owl:ObjectProperty ;
     rdfs:label "pre" ;
     rdfs:range cckg:Cell ;
     skos:definition "The presynaptic / source cell." ;
-    skos:inScheme cckg:schema .
-
-cckg:sex a owl:ObjectProperty ;
-    rdfs:label "sex" ;
-    rdfs:range cckg:Sex ;
-    skos:definition "The biological sex of the specimen(s) the dataset observed." ;
-    skos:inScheme cckg:schema .
-
-cckg:source a owl:DatatypeProperty ;
-    rdfs:label "source" ;
-    rdfs:range xsd:anyURI ;
-    skos:definition "Pointer to the source data (file, URL, or upstream identifier)." ;
     skos:inScheme cckg:schema .
 
 cckg:strain a owl:DatatypeProperty ;
@@ -565,14 +609,6 @@ cckg:EvidenceType a owl:Class ;
     skos:inScheme cckg:schema ;
     linkml:permissible_values <https://wormbase.org/resources/connectome/EvidenceType#aggregated_weight>,
         <https://wormbase.org/resources/connectome/EvidenceType#synaptic_contact> .
-
-cckg:ExpressionConfidence a owl:Class ;
-    rdfs:label "ExpressionConfidence" ;
-    owl:unionOf ( <https://wormbase.org/resources/connectome/ExpressionConfidence#reported> <https://wormbase.org/resources/connectome/ExpressionConfidence#putative> ) ;
-    skos:definition "The source's expression mark. Cook 2020 SI6 uses uppercase \"X\" and lowercase \"x\"; the distinction is not defined in the source, so lowercase is taken as lower-confidence." ;
-    skos:inScheme cckg:schema ;
-    linkml:permissible_values <https://wormbase.org/resources/connectome/ExpressionConfidence#putative>,
-        <https://wormbase.org/resources/connectome/ExpressionConfidence#reported> .
 
 cckg:evidence a owl:ObjectProperty ;
     rdfs:label "evidence" ;
@@ -655,6 +691,14 @@ cckg:Dataset a owl:Class ;
     skos:definition "A specimen/dataset that observes connections (an EM reconstruction or functional-imaging dataset), from neuron-graph (White 1986, Witvliet 2020, Randi funconn) or Cook et al. 2019." ;
     skos:inScheme cckg:schema .
 
+cckg:ExpressionConfidence a owl:Class ;
+    rdfs:label "ExpressionConfidence" ;
+    owl:unionOf ( <https://wormbase.org/resources/connectome/ExpressionConfidence#reported> <https://wormbase.org/resources/connectome/ExpressionConfidence#putative> ) ;
+    skos:definition "The source's expression mark. Cook 2020 SI6 uses uppercase \"X\" and lowercase \"x\"; the distinction is not defined in the source, so lowercase is taken as lower-confidence." ;
+    skos:inScheme cckg:schema ;
+    linkml:permissible_values <https://wormbase.org/resources/connectome/ExpressionConfidence#putative>,
+        <https://wormbase.org/resources/connectome/ExpressionConfidence#reported> .
+
 cckg:GeneCategory a owl:Class ;
     rdfs:label "GeneCategory" ;
     owl:unionOf ( <https://wormbase.org/resources/connectome/GeneCategory#metabotropic_receptor> <https://wormbase.org/resources/connectome/GeneCategory#ionotropic_receptor> <https://wormbase.org/resources/connectome/GeneCategory#innexin> <https://wormbase.org/resources/connectome/GeneCategory#neuropeptide> ) ;
@@ -665,6 +709,45 @@ cckg:GeneCategory a owl:Class ;
         <https://wormbase.org/resources/connectome/GeneCategory#metabotropic_receptor>,
         <https://wormbase.org/resources/connectome/GeneCategory#neuropeptide> .
 
+cckg:cell a owl:ObjectProperty ;
+    rdfs:label "cell" ;
+    rdfs:range cckg:Cell ;
+    skos:definition "The cell in which the gene is expressed." ;
+    skos:inScheme cckg:schema .
+
+cckg:confidence a owl:ObjectProperty ;
+    rdfs:label "confidence" ;
+    rdfs:range cckg:ExpressionConfidence ;
+    skos:definition "The source's expression mark for this assertion." ;
+    skos:inScheme cckg:schema .
+
+cckg:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    skos:definition "Free-text description." ;
+    skos:inScheme cckg:schema .
+
+cckg:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    skos:definition "Human-readable label." ;
+    skos:inScheme cckg:schema .
+
+cckg:neurotransmitter a owl:DatatypeProperty ;
+    rdfs:label "neurotransmitter" ;
+    skos:definition "neuron-graph neurotransmitter code (e.g. \"l\", \"a\", \"g\", \"n\")." ;
+    skos:inScheme cckg:schema .
+
+cckg:sex a owl:ObjectProperty ;
+    rdfs:label "sex" ;
+    rdfs:range cckg:Sex ;
+    skos:definition "A C. elegans biological sex — the sex of the specimen(s) a dataset observed, or the sex in which a sex-qualified assertion (e.g. a neurotransmitter assignment) applies." ;
+    skos:inScheme cckg:schema .
+
+cckg:source a owl:DatatypeProperty ;
+    rdfs:label "source" ;
+    rdfs:range xsd:anyURI ;
+    skos:definition "Pointer to the source data (file, URL, or upstream identifier)." ;
+    skos:inScheme cckg:schema .
+
 cckg:Sex a owl:Class ;
     rdfs:label "Sex" ;
     owl:unionOf ( <https://wormbase.org/resources/connectome/Sex#hermaphrodite> <https://wormbase.org/resources/connectome/Sex#male> ) ;
@@ -672,11 +755,6 @@ cckg:Sex a owl:Class ;
     skos:inScheme cckg:schema ;
     linkml:permissible_values <https://wormbase.org/resources/connectome/Sex#hermaphrodite>,
         <https://wormbase.org/resources/connectome/Sex#male> .
-
-cckg:name a owl:DatatypeProperty ;
-    rdfs:label "name" ;
-    skos:definition "Human-readable label." ;
-    skos:inScheme cckg:schema .
 
 cckg:Cell a owl:Class ;
     rdfs:label "Cell" ;

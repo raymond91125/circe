@@ -58,6 +58,10 @@ def test_sex_enum_and_slots(view: SchemaView) -> None:
     # Cell flags class-level placeholder endpoints (boolean)
     assert "unspecified" in cell_slots
     assert view.get_slot("unspecified").range == "boolean"
+    # Reified per-sex neurotransmitter assignment (Wang 2024 male atlas)
+    na_slots = view.class_slots("NeurotransmitterAssignment")
+    assert {"cell", "sex", "neurotransmitter"} <= set(na_slots)
+    assert view.get_class("NeurotransmitterAssignment").slot_usage["sex"].required is True
 
 
 def test_sample_instance_validates() -> None:

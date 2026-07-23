@@ -1,0 +1,120 @@
+cell,sex,neurotransmitter,confidence,note
+ADFL,hermaphrodite,as,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+ADFL,male,ags,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+ADFR,hermaphrodite,as,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+ADFR,male,ags,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+AIML,hermaphrodite,ls,reported,"Glu->ACh switch in male (eat-4 down, unc-17 up) [Supp4]"
+AIML,male,as,reported,"Glu->ACh switch in male (eat-4 down, unc-17 up) [Supp4]"
+AIMR,hermaphrodite,ls,reported,"Glu->ACh switch in male (eat-4 down, unc-17 up) [Supp4]"
+AIMR,male,as,reported,"Glu->ACh switch in male (eat-4 down, unc-17 up) [Supp4]"
+AS10,hermaphrodite,a,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+AS10,male,ag,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+AS11,hermaphrodite,a,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+AS11,male,ag,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+CA1,male,a,reported,Wang 2024 Supp3 call: ACh
+CA2,male,a,reported,Wang 2024 Supp3 call: ACh
+CA3,male,a,reported,Wang 2024 Supp3 call: ACh
+CA4,male,a,reported,Wang 2024 Supp3 call: ACh
+CA5,male,a,reported,Wang 2024 Supp3 call: ACh
+CA6,male,a,reported,Wang 2024 Supp3 call: ACh
+CA7,male,a,reported,Wang 2024 Supp3 call: ACh
+CA8,male,a,reported,Wang 2024 Supp3 call: ACh
+CA9,male,a,reported,Wang 2024 Supp3 call: ACh
+CEMDL,male,a,reported,Wang 2024 Supp3 call: ACh
+CEMDR,male,a,reported,Wang 2024 Supp3 call: ACh
+CEMVL,male,a,reported,Wang 2024 Supp3 call: ACh
+CEMVR,male,a,reported,Wang 2024 Supp3 call: ACh
+CP0,male,l,reported,Wang 2024 Supp3 call: Glu
+CP1,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+CP2,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+CP3,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+CP4,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+CP5,male,l,reported,Wang 2024 Supp3 call: Glu
+CP6,male,l,reported,Wang 2024 Supp3 call: Glu
+CP7,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+CP8,male,a,reported,Wang 2024 Supp3 call: ACh
+CP9,male,g,reported,Wang 2024 Supp3 call: GABA
+DVE,male,u,putative,Wang 2024 Supp3 call: *bas-1-depen unknown monoamine? (new)
+DVF,male,u,putative,Wang 2024 Supp3 call: *bas-1-depen unknown monoamine? (new)
+DX1,male,a,reported,Wang 2024 Supp3 call: ACh
+DX2,male,a,reported,Wang 2024 Supp3 call: ACh
+DX3,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+DX4,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+EF1,male,g,reported,Wang 2024 Supp3 call: GABA
+EF2,male,g,reported,Wang 2024 Supp3 call: GABA
+EF3,male,g,reported,Wang 2024 Supp3 call: GABA
+EF4,male,g,reported,Wang 2024 Supp3 call: GABA
+HOA,male,l,reported,Wang 2024 Supp3 call: Glu
+HOB,male,a,reported,Wang 2024 Supp3 call: ACh
+MCML,male,u,reported,Wang 2024 Supp3 call: unknown (orphan; unc-47 positive)
+MCMR,male,u,reported,Wang 2024 Supp3 call: unknown (orphan; unc-47 positive)
+PCAL,male,l,reported,Wang 2024 Supp3 call: Glu
+PCAR,male,l,reported,Wang 2024 Supp3 call: Glu
+PCBL,male,a,reported,Wang 2024 Supp3 call: ACh
+PCBR,male,a,reported,Wang 2024 Supp3 call: ACh
+PCCL,male,a,reported,Wang 2024 Supp3 call: ACh
+PCCR,male,a,reported,Wang 2024 Supp3 call: ACh
+PDB,hermaphrodite,a,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+PDB,male,ag,reported,male gains GABA (unc-47+) [Wang 2024 Supp4]
+PDC,male,a,reported,Wang 2024 Supp3 call: ACh
+PGA,male,a,reported,Wang 2024 Supp3 call: ACh
+PHCL,hermaphrodite,bl,reported,male gains GABA (unc-47+); eat-4 stronger [Supp4]
+PHCL,male,bgl,reported,male gains GABA (unc-47+); eat-4 stronger [Supp4]
+PHCR,hermaphrodite,bl,reported,male gains GABA (unc-47+); eat-4 stronger [Supp4]
+PHCR,male,bgl,reported,male gains GABA (unc-47+); eat-4 stronger [Supp4]
+PHDL,male,a,reported,Wang 2024 Supp3 call: ACh
+PHDR,male,a,reported,Wang 2024 Supp3 call: ACh
+PVNL,hermaphrodite,abl,reported,male gains GABA (unc-47+); eat-4 stronger [Supp4]
+PVNL,male,abgl,reported,male gains GABA (unc-47+); eat-4 stronger [Supp4]
+PVNR,hermaphrodite,abl,reported,male gains GABA (unc-47+); eat-4 stronger [Supp4]
+PVNR,male,abgl,reported,male gains GABA (unc-47+); eat-4 stronger [Supp4]
+PVV,male,a,reported,Wang 2024 Supp3 call: ACh
+PVWL,hermaphrodite,u,reported,male gains serotonin (anti-5-HT+) [Wang 2024 Supp4]
+PVWL,male,s,reported,male gains serotonin (anti-5-HT+) [Wang 2024 Supp4]
+PVWR,hermaphrodite,u,reported,male gains serotonin (anti-5-HT+) [Wang 2024 Supp4]
+PVWR,male,s,reported,male gains serotonin (anti-5-HT+) [Wang 2024 Supp4]
+PVX,male,a,reported,Wang 2024 Supp3 call: ACh
+PVY,male,a,reported,Wang 2024 Supp3 call: ACh
+PVZ,male,a,reported,Wang 2024 Supp3 call: ACh
+R1AL,male,a,reported,Wang 2024 Supp3 call: ACh
+R1AR,male,a,reported,Wang 2024 Supp3 call: ACh
+R1BL,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+R1BR,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+R2AL,male,a,reported,Wang 2024 Supp3 call: ACh
+R2AR,male,a,reported,Wang 2024 Supp3 call: ACh
+R2BL,male,l,reported,Wang 2024 Supp3 call: Glu
+R2BR,male,l,reported,Wang 2024 Supp3 call: Glu
+R3AL,male,a,reported,Wang 2024 Supp3 call: ACh
+R3AR,male,a,reported,Wang 2024 Supp3 call: ACh
+R3BL,male,s,reported,Wang 2024 Supp3 call: 5-HT
+R3BR,male,s,reported,Wang 2024 Supp3 call: 5-HT
+R4AL,male,a,reported,Wang 2024 Supp3 call: ACh
+R4AR,male,a,reported,Wang 2024 Supp3 call: ACh
+R4BL,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+R4BR,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+R5AL,male,l,reported,Wang 2024 Supp3 call: Glu
+R5AR,male,l,reported,Wang 2024 Supp3 call: Glu
+R5BL,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+R5BR,male,a,reported,Wang 2024 Supp3 call: ACh (new)
+R6AL,male,a,reported,Wang 2024 Supp3 call: ACh
+R6AR,male,a,reported,Wang 2024 Supp3 call: ACh
+R6BL,male,l,reported,Wang 2024 Supp3 call: Glu
+R6BR,male,l,reported,Wang 2024 Supp3 call: Glu
+R7AL,male,d,reported,Wang 2024 Supp3 call: DA
+R7AR,male,d,reported,Wang 2024 Supp3 call: DA
+R7BL,male,a,putative,Wang 2024 Supp3 call: *ACh (new)
+R7BR,male,a,putative,Wang 2024 Supp3 call: *ACh (new)
+R8AL,male,a,reported,Wang 2024 Supp3 call: ACh
+R8AR,male,a,reported,Wang 2024 Supp3 call: ACh
+R8BL,male,a,reported,Wang 2024 Supp3 call: ACh
+R8BR,male,a,reported,Wang 2024 Supp3 call: ACh
+R9AL,male,l,reported,Wang 2024 Supp3 call: Glu
+R9AR,male,l,reported,Wang 2024 Supp3 call: Glu
+R9BL,male,a,putative,Wang 2024 Supp3 call: *ACh (new)
+R9BR,male,a,putative,Wang 2024 Supp3 call: *ACh (new)
+SPCL,male,a,reported,Wang 2024 Supp3 call: ACh
+SPCR,male,a,reported,Wang 2024 Supp3 call: ACh
+SPDL,male,u,reported,Wang 2024 Supp3 call: unknown (orphan)
+SPDR,male,u,reported,Wang 2024 Supp3 call: unknown (orphan)
+SPVL,male,a,reported,Wang 2024 Supp3 call: ACh
+SPVR,male,a,reported,Wang 2024 Supp3 call: ACh
