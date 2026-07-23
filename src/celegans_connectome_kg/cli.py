@@ -270,6 +270,9 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         cells_projection,
         connections_projection,
         kg_connections_map,
+        dauer_cells_projection,
+        dauer_connections_projection,
+        dauer_dataset,
         male_cells_projection,
         pharynx_cells_projection,
         pharynx_connections_projection,
@@ -365,6 +368,19 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         click.echo(
             f"wrote: {ng_pharynx}/ (pharynx: {len(pharynx_cells)} cells,"
             f" {len(pharynx_conns)} connections)"
+        )
+
+    # Dauer viz projection: the Yim 2024 dauer connectome, folded into the "head" life-stage series.
+    dauer_cells = dauer_cells_projection(connectome)
+    if dauer_cells:
+        ng_dauer = out_dir / "neuron-graph-dauer"
+        ng_dauer.mkdir(parents=True, exist_ok=True)
+        dauer_conns = dauer_connections_projection(connectome)
+        (ng_dauer / "cells.json").write_text(json.dumps(dauer_cells, indent=2))
+        (ng_dauer / "connections.json").write_text(json.dumps(dauer_conns, indent=2))
+        (ng_dauer / "datasets.json").write_text(json.dumps([dauer_dataset()], indent=2))
+        click.echo(
+            f"wrote: {ng_dauer}/ (dauer: {len(dauer_cells)} cells, {len(dauer_conns)} connections)"
         )
 
 

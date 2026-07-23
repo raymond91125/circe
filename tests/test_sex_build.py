@@ -264,3 +264,28 @@ def test_pharynx_viz_projection(built) -> None:
 
     ds = pharynx_dataset()
     assert ds["type"] == "pharynx" and ds["datatypes"] == "cs,gj"
+
+
+def test_dauer_viz_projection(built) -> None:
+    from celegans_connectome_kg.export.neuron_graph_json import (
+        dauer_cells_projection,
+        dauer_connections_projection,
+        dauer_dataset,
+    )
+
+    connectome, _ = built
+    cells = dauer_cells_projection(connectome)
+    by_name = {c["name"]: c for c in cells}
+    assert len(cells) == 221  # 181 neurons + muscle/other partners
+    assert "exc_duct" in by_name  # the curated excretory-duct endpoint is projected
+
+    conns = dauer_connections_projection(connectome)
+    assert len(conns) == 2200
+    # chemical only (no gap junctions reconstructed), weighted by synapse count
+    assert all(c["type"] == "chemical" for c in conns)
+    assert all("yim_2024_dauer" in c["synapses"] for c in conns)
+
+    ds = dauer_dataset()
+    # folded into the "head" life-stage series, positioned in the L3 region; chemical only
+    assert ds["type"] == "head" and ds["datatypes"] == "cs"
+    assert 25 <= ds["visualTime"] <= 34
