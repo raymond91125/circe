@@ -41,8 +41,10 @@ second **cited neurotransmitter source** (alongside [`../wormatlas-neurotransmit
 - **Supp4** → 8 sex-shared neurons with a transmitter-**identity** difference by sex, curated to
   both a hermaphrodite and a male code (e.g. `AIM` Glu→ACh; several gain GABA via `unc-47`). AVG
   is excluded (its difference is `unc-17` expression level only, cholinergic in both sexes).
-- `CP0`, `DX4`, `EF4` appear in Supp3 but are absent from the Cook connectome, so they are dropped
-  at build. The unqualified `Cell.neurotransmitter` (hermaphrodite/neuron-graph) is left untouched.
+- `CP0`, `DX4`, `EF4` appear in Supp3 but are absent from the Cook connectome. They are minted as
+  grounded, connectivity-free male neurons via `data/curation/atlas_only_cells.csv` so their atlas
+  neurotransmitter attaches. The unqualified `Cell.neurotransmitter` (hermaphrodite/neuron-graph)
+  is left untouched.
 
 `TableS2_expression.xlsx` (= `elife-95402-supp2-v1.xlsx`) sha256:
 `ad5175b5e53748acf77c6dfff1b5efcf15ed4364091239bd2def0095544eb18c`

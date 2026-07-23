@@ -30,6 +30,7 @@ from celegans_connectome_kg.ingest.neuron_graph import (
 )
 from celegans_connectome_kg.ingest.yim_2024_dauer import read_dauer
 from celegans_connectome_kg.match.curation import (
+    load_atlas_only_cells,
     load_cook_aliases,
     load_curation,
     load_dataset_life_stage,
@@ -240,6 +241,7 @@ def assemble(
     gene_map_path: Path | None = None,
     life_stage_path: Path | None = None,
     neurotransmitter_path: Path | None = None,
+    atlas_only_cells_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
@@ -260,6 +262,7 @@ def assemble(
     index = WBBTIndex.from_obograph(wbbt_path)
     curation = load_curation(curation_path) if curation_path else None
     endpoint_cells = load_endpoint_cells(endpoint_cells_path) if endpoint_cells_path else []
+    atlas_only_cells = load_atlas_only_cells(atlas_only_cells_path) if atlas_only_cells_path else []
     nt_curation = load_nt_curation(nt_curation_path) if nt_curation_path else {}
 
     cell_records: dict[str, CellRecord] = {c.name: c for c in data.cells}
@@ -348,6 +351,18 @@ def assemble(
             sexes=sexes_of(name),
         )
         for name, wbbt in sorted(cook_new_cells.items())
+    ]
+    # Atlas-only cells: neurons present in a reference atlas (Wang 2024) but in no connectome
+    # dataset. Minted (grounded, sexed) so their atlas annotations attach; they carry no edges.
+    cells += [
+        dm.Cell(
+            id=_cell_id(ac.name),
+            name=ac.name,
+            cell_type=ac.cell_type,
+            anatomy=ac.wbbt_id,
+            sexes=[ac.sex] if ac.sex else [],
+        )
+        for ac in sorted(atlas_only_cells, key=lambda ac: ac.name)
     ]
 
     # --- Datasets (with sex + curated life stage) ---

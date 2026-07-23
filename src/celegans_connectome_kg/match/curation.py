@@ -97,6 +97,38 @@ def load_wormatlas_urls(path: Path) -> dict[str, str]:
     return curated
 
 
+@dataclass(frozen=True)
+class AtlasOnlyCell:
+    """A cell known from a reference atlas but absent from every connectome dataset.
+
+    Minted so its atlas annotations (e.g. a neurotransmitter identity) have a node to attach to;
+    it carries no connectivity. Unlike an EndpointCell it is a specific, sexed neuron.
+    """
+
+    name: str
+    wbbt_id: str
+    cell_type: str
+    sex: str
+
+
+def load_atlas_only_cells(path: Path) -> list[AtlasOnlyCell]:
+    """Load curated cells present in a reference atlas but not in any connectome dataset."""
+    out: list[AtlasOnlyCell] = []
+    with Path(path).open(newline="") as fh:
+        for row in csv.DictReader(fh):
+            wbbt_id = (row.get("wbbt_id") or "").strip()
+            if wbbt_id:
+                out.append(
+                    AtlasOnlyCell(
+                        name=row["cell_name"].strip(),
+                        wbbt_id=wbbt_id,
+                        cell_type=(row.get("cell_type") or "neuron").strip(),
+                        sex=(row.get("sex") or "").strip(),
+                    )
+                )
+    return out
+
+
 def load_dataset_life_stage(path: Path) -> dict[str, str]:
     """Load dataset_id → developmental life stage (a LifeStage enum value).
 
