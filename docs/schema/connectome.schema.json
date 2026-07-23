@@ -214,6 +214,15 @@
                         "array",
                         "null"
                     ]
+                },
+                "neurotransmitter_assignments": {
+                    "items": {
+                        "$ref": "#/$defs/NeurotransmitterAssignment"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 }
             },
             "title": "Connectome",
@@ -247,7 +256,7 @@
                 },
                 "sex": {
                     "$ref": "#/$defs/Sex",
-                    "description": "The biological sex of the specimen(s) the dataset observed."
+                    "description": "A C. elegans biological sex \u2014 the sex of the specimen(s) a dataset observed, or the sex in which a sex-qualified assertion (e.g. a neurotransmitter assignment) applies."
                 },
                 "strain": {
                     "description": "The C. elegans strain/genotype of the specimen, if known.",
@@ -426,6 +435,54 @@
             "title": "LifeStage",
             "type": "string"
         },
+        "NeurotransmitterAssignment": {
+            "additionalProperties": false,
+            "description": "A reified, sex-qualified assertion that a cell uses a neurotransmitter, from the Wang et al. 2024 atlas (eLife 95402). Reified because C. elegans neurotransmitter identity is sexually dimorphic: a male-specific neuron has its own call, and a sex-shared neuron can use different transmitters in the male vs the hermaphrodite. The neurotransmitter code follows the same scheme as ``Cell.neurotransmitter`` (a=ACh, l=Glu, g=GABA, d=dopamine, s=serotonin, u=unknown; letters combine for co-transmission). An assignment is recorded where the call is male-specific or differs between the sexes; the unqualified ``Cell.neurotransmitter`` remains the hermaphrodite / neuron-graph call.",
+            "properties": {
+                "cell": {
+                    "description": "The cell in which the gene is expressed.",
+                    "type": "string"
+                },
+                "confidence": {
+                    "$ref": "#/$defs/ExpressionConfidence",
+                    "description": "The source's expression mark for this assertion."
+                },
+                "description": {
+                    "description": "Free-text description.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Stable identifier for the record.",
+                    "type": "string"
+                },
+                "neurotransmitter": {
+                    "description": "neuron-graph neurotransmitter code (e.g. \"l\", \"a\", \"g\", \"n\").",
+                    "type": "string"
+                },
+                "sex": {
+                    "$ref": "#/$defs/Sex",
+                    "description": "A C. elegans biological sex \u2014 the sex of the specimen(s) a dataset observed, or the sex in which a sex-qualified assertion (e.g. a neurotransmitter assignment) applies."
+                },
+                "source": {
+                    "description": "Pointer to the source data (file, URL, or upstream identifier).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id",
+                "cell",
+                "sex",
+                "neurotransmitter"
+            ],
+            "title": "NeurotransmitterAssignment",
+            "type": "object"
+        },
         "Sex": {
             "description": "The biological sex of a C. elegans specimen.",
             "enum": [
@@ -481,6 +538,15 @@
         "genes": {
             "items": {
                 "$ref": "#/$defs/Gene"
+            },
+            "type": [
+                "array",
+                "null"
+            ]
+        },
+        "neurotransmitter_assignments": {
+            "items": {
+                "$ref": "#/$defs/NeurotransmitterAssignment"
             },
             "type": [
                 "array",

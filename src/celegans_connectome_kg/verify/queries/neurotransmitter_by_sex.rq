@@ -1,0 +1,18 @@
+# Sex-qualified neurotransmitter assignments (Wang et al. 2024, eLife 95402).
+# Male-specific neurons and sexually-dimorphic sex-shared neurons carry per-sex calls; the
+# unqualified Cell.neurotransmitter remains the hermaphrodite / neuron-graph call.
+# This lists the sexually-dimorphic neurons — those with BOTH a hermaphrodite and a male call
+# that differ (e.g. AIM: Glu in the hermaphrodite, ACh in the male).
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?cell ?herm_nt ?male_nt
+WHERE {
+  ?h a cckg:NeurotransmitterAssignment ;
+     cckg:cell ?c ; cckg:sex "hermaphrodite" ; cckg:neurotransmitter ?herm_nt .
+  ?m a cckg:NeurotransmitterAssignment ;
+     cckg:cell ?c ; cckg:sex "male" ; cckg:neurotransmitter ?male_nt .
+  ?c dcterms:title ?cell .
+  FILTER(?herm_nt != ?male_nt)
+}
+ORDER BY ?cell

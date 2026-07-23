@@ -160,6 +160,7 @@ class BuildStats:
     datasets_by_sex: dict[str, int]
     genes: int = 0
     gene_expressions: int = 0
+    neurotransmitter_assignments: int = 0
 
 
 def _aggregate(records: list[ConnectionRecord], alias: dict[str, str]):
@@ -238,6 +239,7 @@ def assemble(
     gene_expr_xlsx_path: Path | None = None,
     gene_map_path: Path | None = None,
     life_stage_path: Path | None = None,
+    neurotransmitter_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
@@ -426,12 +428,39 @@ def assemble(
         if unmapped:
             raise ValueError(f"SI6 class labels not mapped to a cell_class: {unmapped}")
 
+    # --- Neurotransmitter assignments (optional): Wang 2024 per-sex atlas (eLife 95402) ---
+    # Reified, sex-qualified NT calls for male-specific and sexually-dimorphic neurons. The
+    # unqualified Cell.neurotransmitter (hermaphrodite / neuron-graph) is left untouched.
+    neurotransmitter_assignments = []
+    if neurotransmitter_path:
+        from celegans_connectome_kg.ingest.neurotransmitter import (
+            SOURCE as NT_SOURCE,
+            read_neurotransmitters,
+        )
+
+        cell_names = {c.name for c in cells}
+        for rec in read_neurotransmitters(neurotransmitter_path):
+            if rec.cell not in cell_names:
+                continue  # atlas cell absent from the connectome (e.g. CP0, DX4, EF4)
+            neurotransmitter_assignments.append(
+                dm.NeurotransmitterAssignment(
+                    id=f"cckg:nt/{rec.cell}.{rec.sex}",
+                    cell=_cell_id(rec.cell),
+                    sex=rec.sex,
+                    neurotransmitter=rec.neurotransmitter,
+                    confidence=rec.confidence,
+                    source=NT_SOURCE,
+                    description=rec.note,
+                )
+            )
+
     connectome = dm.Connectome(
         cells=cells,
         datasets=datasets,
         connections=connections,
         genes=genes,
         gene_expressions=gene_expressions,
+        neurotransmitter_assignments=neurotransmitter_assignments,
     )
     stats = BuildStats(
         cells=len(cells),
@@ -444,5 +473,6 @@ def assemble(
         datasets_by_sex=dict(Counter(str(d.sex) for d in datasets)),
         genes=len(genes),
         gene_expressions=len(gene_expressions),
+        neurotransmitter_assignments=len(neurotransmitter_assignments),
     )
     return connectome, stats

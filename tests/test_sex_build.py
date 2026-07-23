@@ -22,6 +22,7 @@ GENE_MAP = REPO / "data" / "cook-2020-pharynx" / "si6_genes.csv"
 BHATLA_I2 = REPO / "data" / "bhatla-2015-i2" / "i2_synapses.csv"
 DAUER = REPO / "data" / "yim-2024-dauer" / "dauer_connections.csv"
 LIFE_STAGE = CUR / "dataset_life_stage.csv"
+NEUROTRANSMITTER = REPO / "data" / "wang-neurotransmitter-atlas" / "sex_neurotransmitters.csv"
 
 
 @pytest.fixture(scope="module")
@@ -41,6 +42,7 @@ def built():
         life_stage_path=LIFE_STAGE,
         gene_expr_xlsx_path=GENE_EXPR_XLSX,
         gene_map_path=GENE_MAP,
+        neurotransmitter_path=NEUROTRANSMITTER,
     )
     return connectome, stats
 
@@ -129,6 +131,41 @@ def test_hermaphrodite_specific_neurons_are_canonical(built) -> None:
         if str(c.cell_type) == "neuron" and {str(s) for s in c.sexes} == {"hermaphrodite"}
     }
     assert herm_only == {"HSNL", "HSNR", "VC1", "VC2", "VC3", "VC4", "VC5", "VC6"}
+
+
+def test_neurotransmitter_assignments_per_sex(built) -> None:
+    """Wang 2024 (eLife 95402) male atlas: male-specific neurons get a call, and sexually-dimorphic
+    sex-shared neurons carry distinct hermaphrodite vs male calls. Cell.neurotransmitter (the
+    hermaphrodite/neuron-graph call) is left untouched."""
+    connectome, stats = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+    na = connectome.neurotransmitter_assignments
+    assert len(na) == stats.neurotransmitter_assignments == 116
+    by = {(strip(a.cell), str(a.sex)): str(a.neurotransmitter) for a in na}
+    # male-specific neurons now have a neurotransmitter (were None on the cell)
+    assert by[("CEMDL", "male")] == "a"  # cholinergic
+    assert by[("R7AL", "male")] == "d"  # dopaminergic ray neuron
+    assert by[("R3BL", "male")] == "s"  # serotonergic ray neuron
+    # sexually dimorphic sex-shared neuron: Glu in hermaphrodite, ACh in male (AIM switch)
+    assert by[("AIML", "hermaphrodite")] == "ls" and by[("AIML", "male")] == "as"
+    assert by[("ADFL", "hermaphrodite")] == "as" and by[("ADFL", "male")] == "ags"  # male +GABA
+    # provenance + confidence recorded; Cell.neurotransmitter untouched for male-specific cells
+    assert all("95402" in str(a.source) for a in na)
+    cemdl = next(c for c in connectome.cells if c.name == "CEMDL")
+    assert cemdl.neurotransmitter is None  # the per-sex call lives on the assignment, not the cell
+
+
+def test_male_projection_uses_male_neurotransmitter(built) -> None:
+    from celegans_connectome_kg.export.neuron_graph_json import male_cells_projection
+
+    connectome, _ = built
+    by_name = {c["name"]: c for c in male_cells_projection(connectome)}
+    # male-specific neurons carry their Wang-atlas call; dimorphic AIM shows its male call (ACh)
+    assert by_name["CEMDL"]["neurotransmitter"] == "a"
+    assert by_name["R7AL"]["neurotransmitter"] == "d"
+    assert by_name["AIML"]["neurotransmitter"] == "as"  # male call, not the herm "ls"
+    # a sex-shared, non-dimorphic neuron falls back to its (shared) neurotransmitter
+    assert by_name["AVAL"]["neurotransmitter"] == "a"
 
 
 def test_datasets_tagged_by_sex(built) -> None:

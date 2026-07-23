@@ -53,6 +53,10 @@ classes:
         range: GeneExpression
         multivalued: true
         inlined_as_list: true
+      neurotransmitter_assignments:
+        range: NeurotransmitterAssignment
+        multivalued: true
+        inlined_as_list: true
 
   Cell:
     description: >-
@@ -152,6 +156,32 @@ classes:
       gene:
         required: true
 
+  NeurotransmitterAssignment:
+    description: >-
+      A reified, sex-qualified assertion that a cell uses a neurotransmitter, from the Wang et al.
+      2024 atlas (eLife 95402). Reified because C. elegans neurotransmitter identity is sexually
+      dimorphic: a male-specific neuron has its own call, and a sex-shared neuron can use different
+      transmitters in the male vs the hermaphrodite. The neurotransmitter code follows the same
+      scheme as ``Cell.neurotransmitter`` (a=ACh, l=Glu, g=GABA, d=dopamine, s=serotonin,
+      u=unknown; letters combine for co-transmission). An assignment is recorded where the call is
+      male-specific or differs between the sexes; the unqualified ``Cell.neurotransmitter`` remains
+      the hermaphrodite / neuron-graph call.
+    slots:
+      - id
+      - cell
+      - sex
+      - neurotransmitter
+      - confidence
+      - source
+      - description
+    slot_usage:
+      cell:
+        required: true
+      sex:
+        required: true
+      neurotransmitter:
+        required: true
+
 # ---------------------------------------------------------------------------
 # Slots
 # ---------------------------------------------------------------------------
@@ -233,7 +263,9 @@ slots:
   strain:
     description: The C. elegans strain/genotype of the specimen, if known.
   sex:
-    description: The biological sex of the specimen(s) the dataset observed.
+    description: >-
+      A C. elegans biological sex — the sex of the specimen(s) a dataset observed, or the sex in
+      which a sex-qualified assertion (e.g. a neurotransmitter assignment) applies.
     range: Sex
   life_stage:
     description: >-

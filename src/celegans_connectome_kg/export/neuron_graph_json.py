@@ -421,6 +421,13 @@ def male_cells_projection(connectome: object) -> list[dict]:
     synthesizing a ``type`` from the KG ``cell_type`` and defaulting ``class`` to the cell name
     when the KG has no ``cell_class`` (so male-specific cells render individually).
     """
+    # Prefer the male-specific neurotransmitter call (Wang 2024) where the KG has one — this is
+    # the only NT for male-specific neurons, and the male call for sexually-dimorphic neurons.
+    male_nt = {
+        _strip(str(a.cell), CELL_PREFIX): str(a.neurotransmitter)
+        for a in (getattr(connectome, "neurotransmitter_assignments", None) or [])
+        if str(a.sex) == "male" and a.neurotransmitter
+    }
     out = []
     for c in connectome.cells:
         if "male" not in {str(s) for s in (c.sexes or [])}:
@@ -430,7 +437,7 @@ def male_cells_projection(connectome: object) -> list[dict]:
                 "name": c.name,
                 "class": c.cell_class or c.name,
                 "type": _viz_type(c),
-                "neurotransmitter": c.neurotransmitter or "u",
+                "neurotransmitter": male_nt.get(c.name) or c.neurotransmitter or "u",
                 "embryonic": bool(c.embryonic),
                 "inhead": bool(c.in_head),
                 "intail": bool(c.in_tail),
