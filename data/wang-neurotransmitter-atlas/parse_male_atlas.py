@@ -36,6 +36,7 @@ def _expand(name: str) -> list[str]:
         return [f"{prefix}{a}", f"{prefix}{b}"]
     return [name]
 
+
 HERE = Path(__file__).resolve().parent
 OUT = HERE / "sex_neurotransmitters.csv"
 
@@ -50,7 +51,13 @@ DIMORPHIC = [
     ("PHC", ["PHCL", "PHCR"], "bl", "bgl", "male gains GABA (unc-47+); eat-4 stronger [Supp4]"),
     ("PDB", ["PDB"], "a", "ag", "male gains GABA (unc-47+) [Wang 2024 Supp4]"),
     ("PVN", ["PVNL", "PVNR"], "abl", "abgl", "male gains GABA (unc-47+); eat-4 stronger [Supp4]"),
-    ("AIM", ["AIML", "AIMR"], "ls", "as", "Glu->ACh switch in male (eat-4 down, unc-17 up) [Supp4]"),
+    (
+        "AIM",
+        ["AIML", "AIMR"],
+        "ls",
+        "as",
+        "Glu->ACh switch in male (eat-4 down, unc-17 up) [Supp4]",
+    ),
     ("PVW", ["PVWL", "PVWR"], "u", "s", "male gains serotonin (anti-5-HT+) [Wang 2024 Supp4]"),
 ]
 
@@ -102,10 +109,22 @@ def main() -> None:
     for _cls, members, herm, male, note in DIMORPHIC:
         for cell in members:
             rows.append(
-                {"cell": cell, "sex": "hermaphrodite", "neurotransmitter": herm, "confidence": "reported", "note": note}
+                {
+                    "cell": cell,
+                    "sex": "hermaphrodite",
+                    "neurotransmitter": herm,
+                    "confidence": "reported",
+                    "note": note,
+                }
             )
             rows.append(
-                {"cell": cell, "sex": "male", "neurotransmitter": male, "confidence": "reported", "note": note}
+                {
+                    "cell": cell,
+                    "sex": "male",
+                    "neurotransmitter": male,
+                    "confidence": "reported",
+                    "note": note,
+                }
             )
 
     # De-duplicate (cell, sex): the grouped serial neurons (DX1/2, EF3/4) are listed under more
