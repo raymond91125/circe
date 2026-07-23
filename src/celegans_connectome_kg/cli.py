@@ -26,6 +26,8 @@ DEFAULT_DAUER = Path("data/yim-2024-dauer/dauer_connections.csv")
 DEFAULT_LIFE_STAGE = Path("data/curation/dataset_life_stage.csv")
 DEFAULT_NEUROTRANSMITTER = Path("data/wang-neurotransmitter-atlas/sex_neurotransmitters.csv")
 DEFAULT_ATLAS_ONLY_CELLS = Path("data/curation/atlas_only_cells.csv")
+DEFAULT_INNEXIN_EXPR = Path("data/bhattacharya-2019-innexin/innexin_expression.csv")
+DEFAULT_INNEXIN_GENES = Path("data/bhattacharya-2019-innexin/innexin_genes.csv")
 DEFAULT_GENE_EXPR_XLSX = Path("data/cook-2020-pharynx/SI6_gene_expression.xlsx")
 DEFAULT_GENE_MAP = Path("data/cook-2020-pharynx/si6_genes.csv")
 DEFAULT_COOK_WORMATLAS = Path("data/curation/cook_wormatlas_class.csv")
@@ -210,6 +212,8 @@ def build(
         atlas_only_cells_path=(
             DEFAULT_ATLAS_ONLY_CELLS if DEFAULT_ATLAS_ONLY_CELLS.exists() else None
         ),
+        innexin_expr_path=DEFAULT_INNEXIN_EXPR if DEFAULT_INNEXIN_EXPR.exists() else None,
+        innexin_gene_map_path=DEFAULT_INNEXIN_GENES if DEFAULT_INNEXIN_GENES.exists() else None,
         gene_expr_xlsx_path=(
             DEFAULT_GENE_EXPR_XLSX
             if (DEFAULT_GENE_EXPR_XLSX.exists() and DEFAULT_GENE_MAP.exists())

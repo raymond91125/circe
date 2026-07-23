@@ -181,6 +181,83 @@ def _aggregate(records: list[ConnectionRecord], alias: dict[str, str]):
 #: Dataset id for the Cook 2020 SI6 gene-expression compilation.
 _GENE_EXPRESSION_DATASET = "cook_2020_pharynx_expression"
 
+#: Bhattacharya 2019 innexin expression is split into a non-dauer and a dauer dataset so the
+#: reported dauer plasticity is explicit ("both" -> both datasets; "only" -> one).
+_INNEXIN_ND_DATASET = "bhattacharya_2019_innexin"
+_INNEXIN_DA_DATASET = "bhattacharya_2019_innexin_dauer"
+
+#: Bhattacharya class labels that don't map to a single CIRCE cell_class (IL1/IL2/RMD subclasses).
+_INNEXIN_SPECIAL = {
+    "IL1-L/R": ["IL1L", "IL1R"],
+    "IL1-D/V": ["IL1DL", "IL1DR", "IL1VL", "IL1VR"],
+    "IL2-L/R": ["IL2L", "IL2R"],
+    "IL2-D/V": ["IL2DL", "IL2DR", "IL2VL", "IL2VR"],
+    "RMDL/R": ["RMDL", "RMDR"],
+    "RMDD/V": ["RMDDL", "RMDDR", "RMDVL", "RMDVR"],
+}
+
+
+def _resolve_innexin_neuron(label, by_class, names):
+    """Bhattacharya neuron-class label -> the CIRCE member cells it covers."""
+    if label in _INNEXIN_SPECIAL:
+        return [c for c in _INNEXIN_SPECIAL[label] if c in names]
+    if label in by_class:
+        return sorted(by_class[label])
+    if label + "n" in by_class:  # serial motor-neuron classes: DD -> DDn, VC -> VCn, ...
+        return sorted(by_class[label + "n"])
+    if label in names:  # single cell (AVG, ALA, I3, ...)
+        return [label]
+    return []
+
+
+def _build_innexin_expression(dm, data, cells):
+    """Genes + per-cell GeneExpression records for Bhattacharya innexin expression.
+
+    Each class label expands to member cells; "both" yields a record in both the non-dauer and
+    dauer datasets, "non-dauer_only"/"dauer_only" only in the respective one.
+    """
+    by_class: dict[str, list[str]] = defaultdict(list)
+    names = set()
+    for c in cells:
+        names.add(c.name)
+        if c.cell_class:
+            by_class[str(c.cell_class)].append(c.name)
+    genes = [
+        dm.Gene(
+            id=g.wbgene,
+            symbol=g.symbol,
+            category=g.category,
+            systematic_name=g.systematic_name or None,
+        )
+        for g in sorted(data.genes, key=lambda g: g.symbol)
+    ]
+    ds_for = {
+        "both": (_INNEXIN_ND_DATASET, _INNEXIN_DA_DATASET),
+        "non-dauer_only": (_INNEXIN_ND_DATASET,),
+        "dauer_only": (_INNEXIN_DA_DATASET,),
+    }
+    exprs, unmapped = [], set()
+    for e in data.expressions:
+        members = _resolve_innexin_neuron(e.neuron_label, by_class, names)
+        if not members:
+            unmapped.add(e.neuron_label)
+            continue
+        wbid = e.wbgene.split(":")[-1]
+        suffix = f".{e.isoform}" if e.isoform else ""
+        for name in members:
+            for ds in ds_for[e.state]:
+                exprs.append(
+                    dm.GeneExpression(
+                        id=f"cckg:expr/{ds}.{name}.{wbid}{suffix}",
+                        cell=_cell_id(name),
+                        gene=e.wbgene,
+                        isoform=e.isoform or None,
+                        dataset=_dataset_id(ds),
+                        confidence="reported",
+                    )
+                )
+    return genes, exprs, sorted(unmapped)
+
 
 def _si6_class(label: str, valid_classes: set[str]) -> str | None:
     """Map an SI6 class label ("I1L/R", "M3L/R", "MCL", "I3") to a CIRCE cell_class."""
@@ -242,6 +319,8 @@ def assemble(
     life_stage_path: Path | None = None,
     neurotransmitter_path: Path | None = None,
     atlas_only_cells_path: Path | None = None,
+    innexin_expr_path: Path | None = None,
+    innexin_gene_map_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
@@ -442,6 +521,40 @@ def assemble(
         genes, gene_expressions, unmapped = _build_gene_expression(dm, ge_data, cells)
         if unmapped:
             raise ValueError(f"SI6 class labels not mapped to a cell_class: {unmapped}")
+
+    # --- Innexin expression (optional): Bhattacharya 2019 Fig 1B, non-dauer + dauer datasets ---
+    if innexin_expr_path and innexin_gene_map_path:
+        from celegans_connectome_kg.ingest.innexin_expression import read_innexin_expression
+
+        inx_data = read_innexin_expression(innexin_expr_path, innexin_gene_map_path)
+        datasets += [
+            dm.Dataset(
+                id=_dataset_id(_INNEXIN_ND_DATASET),
+                name="Bhattacharya et al. 2019 innexin expression (non-dauer)",
+                description=(
+                    "Neuronal expression of gap-junction innexin genes in non-dauer animals, from "
+                    "Bhattacharya et al. 2019 (Cell 176:1174-1189, Fig 1B). Reporter-based; genes "
+                    "keyed to WormBase gene ids."
+                ),
+                sex=_HERMAPHRODITE,
+            ),
+            dm.Dataset(
+                id=_dataset_id(_INNEXIN_DA_DATASET),
+                name="Bhattacharya et al. 2019 innexin expression (dauer)",
+                description=(
+                    "Neuronal innexin gene expression in the dauer stage, from Bhattacharya et al. "
+                    "2019 (Fig 1B); the dauer counterpart of the non-dauer dataset."
+                ),
+                sex=_HERMAPHRODITE,
+                life_stage="dauer",
+            ),
+        ]
+        inx_genes, inx_exprs, inx_unmapped = _build_innexin_expression(dm, inx_data, cells)
+        if inx_unmapped:
+            raise ValueError(f"innexin neuron labels not mapped to cells: {inx_unmapped}")
+        seen_gene_ids = {g.id for g in genes}
+        genes += [g for g in inx_genes if g.id not in seen_gene_ids]  # dedup vs Cook innexins
+        gene_expressions += inx_exprs
 
     # --- Neurotransmitter assignments (optional): Wang 2024 per-sex atlas (eLife 95402) ---
     # Reified, sex-qualified NT calls for male-specific and sexually-dimorphic neurons. The
