@@ -3,6 +3,11 @@
 # unqualified Cell.neurotransmitter remains the hermaphrodite / neuron-graph call.
 # This lists the sexually-dimorphic neurons — those with BOTH a hermaphrodite and a male call
 # that differ (e.g. AIM: Glu in the hermaphrodite, ACh in the male).
+#
+# Transmitter code key (letters combine for co-transmission, e.g. "as" = ACh + serotonin,
+# "abgl" = ACh + betaine + GABA + glutamate):
+#   a ACh · b betaine · d dopamine · g GABA · l glutamate · o octopamine
+#   s serotonin · t tyramine · u unknown · n none
 PREFIX cckg: <https://wormbase.org/resources/connectome/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 
