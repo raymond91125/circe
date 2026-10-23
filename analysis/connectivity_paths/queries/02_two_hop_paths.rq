@@ -1,0 +1,26 @@
+# The paths themselves: every TWO-hop CHEMICAL route  AWCL -> X -> AVBL, with the intermediary X
+# and the per-hop synapse weight (aggregated across datasets with MAX).
+#
+# Unlike the reachability path query, explicit per-hop joins CAN constrain connection_type: each hop
+# binds its own Connection node (?c1, ?c2) and filters it to "chemical". This is the type-pure,
+# path-returning counterpart of 01 -- it names the intermediaries (AIBL, AIYL, ADLL, AVAL for this
+# pair) rather than just answering yes/no.
+#
+# Practical to ~3 hops; beyond that the join count explodes and arbitrary-length / shortest /
+# weight-thresholded path finding should move to paths.py (networkx over the typed edge set).
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?mid (MAX(?w1) AS ?hop1) (MAX(?w2) AS ?hop2) WHERE {
+  ?c1 a cckg:Connection ; cckg:connection_type "chemical" ;
+      cckg:pre  <https://wormbase.org/resources/connectome/cell/AWCL> ;
+      cckg:post ?m ; cckg:weight ?w1 .
+  ?c2 a cckg:Connection ; cckg:connection_type "chemical" ;
+      cckg:pre  ?m ;
+      cckg:post <https://wormbase.org/resources/connectome/cell/AVBL> ; cckg:weight ?w2 .
+  ?m dcterms:title ?mid .
+  FILTER(?m != <https://wormbase.org/resources/connectome/cell/AWCL> &&
+         ?m != <https://wormbase.org/resources/connectome/cell/AVBL>)
+}
+GROUP BY ?mid
+ORDER BY DESC(MAX(?w1) + MAX(?w2))

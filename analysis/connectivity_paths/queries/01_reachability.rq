@@ -1,0 +1,20 @@
+# Is AVBL connected to AWCL *indirectly* -- reachable through other neurons? (AWCL has no direct
+# chemical synapse onto AVBL.)
+#
+# Connections are reified (a Connection node carries cckg:pre / cckg:post), so one hop from a cell
+# to a partner is the path  ^cckg:pre/cckg:post : go from the cell UP to its Connection node
+# (^cckg:pre), then DOWN to the partner cell (cckg:post). The '+' repeats it for any number of hops,
+# i.e. reachability.
+#
+# LIMITATION (be honest): a SPARQL property path CANNOT constrain the connection_type of each
+# intermediate Connection -- the type lives on the Connection node, not on an edge the path steps
+# along. So this ASK traverses EVERY edge type, including the ~125k predicted neuropeptide edges,
+# and in a connectome that makes almost every pair "reachable" -- the YES below is not evidence of a
+# wiring (chemical/gap) route. For a type-pure answer, and for the actual paths, use paths.py.
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+
+ASK {
+  <https://wormbase.org/resources/connectome/cell/AWCL>
+    (^cckg:pre/cckg:post)+
+  <https://wormbase.org/resources/connectome/cell/AVBL> .
+}
