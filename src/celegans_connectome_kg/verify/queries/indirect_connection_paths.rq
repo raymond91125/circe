@@ -1,0 +1,29 @@
+# How is one cell connected to another INDIRECTLY -- through an intermediary? Lists every two-hop
+# chemical route  A -> X -> B,  with the intermediary X and the synapse weight of each hop
+# (aggregated across datasets with MAX). Example: AWCL -> X -> AVBL -- AWCL makes no direct chemical
+# synapse onto AVBL, but reaches it via AIBL / AIYL / ADLL / AVAL (AIB/AIY are AWC's first-layer
+# interneurons).
+#
+# To try another pair, replace the two .../cell/AWCL (source) and .../cell/AVBL (target) below.
+# To keep only strong links, add after GROUP BY:   HAVING(MAX(?w1) >= 5 && MAX(?w2) >= 5)
+# For electrical synapses instead, change both "chemical" to "gap_junction".
+#
+# This is the two-hop case. For reachability at any depth, the shortest path, longer or
+# strength-filtered paths, or the combined chemical+gap "synaptic" graph, see
+# analysis/connectivity_paths/ (paths.py).
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?intermediary (MAX(?w1) AS ?hop1_weight) (MAX(?w2) AS ?hop2_weight) WHERE {
+  ?c1 a cckg:Connection ; cckg:connection_type "chemical" ;
+      cckg:pre  <https://wormbase.org/resources/connectome/cell/AWCL> ;
+      cckg:post ?x ; cckg:weight ?w1 .
+  ?c2 a cckg:Connection ; cckg:connection_type "chemical" ;
+      cckg:pre  ?x ;
+      cckg:post <https://wormbase.org/resources/connectome/cell/AVBL> ; cckg:weight ?w2 .
+  ?x dcterms:title ?intermediary .
+  FILTER(?x != <https://wormbase.org/resources/connectome/cell/AWCL> &&
+         ?x != <https://wormbase.org/resources/connectome/cell/AVBL>)
+}
+GROUP BY ?intermediary
+ORDER BY DESC(MAX(?w1) + MAX(?w2))
