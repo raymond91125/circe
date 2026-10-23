@@ -1,0 +1,10707 @@
+{
+  "source": "AWCL",
+  "target": "AVBL",
+  "types_requested": "synaptic",
+  "types": [
+    "chemical",
+    "gap_junction"
+  ],
+  "min_weights": {
+    "chemical": 0.0,
+    "gap_junction": 0.0
+  },
+  "max_hops": 3,
+  "direct": false,
+  "reachable": true,
+  "shortest_hops": 2,
+  "shortest_path": {
+    "path": [
+      "AWCL",
+      "ADLL",
+      "AVBL"
+    ],
+    "hops": 2,
+    "weights": [
+      1.0,
+      12.0
+    ],
+    "hop_types": [
+      [
+        "chemical"
+      ],
+      [
+        "chemical"
+      ]
+    ],
+    "min_weight": 1.0
+  },
+  "n_shortest_paths": 4,
+  "paths_within_max_hops": [
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 2,
+      "weights": [
+        1.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 2,
+      "weights": [
+        12.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 12.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 2,
+      "weights": [
+        22.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 2,
+      "weights": [
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "ADAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        5.0,
+        16.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "AVAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "AVHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "AVJL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        5.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "PVQL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "RICR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "RIFL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        46.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "SIBDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        15.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "SIBVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "URBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADFL",
+        "URYVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "ADAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        16.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "ADLR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        14.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        26.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        9.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        16.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AVAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        5.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AVDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        15.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AVFL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        32.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AVHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AVHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AVJL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        10.0,
+        5.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AVJR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        9.0,
+        10.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "HSNL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "HSNR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "PVCL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        17.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "PVNL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        18.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "PVPL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        13.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "PVQL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ADLL",
+        "RMGL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AFDL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AFDL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        59.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AFDL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        4.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AFDL",
+        "URBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        9.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AFDR",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AFDR",
+        "ASHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        4.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AFDR",
+        "URBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "ADAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        6.0,
+        16.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 6.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        4.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 4.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        45.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 13.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "AIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        6.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        6.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        2.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        4.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "HSNL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "PVQL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        1.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "RIFL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        27.0,
+        46.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 13.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "RMGL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        2.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAL",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        13.0,
+        2.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAR",
+        "ADAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        9.0,
+        6.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 6.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAR",
+        "ADLR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        9.0,
+        12.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAR",
+        "ASHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        9.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAR",
+        "ASJR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        9.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAR",
+        "HSNL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        9.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAR",
+        "PVQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        9.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAR",
+        "RIFL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        9.0,
+        2.0,
+        46.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAR",
+        "RIFR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        9.0,
+        10.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIAR",
+        "URXR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        9.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "ADAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "ASHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        6.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "AVAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "AVBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        33.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "DVC",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        4.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "FLPL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        22.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "FLPR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        2.0,
+        30.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "PVPR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "PVT",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        16.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "RIFL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        46.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "RIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        2.0,
+        23.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        56.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 11.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "SAAVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "SAAVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "SDQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        36.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "SIBVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBL",
+        "SIBVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        6.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "ADAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        16.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "ADLR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "AQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        9.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "AVAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        5.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "AVBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        19.0,
+        33.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 6.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "AVKL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "DVA",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        3.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "DVC",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        9.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "FLPL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        22.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "FLPR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        5.0,
+        30.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 5.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "PVPL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        13.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "PVT",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        11.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 6.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "RICR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "RIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        47.0,
+        23.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 6.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        5.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 5.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "SAAVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "SDQL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "SIBDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        15.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "SIBVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "URYDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIBR",
+        "VB1",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "AVAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "CEMVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        33.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "CEPVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        7.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        7.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "RID",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "SAAVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINL",
+        "URXR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINR",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        9.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINR",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINR",
+        "CEPVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINR",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        8.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINR",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINR",
+        "RID",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINR",
+        "RIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        23.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINR",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AINR",
+        "URXR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        1.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        3.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "AVKL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        4.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "CEMVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        2.0,
+        10.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "CEPVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        4.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "DVA",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        1.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "HSNR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        142.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 6.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "RIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        5.0,
+        23.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 5.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "SIBDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        1.0,
+        15.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYL",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        22.0,
+        1.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYR",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        7.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYR",
+        "HSNL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYR",
+        "PVQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYR",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        117.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIYR",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        12.0,
+        3.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        11.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 5.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        3.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "ASHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "AVHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "AVKL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "DVA",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "RICR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        11.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 5.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "RID",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "RIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        35.0,
+        23.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 5.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "SIBDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        15.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "SIBVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "SMBDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "URYDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZL",
+        "VB2",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        5.0,
+        1.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "ADLR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        8.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        72.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 4.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        1.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "ASHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        6.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "DVA",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        3.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "DVC",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        34.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 4.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AIZR",
+        "SMBDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        4.0,
+        25.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASEL",
+        "ADAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        7.0,
+        1.0,
+        16.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASEL",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        7.0,
+        2.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASEL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        7.0,
+        18.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 7.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASEL",
+        "AIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        7.0,
+        2.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASEL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        7.0,
+        32.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASEL",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        7.0,
+        1.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASEL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        7.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASEL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        7.0,
+        1.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASEL",
+        "SAAVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        7.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASER",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        3.0,
+        4.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASER",
+        "ADLR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        3.0,
+        2.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASER",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        3.0,
+        6.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASER",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        3.0,
+        14.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASER",
+        "ASHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        3.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASER",
+        "HSNR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        3.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASER",
+        "PVQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        3.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASGL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        17.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASGL",
+        "AIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        6.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASGL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASGL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASGL",
+        "CEPVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASGL",
+        "RICL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        7.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASGR",
+        "ADLR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASGR",
+        "ASJR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIL",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        11.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIL",
+        "AIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIL",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIL",
+        "CEPVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIL",
+        "CEPVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIL",
+        "SAAVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIR",
+        "ADLR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIR",
+        "ASHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIR",
+        "AVAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASIR",
+        "CEPVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "ADAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        16.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        3.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        10.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "AIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        7.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        18.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "AVFL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        32.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "AVHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        8.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "AVJL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        4.0,
+        5.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "HSNL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "PVQL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        8.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "ASKL",
+        "RMGL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        3.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        11.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "AVDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "AWBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "CEPVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "DVA",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        35.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "SAAVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AUAL",
+        "URYDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AS10",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        7.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AS6",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AS7",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        42.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AVAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        108.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AVBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        33.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AVDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        17.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AVHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AVJL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        7.0,
+        5.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "AVJR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        10.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "CEMVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        11.0,
+        33.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "DA6",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        85.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "DB5",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "DB6",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        7.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "DB7",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        7.0,
+        18.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "DVC",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "FLPL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        22.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "PHCL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "PVCL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        21.0,
+        17.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "PVCR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        57.0,
+        21.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "PVNL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        18.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "PVPL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        13.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "PVPR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "PVX",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        5.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "RICR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "RIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        23.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        24.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "SDQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        36.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "URYDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "URYDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "URYVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "URYVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        5.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "VB10",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        10.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "VB11",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "VB6",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        15.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "VB8",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        38.0,
+        10.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AVAL",
+        "VB9",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        16.0,
+        13.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AWCR",
+        "ADAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        14.0,
+        2.0,
+        16.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AWCR",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        14.0,
+        1.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AWCR",
+        "ADLR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        14.0,
+        3.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 3.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AWCR",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        14.0,
+        9.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 9.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AWCR",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        14.0,
+        12.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "AWCR",
+        "ASHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        14.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGL",
+        "AVAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        6.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGL",
+        "CEPVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGL",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        20.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGL",
+        "RID",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        4.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGL",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGL",
+        "URXR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "AQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        3.0,
+        9.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        5.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "AVBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        33.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "CEPVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "DVC",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "PVPL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        13.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        22.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "RID",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "BAGR",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL1L",
+        "RICL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        7.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL1L",
+        "RICR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL1L",
+        "RMGL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL1L",
+        "URBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL1R",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        11.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL1R",
+        "RICL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        7.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL1R",
+        "RICR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL1R",
+        "URXR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2L",
+        "ADLL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        12.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2L",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2L",
+        "DVC",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2L",
+        "RICL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        7.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2L",
+        "RICR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2L",
+        "RMGL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        5.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2L",
+        "SIBDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        15.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2L",
+        "URBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        19.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2L",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2R",
+        "DVC",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2R",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        15.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2R",
+        "RICL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        7.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2R",
+        "RICR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2R",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2R",
+        "RMGR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2R",
+        "URBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        10.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2R",
+        "URXR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "IL2R",
+        "URYVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        5.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "AQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        4.0,
+        9.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 4.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "CEPDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "CEPVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        5.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "CEPVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        8.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 6.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        22.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "RIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        23.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "RMGR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        4.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "SAAVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "SDQL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "SDQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        36.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "SMBDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        7.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAL",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "AVAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "CEPDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "CEPVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "CEPVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        17.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        32.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "RICR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "RMGL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "SAAVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "SAAVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "SIBDL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        15.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIAR",
+        "SMBDR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "ADAR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "AIYL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "AQR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        5.0,
+        9.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 5.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "ASHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        14.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "ASHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "AVAL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "AVHL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "AVHR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        3.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "CEMVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        10.0,
+        10.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 6.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "DVA",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        9.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 6.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "HSNL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "PVPL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        2.0,
+        13.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "PVPR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        8.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "RMGL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "RMGR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "URXL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        9.0,
+        4.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 4.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "URXR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        12.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RIR",
+        "URYVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        6.0,
+        1.0,
+        5.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "AIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        24.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "AVBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        33.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "AVKL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        9.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "CEPVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "DVC",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "PVT",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        3.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "RIML",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        3.0,
+        23.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "RIMR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        11.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "RMGR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 2.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "SAAVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "RMFL",
+        "URBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        2.0,
+        1.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "SMDVL",
+        "AVKL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "SMDVL",
+        "CEPVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        4.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "SMDVL",
+        "PVR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        17.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "SMDVL",
+        "RIBL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        1.0,
+        6.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "SMDVL",
+        "RIBR",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        9.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ],
+        [
+          "chemical",
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "SMDVL",
+        "SAAVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        8.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "chemical"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "SMDVL",
+        "SIBVL",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        30.0,
+        2.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    },
+    {
+      "path": [
+        "AWCL",
+        "SMDVL",
+        "VB1",
+        "AVBL"
+      ],
+      "hops": 3,
+      "weights": [
+        1.0,
+        6.0,
+        1.0
+      ],
+      "hop_types": [
+        [
+          "chemical"
+        ],
+        [
+          "gap_junction"
+        ],
+        [
+          "gap_junction"
+        ]
+      ],
+      "min_weight": 1.0
+    }
+  ],
+  "n_paths_within_max_hops": 404
+}

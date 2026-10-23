@@ -136,6 +136,15 @@ the KG (`uv run cckg build && uv run cckg export`) **restart** the endpoint to s
 data. It is read-only (SPARQL Update is refused); if exposed publicly, front it with a reverse
 proxy / firewall as appropriate.
 
+## Analyses
+
+Worked, reproducible analyses over the built graph live in [`analysis/`](analysis/) — see the
+[index](analysis/README.md). For example, [`analysis/connectivity_paths/`](analysis/connectivity_paths/)
+answers *whether and how any two cells are connected* (directly or indirectly, with the paths) over
+chemical synapses, gap junctions, or the combined synaptic graph, and
+[`analysis/feeding_pathways/`](analysis/feeding_pathways/) turns a whole-brain imaging correlation
+into testable molecular hypotheses — entirely in SPARQL.
+
 ## Related repositories
 
 - [CIRCE](https://github.com/raymond91125/circe) (knowledge-graph core + project home — this repo)

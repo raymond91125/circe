@@ -1,0 +1,28 @@
+# Strength-filtered paths: the same two-hop chemical routes AWCL -> X -> AVBL as 02, but keeping only
+# edges of at least 5 synaptic contacts on BOTH hops -- i.e. dropping weak connections.
+#
+# The threshold is applied per hop with a HAVING on each hop's dataset-aggregated (MAX) weight. For
+# this pair only the AWCL -> AIBL -> AVBL route survives (12 and 24 contacts); the AIYL / ADLL / AVAL
+# routes each include a single-contact hop and are filtered out. Edit the two "5"s to retune.
+#
+# Per-type thresholds: this query is single-type (chemical on both hops), so one threshold applies.
+# In a mixed-type query each hop binds its own Connection with its own connection_type, so you can
+# give each hop a different FILTER -- see paths.py --min-weight 'chemical=5,gap_junction=2' for the
+# same idea applied to arbitrary-length paths.
+PREFIX cckg: <https://wormbase.org/resources/connectome/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?mid (MAX(?w1) AS ?hop1) (MAX(?w2) AS ?hop2) WHERE {
+  ?c1 a cckg:Connection ; cckg:connection_type "chemical" ;
+      cckg:pre  <https://wormbase.org/resources/connectome/cell/AWCL> ;
+      cckg:post ?m ; cckg:weight ?w1 .
+  ?c2 a cckg:Connection ; cckg:connection_type "chemical" ;
+      cckg:pre  ?m ;
+      cckg:post <https://wormbase.org/resources/connectome/cell/AVBL> ; cckg:weight ?w2 .
+  ?m dcterms:title ?mid .
+  FILTER(?m != <https://wormbase.org/resources/connectome/cell/AWCL> &&
+         ?m != <https://wormbase.org/resources/connectome/cell/AVBL>)
+}
+GROUP BY ?mid
+HAVING(MAX(?w1) >= 5 && MAX(?w2) >= 5)
+ORDER BY DESC(MAX(?w1) + MAX(?w2))
