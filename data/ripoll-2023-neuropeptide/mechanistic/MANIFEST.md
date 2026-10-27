@@ -7,7 +7,8 @@ folder adds the mechanistic decomposition — **which** peptide→receptor pairs
 ## Source
 Same publication (Ripoll-Sánchez et al. 2023, *Neuron* 111:3570–3589; PMID 37935195) and repository
 (github.com/LidiaRipollSanchez/Neuropeptide-Connectome). NPP–GPCR pairs are the biochemically
-deorphanized interactions of Beets et al. 2023, filtered to **EC50 ≤ 500 nM**.
+deorphanized interactions of Beets et al. 2023 (*Cell Rep* 42:113058; PMID 37656621;
+doi:10.1016/j.celrep.2023.113058), filtered to **EC50 ≤ 500 nM**.
 
 ## Vendored files
 

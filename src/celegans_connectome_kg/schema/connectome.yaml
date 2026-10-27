@@ -193,7 +193,8 @@ classes:
   NeuropeptideReceptorPair:
     description: >-
       A biochemically deorphanized neuropeptide(NPP)-ligand → GPCR-receptor pair (Beets et al.
-      2023, filtered to EC50 <= 500 nM), one of the 92 pairs underlying the Ripoll-Sanchez et al.
+      2023, PMID 37656621, doi:10.1016/j.celrep.2023.113058, filtered to EC50 <= 500 nM), one of
+      the 92 pairs underlying the Ripoll-Sanchez et al.
       2023 predicted neuropeptidergic connectome: a ``neuropeptidergic`` Connection source->target
       exists because the source expresses one or more of these ligands and the target expresses the
       cognate GPCR, and the edge weight is the count of such pairs. Ligand and GPCR are carried both
