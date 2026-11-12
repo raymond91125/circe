@@ -9,6 +9,7 @@ See the conventions in [`../CLAUDE.md`](../CLAUDE.md) before adding one.
 |----------|-----------------|
 | [`connectivity_paths/`](connectivity_paths/) | **Are two cells connected — directly or indirectly — and by what paths?** Reachability, shortest path, and all routes ≤ k hops, per connection type or over the combined `synaptic` graph, with strength filtering. SPARQL (`queries/*.rq`) + a `paths.py` tool. |
 | [`feeding_pathways/`](feeding_pathways/) | How the extra-pharyngeal "feeding" neurons AIN / ASI / AVK could reach the pharynx — a whole-brain imaging correlation turned into testable molecular hypotheses, answered entirely in SPARQL. |
+| [`can_neuron/`](can_neuron/) | **Is the CAN pair a chemical-transmitting neuron?** Connectome (zero chemical outputs) + CeNGEN scRNA-seq (lacks `snt-1`/`unc-10`) + Hobert 2015 reporter (sole neuron missing the `rab-3` pan-neuronal reporter) converge: no conventional fast synaptic transmission. |
 | [`neurotransmitter_reconciliation.md`](neurotransmitter_reconciliation.md) | Reconciles neuron neurotransmitter assignments across three sources (`reconcile_neurotransmitters.py`). |
 | `pharynx_motif_analysis.py` → [`pharynx-motifs.html`](pharynx-motifs.html) | Network-motif (triad) analysis of the Cook 2020 pharyngeal connectome. |
 | `pharynx_communities.py` → [`pharynx-communities.html`](pharynx-communities.html) | Louvain community detection on the Cook 2020 pharyngeal connectome. |
