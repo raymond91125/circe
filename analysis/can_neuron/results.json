@@ -1,0 +1,325 @@
+{
+  "source": "outputs/connectome.json",
+  "cells": {
+    "CANL": {
+      "cell_type": "other",
+      "anatomy": "WBbt:0004949",
+      "neurotransmitter_code": "b",
+      "sexes": [
+        "hermaphrodite",
+        "male"
+      ]
+    },
+    "CANR": {
+      "cell_type": "other",
+      "anatomy": "WBbt:0004947",
+      "neurotransmitter_code": "b",
+      "sexes": [
+        "hermaphrodite",
+        "male"
+      ]
+    }
+  },
+  "neurotransmitter_code_legend": "b = betaine (same code CIRCE assigns ASIL/ASIR)",
+  "structural_connections_EM": {
+    "chemical": {
+      "hermaphrodite": [
+        [
+          "ALA",
+          "CANL"
+        ],
+        [
+          "ALA",
+          "CANR"
+        ]
+      ],
+      "male": [
+        [
+          "ALA",
+          "CANL"
+        ],
+        [
+          "ALA",
+          "CANR"
+        ]
+      ],
+      "witvliet_2020_6": [
+        [
+          "ALA",
+          "CANR"
+        ]
+      ]
+    },
+    "gap_junction": {
+      "hermaphrodite": [
+        [
+          "ALA",
+          "CANL"
+        ],
+        [
+          "ALA",
+          "CANR"
+        ],
+        [
+          "CANL",
+          "PVDL"
+        ],
+        [
+          "CANL",
+          "exc_cell"
+        ],
+        [
+          "CANL",
+          "hyp"
+        ],
+        [
+          "CANR",
+          "PVDR"
+        ],
+        [
+          "CANR",
+          "exc_cell"
+        ],
+        [
+          "CANR",
+          "hyp"
+        ]
+      ],
+      "male": [
+        [
+          "ALA",
+          "CANL"
+        ],
+        [
+          "ALA",
+          "CANR"
+        ],
+        [
+          "CANL",
+          "PVDL"
+        ],
+        [
+          "CANL",
+          "exc_cell"
+        ],
+        [
+          "CANL",
+          "hyp"
+        ],
+        [
+          "CANR",
+          "PVDR"
+        ],
+        [
+          "CANR",
+          "exc_cell"
+        ],
+        [
+          "CANR",
+          "hyp"
+        ]
+      ],
+      "witvliet_2020_7": [
+        [
+          "CANR",
+          "CEPshDR"
+        ],
+        [
+          "CEPshDR",
+          "CANR"
+        ]
+      ]
+    }
+  },
+  "signaling_gene_expression": {
+    "CANL": [
+      [
+        "ckr-2",
+        "neuropeptide_receptor"
+      ],
+      [
+        "dmsr-1",
+        "neuropeptide_receptor"
+      ],
+      [
+        "flp-10",
+        "neuropeptide"
+      ],
+      [
+        "flp-2",
+        "neuropeptide"
+      ],
+      [
+        "flp-5",
+        "neuropeptide"
+      ],
+      [
+        "frpr-18",
+        "neuropeptide_receptor"
+      ],
+      [
+        "inx-13",
+        "innexin"
+      ],
+      [
+        "inx-7",
+        "innexin"
+      ],
+      [
+        "lury-1",
+        "neuropeptide"
+      ],
+      [
+        "nlp-64",
+        "neuropeptide"
+      ],
+      [
+        "nmur-1",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-22",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-3",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-35",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-37",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-4",
+        "neuropeptide_receptor"
+      ],
+      [
+        "ser-2",
+        "monoamine_receptor"
+      ],
+      [
+        "tkr-2",
+        "neuropeptide_receptor"
+      ],
+      [
+        "trhr-1",
+        "neuropeptide_receptor"
+      ]
+    ],
+    "CANR": [
+      [
+        "ckr-2",
+        "neuropeptide_receptor"
+      ],
+      [
+        "dmsr-1",
+        "neuropeptide_receptor"
+      ],
+      [
+        "flp-10",
+        "neuropeptide"
+      ],
+      [
+        "flp-2",
+        "neuropeptide"
+      ],
+      [
+        "flp-5",
+        "neuropeptide"
+      ],
+      [
+        "frpr-18",
+        "neuropeptide_receptor"
+      ],
+      [
+        "inx-13",
+        "innexin"
+      ],
+      [
+        "inx-7",
+        "innexin"
+      ],
+      [
+        "lury-1",
+        "neuropeptide"
+      ],
+      [
+        "nlp-64",
+        "neuropeptide"
+      ],
+      [
+        "nmur-1",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-22",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-3",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-35",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-37",
+        "neuropeptide_receptor"
+      ],
+      [
+        "npr-4",
+        "neuropeptide_receptor"
+      ],
+      [
+        "ser-2",
+        "monoamine_receptor"
+      ],
+      [
+        "tkr-2",
+        "neuropeptide_receptor"
+      ],
+      [
+        "trhr-1",
+        "neuropeptide_receptor"
+      ]
+    ]
+  },
+  "chemical_output_edges": [],
+  "chemical_input_edges": [
+    [
+      "ALA",
+      "CANL",
+      "cook_2019_hermaphrodite"
+    ],
+    [
+      "ALA",
+      "CANL",
+      "cook_2019_male"
+    ],
+    [
+      "ALA",
+      "CANR",
+      "cook_2019_hermaphrodite"
+    ],
+    [
+      "ALA",
+      "CANR",
+      "cook_2019_male"
+    ],
+    [
+      "ALA",
+      "CANR",
+      "witvliet_2020_6"
+    ]
+  ],
+  "predicted_layer_edge_counts": {
+    "monoaminergic": 4,
+    "neuropeptidergic": 1466
+  },
+  "notes": "CAN has ZERO chemical-synapse outputs across all EM datasets; it appears only postsynaptic (ALA->CAN) plus gap junctions and predicted neuropeptide edges."
+}
