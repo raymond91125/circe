@@ -53,6 +53,13 @@ DEFAULT_COOK_WORMATLAS = Path("data/curation/cook_wormatlas_class.csv")
 DEFAULT_MORILLO_GENES = Path("data/morillo-2025-male/morillo_genes.csv")
 DEFAULT_MORILLO_HERM_EXPR = Path("data/morillo-2025-male/morillo_herm_expression.csv")
 DEFAULT_MORILLO_MALE_EXPR = Path("data/morillo-2025-male/morillo_male_expression.csv")
+DEFAULT_MORILLO_RECEPTOR_GENES = Path("data/morillo-2025-male/morillo_receptor_genes.csv")
+DEFAULT_MORILLO_HERM_RECEPTOR_EXPR = Path(
+    "data/morillo-2025-male/morillo_herm_receptor_expression.csv"
+)
+DEFAULT_MORILLO_MALE_RECEPTOR_EXPR = Path(
+    "data/morillo-2025-male/morillo_male_receptor_expression.csv"
+)
 
 
 @click.group()
@@ -280,6 +287,19 @@ def build(
         ),
         morillo_male_expression_path=(
             DEFAULT_MORILLO_MALE_EXPR if DEFAULT_MORILLO_MALE_EXPR.exists() else None
+        ),
+        morillo_receptor_genes_path=(
+            DEFAULT_MORILLO_RECEPTOR_GENES if DEFAULT_MORILLO_RECEPTOR_GENES.exists() else None
+        ),
+        morillo_herm_receptor_expression_path=(
+            DEFAULT_MORILLO_HERM_RECEPTOR_EXPR
+            if DEFAULT_MORILLO_HERM_RECEPTOR_EXPR.exists()
+            else None
+        ),
+        morillo_male_receptor_expression_path=(
+            DEFAULT_MORILLO_MALE_RECEPTOR_EXPR
+            if DEFAULT_MORILLO_MALE_RECEPTOR_EXPR.exists()
+            else None
         ),
     )
     out_path = out_dir / "connectome.json"

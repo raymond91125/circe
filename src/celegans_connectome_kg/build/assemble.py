@@ -206,9 +206,12 @@ _NP_EXPRESSION_DATASET = "ripoll_2023_expression"
 _MONOAMINE_DATASET = "ripoll_2023_monoamine"
 _MONOAMINE_EXPRESSION_DATASET = "ripoll_2023_monoamine_expression"
 _MONOAMINE_IONOTROPIC_DATASET = "cengen_2021_monoamine_ionotropic_expression"
-#: Morillo et al. 2025 male snRNA-seq atlas -- neuropeptide-ligand expression, one dataset per sex.
+#: Morillo et al. 2025 male snRNA-seq atlas. Ligands (mmc8, per-neuron) and receptors (mmc12,
+#: cluster-level) are separate layers, each one dataset per sex (resolutions kept distinct).
 _MORILLO_HERM_DATASET = "morillo_2025_hermaphrodite"
 _MORILLO_MALE_DATASET = "morillo_2025_male"
+_MORILLO_HERM_RECEPTOR_DATASET = "morillo_2025_hermaphrodite_receptors"
+_MORILLO_MALE_RECEPTOR_DATASET = "morillo_2025_male_receptors"
 
 #: Bhattacharya class labels that don't map to a single CIRCE cell_class (IL1/IL2/RMD subclasses).
 _INNEXIN_SPECIAL = {
@@ -346,11 +349,15 @@ def _build_morillo_expression(dm, genes_map, records, cells, sex, dataset):
     for c in cells:
         if c.cell_class and sex in {str(s) for s in c.sexes}:
             members[str(c.cell_class)].append(c.name)
+    # valid cell/class labels in ANY sex -- a label valid only in the other sex is a cross-sex
+    # column (mmc12 lists all clusters in every sheet) and is skipped, not an error.
+    valid_any = {c.name for c in cells} | {str(c.cell_class) for c in cells if c.cell_class}
     exprs, unmapped, seen = [], set(), set()
     for label, symbol in records:
         targets = [label] if label in names else sorted(members.get(label, []))
         if not targets:
-            unmapped.add(label)
+            if label not in valid_any:
+                unmapped.add(label)
             continue
         g = genes_map[symbol]
         wbid = g.wbgene.split(":")[-1]
@@ -445,6 +452,9 @@ def assemble(
     morillo_genes_path: Path | None = None,
     morillo_herm_expression_path: Path | None = None,
     morillo_male_expression_path: Path | None = None,
+    morillo_receptor_genes_path: Path | None = None,
+    morillo_herm_receptor_expression_path: Path | None = None,
+    morillo_male_receptor_expression_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
@@ -904,33 +914,46 @@ def assemble(
         genes += [g for g in mi_genes if g.id not in seen_gene_ids]
         gene_expressions += mi_exprs
 
-    # --- Morillo et al. 2025 male/herm neuropeptide-ligand expression (Phase A) ---
-    # Sex-shared FLP/NLP/INS ligands from the male snRNA-seq atlas (mmc8), continuous SCT values
-    # binarized at a CeNGEN-threshold-4-calibrated cutoff (T=0.2526) by the data-dir build script.
-    # The male molecular counterpart to the already-ingested Cook 2019 male structural connectome;
-    # male and herm are separate sex-tagged datasets (within-platform, never pooled with CeNGEN).
-    if morillo_genes_path and (morillo_herm_expression_path or morillo_male_expression_path):
-        from celegans_connectome_kg.ingest.cengen import read_expression, read_gene_table
+    # --- Morillo et al. 2025 male/herm neuropeptide expression ---
+    # The male molecular counterpart to the already-ingested Cook 2019 male structural connectome,
+    # in two layers kept at their native resolution (never pooled with CeNGEN): Phase A ligands
+    # (mmc8, per-neuron) and Phase B NPP-GPCR receptors (mmc12, cluster-level). Each layer is one
+    # sex-tagged dataset per sex; class columns expand to member cells, merged/non-neuronal columns
+    # drop, and continuous SCT values are binarized at the layer's own CeNGEN-calibrated cutoff.
+    from celegans_connectome_kg.ingest.cengen import read_expression, read_gene_table
 
-        mo_genes_map = read_gene_table(morillo_genes_path)
-        seen_gene_ids = {g.id for g in genes}
-        _MORILLO = (
-            (
-                _MORILLO_HERM_DATASET,
-                _HERMAPHRODITE,
-                morillo_herm_expression_path,
-                "hermaphrodite",
-                "the within-platform hermaphrodite reference for the male dataset",
-            ),
-            (
-                _MORILLO_MALE_DATASET,
-                _MALE,
-                morillo_male_expression_path,
-                "male",
-                "the male molecular counterpart to the Cook et al. 2019 male structural connectome",
-            ),
-        )
-        for ds, sex, path, sexword, tail in _MORILLO:
+    seen_gene_ids = {g.id for g in genes}
+    #: (genes_path, herm_path, male_path, herm_ds, male_ds, gene_kind, source_blurb, cutoff)
+    _MORILLO_LAYERS = (
+        (
+            morillo_genes_path,
+            morillo_herm_expression_path,
+            morillo_male_expression_path,
+            _MORILLO_HERM_DATASET,
+            _MORILLO_MALE_DATASET,
+            "neuropeptide (FLP/NLP/INS) ligand",
+            "supplement mmc8 (sex-shared SCT, per-neuron)",
+            "T=0.2526",
+        ),
+        (
+            morillo_receptor_genes_path,
+            morillo_herm_receptor_expression_path,
+            morillo_male_receptor_expression_path,
+            _MORILLO_HERM_RECEPTOR_DATASET,
+            _MORILLO_MALE_RECEPTOR_DATASET,
+            "neuropeptide-receptor (NPP-GPCR)",
+            "supplement mmc12 (genome-wide, cluster-level)",
+            "T=0.0491",
+        ),
+    )
+    for genes_path, herm_path, male_path, herm_ds, male_ds, kind, blurb, cutoff in _MORILLO_LAYERS:
+        if not genes_path or not (herm_path or male_path):
+            continue
+        mo_genes_map = read_gene_table(genes_path)
+        for ds, sex, path, sexword in (
+            (herm_ds, _HERMAPHRODITE, herm_path, "hermaphrodite"),
+            (male_ds, _MALE, male_path, "male"),
+        ):
             if not path:
                 continue
             recs = read_expression(path)
@@ -938,18 +961,19 @@ def assemble(
                 dm, mo_genes_map, recs, cells, sex, ds
             )
             if mo_unmapped:
-                raise ValueError(f"Morillo {sexword} labels not in the connectome: {mo_unmapped}")
+                raise ValueError(
+                    f"Morillo {sexword} {kind} labels not in the connectome: {mo_unmapped}"
+                )
             datasets.append(
                 dm.Dataset(
                     id=_dataset_id(ds),
-                    name=f"Morillo 2025 neuropeptide-ligand expression ({sexword})",
+                    name=f"Morillo 2025 {kind} expression ({sexword})",
                     description=(
-                        f"Per-neuron neuropeptide (FLP/NLP/INS) ligand expression in the adult "
-                        f"{sexword}, from the Morillo et al. 2025 single-nucleus RNA-seq atlas "
-                        "(Cell Reports, PMID 40682776; doi:10.1016/j.celrep.2025.116016), "
-                        "supplement mmc8 (sex-shared SCT). Continuous SCT values binarized at a "
-                        "CeNGEN threshold-4-calibrated cutoff (T=0.2526); merged clusters and "
-                        f"non-neuronal columns dropped, class columns expanded to member cells. {tail}."
+                        f"Per-neuron {kind} expression in the adult {sexword}, from the Morillo et "
+                        "al. 2025 single-nucleus RNA-seq atlas (Cell Reports, PMID 40682776; "
+                        f"doi:10.1016/j.celrep.2025.116016), {blurb}. Continuous SCT values binarized "
+                        f"at a CeNGEN threshold-4-calibrated cutoff ({cutoff}); merged clusters and "
+                        "non-neuronal columns dropped, class columns expanded to member cells."
                     ),
                     sex=sex,
                     life_stage="adult",

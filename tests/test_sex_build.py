@@ -92,6 +92,18 @@ def built():
         / "data"
         / "morillo-2025-male"
         / "morillo_male_expression.csv",
+        morillo_receptor_genes_path=REPO
+        / "data"
+        / "morillo-2025-male"
+        / "morillo_receptor_genes.csv",
+        morillo_herm_receptor_expression_path=REPO
+        / "data"
+        / "morillo-2025-male"
+        / "morillo_herm_receptor_expression.csv",
+        morillo_male_receptor_expression_path=REPO
+        / "data"
+        / "morillo-2025-male"
+        / "morillo_male_receptor_expression.csv",
     )
     return connectome, stats
 
@@ -398,7 +410,8 @@ def test_gene_expression_per_cell_and_isoform(built) -> None:
 
 def test_build_stats_partition(built) -> None:
     _, stats = built
-    assert stats.datasets_by_sex["male"] == 2  # cook_2019_male + morillo_2025_male
+    # cook_2019_male + morillo_2025_male (ligands) + morillo_2025_male_receptors
+    assert stats.datasets_by_sex["male"] == 3
     assert stats.datasets_by_sex["hermaphrodite"] >= 15
     # most cells are shared; a substantial male-only and herm-only tail exist
     assert stats.cells_by_sex["hermaphrodite+male"] > 400
@@ -795,6 +808,49 @@ def test_morillo_male_expression_ingested(built) -> None:
     assert male_cells & male_only  # genuine male-specific coverage
     # merged clusters ("PHA/PHB/ASH", "PHA/PHB") are dropped, not fanned out
     assert "PHAL" not in herm_cells and "PHAL" not in male_cells
+
+
+def test_morillo_receptor_expression_ingested(built) -> None:
+    """Morillo 2025 Phase B: neuropeptide-receptor (NPP-GPCR) expression from the genome-wide atlas
+    (mmc12, cluster-level), both sexes, binarized at a receptor-specific CeNGEN-calibrated cutoff.
+    The receptor side the male neuropeptide connectome needs (ligands came from mmc8 in Phase A)."""
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+
+    ds = {strip(d.id): d for d in connectome.datasets}
+    assert str(ds["morillo_2025_male_receptors"].sex) == "male"
+    assert str(ds["morillo_2025_hermaphrodite_receptors"].sex) == "hermaphrodite"
+    assert all(
+        str(ds[k].life_stage) == "adult"
+        for k in ("morillo_2025_male_receptors", "morillo_2025_hermaphrodite_receptors")
+    )
+
+    herm = [
+        e
+        for e in connectome.gene_expressions
+        if strip(e.dataset) == "morillo_2025_hermaphrodite_receptors"
+    ]
+    male = [
+        e for e in connectome.gene_expressions if strip(e.dataset) == "morillo_2025_male_receptors"
+    ]
+    assert len(herm) == 1664 and len(male) == 1603
+    assert all(str(e.confidence) == "reported" for e in herm + male)
+
+    # 45 NPP-GPCR receptors, category neuropeptide_receptor, keyed by WBGene so they share with the
+    # Ripoll receptor gene nodes (no duplication). 6 (npr-37/39/40/41/42/43) are below mmc12's 0.5%
+    # inclusion threshold and absent.
+    recv = [g for g in connectome.genes if str(g.category) == "neuropeptide_receptor"]
+    assert len({g.id for g in recv}) == len(recv)  # receptor gene nodes deduped by WBGene
+    assert len({strip(e.gene) for e in herm + male}) == 45
+
+    herm_cells = {strip(e.cell) for e in herm}
+    male_cells = {strip(e.cell) for e in male}
+    # cross-sex columns (mmc12 lists all clusters in every sheet) are resolved per sex, not errored:
+    # hermaphrodite-specific VCn/HSN only in herm; male-specific CEM only in male.
+    male_only = {c.name for c in connectome.cells if {str(s) for s in c.sexes} == {"male"}}
+    assert male_cells & male_only  # male-specific receptor coverage
+    assert not (herm_cells & male_only)  # no male-specific cells leak into the herm dataset
+    assert "HSNL" not in male_cells  # herm-specific neuron absent from the male dataset
 
 
 def test_neuropeptide_pairs_map_cell_level_matches_weight(built) -> None:
