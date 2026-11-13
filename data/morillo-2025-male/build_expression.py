@@ -66,11 +66,29 @@ ALIAS = {"VB": "VBn", "VC": "VCn", "VD": "VDn", "DA": "DAn", "DB": "DBn", "AS": 
 #: Non-neuronal and ungroundable grouping labels dropped outright (not individual CIRCE neurons).
 DROP_LABELS = {
     # non-neuronal
-    "Intestine", "Int.", "Sperm", "Spermatheca", "Hypodermis", "Hyp.2", "Pharynx",
-    "Excretory Cell", "Ex. C.", "Ex. C", "Musc.",
+    "Intestine",
+    "Int.",
+    "Sperm",
+    "Spermatheca",
+    "Hypodermis",
+    "Hyp.2",
+    "Pharynx",
+    "Excretory Cell",
+    "Ex. C.",
+    "Ex. C",
+    "Musc.",
     # functional super-groups / unresolved generic clusters
-    "Mechanosensory Neurons", "Motor Neurons", "M neurons", "I Neurons", "I neurons",
-    "CP Neurons", "RnA", "RnB", "IL2DV", "IL2LT", "PVS",
+    "Mechanosensory Neurons",
+    "Motor Neurons",
+    "M neurons",
+    "I Neurons",
+    "I neurons",
+    "CP Neurons",
+    "RnA",
+    "RnB",
+    "IL2DV",
+    "IL2LT",
+    "PVS",
 }
 
 
