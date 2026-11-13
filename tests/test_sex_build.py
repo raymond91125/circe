@@ -83,6 +83,15 @@ def built():
         / "data"
         / "cengen-monoamine-ionotropic"
         / "monoamine_ionotropic_expression.csv",
+        morillo_genes_path=REPO / "data" / "morillo-2025-male" / "morillo_genes.csv",
+        morillo_herm_expression_path=REPO
+        / "data"
+        / "morillo-2025-male"
+        / "morillo_herm_expression.csv",
+        morillo_male_expression_path=REPO
+        / "data"
+        / "morillo-2025-male"
+        / "morillo_male_expression.csv",
     )
     return connectome, stats
 
@@ -389,7 +398,7 @@ def test_gene_expression_per_cell_and_isoform(built) -> None:
 
 def test_build_stats_partition(built) -> None:
     _, stats = built
-    assert stats.datasets_by_sex["male"] == 1  # cook_2019_male
+    assert stats.datasets_by_sex["male"] == 2  # cook_2019_male + morillo_2025_male
     assert stats.datasets_by_sex["hermaphrodite"] >= 15
     # most cells are shared; a substantial male-only and herm-only tail exist
     assert stats.cells_by_sex["hermaphrodite+male"] > 400
@@ -741,6 +750,51 @@ def test_neuropeptide_network_derivable_from_expression(built) -> None:
 
     assert dict(derived) == published  # exact first-principles reconstruction, 53,558 edges
     assert len(published) == 53558
+
+
+def test_morillo_male_expression_ingested(built) -> None:
+    """Morillo et al. 2025 (PMID 40682776) male snRNA-seq atlas, Phase A: sex-shared FLP/NLP/INS
+    neuropeptide-ligand expression as two sex-tagged GeneExpression datasets (male + herm),
+    binarized at a CeNGEN-calibrated cutoff. Class columns expand to member cells; merged clusters
+    and non-neuronal columns are dropped; male-specific neurons are included."""
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+
+    # Two sex-tagged adult datasets.
+    ds = {strip(d.id): d for d in connectome.datasets}
+    assert str(ds["morillo_2025_male"].sex) == "male"
+    assert str(ds["morillo_2025_hermaphrodite"].sex) == "hermaphrodite"
+    assert all(
+        str(ds[k].life_stage) == "adult"
+        for k in ("morillo_2025_male", "morillo_2025_hermaphrodite")
+    )
+
+    herm = [
+        e for e in connectome.gene_expressions if strip(e.dataset) == "morillo_2025_hermaphrodite"
+    ]
+    male = [e for e in connectome.gene_expressions if strip(e.dataset) == "morillo_2025_male"]
+    assert len(herm) == 1556 and len(male) == 809
+    assert all(str(e.confidence) == "reported" for e in herm + male)
+
+    # 133 curated neuropeptide-ligand genes, keyed by WBGene so they share with the Ripoll
+    # neuropeptide gene nodes (no duplication). nlp-73/nlp-77 resolve to their canonical
+    # WormBase synonyms ctdh-1 (WBGene00013964) / srlf-1 (WBGene00015514).
+    mo_genes = {strip(e.gene) for e in herm + male}
+    assert len(mo_genes) <= 133
+    # nlp-73 (ctdh-1), nlp-77 (srlf-1)
+    assert {"WB:WBGene00013964", "WB:WBGene00015514"} <= mo_genes
+    assert len({g.id for g in connectome.genes}) == len(connectome.genes)
+
+    herm_cells = {strip(e.cell) for e in herm}
+    male_cells = {strip(e.cell) for e in male}
+    # class columns fan out to member cells (herm "ADE" -> ADEL + ADER)
+    assert {"ADEL", "ADER"} <= herm_cells
+    # male-specific neurons are included (CEM class + individually-named male neurons)
+    assert {"CEMDL", "CEMDR", "CEMVL", "CEMVR", "HOA", "HOB"} <= male_cells
+    male_only = {c.name for c in connectome.cells if {str(s) for s in c.sexes} == {"male"}}
+    assert male_cells & male_only  # genuine male-specific coverage
+    # merged clusters ("PHA/PHB/ASH", "PHA/PHB") are dropped, not fanned out
+    assert "PHAL" not in herm_cells and "PHAL" not in male_cells
 
 
 def test_neuropeptide_pairs_map_cell_level_matches_weight(built) -> None:

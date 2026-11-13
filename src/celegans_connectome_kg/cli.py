@@ -50,6 +50,9 @@ DEFAULT_MONOAMINE_IONOTROPIC_EXPR = Path(
 DEFAULT_GENE_EXPR_XLSX = Path("data/cook-2020-pharynx/SI6_gene_expression.xlsx")
 DEFAULT_GENE_MAP = Path("data/cook-2020-pharynx/si6_genes.csv")
 DEFAULT_COOK_WORMATLAS = Path("data/curation/cook_wormatlas_class.csv")
+DEFAULT_MORILLO_GENES = Path("data/morillo-2025-male/morillo_genes.csv")
+DEFAULT_MORILLO_HERM_EXPR = Path("data/morillo-2025-male/morillo_herm_expression.csv")
+DEFAULT_MORILLO_MALE_EXPR = Path("data/morillo-2025-male/morillo_male_expression.csv")
 
 
 @click.group()
@@ -271,6 +274,13 @@ def build(
             else None
         ),
         gene_map_path=DEFAULT_GENE_MAP if DEFAULT_GENE_MAP.exists() else None,
+        morillo_genes_path=DEFAULT_MORILLO_GENES if DEFAULT_MORILLO_GENES.exists() else None,
+        morillo_herm_expression_path=(
+            DEFAULT_MORILLO_HERM_EXPR if DEFAULT_MORILLO_HERM_EXPR.exists() else None
+        ),
+        morillo_male_expression_path=(
+            DEFAULT_MORILLO_MALE_EXPR if DEFAULT_MORILLO_MALE_EXPR.exists() else None
+        ),
     )
     out_path = out_dir / "connectome.json"
     write_json(connectome, out_path)
