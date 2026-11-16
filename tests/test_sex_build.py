@@ -594,6 +594,38 @@ def test_monoamine_viz_projection(built) -> None:
     assert "AVAL" in db or "ADEL" in db
 
 
+def test_male_neuropeptide_viz_projection(built) -> None:
+    """The derived male NP connectome projects as its own 'np_male' viz database (shared 'np'
+    datatype), carrying male-specific neurons the hermaphrodite network cannot."""
+    from celegans_connectome_kg.export.neuron_graph_json import (
+        male_neuropeptide_cells_projection,
+        male_neuropeptide_connections_projection,
+        male_neuropeptide_database_cells,
+        male_neuropeptide_datasets,
+    )
+
+    connectome, _ = built
+    conns = male_neuropeptide_connections_projection(connectome)
+    assert len(conns) == 11586
+    assert all(c["type"] == "neuropeptidergic" for c in conns)
+    assert all("morillo_np_male" in c["synapses"] for c in conns)  # short viz id (varchar(20))
+
+    ds = male_neuropeptide_datasets()
+    assert len(ds) == 1
+    assert ds[0]["type"] == "np_male" and ds[0]["datatypes"] == "np"
+    assert len(ds[0]["id"]) <= 20 and len(ds[0]["name"]) <= 50
+
+    cells = male_neuropeptide_cells_projection(connectome)
+    names = {c["name"] for c in cells}
+    assert "CA7" in names  # a male-specific neuron participates
+    # endpoints are a subset of male cells (no herm-specific leakage)
+    herm_only = {c.name for c in connectome.cells if {str(s) for s in c.sexes} == {"hermaphrodite"}}
+    assert not (names & herm_only)
+
+    db = male_neuropeptide_database_cells(connectome)
+    assert "CA7" in db  # validNodes upper-cased; male-specific present
+
+
 def test_monoamine_receptor_expression_ingested(built) -> None:
     """The mechanistic layer resolves the 14 receptors to WBGene and ingests their per-neuron CeNGEN
     expression under its own dataset; every pair carries a resolved receptor_gene link."""

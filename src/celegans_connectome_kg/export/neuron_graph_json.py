@@ -949,3 +949,116 @@ def monoamine_datasets() -> list[dict]:
             "datatypes": "ma",
         }
     ]
+
+
+# --- Male neuropeptide projection: the DERIVED male long-range neuropeptide connectome -----------
+#
+# The male counterpart to the Ripoll-Sánchez hermaphrodite neuropeptide network (Phase C): derived
+# in-build from the Morillo 2025 male expression layer. Surfaced the same way as the hermaphrodite
+# network — its OWN viz database (collection "np_male") with a single dataset and the shared "np"
+# edge datatype — but male-sexed, so it carries male-specific neurons (CEM, HOA/HOB, spicule/ray)
+# that the hermaphrodite network cannot. Opt-in (not a default database); predicted, not observed.
+#: KG dataset id (RDF curie; no length limit) and the short viz dataset id (varchar(20) in the DB).
+_MORILLO_MALE_NP_DATASET_ID = "morillo_2025_male_neuropeptide_lr"
+_MORILLO_MALE_NP_VIZ_ID = "morillo_np_male"
+
+
+def _male_nt_map(connectome: object) -> dict[str, str]:
+    """name -> male neurotransmitter (Wang 2024 male/dimorphic call), as in male_cells_projection."""
+    return {
+        _strip(str(a.cell), CELL_PREFIX): str(a.neurotransmitter)
+        for a in (getattr(connectome, "neurotransmitter_assignments", None) or [])
+        if str(a.sex) == "male" and a.neurotransmitter
+    }
+
+
+def male_neuropeptide_cells_projection(connectome: object) -> list[dict]:
+    """Project the neurons of the derived male neuropeptide network into the /api/cells shape.
+
+    Endpoints of the ``morillo_2025_male_neuropeptide_lr`` connections (shared + male-specific), with
+    the male neurotransmitter call preferred — mirroring :func:`male_cells_projection`.
+    """
+    male_nt = _male_nt_map(connectome)
+    endpoints: set[str] = set()
+    for conn in connectome.connections:
+        if _strip(str(conn.dataset), DATASET_PREFIX) != _MORILLO_MALE_NP_DATASET_ID:
+            continue
+        endpoints.add(_strip(conn.pre, CELL_PREFIX))
+        endpoints.add(_strip(conn.post, CELL_PREFIX))
+    return [
+        {
+            "name": c.name,
+            "class": c.cell_class or c.name,
+            "type": _viz_type(c),
+            "neurotransmitter": male_nt.get(c.name) or c.neurotransmitter or "u",
+            "embryonic": bool(c.embryonic),
+            "inhead": bool(c.in_head),
+            "intail": bool(c.in_tail),
+        }
+        for c in connectome.cells
+        if c.name in endpoints
+    ]
+
+
+def male_neuropeptide_connections_projection(connectome: object) -> list[dict]:
+    """Project the derived male neuropeptide network into the /api/connections shape.
+
+    Directed, predicted edges (no gap-junction merge, no per-synapse ids); one weight under the male
+    NP viz dataset id, so the viz shows/selects it like the hermaphrodite range models.
+    """
+    grouped: dict[tuple[str, str], int] = defaultdict(int)
+    for conn in connectome.connections:
+        if str(conn.connection_type) != "neuropeptidergic":
+            continue
+        if _strip(str(conn.dataset), DATASET_PREFIX) != _MORILLO_MALE_NP_DATASET_ID:
+            continue
+        pre = _strip(conn.pre, CELL_PREFIX)
+        post = _strip(conn.post, CELL_PREFIX)
+        grouped[(pre, post)] += int(conn.weight)
+    return [
+        {
+            "pre": pre,
+            "post": post,
+            "type": "neuropeptidergic",
+            "annotations": [],
+            "synapses": {_MORILLO_MALE_NP_VIZ_ID: w},
+        }
+        for (pre, post), w in grouped.items()
+    ]
+
+
+def male_neuropeptide_database_cells(connectome: object) -> list[str]:
+    """Upper-cased node set (cell names + classes) of the derived male NP network, for validNodes."""
+    class_of = {c.name: c.cell_class for c in connectome.cells}
+    names: set[str] = set()
+    for conn in connectome.connections:
+        if str(conn.connection_type) != "neuropeptidergic":
+            continue
+        if _strip(str(conn.dataset), DATASET_PREFIX) != _MORILLO_MALE_NP_DATASET_ID:
+            continue
+        for end in (_strip(conn.pre, CELL_PREFIX), _strip(conn.post, CELL_PREFIX)):
+            names.add(end.upper())
+            cls = class_of.get(end)
+            if cls:
+                names.add(cls.upper())
+    return sorted(names)
+
+
+def male_neuropeptide_datasets() -> list[dict]:
+    """The neuron-graph dataset entry for the derived male NP connectome (an "np" datatype database)."""
+    return [
+        {
+            "id": _MORILLO_MALE_NP_VIZ_ID,
+            "name": "Morillo 2025 (male NP, predicted)",
+            "type": "np_male",
+            "time": _NEUROPEPTIDE_VISUAL_TIME,
+            "visualTime": _NEUROPEPTIDE_VISUAL_TIME,
+            "description": (
+                "Predicted male long-range neuropeptidergic connectome — the male counterpart to the "
+                "Ripoll-Sánchez 2023 hermaphrodite network, derived from the Morillo et al. 2025 male "
+                "expression atlas (PMID 40682776) over the Beets et al. 2023 NPP-GPCR pairs. Carries "
+                "male-specific neurons. Extrasynaptic — not observed synapses."
+            ),
+            "datatypes": "np",
+        }
+    ]

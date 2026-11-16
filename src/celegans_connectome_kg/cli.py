@@ -367,6 +367,10 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         dauer_connections_projection,
         dauer_dataset,
         male_cells_projection,
+        male_neuropeptide_cells_projection,
+        male_neuropeptide_connections_projection,
+        male_neuropeptide_database_cells,
+        male_neuropeptide_datasets,
         monoamine_cells_projection,
         monoamine_connections_projection,
         monoamine_database_cells,
@@ -540,6 +544,27 @@ def export(in_path: Path, out_dir: Path, wbbt: Path, class_curation: Path) -> No
         ma_db = monoamine_database_cells(connectome)
         (ng_dir / "monoamine_cells.json").write_text(json.dumps(ma_db, indent=1))
         click.echo(f"wrote: {ng_dir}/monoamine_cells.json ({len(ma_db)} monoamine-database nodes)")
+
+    # Male neuropeptide viz projection: the DERIVED male long-range neuropeptide connectome (Phase C),
+    # its own "np_male" database with the shared "np" datatype — the male counterpart to the Ripoll
+    # hermaphrodite network, carrying male-specific neurons.
+    male_np_conns = male_neuropeptide_connections_projection(connectome)
+    if male_np_conns:
+        ng_male_np = out_dir / "neuron-graph-male-neuropeptide"
+        ng_male_np.mkdir(parents=True, exist_ok=True)
+        male_np_cells = male_neuropeptide_cells_projection(connectome)
+        (ng_male_np / "cells.json").write_text(json.dumps(male_np_cells, indent=2))
+        (ng_male_np / "connections.json").write_text(json.dumps(male_np_conns, indent=2))
+        (ng_male_np / "datasets.json").write_text(
+            json.dumps(male_neuropeptide_datasets(), indent=2)
+        )
+        click.echo(
+            f"wrote: {ng_male_np}/ (male neuropeptide: {len(male_np_cells)} cells,"
+            f" {len(male_np_conns)} connections)"
+        )
+        male_np_db = male_neuropeptide_database_cells(connectome)
+        (ng_dir / "male_np_cells.json").write_text(json.dumps(male_np_db, indent=1))
+        click.echo(f"wrote: {ng_dir}/male_np_cells.json ({len(male_np_db)} male-NP-database nodes)")
 
 
 @main.command()
