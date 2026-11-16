@@ -1,0 +1,213 @@
+{
+  "haque_source": "Haque et al. 2025 Sci Adv (adv9106) supplementary tables S3/S5/S6/S7/S8",
+  "part_a_concordance": {
+    "high_confidence_62": {
+      "restrict": "Haque Table S5 (62 high-confidence sex-shared)",
+      "metrics": {
+        "male.lig": {
+          "genes_compared": 75,
+          "classes_used": 62,
+          "pooled_auc": 0.889,
+          "mean_per_gene_auc": 0.883,
+          "binary_kappa": 0.088,
+          "binary_agreement": 0.729,
+          "discordant_genes_auc_below_0.5": [
+            [
+              "nlp-52",
+              0.139
+            ],
+            [
+              "flp-16",
+              0.443
+            ],
+            [
+              "nlp-56",
+              0.451
+            ]
+          ]
+        },
+        "male.rec": {
+          "genes_compared": 40,
+          "classes_used": 62,
+          "pooled_auc": 0.791,
+          "mean_per_gene_auc": 0.831,
+          "binary_kappa": 0.337,
+          "binary_agreement": 0.763,
+          "discordant_genes_auc_below_0.5": [
+            [
+              "gnrr-6",
+              0.303
+            ],
+            [
+              "dmsr-6",
+              0.49
+            ]
+          ]
+        },
+        "hermaphrodite.lig": {
+          "genes_compared": 77,
+          "classes_used": 62,
+          "pooled_auc": 0.898,
+          "mean_per_gene_auc": 0.873,
+          "binary_kappa": 0.155,
+          "binary_agreement": 0.751,
+          "discordant_genes_auc_below_0.5": [
+            [
+              "nlp-77",
+              0.098
+            ],
+            [
+              "nlp-58",
+              0.238
+            ],
+            [
+              "nlp-5",
+              0.352
+            ],
+            [
+              "ins-16",
+              0.443
+            ]
+          ]
+        },
+        "hermaphrodite.rec": {
+          "genes_compared": 40,
+          "classes_used": 62,
+          "pooled_auc": 0.774,
+          "mean_per_gene_auc": 0.795,
+          "binary_kappa": 0.348,
+          "binary_agreement": 0.772,
+          "discordant_genes_auc_below_0.5": [
+            [
+              "ntr-1",
+              0.467
+            ]
+          ]
+        }
+      }
+    },
+    "all_shared_sensitivity": {
+      "restrict": "all annotated shared classes",
+      "metrics": {
+        "male.lig": {
+          "genes_compared": 91,
+          "classes_used": 144,
+          "pooled_auc": 0.865,
+          "mean_per_gene_auc": 0.846,
+          "binary_kappa": 0.059,
+          "binary_agreement": 0.733,
+          "discordant_genes_auc_below_0.5": [
+            [
+              "nlp-64",
+              0.129
+            ],
+            [
+              "nlp-7",
+              0.14
+            ],
+            [
+              "nlp-53",
+              0.161
+            ],
+            [
+              "nlp-52",
+              0.168
+            ],
+            [
+              "flp-23",
+              0.283
+            ],
+            [
+              "nlp-56",
+              0.441
+            ],
+            [
+              "nlp-45",
+              0.476
+            ]
+          ]
+        },
+        "male.rec": {
+          "genes_compared": 41,
+          "classes_used": 144,
+          "pooled_auc": 0.7,
+          "mean_per_gene_auc": 0.735,
+          "binary_kappa": 0.241,
+          "binary_agreement": 0.785,
+          "discordant_genes_auc_below_0.5": [
+            [
+              "gnrr-6",
+              0.339
+            ],
+            [
+              "trhr-1",
+              0.381
+            ],
+            [
+              "dmsr-6",
+              0.401
+            ]
+          ]
+        },
+        "hermaphrodite.lig": {
+          "genes_compared": 95,
+          "classes_used": 129,
+          "pooled_auc": 0.881,
+          "mean_per_gene_auc": 0.867,
+          "binary_kappa": 0.135,
+          "binary_agreement": 0.769,
+          "discordant_genes_auc_below_0.5": [
+            [
+              "flp-4",
+              0.172
+            ],
+            [
+              "nlp-77",
+              0.195
+            ],
+            [
+              "ins-16",
+              0.465
+            ],
+            [
+              "nlp-20",
+              0.495
+            ]
+          ]
+        },
+        "hermaphrodite.rec": {
+          "genes_compared": 44,
+          "classes_used": 129,
+          "pooled_auc": 0.696,
+          "mean_per_gene_auc": 0.717,
+          "binary_kappa": 0.277,
+          "binary_agreement": 0.792,
+          "discordant_genes_auc_below_0.5": [
+            [
+              "dmsr-2",
+              0.473
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "part_b_remodeling": {
+    "haque_ligand_sex_bias_62clusters": {
+      "male_biased_genes": 86,
+      "herm_biased_genes": 47,
+      "flat": 0,
+      "note": "tests Haque's claim that most neuropeptides are male-biased (platform-matched)"
+    },
+    "haque_S3_significant_DE_events_ligands": {
+      "male_biased_events_padj<0.05": 149,
+      "herm_biased_events_padj<0.05": 108
+    },
+    "morillo_vs_haque_ligand_direction": {
+      "agree": 30,
+      "disagree": 31,
+      "agreement_rate": 0.492,
+      "note": "does Morillo's depth confound flip per-gene sex-bias direction, or only inflate herm globally?"
+    }
+  }
+}
