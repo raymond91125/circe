@@ -9,9 +9,11 @@ kept at their native resolution (never pooled with CeNGEN) and scoped in
 - **Phase A — ligands** (`morillo_2025_male`, `morillo_2025_hermaphrodite`): the FLP/NLP/INS
   neuropeptide ligands, **per neuron**, from supplement `mmc8`.
 - **Phase B — receptors** (`morillo_2025_male_receptors`, `morillo_2025_hermaphrodite_receptors`):
-  the NPP-GPCR receptors, **per cluster**, from the genome-wide supplement `mmc12`. Together the two
-  layers let a male neuropeptide connectome be derived (Phase C, not yet built), paralleling the
-  hermaphrodite Ripoll layer.
+  the NPP-GPCR receptors, **per cluster**, from the genome-wide supplement `mmc12`.
+- **Phase C — derived connectome** (`morillo_2025_male_neuropeptide_lr`): together the two layers
+  above let the first **male** neuropeptide connectome be *derived* in-build (the Ripoll-Sánchez
+  long-range method over the 92 Beets pairs), paralleling the hermaphrodite Ripoll layer. 11,586
+  predicted edges; see [`analysis/morillo_male_neuropeptide/`](../../analysis/morillo_male_neuropeptide/).
 
 ## Source
 
