@@ -148,12 +148,16 @@ def test_neuropeptide_connectome(built) -> None:
         "ripoll_2023_neuropeptide_sr": 31417,
         "ripoll_2023_neuropeptide_mr": 40425,
         "ripoll_2023_neuropeptide_lr": 53558,
+        # the derived male connectome shares this connection type (see its own test below)
+        "morillo_2025_male_neuropeptide_lr": 11586,
     }
     assert 1 <= min(c.weight for c in np) and max(c.weight for c in np) == 20
-    # datasets tagged hermaphrodite / adult; zero-padded matrix names normalized (DA01 -> DA1)
+    # Ripoll range models are hermaphrodite / adult; names normalized (DA01 -> DA1)
     ds = {strip(d.id): d for d in connectome.datasets}
-    for did in by_ds:
-        assert str(ds[did].sex) == "hermaphrodite" and str(ds[did].life_stage) == "adult"
+    for did in ("sr", "mr", "lr"):
+        d = ds[f"ripoll_2023_neuropeptide_{did}"]
+        assert str(d.sex) == "hermaphrodite" and str(d.life_stage) == "adult"
+    assert str(ds["morillo_2025_male_neuropeptide_lr"].sex) == "male"
     cells = {strip(c.pre) for c in np} | {strip(c.post) for c in np}
     assert "DA1" in cells and {"DA01", "VD09", "VC06"}.isdisjoint(cells)  # padded names normalized
 
@@ -411,7 +415,8 @@ def test_gene_expression_per_cell_and_isoform(built) -> None:
 def test_build_stats_partition(built) -> None:
     _, stats = built
     # cook_2019_male + morillo_2025_male (ligands) + morillo_2025_male_receptors
-    assert stats.datasets_by_sex["male"] == 3
+    # + morillo_2025_male_neuropeptide_lr (the derived male neuropeptide connectome)
+    assert stats.datasets_by_sex["male"] == 4
     assert stats.datasets_by_sex["hermaphrodite"] >= 15
     # most cells are shared; a substantial male-only and herm-only tail exist
     assert stats.cells_by_sex["hermaphrodite+male"] > 400
@@ -853,6 +858,42 @@ def test_morillo_receptor_expression_ingested(built) -> None:
     assert "HSNL" not in male_cells  # herm-specific neuron absent from the male dataset
 
 
+def test_morillo_male_neuropeptide_connectome_derived(built) -> None:
+    """Phase C: the DERIVED male long-range neuropeptide connectome. Built in-build from the Morillo
+    male ligand + receptor layers via the 92 Beets pairs, by the same engine that reproduces Ripoll's
+    published 53,558-edge herm network exactly -- so it is the validated long-range method applied to
+    male expression, the first male neuropeptidergic connectome. Edges carry male-specific neurons
+    (which the hermaphrodite Ripoll network cannot), and the dataset is tagged male."""
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+
+    ds = {strip(d.id): d for d in connectome.datasets}
+    rec = ds["morillo_2025_male_neuropeptide_lr"]
+    assert str(rec.sex) == "male" and str(rec.life_stage) == "adult"
+
+    edges = [
+        c for c in connectome.connections if strip(c.dataset) == "morillo_2025_male_neuropeptide_lr"
+    ]
+    assert len(edges) == 11586
+    assert all(str(c.connection_type) == "neuropeptidergic" for c in edges)
+    # weight = number of mediating NPP-GPCR pairs; integer-valued, >=1
+    assert min(c.weight for c in edges) == 1.0 and max(c.weight for c in edges) == 9.0
+    assert all(c.weight == int(c.weight) for c in edges)
+
+    # Male-specific neurons participate -- the whole point of a male connectome (CA7 is male-specific).
+    male_only = {c.name for c in connectome.cells if {str(s) for s in c.sexes} == {"male"}}
+    endpoints = {strip(c.pre) for c in edges} | {strip(c.post) for c in edges}
+    assert endpoints & male_only
+    assert "CA7" in endpoints
+    # Herm-specific neurons must NOT appear (the male expression layer excludes them).
+    herm_only = {c.name for c in connectome.cells if {str(s) for s in c.sexes} == {"hermaphrodite"}}
+    assert not (endpoints & herm_only)
+
+    # Every endpoint is a real cell in the graph (no stray minted names), and present in the male sex.
+    male_cells = {c.name for c in connectome.cells if "male" in {str(s) for s in c.sexes}}
+    assert endpoints <= male_cells
+
+
 def test_neuropeptide_pairs_map_cell_level_matches_weight(built) -> None:
     """Per-edge pair attribution reproduces the published edge weights exactly (validation), and
     the class-level viz map surfaces the mediating pairs by gene symbol."""
@@ -888,3 +929,43 @@ def test_neuropeptide_pairs_map_cell_level_matches_weight(built) -> None:
     ava_ada = m["conn"]["AVA"]["ADA"]
     sym = {(m["pairs"][i][0], m["pairs"][i][1]) for i in ava_ada}
     assert ("flp-18", "npr-4") in sym
+
+
+def test_derive_neuropeptide_edges_reproduces_published_herm_network() -> None:
+    """The derivation engine the male connectome uses (derive_neuropeptide_edges), fed CIRCE's OWN
+    Ripoll expression + the 92 pairs, reproduces the published 53,558-edge hermaphrodite long-range
+    network EXACTLY (identical edge set and per-edge weights). This is what makes the male connectome
+    a validated method on male data rather than a bespoke one -- so it is pinned as a unit test."""
+    import csv
+    from collections import defaultdict
+
+    from celegans_connectome_kg.ingest.neuropeptide import (
+        derive_neuropeptide_edges,
+        read_neuropeptide_genes,
+        read_neuropeptide_pairs,
+    )
+
+    mech = REPO / "data" / "ripoll-2023-neuropeptide" / "mechanistic"
+    genes = read_neuropeptide_genes(mech / "np_genes.csv")  # symbol -> gene (with WBGene)
+    # Ripoll's own recovered per-neuron expression, keyed by the same WBGene the pairs resolve to.
+    lig: dict[str, set[str]] = defaultdict(set)
+    rec: dict[str, set[str]] = defaultdict(set)
+    with open(mech / "np_gene_expression.csv", newline="") as f:
+        for r in csv.DictReader(f):
+            g = genes[r["gene_symbol"].strip()]
+            wb = g.wbgene.split(":")[-1]
+            cell = r["cell"].strip()
+            (lig if str(g.category) == "neuropeptide" else rec)[wb].add(cell)
+    pairs = [
+        (genes[p.ligand].wbgene.split(":")[-1], genes[p.gpcr].wbgene.split(":")[-1])
+        for p in read_neuropeptide_pairs(mech / "npp_gpcr_pairs.csv")
+    ]
+    derived = derive_neuropeptide_edges(lig, rec, pairs)
+
+    truth: dict[tuple[str, str], int] = defaultdict(int)
+    with open(mech / "edge_pairs.csv", newline="") as f:
+        for r in csv.DictReader(f):
+            truth[(r["source"], r["target"])] += 1
+
+    assert len(derived) == 53558
+    assert dict(derived) == dict(truth)  # identical edges AND per-edge weights, 0 mismatches

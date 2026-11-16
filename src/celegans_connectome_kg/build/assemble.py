@@ -212,6 +212,9 @@ _MORILLO_HERM_DATASET = "morillo_2025_hermaphrodite"
 _MORILLO_MALE_DATASET = "morillo_2025_male"
 _MORILLO_HERM_RECEPTOR_DATASET = "morillo_2025_hermaphrodite_receptors"
 _MORILLO_MALE_RECEPTOR_DATASET = "morillo_2025_male_receptors"
+#: Male long-range neuropeptide connectome DERIVED in-build from the two Morillo male layers above
+#: via the Ripoll/Beets pairs (the first male neuropeptidergic connectome; no vendored male matrix).
+_MORILLO_MALE_NP_LR_DATASET = "morillo_2025_male_neuropeptide_lr"
 
 #: Bhattacharya class labels that don't map to a single CIRCE cell_class (IL1/IL2/RMD subclasses).
 _INNEXIN_SPECIAL = {
@@ -982,6 +985,86 @@ def assemble(
             genes += [g for g in mo_genes if g.id not in seen_gene_ids]
             seen_gene_ids.update(g.id for g in mo_genes)
             gene_expressions += mo_exprs
+
+    # --- Male long-range neuropeptide connectome (DERIVED, not vendored) ---
+    # The first male neuropeptidergic connectome. Ripoll-Sanchez 2023 published only a hermaphrodite
+    # network (read as vendored matrices above); Morillo 2025 published male expression but no
+    # connectome. CIRCE closes that gap by applying the SAME long-range method -- source expresses an
+    # NPP ligand, target its cognate GPCR, over the 92 Beets-2023 deorphanized pairs, with no
+    # anatomical gating -- to the Morillo male ligand + receptor layers just built. The engine
+    # (derive_neuropeptide_edges) reproduces Ripoll's published 53,558-edge herm network exactly from
+    # CIRCE's own Ripoll expression, so this is the validated method on male data, not a new one.
+    # Derived in-build from the GeneExpression above, so it regenerates from source (no male matrix to
+    # drift); only pairs whose ligand AND receptor are present in the male atlas contribute edges.
+    if (
+        np_genes_map
+        and neuropeptide_pairs_path
+        and morillo_male_expression_path
+        and morillo_male_receptor_expression_path
+    ):
+        from celegans_connectome_kg.ingest.neuropeptide import (
+            derive_neuropeptide_edges,
+            read_neuropeptide_pairs,
+        )
+
+        male_lig: dict[str, set[str]] = defaultdict(set)
+        male_rec: dict[str, set[str]] = defaultdict(set)
+        male_lig_ds = _dataset_id(_MORILLO_MALE_DATASET)
+        male_rec_ds = _dataset_id(_MORILLO_MALE_RECEPTOR_DATASET)
+        for e in gene_expressions:
+            wb = str(e.gene).split(":")[-1]
+            name = str(e.cell)[len(CELL_PREFIX) :]
+            if e.dataset == male_lig_ds:
+                male_lig[wb].add(name)
+            elif e.dataset == male_rec_ds:
+                male_rec[wb].add(name)
+        pairs_wb = [
+            (
+                np_genes_map[p.ligand].wbgene.split(":")[-1],
+                np_genes_map[p.gpcr].wbgene.split(":")[-1],
+            )
+            for p in read_neuropeptide_pairs(neuropeptide_pairs_path)
+            if p.ligand in np_genes_map and p.gpcr in np_genes_map
+        ]
+        male_np_edges = derive_neuropeptide_edges(male_lig, male_rec, pairs_wb)
+        datasets.append(
+            dm.Dataset(
+                id=_dataset_id(_MORILLO_MALE_NP_LR_DATASET),
+                name="Male long-range neuropeptide connectome (derived, Morillo 2025 x Beets 2023)",
+                description=(
+                    "Predicted male long-range neuropeptidergic connectome, the male counterpart to "
+                    "the Ripoll-Sanchez et al. 2023 hermaphrodite network. DERIVED in-build (not "
+                    "vendored): a directed edge source->target exists when the source expresses an "
+                    "NPP ligand and the target its cognate GPCR for one of the 92 deorphanized "
+                    "Beets et al. 2023 pairs (EC50 <= 500 nM), weight = number of such pairs, no "
+                    "anatomical gating (long-range). Expression is the Morillo et al. 2025 male "
+                    "single-nucleus atlas (ligands mmc8, receptors mmc12), binarized at the "
+                    "CeNGEN-calibrated cutoffs. The derivation engine reproduces Ripoll's published "
+                    "53,558-edge herm network exactly from CIRCE's Ripoll expression. Predicted, not "
+                    "observed synapses; only pairs present in the male atlas contribute."
+                ),
+                sex=_MALE,
+                life_stage="adult",
+            )
+        )
+        for (pre, post), weight in sorted(male_np_edges.items()):
+            connections.append(
+                dm.Connection(
+                    id=_connection_id(_MORILLO_MALE_NP_LR_DATASET, pre, post, "neuropeptidergic"),
+                    pre=_cell_id(pre),
+                    post=_cell_id(post),
+                    connection_type="neuropeptidergic",
+                    weight=float(weight),
+                    dataset=_dataset_id(_MORILLO_MALE_NP_LR_DATASET),
+                    evidence=[
+                        dm.Evidence(
+                            evidence_type="aggregated_weight",
+                            dataset=_dataset_id(_MORILLO_MALE_NP_LR_DATASET),
+                            value=str(weight),
+                        )
+                    ],
+                )
+            )
 
     connectome = dm.Connectome(
         cells=cells,

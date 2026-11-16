@@ -1,0 +1,43 @@
+{
+  "dataset": "morillo_2025_male_neuropeptide_lr",
+  "edges": 11586,
+  "nodes": 188,
+  "weight_min": 1,
+  "weight_max": 9,
+  "weight_total": 19797,
+  "edges_touching_male_specific_neuron": 2080,
+  "male_specific_neurons_in_network": [
+    "CA7",
+    "CEMDL",
+    "CEMDR",
+    "CEMVL",
+    "CEMVR",
+    "CP9",
+    "HOA",
+    "HOB",
+    "PHDL",
+    "PHDR",
+    "PVX",
+    "SPCL",
+    "SPCR",
+    "SPDL",
+    "SPDR",
+    "SPVL",
+    "SPVR"
+  ],
+  "pairs_total": 92,
+  "pairs_usable_in_male": 75,
+  "ligands_in_male_atlas": 83,
+  "receptors_in_male_atlas": 84,
+  "ins39_male_cells": [
+    "AFDL",
+    "AFDR",
+    "ASEL",
+    "ASER",
+    "ASJL",
+    "ASJR",
+    "ASKL",
+    "ASKR"
+  ],
+  "ins39_herm_cells": []
+}
