@@ -98,6 +98,7 @@ classes:
       - post
       - connection_type
       - weight
+      - sign
       - dataset
       - evidence
     slot_usage:
@@ -305,8 +306,17 @@ slots:
     description: The kind of connection.
     range: ConnectionType
   weight:
-    description: Aggregated connection weight as reported by the observing dataset.
+    description: >-
+      Aggregated connection magnitude as reported by the observing dataset — always
+      **non-negative**. For functional connections the direction of effect
+      (excitation/inhibition) is NOT in the weight; it is carried separately in ``sign``.
     range: float
+  sign:
+    description: >-
+      For functional connections, the direction of the effect: ``excitatory`` or ``inhibitory``
+      (from the signed signal-propagation value of Randi et al. 2023). Absent for connection types
+      with no measured sign (chemical, gap_junction, neuropeptidergic, monoaminergic, adjacency).
+    range: ConnectionSign
   dataset:
     description: The dataset in which this was observed.
     range: Dataset
@@ -421,6 +431,16 @@ enums:
           acting on a receptor-expressing target), the aminergic companion to the neuropeptidergic
           network (Ripoll-Sanchez et al. 2023, receptor pairs from Bentley et al. 2016). Not an
           observed synapse.
+
+  ConnectionSign:
+    description: >-
+      The direction of a functional connection's effect, from the signed signal-propagation
+      measurement of Randi et al. 2023 (Nature 623:406). The ``weight`` carries the magnitude.
+    permissible_values:
+      excitatory:
+        description: Activating the source increases the target's activity (positive signal).
+      inhibitory:
+        description: Activating the source decreases the target's activity (negative signal).
 
   EvidenceType:
     permissible_values:

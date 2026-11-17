@@ -277,6 +277,18 @@ def _kg_num(weight: float) -> float | int:
     return int(weight) if float(weight).is_integer() else round(float(weight), 3)
 
 
+def _signed_weight(conn: object) -> float:
+    """Viz-facing signed weight. The KG stores a non-negative magnitude + an explicit ``sign``; the
+    neuron-graph projections mirror the original convention of a *signed* functional weight
+    (- for inhibitory), so returning markers/edges downstream are unchanged."""
+    w = conn.weight
+    if str(conn.connection_type) == "functional" and str(getattr(conn, "sign", None) or "") == (
+        "inhibitory"
+    ):
+        return -w
+    return w
+
+
 def kg_connections_map(connectome: object) -> dict:
     """Class-level *complete* connectivity for the viz cell-info "Connections (knowledge graph)".
 
@@ -332,8 +344,11 @@ def kg_connections_map(connectome: object) -> dict:
                 conn[post_cls]["e"][pre_cls][dset] += c.weight
         else:
             rel_out, rel_in = _KG_REL[ctype]
-            conn[pre_cls][rel_out][post_cls][dset] += c.weight
-            conn[post_cls][rel_in][pre_cls][dset] += c.weight
+            w = _signed_weight(
+                c
+            )  # functional inhibitory edges stay negative in the cell-info panel
+            conn[pre_cls][rel_out][post_cls][dset] += w
+            conn[post_cls][rel_in][pre_cls][dset] += w
 
     out = {
         cell: {
@@ -392,7 +407,7 @@ def connections_projection(connectome: object) -> list[dict]:
         pre = _strip(conn.pre, CELL_PREFIX)
         post = _strip(conn.post, CELL_PREFIX)
         api_type = _API_TYPE[str(conn.connection_type)]
-        grouped[(pre, post, api_type)][dataset] += int(conn.weight)
+        grouped[(pre, post, api_type)][dataset] += int(_signed_weight(conn))
 
     chemical, electrical, functional = [], [], []
     for (pre, post, api_type), synapses in grouped.items():
@@ -469,7 +484,7 @@ def _single_dataset_connections(connectome: object, dataset_id: str) -> list[dic
         pre = _strip(conn.pre, CELL_PREFIX)
         post = _strip(conn.post, CELL_PREFIX)
         api_type = _API_TYPE[str(conn.connection_type)]
-        grouped[(pre, post, api_type)][dataset] += int(conn.weight)
+        grouped[(pre, post, api_type)][dataset] += int(_signed_weight(conn))
 
     chemical, electrical = [], []
     for (pre, post, api_type), synapses in grouped.items():
