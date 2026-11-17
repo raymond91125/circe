@@ -63,8 +63,28 @@ Haque's 62 high-confidence sex-shared clusters:
 
 **Discordant genes (AUC < 0.5, candidates for curation review, not assumed errors):** ligands
 `nlp-52`, `flp-16`, `nlp-56` (male), `nlp-77`, `nlp-58`, `nlp-5`, `ins-16` (herm); receptors
-`gnrr-6`, `dmsr-6` (male), `ntr-1` (herm). `nlp-77` (=`srlf-1`) is the strongest disagreement and
-overlaps a Morillo symbol-synonym resolution — worth a closer look.
+`gnrr-6`, `dmsr-6` (male), `ntr-1` (herm).
+
+### `nlp-77`/`srlf-1` — investigated (the strongest disagreement)
+
+This was followed up because `nlp-77` is one of the two genes CIRCE resolved via a WormBase synonym
+(`nlp-77` = `srlf-1` = WBGene00015514). Findings:
+
+- **Not a join artifact.** Haque's tables also use the symbol `nlp-77` (not `srlf-1`); since both are
+  names for the same WormBase gene, the two datasets mean the same gene. The curator resolution is
+  sound.
+- **It is a noise-floor discordance.** `nlp-77` is very lowly expressed in Haque (median per-class
+  mean ≈ 0.015, max ≈ 2–3), and its signal sits mostly in **unannotated clusters** (Unk5/Unk6/Unk8),
+  not the AVF/RIC/VBn classes Morillo calls. On a gene this lowly expressed, thresholded per-neuron
+  calls are inherently unstable across platforms — real disagreement, not an error.
+- **Zero connectome impact.** `nlp-77` is not a deorphanized-pair ligand, so no derived edge depends
+  on it; this is purely an expression-layer annotation.
+- **Contrast — `nlp-73`/`ctdh-1` (the other synonym-resolved gene) is validated.** Morillo's `nlp-73`
+  calls (RIP, AIM, HSN) are exactly Haque's top expressers — strong concordance, confirming that
+  resolution.
+
+So both curator WBGene resolutions are correct; `nlp-77` simply happens to be a low-expression gene
+where atlases disagree at the detection floor.
 
 ## Part B results — remodeling is real, but it is Haque's to claim, not Morillo's
 
