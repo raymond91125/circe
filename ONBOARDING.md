@@ -70,3 +70,40 @@ Current analyses include:
 
 Branch off `main`, run the gate, open a PR (CI must be green), squash-merge, delete the branch.
 See recent PRs (#76–#80) for the house style of commits and PR descriptions.
+
+## Deployment
+
+CIRCE runs on two hosts: a dev box and the **public production** host `wobrbig.caltech.edu`
+(viz at **:3000**, SPARQL endpoint at **:3001** — **both HTTPS**).
+
+### Public SPARQL endpoint (`:3001`), after a KG change
+
+`circe-sparql` is a **system** service that serves `outputs/connectome.ttl`, loaded into memory at
+startup. After the KG changes (data, schema), regenerate the TTL and reload it:
+
+```
+ssh <you>@wobrbig.caltech.edu
+cd ~/local/src/git/circe
+git pull --ff-only
+PATH="$HOME/.local/bin:$PATH" uv run cckg build && uv run cckg export   # uv isn't on the non-interactive PATH
+sudo systemctl restart circe-sparql     # system service -> needs sudo; it reloads the ~150 MB TTL (~1 min)
+```
+
+Query it **over HTTPS** — the cert is self-signed, so pass `-k`; a plain-HTTP request fails with an
+SSL error and returns nothing:
+
+```
+curl -sk https://wobrbig.caltech.edu:3001/query \
+  -H 'Content-Type: application/sparql-query' \
+  --data-binary 'PREFIX cckg: <https://wormbase.org/resources/connectome/>
+SELECT (COUNT(?c) AS ?n) WHERE { ?c a cckg:Connection }'
+# GET https://…:3001/query?query=<urlencoded> also works; https://…:3001/queries lists sample queries
+```
+
+### Viz (`circe-viz`, `:3000`)
+
+The viz reads its own MySQL DB, populated from circe's `outputs/`. After a KG change, in the
+`circe-viz` repo run `npm run refresh-kg` (regenerates the bundled client maps + server raw-data from
+circe), commit, then on the host: `npm run build-prod` (client bundle, served from `dist/` — live on
+rebuild, no restart) and `npm run populate-database` (truncates + reloads the serving DB; brief blip).
+`:3000` redirects HTTP→HTTPS. Browsers may cache the old bundle — hard-refresh to pick up a new one.
