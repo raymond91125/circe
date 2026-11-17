@@ -175,6 +175,34 @@ def test_neuropeptide_in_viz_kg_connections(built) -> None:
     assert any("npo" in rels or "npi" in rels for rels in m["conn"].values())
 
 
+def test_functional_connections_are_signed(built) -> None:
+    """Randi 2023 functional connectivity is signed (excitation/inhibition). CIRCE stores the
+    magnitude in a non-negative `weight` and the direction of effect in an explicit `sign`
+    (excitatory/inhibitory). Only functional connections carry a sign; the viz projections
+    reconstruct the original signed value so nothing downstream changes."""
+    connectome, _ = built
+
+    functional = [c for c in connectome.connections if str(c.connection_type) == "functional"]
+    assert functional
+    # weight is the non-negative magnitude for EVERY connection type now
+    assert all(c.weight >= 0 for c in connectome.connections)
+    # every functional edge has a sign; no other type does
+    assert all(str(c.sign) in ("excitatory", "inhibitory") for c in functional)
+    assert all(
+        c.sign is None for c in connectome.connections if str(c.connection_type) != "functional"
+    )
+    exc = sum(1 for c in functional if str(c.sign) == "excitatory")
+    inh = sum(1 for c in functional if str(c.sign) == "inhibitory")
+    assert exc == 1239 and inh == 244
+
+    # the viz cell-info projection reconstructs the signed value (inhibitory -> negative)
+    from celegans_connectome_kg.export.neuron_graph_json import kg_connections_map
+
+    m = kg_connections_map(connectome)
+    assert m["conn"]["ADA"]["fo"]["AWA"]  # a known ADA->AWA inhibitory functional edge
+    assert any(v < 0 for v in m["conn"]["ADA"]["fo"]["AWA"].values())
+
+
 def test_dauer_dataset(built) -> None:
     connectome, _ = built
     strip = lambda s: str(s).split("/")[-1]  # noqa: E731

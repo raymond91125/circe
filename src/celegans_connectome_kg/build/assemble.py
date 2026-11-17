@@ -699,6 +699,12 @@ def assemble(
 
     connections = []
     for (did, pre, post, ctype), weight in sorted(summed.items()):
+        # Functional (Randi 2023) weights are signed (+ excitatory, - inhibitory). Split that into a
+        # non-negative magnitude (weight) + an explicit sign, so weight is >= 0 for every type.
+        sign = None
+        if ctype == "functional" and weight != 0:
+            sign = "excitatory" if weight > 0 else "inhibitory"
+            weight = abs(weight)
         connections.append(
             dm.Connection(
                 id=_connection_id(did, pre, post, ctype),
@@ -706,6 +712,7 @@ def assemble(
                 post=_cell_id(post),
                 connection_type=ctype,
                 weight=weight,
+                sign=sign,
                 dataset=_dataset_id(did),
                 evidence=[
                     dm.Evidence(
