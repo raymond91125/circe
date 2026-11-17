@@ -174,3 +174,5 @@ vspL,WBbt:0004912,ventral spicule protractor muscle left,high,"Cook 2019 (M4b, e
 vspR,WBbt:0004909,ventral spicule protrctor muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
 vsrL,WBbt:0004911,ventral spicule retractor muscle left,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
 vsrR,WBbt:0004908,ventral spicule retractor muscle right,high,"Cook 2019 (M4b, external-term-lookup): male copulatory-apparatus muscle (WBBT related-synonym confirmed)"
+PVU,WBbt:0007836,PVU,high,"male-specific interneuron (WBbt:0007836, syn PVPL): Cook 2019 male reconstructs it under the hermaphrodite name PVPL; aliased male PVPL->PVU so male data grounds to the correct male-specific identity"
+PVS,WBbt:0007837,PVS,high,"male-specific interneuron (WBbt:0007837, syn PVPR): Cook 2019 male reconstructs it under the hermaphrodite name PVPR; aliased male PVPR->PVS so male data grounds to the correct male-specific identity"

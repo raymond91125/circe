@@ -486,3 +486,9 @@ enums:
         description: Expression reported (SI6 uppercase "X").
       putative:
         description: Weaker / putative expression (SI6 lowercase "x"); semantics unstated in source.
+      grouped:
+        description: >-
+          Class-aggregate call assigned by expanding a serial-homolog grouping/class column (e.g. a
+          pooled ray-neuron, IL2-subdivision, or CP-neuron cluster) to its member cells. Not an
+          individual-neuron measurement: every member cell of the grouping receives the same call,
+          so these are coarser than ``reported`` per-cell calls (see data/morillo-2025-male).

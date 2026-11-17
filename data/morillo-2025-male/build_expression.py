@@ -18,17 +18,22 @@ where none does (male). See the proposal doc for the full validation.
 
 Label handling (reconciliation to CIRCE cells)
 ----------------------------------------------
-mmc8 columns are a mix of individual neurons (``HOA``), neuron classes (``AIY``, ``CEM``), and
-clusters the snRNA could not resolve (``PHA/PHB/ASH``) or generic groupings (``RnA``,
-``CP Neurons``, ``Male 1``). Policy for Phase A (per the proposal's resolved curation choices):
+mmc8 columns are a mix of individual neurons (``HOA``), neuron classes (``AIY``, ``CEM``), clusters
+the snRNA could not resolve (``PHA/PHB/ASH``), serial-homolog groupings (``RnA``, ``CP Neurons``,
+``R5,7,9A``), and non-neuronal / generic clusters (``Intestine``, ``Male 1``). Policy:
 
-  * **Drop merged clusters** -- any label naming more than one class (``/`` or ``,``): the value is
-    for the pooled group, not per neuron, so it is not ingested as a per-cell call.
-  * **Drop non-neuronal / ungroundable groupings** (``Intestine``, ``Sperm``, ``RnA``,
-    ``CP Neurons``, ``Male N``, ...): not individual CIRCE neurons.
+  * **Keep serial-homolog groupings** -- labels that are one ontology class or serial homologs of
+    one (rays ``RnA``/``RnB``, ``IL2DV``/``IL2LT``, ``CP Neurons``, ``VC4/5``, see
+    ``morillo_groupings.csv``): kept even with ``/``/``,``; the build expands them to member cells
+    with a distinct ``grouped`` confidence (likely-similar expression across homologs).
+  * **Keep ``PVS``** -- an individual male-specific neuron (WBbt:0007837), a per-cell call.
+  * **Drop merged clusters of DISTINCT types** (``PHA/PHB``, ``AVE/AVA``, ``CEM/Ray1,5,7B``): a
+    pooled value over different classes, not groundable per neuron.
+  * **Drop non-neuronal / heterogeneous super-groups** (``Intestine``, ``Sperm``, ``Motor
+    Neurons``, ``Male N``, ...).
   * **Alias ventral-cord classes** to CIRCE's ``-n`` class names (``VB`` -> ``VBn`` etc.).
-  * Everything kept is an individual cell name or a neuron class; the build (assemble) expands a
-    class label to its member cells present in that sex.
+  * Everything else kept is an individual cell or a neuron class; the build expands a class label to
+    its member cells present in that sex.
 
 The gene symbol -> WBGene table (``morillo_genes.csv``) is a committed, pre-resolved curation
 artifact (MyGene.info, species 6239; cross-checked against ``np_genes.csv`` with zero mismatches),
@@ -50,6 +55,18 @@ import openpyxl
 
 HERE = Path(__file__).resolve().parent
 GENES_CSV = HERE / "morillo_genes.csv"
+GROUPINGS_CSV = HERE / "morillo_groupings.csv"
+
+
+def load_grouping_labels() -> set[str]:
+    """Serial-homolog grouping labels to KEEP (expanded to member cells by the build, see
+    morillo_groupings.csv). These are ontology-confirmed single classes (rays, IL2, CP, VC), so
+    unlike merged clusters of distinct types they are not dropped."""
+    with open(GROUPINGS_CSV, newline="") as f:
+        return {r["label"].strip() for r in csv.DictReader(f)}
+
+
+GROUPINGS = load_grouping_labels()
 
 #: Calibrated binarization cutoff on the mmc8 SCT value (see module docstring).
 CUTOFF_T = 0.2526
@@ -63,7 +80,10 @@ SHEETS = {
 #: Morillo ventral-cord class label -> CIRCE ``-n`` class name.
 ALIAS = {"VB": "VBn", "VC": "VCn", "VD": "VDn", "DA": "DAn", "DB": "DBn", "AS": "ASn"}
 
-#: Non-neuronal and ungroundable grouping labels dropped outright (not individual CIRCE neurons).
+#: Non-neuronal and heterogeneous super-group labels dropped outright (not a single groundable
+#: neuron/class). Serial-homolog groupings (rays, IL2, CP, VC) are NOT here -- they are kept and
+#: expanded (see GROUPINGS / morillo_groupings.csv). PVS is NOT here either -- it is an individual
+#: male-specific neuron (WBbt:0007837), kept as a per-cell call.
 DROP_LABELS = {
     # non-neuronal
     "Intestine",
@@ -77,25 +97,27 @@ DROP_LABELS = {
     "Ex. C.",
     "Ex. C",
     "Musc.",
-    # functional super-groups / unresolved generic clusters
+    # heterogeneous functional super-groups (span many distinct classes, not one serial-homolog set)
     "Mechanosensory Neurons",
     "Motor Neurons",
     "M neurons",
     "I Neurons",
     "I neurons",
-    "CP Neurons",
-    "RnA",
-    "RnB",
-    "IL2DV",
-    "IL2LT",
-    "PVS",
+    "Touch Neurons",
 }
 
 
 def keep(label: str) -> bool:
-    """True if a label is a single groundable neuron/class (not merged/pooled/non-neuronal)."""
+    """True if a label is a single groundable neuron/class OR a serial-homolog grouping.
+
+    Serial-homolog groupings (ontology-confirmed one class; rays/IL2/CP/VC) are kept even when they
+    contain ``/`` or ``,`` (e.g. ``R5,7,9A``), to be expanded to member cells downstream. Merged
+    clusters of *distinct* types (``PHA/PHB``, ``AVE/AVA``) are still dropped.
+    """
+    if label in GROUPINGS:
+        return True
     if "/" in label or "," in label:
-        return False  # merged cluster of >1 class
+        return False  # merged cluster of >1 distinct class
     if label.startswith("Male "):
         return False  # generic unidentified male cluster (Male 1..12, Male Inter 8)
     return label not in DROP_LABELS

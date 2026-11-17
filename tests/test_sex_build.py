@@ -104,6 +104,7 @@ def built():
         / "data"
         / "morillo-2025-male"
         / "morillo_male_receptor_expression.csv",
+        morillo_groupings_path=REPO / "data" / "morillo-2025-male" / "morillo_groupings.csv",
     )
     return connectome, stats
 
@@ -149,7 +150,7 @@ def test_neuropeptide_connectome(built) -> None:
         "ripoll_2023_neuropeptide_mr": 40425,
         "ripoll_2023_neuropeptide_lr": 53558,
         # the derived male connectome shares this connection type (see its own test below)
-        "morillo_2025_male_neuropeptide_lr": 11586,
+        "morillo_2025_male_neuropeptide_lr": 20189,
     }
     assert 1 <= min(c.weight for c in np) and max(c.weight for c in np) == 20
     # Ripoll range models are hermaphrodite / adult; names normalized (DA01 -> DA1)
@@ -223,15 +224,27 @@ def test_placeholder_endpoint_cells_flagged_and_sexless(built) -> None:
 
 
 def test_hermaphrodite_specific_neurons_are_canonical(built) -> None:
-    """Only the true hermaphrodite-specific neurons (HSN + VC1-6) are hermaphrodite-only; the
-    'VAn' placeholder no longer leaks in now that placeholders are sexless/unspecified."""
+    """The true hermaphrodite-specific neurons are HSN + VC1-6, plus PVPL/PVPR: the PVP pair is
+    hermaphrodite-only because its male counterparts are the distinct male-specific neurons PVU/PVS
+    (WBbt dimorphic relabel). The 'VAn' placeholder no longer leaks in (placeholders are sexless)."""
     connectome, _ = built
     herm_only = {
         c.name
         for c in connectome.cells
         if str(c.cell_type) == "neuron" and {str(s) for s in c.sexes} == {"hermaphrodite"}
     }
-    assert herm_only == {"HSNL", "HSNR", "VC1", "VC2", "VC3", "VC4", "VC5", "VC6"}
+    assert herm_only == {
+        "HSNL",
+        "HSNR",
+        "VC1",
+        "VC2",
+        "VC3",
+        "VC4",
+        "VC5",
+        "VC6",
+        "PVPL",
+        "PVPR",
+    }
 
 
 def test_neurotransmitter_assignments_per_sex(built) -> None:
@@ -275,11 +288,21 @@ def test_atlas_only_cells_minted_with_neurotransmitter(built) -> None:
         assert str(cell.cell_type) == "neuron" and str(cell.anatomy) == wbbt
         assert {str(s) for s in cell.sexes} == {"male"}
         assert nt[(name, "male")] == code  # atlas call now attaches
-    # they are connectivity-free (present in no connection)
+    # DX4/EF4 are structurally connectivity-free (present in no connection). CP0 is no longer: as a
+    # member of the CP-neuron grouping it now receives grouped NP expression and so predicted NP
+    # edges in the derived male connectome -- but still no OBSERVED (Cook) structural connection.
     endpoints = {strip(c.pre) for c in connectome.connections} | {
         strip(c.post) for c in connectome.connections
     }
-    assert {"CP0", "DX4", "EF4"}.isdisjoint(endpoints)
+    assert {"DX4", "EF4"}.isdisjoint(endpoints)
+    structural = {
+        strip(c.pre) for c in connectome.connections if str(c.connection_type) != "neuropeptidergic"
+    } | {
+        strip(c.post)
+        for c in connectome.connections
+        if str(c.connection_type) != "neuropeptidergic"
+    }
+    assert "CP0" not in structural  # CP0's only edges are predicted (grouped) neuropeptide ones
 
 
 def test_male_projection_uses_male_neurotransmitter(built) -> None:
@@ -362,7 +385,11 @@ def test_gene_expression_ingest(built) -> None:
     assert len(cook) == 309
     assert len(connectome.gene_expressions) == stats.gene_expressions
     assert any(d.id.endswith("cook_2020_pharynx_expression") for d in connectome.datasets)
-    assert {str(e.confidence) for e in connectome.gene_expressions} <= {"reported", "putative"}
+    assert {str(e.confidence) for e in connectome.gene_expressions} <= {
+        "reported",
+        "putative",
+        "grouped",  # Morillo serial-homolog grouping expansion (rays/IL2/CP/VC)
+    }
 
 
 def test_innexin_expression_dauer_split(built) -> None:
@@ -606,7 +633,7 @@ def test_male_neuropeptide_viz_projection(built) -> None:
 
     connectome, _ = built
     conns = male_neuropeptide_connections_projection(connectome)
-    assert len(conns) == 11586
+    assert len(conns) == 20189
     assert all(c["type"] == "neuropeptidergic" for c in conns)
     assert all("morillo_np_male" in c["synapses"] for c in conns)  # short viz id (varchar(20))
 
@@ -823,8 +850,18 @@ def test_morillo_male_expression_ingested(built) -> None:
         e for e in connectome.gene_expressions if strip(e.dataset) == "morillo_2025_hermaphrodite"
     ]
     male = [e for e in connectome.gene_expressions if strip(e.dataset) == "morillo_2025_male"]
-    assert len(herm) == 1556 and len(male) == 809
-    assert all(str(e.confidence) == "reported" for e in herm + male)
+    assert len(herm) == 1556 and len(male) == 1199
+    # herm ligand sheet has no serial-homolog groupings (rays/CP are male-only) -> all per-cell.
+    assert all(str(e.confidence) == "reported" for e in herm)
+    # male sheet mixes per-cell/class (reported) with serial-homolog groupings (grouped).
+    male_conf = {str(e.confidence) for e in male}
+    assert male_conf == {"reported", "grouped"}
+    # grouped calls land on ray / CP / IL2 members (expanded from RnA/RnB/CP Neurons/IL2* columns)
+    grouped_cells = {strip(e.cell) for e in male if str(e.confidence) == "grouped"}
+    assert {"R1AL", "R9BR", "CP0", "CP9", "IL2DL"} <= grouped_cells
+    # PVS is an individual male-specific neuron (WBbt:0007837), a per-cell 'reported' call
+    pvs = [e for e in male if strip(e.cell) == "PVS"]
+    assert pvs and all(str(e.confidence) == "reported" for e in pvs)
 
     # 133 curated neuropeptide-ligand genes, keyed by WBGene so they share with the Ripoll
     # neuropeptide gene nodes (no duplication). nlp-73/nlp-77 resolve to their canonical
@@ -845,6 +882,31 @@ def test_morillo_male_expression_ingested(built) -> None:
     assert male_cells & male_only  # genuine male-specific coverage
     # merged clusters ("PHA/PHB/ASH", "PHA/PHB") are dropped, not fanned out
     assert "PHAL" not in herm_cells and "PHAL" not in male_cells
+
+
+def test_pvp_male_dimorphic_identity(built) -> None:
+    """The PVP pair is sexually dimorphic in name AND ontology (WBbt audit): the hermaphrodite
+    neurons PVPL/PVPR (WBbt:0004082 / WBbt:0004078) are, in the male, the distinct male-specific
+    neurons PVU/PVS (WBbt:0007836 / WBbt:0007837). CIRCE had folded the male EM under the herm
+    names; the build relabels male PVPL->PVU, PVPR->PVS so each cell carries the correct identity."""
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+    C = {c.name: c for c in connectome.cells}
+
+    # PVU/PVS exist as male-only cells with their male-specific WBbt terms.
+    assert str(C["PVU"].anatomy) == "WBbt:0007836" and {str(s) for s in C["PVU"].sexes} == {"male"}
+    assert str(C["PVS"].anatomy) == "WBbt:0007837" and {str(s) for s in C["PVS"].sexes} == {"male"}
+    # PVPL/PVPR are now hermaphrodite-only (their male occurrence moved to PVU/PVS).
+    assert {str(s) for s in C["PVPL"].sexes} == {"hermaphrodite"}
+    assert {str(s) for s in C["PVPR"].sexes} == {"hermaphrodite"}
+
+    # The male Cook EM edges moved: PVU/PVS carry male edges, PVPL/PVPR carry none.
+    male_ds = {strip(d.id) for d in connectome.datasets if str(d.sex) == "male"}
+    male_eps = {strip(c.pre) for c in connectome.connections if strip(c.dataset) in male_ds} | {
+        strip(c.post) for c in connectome.connections if strip(c.dataset) in male_ds
+    }
+    assert {"PVU", "PVS"} <= male_eps
+    assert "PVPL" not in male_eps and "PVPR" not in male_eps
 
 
 def test_morillo_receptor_expression_ingested(built) -> None:
@@ -870,8 +932,10 @@ def test_morillo_receptor_expression_ingested(built) -> None:
     male = [
         e for e in connectome.gene_expressions if strip(e.dataset) == "morillo_2025_male_receptors"
     ]
-    assert len(herm) == 1664 and len(male) == 1603
-    assert all(str(e.confidence) == "reported" for e in herm + male)
+    assert len(herm) == 1720 and len(male) == 2094
+    # receptors include serial-homolog groupings (rays/CP/IL2) -> a mix of reported + grouped.
+    assert {str(e.confidence) for e in male} == {"reported", "grouped"}
+    assert {str(e.confidence) for e in herm} <= {"reported", "grouped"}
 
     # 45 NPP-GPCR receptors, category neuropeptide_receptor, keyed by WBGene so they share with the
     # Ripoll receptor gene nodes (no duplication). 6 (npr-37/39/40/41/42/43) are below mmc12's 0.5%
@@ -906,10 +970,10 @@ def test_morillo_male_neuropeptide_connectome_derived(built) -> None:
     edges = [
         c for c in connectome.connections if strip(c.dataset) == "morillo_2025_male_neuropeptide_lr"
     ]
-    assert len(edges) == 11586
+    assert len(edges) == 20189
     assert all(str(c.connection_type) == "neuropeptidergic" for c in edges)
     # weight = number of mediating NPP-GPCR pairs; integer-valued, >=1
-    assert min(c.weight for c in edges) == 1.0 and max(c.weight for c in edges) == 9.0
+    assert min(c.weight for c in edges) == 1.0 and max(c.weight for c in edges) == 11.0
     assert all(c.weight == int(c.weight) for c in edges)
 
     # Male-specific neurons participate -- the whole point of a male connectome (CA7 is male-specific).
@@ -917,6 +981,10 @@ def test_morillo_male_neuropeptide_connectome_derived(built) -> None:
     endpoints = {strip(c.pre) for c in edges} | {strip(c.post) for c in edges}
     assert endpoints & male_only
     assert "CA7" in endpoints
+    # Serial-homolog grouping expansion now puts ray and CP neurons in the male connectome;
+    # PVS (ex-"male PVPR", a ligand source) participates while PVU (no Morillo expression) does not.
+    assert "R1AL" in endpoints and "CP0" in endpoints
+    assert "PVS" in endpoints and "PVU" not in endpoints
     # Herm-specific neurons must NOT appear (the male expression layer excludes them).
     herm_only = {c.name for c in connectome.cells if {str(s) for s in c.sexes} == {"hermaphrodite"}}
     assert not (endpoints & herm_only)
