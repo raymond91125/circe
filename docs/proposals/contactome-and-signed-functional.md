@@ -3,9 +3,11 @@
 Enrichments to CIRCE's **connection model**, scoped together because all add edge semantics the
 current graph lacks:
 
-- **A — Contactome (new data):** ingest *physical membrane adjacency* (which neurons touch),
-  from Brittin et al. 2021 (nerve ring) and Yim et al. 2024 (dauer), as a new `adjacency`
-  connection type. *(proposal)*
+- **A — Contactome (new data):** ingest *physical membrane adjacency* (which neurons touch) as a new
+  `adjacency` connection type. *(Yim 2024 **dauer** contactome IMPLEMENTED — same EM volume as the
+  dauer synapses, so synapses ⊆ contacts validates at ~99%. Brittin 2021 nerve ring deferred: its
+  clean per-pair data is only in a 17 GB Zenodo MySQL; the repo's committed graphs are a filtered
+  analysis subset that fails the subset check.)*
 - **B — Explicit functional sign (model enhancement, no new data):** make the
   excitatory/inhibitory **sign** of the Randi 2023 functional connections a first-class field.
   *(IMPLEMENTED — see below.)*
@@ -16,6 +18,10 @@ current graph lacks:
 Status: A and C are proposals; B is built. Follows the Morillo proposal's structure.
 
 ## A. Contactome
+
+> **Status: Yim 2024 dauer contactome IMPLEMENTED** (`yim_2024_dauer_contactome`, 6,080 undirected
+> contacts → 12,160 `adjacency` edges; synapses ⊆ contacts = ~99%, within-dataset). **Brittin 2021
+> nerve-ring deferred** — see the feasibility note under *Prior art*.
 
 ### Why (biological significance)
 

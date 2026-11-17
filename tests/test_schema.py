@@ -37,6 +37,7 @@ def test_connection_type_enum(view: SchemaView) -> None:
         "functional",
         "neuropeptidergic",
         "monoaminergic",
+        "adjacency",
     }
 
 

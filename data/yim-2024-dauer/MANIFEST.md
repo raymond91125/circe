@@ -31,8 +31,25 @@ Life stage is recorded via the `Dataset.life_stage` slot (see `data/curation/dat
 The one partner not already in neuron-graph's neuron list, **`exc_duct`** (the excretory duct cell,
 postsynaptic in 2 edges), is added as a curated endpoint cell grounded to WBbt:0004540.
 
+## Contactome (membrane adjacency) — `yim_2024_dauer_contactome`
+
+The same reconstruction also yields the **contactome**: physical membrane contacts (appositions)
+between neurons — the substrate that bounds the synaptic connectome (a synapse can only form where
+membranes touch). Ingested as a new **`adjacency`** connection type (undirected; stored in both
+orientations like gap junctions; weight = **contact area**, EM-measured; sex hermaphrodite, dauer).
+
+- Source: Supplementary Data 6 (`41467_2024_45943_MOESM9_ESM.xlsx`), sheet **`Dauer`** (the raw
+  contact-area matrix; a `Dauer_normalized` sheet and other stages L1–L3/adult are present but not
+  used). Not vendored; `build_contactome.py` reads it → committed `dauer_contactome.csv` (6,080
+  undirected contacts over 220 dauer neurons, all grounding to existing CIRCE cells).
+- **Validation (the point of the layer):** because the contactome and the synapses come from the
+  SAME EM volume, **~99% of dauer synapse pairs are also contact pairs** (synapses ⊆ contacts) — the
+  within-dataset substrate check. Pinned in `tests/test_sex_build.py::test_dauer_contactome_ingested`.
+- Reproduce: `YIM_CONTACTOME_XLSX=/path/to/MOESM9.xlsx python -I data/yim-2024-dauer/build_contactome.py`.
+
 ## Not ingested (scope)
 - **Gap junctions** — not reconstructed by the study.
-- The paper's re-tabulated **L1–L4 / adult** comparison connectomes (`MOESM6`/`MOESM9` adjacency
-  matrices): those stages are already represented in the KG by Witvliet 2020 and White 1986.
+- Supplementary Data 6's **L1–L4 / adult** contact matrices (other sheets): those stages' *synapses*
+  are already represented by Witvliet 2020 / White 1986, so only the **dauer** contactome is taken
+  here (it is the one whose synapses CIRCE also has, giving the clean subset validation).
 - The **active-zone size** weighting (kept in `size_sum` for reference, but weight = synapse count).

@@ -53,6 +53,7 @@ _TYPE_CODE = {
     "functional": "4",
     "neuropeptidergic": "5",
     "monoaminergic": "6",
+    "adjacency": "7",
 }
 
 #: Redundant neuron-graph datasets dropped at build. `randi_funconn_wildcp` is byte-identical to
@@ -215,6 +216,10 @@ _MORILLO_MALE_RECEPTOR_DATASET = "morillo_2025_male_receptors"
 #: Male long-range neuropeptide connectome DERIVED in-build from the two Morillo male layers above
 #: via the Ripoll/Beets pairs (the first male neuropeptidergic connectome; no vendored male matrix).
 _MORILLO_MALE_NP_LR_DATASET = "morillo_2025_male_neuropeptide_lr"
+
+#: Yim et al. 2024 dauer contactome (membrane adjacency), ingested as `adjacency` edges. From the
+#: SAME EM volume as the dauer synapses already in CIRCE, so synapses are ~99% a subset of contacts.
+_YIM_CONTACTOME_DATASET = "yim_2024_dauer_contactome"
 
 #: Sexually dimorphic male relabels: neurons CIRCE would fold under the hermaphrodite name but whose
 #: male identity is a DISTINCT WBbt term ("called X in hermaphrodite"; audited against WBbt -- only
@@ -484,6 +489,7 @@ def assemble(
     morillo_herm_receptor_expression_path: Path | None = None,
     morillo_male_receptor_expression_path: Path | None = None,
     morillo_groupings_path: Path | None = None,
+    yim_contactome_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
@@ -548,6 +554,11 @@ def assemble(
         if monoamine_network_path
         else []
     )
+    yim_contactome = []
+    if yim_contactome_path:
+        from celegans_connectome_kg.ingest.contactome import read_contactome
+
+        yim_contactome = read_contactome(yim_contactome_path)
     cook_alias = load_cook_aliases(cook_aliases_path) if cook_aliases_path else {}
     cook_anatomy = load_curation(cook_anatomy_path) if cook_anatomy_path else {}
     dataset_life_stage = load_dataset_life_stage(life_stage_path) if life_stage_path else {}
@@ -561,6 +572,8 @@ def assemble(
         dataset_sex[net.dataset_id] = net.sex
     if monoamine_conns:
         dataset_sex[_MONOAMINE_DATASET] = _HERMAPHRODITE
+    if yim_contactome:
+        dataset_sex[_YIM_CONTACTOME_DATASET] = _HERMAPHRODITE
     for bundle in cook_bundles:
         for d in bundle.datasets:
             dataset_sex[d.id] = d.sex
@@ -658,6 +671,21 @@ def assemble(
                 ),
             )
         )
+    if yim_contactome:
+        dataset_defs.append(
+            (
+                _YIM_CONTACTOME_DATASET,
+                "Yim et al. 2024 dauer contactome",
+                (
+                    "Observed physical membrane contacts (adjacencies) between neurons in the dauer, "
+                    "from Yim et al. 2024 (Nat Commun 15:1546, PMID 38413604) Supplementary Data 6. "
+                    "Undirected (stored both ways); weight = contact area (EM-measured). Reconstructed "
+                    "from the SAME volume as the dauer synaptic connectome (yim_2024_dauer), so it is "
+                    "the physical substrate that bounds those synapses (a synapse needs contact, so "
+                    "synapses are a subset of contacts). Not itself a synapse."
+                ),
+            )
+        )
     datasets = [
         dm.Dataset(
             id=_dataset_id(did),
@@ -695,6 +723,12 @@ def assemble(
             summed[key] = summed.get(key, 0.0) + w
     if monoamine_conns:
         for key, w in _aggregate(monoamine_conns, {}).items():
+            summed[key] = summed.get(key, 0.0) + w
+    # Contactome (Yim 2024 dauer): undirected membrane contacts -> an `adjacency` edge in BOTH
+    # orientations (physical apposition has no pre/post), same convention as gap junctions.
+    for a, b, w in yim_contactome:
+        for x, y in ((a, b), (b, a)):
+            key = (_YIM_CONTACTOME_DATASET, x, y, "adjacency")
             summed[key] = summed.get(key, 0.0) + w
 
     connections = []

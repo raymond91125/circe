@@ -105,6 +105,7 @@ def built():
         / "morillo-2025-male"
         / "morillo_male_receptor_expression.csv",
         morillo_groupings_path=REPO / "data" / "morillo-2025-male" / "morillo_groupings.csv",
+        yim_contactome_path=REPO / "data" / "yim-2024-dauer" / "dauer_contactome.csv",
     )
     return connectome, stats
 
@@ -218,6 +219,39 @@ def test_dauer_dataset(built) -> None:
     # the excretory duct cell (only non-neuron-graph partner) is a specific cell, not a placeholder
     exc = next(c for c in connectome.cells if c.name == "exc_duct")
     assert exc.unspecified is False and str(exc.anatomy) == "WBbt:0004540"
+
+
+def test_dauer_contactome_ingested(built) -> None:
+    """Yim 2024 dauer CONTACTOME (membrane adjacency), a new `adjacency` connection type. Undirected
+    (both orientations stored, like gap junctions); weight = contact area, non-negative, no sign.
+    From the SAME EM volume as the dauer synapses, so the substrate property holds: synapses are
+    (almost entirely) a subset of contacts -- the key validation of a contactome layer."""
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+
+    ds = {strip(d.id): d for d in connectome.datasets}
+    rec = ds["yim_2024_dauer_contactome"]
+    assert str(rec.sex) == "hermaphrodite" and str(rec.life_stage) == "dauer"
+
+    adj = [c for c in connectome.connections if strip(c.dataset) == "yim_2024_dauer_contactome"]
+    assert len(adj) == 12160  # 6080 undirected contacts x both orientations
+    assert all(str(c.connection_type) == "adjacency" for c in adj)
+    assert all(c.weight > 0 and c.sign is None for c in adj)
+    # symmetric: every a->b has a b->a
+    directed = {(strip(c.pre), strip(c.post)) for c in adj}
+    assert all((b, a) in directed for a, b in directed)
+
+    # VALIDATION: dauer synapse pairs are a subset of contact pairs (same reconstruction).
+    contact_pairs = {frozenset((strip(c.pre), strip(c.post))) for c in adj}
+    contact_cells = {strip(c.pre) for c in adj} | {strip(c.post) for c in adj}
+    syn_pairs = {
+        frozenset((strip(c.pre), strip(c.post)))
+        for c in connectome.connections
+        if strip(c.dataset) == "yim_2024_dauer"
+    }
+    syn_pairs = {p for p in syn_pairs if len(p) == 2 and p <= contact_cells}
+    overlap = len(syn_pairs & contact_pairs)
+    assert overlap / len(syn_pairs) > 0.95  # ~99% of dauer synapses occur at a membrane contact
 
 
 def test_dataset_life_stage_backfill(built) -> None:

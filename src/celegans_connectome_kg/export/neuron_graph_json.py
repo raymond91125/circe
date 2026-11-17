@@ -33,6 +33,7 @@ _API_TYPE = {
     "functional": "functional",
     "neuropeptidergic": "neuropeptidergic",
     "monoaminergic": "monoaminergic",
+    "adjacency": "adjacency",
 }
 
 
@@ -342,6 +343,8 @@ def kg_connections_map(connectome: object) -> dict:
             conn[pre_cls]["e"][post_cls][dset] += c.weight
             if post_cls != pre_cls:
                 conn[post_cls]["e"][pre_cls][dset] += c.weight
+        elif ctype not in _KG_REL:
+            continue  # adjacency (contactome) is KG/SPARQL-only; not surfaced in the cell-info panel
         else:
             rel_out, rel_in = _KG_REL[ctype]
             w = _signed_weight(
