@@ -61,6 +61,7 @@ DEFAULT_MORILLO_MALE_RECEPTOR_EXPR = Path(
     "data/morillo-2025-male/morillo_male_receptor_expression.csv"
 )
 DEFAULT_MORILLO_GROUPINGS = Path("data/morillo-2025-male/morillo_groupings.csv")
+DEFAULT_YIM_CONTACTOME = Path("data/yim-2024-dauer/dauer_contactome.csv")
 
 
 @click.group()
@@ -305,6 +306,7 @@ def build(
         morillo_groupings_path=(
             DEFAULT_MORILLO_GROUPINGS if DEFAULT_MORILLO_GROUPINGS.exists() else None
         ),
+        yim_contactome_path=(DEFAULT_YIM_CONTACTOME if DEFAULT_YIM_CONTACTOME.exists() else None),
     )
     out_path = out_dir / "connectome.json"
     write_json(connectome, out_path)

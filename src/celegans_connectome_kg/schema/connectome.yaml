@@ -431,6 +431,13 @@ enums:
           acting on a receptor-expressing target), the aminergic companion to the neuropeptidergic
           network (Ripoll-Sanchez et al. 2023, receptor pairs from Bentley et al. 2016). Not an
           observed synapse.
+      adjacency:
+        description: >-
+          Observed physical membrane contact (apposition) between two neurons — the "contactome"
+          (term coined by Brittin et al. 2021; CIRCE's data is the Yim et al. 2024 dauer contactome).
+          Undirected (stored in both orientations); weight is the contact area. Adjacency is the
+          substrate that bounds synapses (a synapse needs contact) and the basis for
+          extrasynaptic/ephaptic signalling — NOT itself a synapse.
 
   ConnectionSign:
     description: >-
