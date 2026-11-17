@@ -254,6 +254,30 @@ def test_dauer_contactome_ingested(built) -> None:
     assert overlap / len(syn_pairs) > 0.95  # ~99% of dauer synapses occur at a membrane contact
 
 
+def test_contactome_absent_from_viz_kg_connections(built) -> None:
+    """Adjacency (the contactome) is KG/SPARQL-only -- it must never leak into the cell-info panel's
+    `kg_connections.json`. A contactome-only dataset must not even appear in the `datasets` list
+    (that would be an orphan code no `conn` entry references), so the viz projection stays identical
+    to a build without the contactome and every `datasets` code is actually used."""
+    from celegans_connectome_kg.export.neuron_graph_json import kg_connections_map
+
+    connectome, _ = built
+    m = kg_connections_map(connectome)
+    assert "yim_2024_dauer_contactome" not in m["datasets"]
+    # no adjacency relation surfaced anywhere
+    rels = {rel for cls in m["conn"].values() for rel in cls}
+    assert rels <= {"o", "i", "e", "fo", "fi", "npo", "npi", "mao", "mai"}
+    # every dataset code is referenced by at least one conn entry (no orphans)
+    used = {
+        code
+        for cls in m["conn"].values()
+        for parts in cls.values()
+        for partner in parts.values()
+        for code in partner
+    }
+    assert used == {str(i) for i in range(len(m["datasets"]))}
+
+
 def test_dataset_life_stage_backfill(built) -> None:
     """Every dataset carries a curated life stage; the Witvliet developmental series and the
     dauer dataset are distinguishable as structured data."""
