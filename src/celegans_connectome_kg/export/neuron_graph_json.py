@@ -316,7 +316,12 @@ def kg_connections_map(connectome: object) -> dict:
     far smaller than the ~125k raw edges.
     """
     conns = connectome.connections
-    datasets = sorted({_strip(str(c.dataset), DATASET_PREFIX) for c in conns})
+    # Only datasets that contribute a surfaced relation get a code: adjacency (contactome) is
+    # KG/SPARQL-only, so a contactome-only dataset must not appear in the cell-info panel's dataset
+    # list (it would be an orphan code no ``conn`` entry references).
+    datasets = sorted(
+        {_strip(str(c.dataset), DATASET_PREFIX) for c in conns if str(c.connection_type) in _KG_REL}
+    )
     code = {d: str(i) for i, d in enumerate(datasets)}
     cls = {c.name: (c.cell_class or c.name) for c in connectome.cells}
 
@@ -332,6 +337,8 @@ def kg_connections_map(connectome: object) -> dict:
 
     for c in conns:
         ctype = str(c.connection_type)
+        if ctype != "gap_junction" and ctype not in _KG_REL:
+            continue  # adjacency (contactome) is KG/SPARQL-only; not surfaced in the cell-info panel
         dset = code[_strip(str(c.dataset), DATASET_PREFIX)]
         pre_cls, post_cls = klass(c.pre), klass(c.post)
         if ctype == "gap_junction":
@@ -343,8 +350,6 @@ def kg_connections_map(connectome: object) -> dict:
             conn[pre_cls]["e"][post_cls][dset] += c.weight
             if post_cls != pre_cls:
                 conn[post_cls]["e"][pre_cls][dset] += c.weight
-        elif ctype not in _KG_REL:
-            continue  # adjacency (contactome) is KG/SPARQL-only; not surfaced in the cell-info panel
         else:
             rel_out, rel_in = _KG_REL[ctype]
             w = _signed_weight(
