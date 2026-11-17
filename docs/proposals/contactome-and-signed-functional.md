@@ -1,16 +1,19 @@
 # Proposal: a contactome (adjacency) layer + explicit functional sign
 
-Two enrichments to CIRCE's **connection model**, scoped together because both add edge semantics the
+Enrichments to CIRCE's **connection model**, scoped together because all add edge semantics the
 current graph lacks:
 
 - **A — Contactome (new data):** ingest *physical membrane adjacency* (which neurons touch),
   from Brittin et al. 2021 (nerve ring) and Yim et al. 2024 (dauer), as a new `adjacency`
-  connection type.
+  connection type. *(proposal)*
 - **B — Explicit functional sign (model enhancement, no new data):** make the
   excitatory/inhibitory **sign** of the Randi 2023 functional connections a first-class field.
-  CIRCE already carries the sign implicitly (in the functional weight); this exposes it.
+  *(IMPLEMENTED — see below.)*
+- **C — Predicted chemical-synapse sign:** assign an excitatory/inhibitory **sign** to *chemical*
+  synapses (far broader than Randi's measured functional subset), from presynaptic neurotransmitter
+  + postsynaptic ionotropic receptor — reusing B's `sign` slot. *(proposal)*
 
-Status: scoping/feasibility — not yet built. Follows the Morillo proposal's structure.
+Status: A and C are proposals; B is built. Follows the Morillo proposal's structure.
 
 ## A. Contactome
 
@@ -93,6 +96,52 @@ notice the weight can be negative.
   partners of AVA"), and reconciliation against **neurotransmitter identity** (e.g. a GABAergic
   source predicting an inhibitory edge) and against sign-prediction work (Fenyves 2020).
 
+## C. Predicted chemical-synapse sign
+
+### Why
+
+Part B gives *measured* functional sign, but only for Randi's small head subset. The much broader
+signed layer is the **predicted polarity of chemical synapses** — whether each EM synapse is
+excitatory or inhibitory — inferred from the presynaptic neurotransmitter and the postsynaptic
+ionotropic receptor. This would put a sign on most of the chemical connectome (thousands of edges),
+complementing B's handful of measured ones, and enables signed-circuit analysis (feedforward
+excitation, feedback inhibition, E/I balance).
+
+### Prior art (checked)
+
+- **Fenyves et al. 2020** (*PLoS Comput Biol* e1007974) / **EleganSign** — predicts polarity for
+  ~70–73% of ionotropic chemical synapses by pairing presynaptic NT with postsynaptic receptor
+  expression; ~4:1 excitatory:inhibitory; synapses with both E and I receptors are flagged
+  "complex". In the OpenWorm ConnectomeToolbox.
+- **Signed-motif analysis** (bioRxiv 2025, PMC13374236) relabels Fenyves: of 3,638 connections,
+  1,555 excitatory / 553 inhibitory / 1,530 unknown. Downstream, not new primary data.
+- Direct single-synapse polarity measurements remain sparse, so these are *predictions*.
+
+### Two routes
+
+- **Derive natively (preferred — CIRCE's pattern).** Presynaptic NT identity (Wang 2024, already
+  ingested as `neurotransmitter_assignments`) × postsynaptic **ionotropic receptor** expression
+  (CeNGEN) → a per-synapse polarity, exactly as CIRCE derives the NP connectome from expression ×
+  pairs. Requires adding the fast-transmitter ionotropic receptors (ACh: `acr-*`/`acc-*`/`lgc-*`;
+  Glu: `glr-*`/`glc-*`/`avr-*`; GABA: `unc-49`/`exp-1`/`lgc-35`), analogous to CIRCE's existing
+  `cengen_2021_monoamine_ionotropic` layer. EleganSign then serves as an **independent validation
+  target**.
+- **Ingest EleganSign's table** (faster) — its precomputed per-synapse sign, populated onto chemical
+  connections. Less reproducible from source; good as a cross-check or interim.
+
+### Design
+
+- **Reuse the `sign` slot** (added in B) on chemical connections; keep it distinguishable from the
+  measured functional sign by `connection_type` (chemical vs functional) and dataset/provenance
+  (a derived `*_synapse_sign` dataset, or a confidence/provenance marker). "complex"/ambiguous
+  synapses leave `sign` unset.
+- Measured (Randi functional) and predicted (chemical) sign thus coexist cleanly.
+
+### Caveats
+
+- Predictions, not measurements; the cation=excitatory / anion=inhibitory receptor→polarity mapping
+  is an assumption; "complex" synapses are unresolved; gene-expression thresholds apply.
+
 ## Open decisions (for review)
 
 1. **Adjacency directedness** — store both directions (gap-junction convention). *(recommended)*
@@ -123,3 +172,6 @@ notice the weight can be negative.
 - Yim H, et al. *Comparative connectomics of dauer reveals developmental plasticity.* Nat Commun
   (2024).
 - Randi F, et al. *Neural signal propagation atlas of C. elegans.* Nature 623:406–414 (2023).
+- Fenyves BG, et al. *Synaptic polarity and sign-balance prediction using gene expression data in
+  the C. elegans chemical synapse neuronal connectome network.* PLoS Comput Biol 16(12):e1007974
+  (2020). (EleganSign.)
