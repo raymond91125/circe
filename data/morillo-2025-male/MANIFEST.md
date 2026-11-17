@@ -70,9 +70,12 @@ extended with ontology-grounded grouping expansion):
 - **Serial-homolog groupings EXPANDED** (`morillo_groupings.csv`) — a label that is *one* WBbt class
   or serial homologs of one: rays `RnA` (`WBbt:0006972`) / `RnB` (`WBbt:0006973`) and ray subsets
   (`R5,7,9A`, `Ray1,5,7A/B`), `IL2DV`/`IL2LT` (`WBbt:0005118`), `CP Neurons`/`CP7,8`
-  (`WBbt:0005310`), `VC4/5` (`WBbt:0005304`). These expand to their member cells with a distinct
-  **`grouped`** confidence (homologous cells likely share expression; a class-aggregate, not a
-  per-cell measurement). Unlike `PHA/PHB`, these are not distinct-type mergers.
+  (`WBbt:0005310`), `VC4/5` (`WBbt:0005304`). These expand to their member cells, each record tagged
+  **`grouped`** — a *provenance/granularity* marker, **not** a lower confidence: the cells co-cluster
+  because their transcriptomes are alike, so the call is as real as a class-level `reported` call, it
+  just comes from a multi-class aggregate (coarser spatial resolution). The full per-cell records are
+  kept; the tag only lets a strict single-neuron analysis identify/exclude multi-class pools. Unlike
+  `PHA/PHB`, these are not distinct-type mergers.
 - **Ventral-cord classes aliased** to CIRCE's `-n` class names (`VB`→`VBn`, … `AS`→`ASn`).
 - **Male-specific neurons included** where Morillo resolved them individually (`CEM`×4, `HOA`, `HOB`,
   `PHD`×2, `SPC`/`SPD`/`SPV`×2, `CA7`, `CP9`, `PVX`, and **`PVS`** — see below).

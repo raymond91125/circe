@@ -488,7 +488,10 @@ enums:
         description: Weaker / putative expression (SI6 lowercase "x"); semantics unstated in source.
       grouped:
         description: >-
-          Class-aggregate call assigned by expanding a serial-homolog grouping/class column (e.g. a
-          pooled ray-neuron, IL2-subdivision, or CP-neuron cluster) to its member cells. Not an
-          individual-neuron measurement: every member cell of the grouping receives the same call,
-          so these are coarser than ``reported`` per-cell calls (see data/morillo-2025-male).
+          Provenance/granularity marker, NOT a lower confidence. The call comes from a cluster that
+          pools several DISTINCT neuron classes (e.g. a ray-neuron, IL2-subdivision, or CP-neuron
+          cluster) and is written onto each member cell. Such cells co-cluster because their
+          transcriptomes are alike, so the call is as real as a class-level ``reported`` call -- it
+          just has coarser spatial resolution (a multi-class aggregate rather than one cell/class).
+          The per-cell records are kept in full; this tag only lets a strict single-neuron analysis
+          identify or exclude multi-class pools (see data/morillo-2025-male).
