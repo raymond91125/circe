@@ -1,0 +1,10 @@
+label,wbbt,members,rationale
+RnA,WBbt:0006972,R1AL R1AR R2AL R2AR R3AL R3AR R4AL R4AR R5AL R5AR R6AL R6AR R7AL R7AR R8AL R8AR R9AL R9AR,ray neuron type A (syn RnA) is one ontology class; the pooled A-type ray cluster is expanded to its serial-homolog member cells
+RnB,WBbt:0006973,R1BL R1BR R2BL R2BR R3BL R3BR R4BL R4BR R5BL R5BR R6BL R6BR R7BL R7BR R8BL R8BR R9BL R9BR,ray neuron type B (syn RnB) is one ontology class; pooled B-type ray cluster expanded to member cells
+"R5,7,9A",WBbt:0006972,R5AL R5AR R7AL R7AR R9AL R9AR,named A-type rays 5/7/9 (ray neuron type A) resolved as one cluster; expanded to the named rays
+"Ray1,5,7A/B",WBbt:0006972 WBbt:0006973,R1AL R1AR R1BL R1BR R5AL R5AR R5BL R5BR R7AL R7AR R7BL R7BR,named rays 1/5/7 both A and B type resolved as one cluster; expanded to the named rays
+IL2DV,WBbt:0005118,IL2DL IL2DR IL2VL IL2VR,IL2 neuron is one class; IL2DV is its dorsal+ventral (quadrant) subdivision in Morillo; expanded to those four IL2 cells
+IL2LT,WBbt:0005118,IL2L IL2R,IL2 neuron is one class; IL2LT is its lateral subdivision; expanded to the two lateral IL2 cells
+CP Neurons,WBbt:0005310,CP0 CP1 CP2 CP3 CP4 CP5 CP6 CP7 CP8 CP9,CP neuron is one class of serially repeated male ventral-cord neurons; pooled CP cluster expanded to member cells
+"CP7,8",WBbt:0005310,CP7 CP8,named CP neurons 7/8 resolved as one cluster; expanded to the named cells
+"VC4/5",WBbt:0005304,VC4 VC5,named VC neurons 4/5 (one class) resolved as one cluster; expanded to the named cells (hermaphrodite; cross-sex columns are skipped per sex)

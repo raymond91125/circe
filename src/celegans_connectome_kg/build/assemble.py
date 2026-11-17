@@ -216,6 +216,13 @@ _MORILLO_MALE_RECEPTOR_DATASET = "morillo_2025_male_receptors"
 #: via the Ripoll/Beets pairs (the first male neuropeptidergic connectome; no vendored male matrix).
 _MORILLO_MALE_NP_LR_DATASET = "morillo_2025_male_neuropeptide_lr"
 
+#: Sexually dimorphic male relabels: neurons CIRCE would fold under the hermaphrodite name but whose
+#: male identity is a DISTINCT WBbt term ("called X in hermaphrodite"; audited against WBbt -- only
+#: the PVP pair qualifies). Applied ONLY to male Cook data, so the male occurrence becomes the
+#: male-specific cell and the hermaphrodite cell stays hermaphrodite-only. PVU/PVS are grounded via
+#: cook_anatomy_curation.csv (WBbt:0007836 / WBbt:0007837).
+_MALE_DIMORPHIC_ALIAS = {"PVPL": "PVU", "PVPR": "PVS"}
+
 #: Bhattacharya class labels that don't map to a single CIRCE cell_class (IL1/IL2/RMD subclasses).
 _INNEXIN_SPECIAL = {
     "IL1-L/R": ["IL1L", "IL1R"],
@@ -328,16 +335,23 @@ def _build_np_expression(dm, genes_map, records, cells, dataset=_NP_EXPRESSION_D
     return genes, exprs, sorted(unmapped)
 
 
-def _build_morillo_expression(dm, genes_map, records, cells, sex, dataset):
-    """Genes + per-cell GeneExpression for one Morillo 2025 sex sheet (class labels expanded).
+def _build_morillo_expression(dm, genes_map, records, cells, sex, dataset, groupings=None):
+    """Genes + per-cell GeneExpression for one Morillo 2025 sex sheet (class/grouping labels expanded).
 
-    Like ``_build_np_expression``, but Morillo mmc8 columns are at cell *or class* level, so a
-    class label fans out to its member cells present in ``sex`` (the build's own cell inventory is
-    the registry). ``records`` is a list of (label, gene_symbol); ``label`` is an individual cell
-    name or a neuron class (ventral-cord aliases already normalized to ``-n`` by the data-dir build
-    script). Returns (genes, expressions, unmapped_labels); genes are keyed by WBGene so they share
-    with gene nodes already in the graph.
+    Like ``_build_np_expression``, but Morillo columns are at cell, class, or *serial-homolog
+    grouping* level. A label resolves in this order:
+
+    * an **individual cell** present in ``sex`` -> one ``reported`` call;
+    * a **neuron class** -> its member cells present in ``sex``, ``reported`` (as with CeNGEN);
+    * a **grouping** (``groupings``: label -> member cells, from morillo_groupings.csv) -> its
+      members present in ``sex``, tagged ``grouped`` -- a class-aggregate, not a per-cell call.
+
+    When a cell gets both a per-cell/class (``reported``) and a grouping (``grouped``) call for the
+    same gene, ``reported`` wins (a grouping never downgrades a real per-cell measurement). Returns
+    (genes, expressions, unmapped_labels); genes are keyed by WBGene so they share with gene nodes
+    already in the graph.
     """
+    groupings = groupings or {}
     genes = [
         dm.Gene(
             id=g.wbgene,
@@ -355,28 +369,39 @@ def _build_morillo_expression(dm, genes_map, records, cells, sex, dataset):
     # valid cell/class labels in ANY sex -- a label valid only in the other sex is a cross-sex
     # column (mmc12 lists all clusters in every sheet) and is skipped, not an error.
     valid_any = {c.name for c in cells} | {str(c.cell_class) for c in cells if c.cell_class}
-    exprs, unmapped, seen = [], set(), set()
+    # (cell_name, wbgene) -> confidence; reported overrides grouped.
+    best: dict[tuple[str, str], str] = {}
+    unmapped = set()
     for label, symbol in records:
-        targets = [label] if label in names else sorted(members.get(label, []))
-        if not targets:
+        if label in names:
+            targets, conf = [label], "reported"
+        elif label in members:
+            targets, conf = sorted(members[label]), "reported"
+        elif label in groupings:
+            targets = sorted(m for m in groupings[label] if m in names)  # sex-present members only
+            conf = "grouped"
+        else:
             if label not in valid_any:
                 unmapped.add(label)
             continue
-        g = genes_map[symbol]
-        wbid = g.wbgene.split(":")[-1]
+        if not targets:
+            continue  # e.g. a male-only grouping (RnA) appearing in the hermaphrodite sheet
+        wbgene = genes_map[symbol].wbgene
         for name in targets:
-            if (name, wbid) in seen:
-                continue
-            seen.add((name, wbid))
-            exprs.append(
-                dm.GeneExpression(
-                    id=f"cckg:expr/{dataset}.{name}.{wbid}",
-                    cell=_cell_id(name),
-                    gene=g.wbgene,
-                    dataset=_dataset_id(dataset),
-                    confidence="reported",
-                )
-            )
+            key = (name, wbgene)
+            if best.get(key) == "reported":
+                continue  # never downgrade a per-cell/class call to grouped
+            best[key] = conf
+    exprs = [
+        dm.GeneExpression(
+            id=f"cckg:expr/{dataset}.{name}.{wbgene.split(':')[-1]}",
+            cell=_cell_id(name),
+            gene=wbgene,
+            dataset=_dataset_id(dataset),
+            confidence=conf,
+        )
+        for (name, wbgene), conf in sorted(best.items())
+    ]
     return genes, exprs, sorted(unmapped)
 
 
@@ -458,6 +483,7 @@ def assemble(
     morillo_receptor_genes_path: Path | None = None,
     morillo_herm_receptor_expression_path: Path | None = None,
     morillo_male_receptor_expression_path: Path | None = None,
+    morillo_groupings_path: Path | None = None,
 ) -> tuple[object, BuildStats]:
     """Assemble a Connectome data-model object plus build stats.
 
@@ -541,6 +567,8 @@ def assemble(
         for sex, names in bundle.cells_by_sex.items():
             for n in names:
                 canonical = cook_alias.get(n, n)
+                if sex == _MALE:  # dimorphic relabel: male PVPL/PVPR are really PVU/PVS
+                    canonical = _MALE_DIMORPHIC_ALIAS.get(canonical, canonical)
                 sexes[canonical].add(sex)
                 if canonical not in cell_records and canonical not in stub_names:
                     cook_new_cells[canonical] = cook_anatomy.get(canonical, "")
@@ -643,8 +671,18 @@ def assemble(
 
     # --- Connections: neuron-graph (G1/G2 gland-misnomer rename) + Cook bundles (aliased) ---
     summed = _aggregate(data.connections, _NEURON_GRAPH_ALIAS)
+
+    def _male_dimorphic(c):
+        """Relabel a male-dataset connection's dimorphic endpoints (PVPL/PVPR -> PVU/PVS)."""
+        if dataset_sex.get(c.dataset_id) != _MALE:
+            return c
+        pre = _MALE_DIMORPHIC_ALIAS.get(c.pre, c.pre)
+        post = _MALE_DIMORPHIC_ALIAS.get(c.post, c.post)
+        return c if (pre, post) == (c.pre, c.post) else replace(c, pre=pre, post=post)
+
     for bundle in cook_bundles:
-        for key, w in _aggregate(bundle.connections, cook_alias).items():
+        conns = [_male_dimorphic(c) for c in bundle.connections]
+        for key, w in _aggregate(conns, cook_alias).items():
             summed[key] = summed.get(key, 0.0) + w
     if bhatla:
         for key, w in _aggregate(bhatla.connections, {}).items():
@@ -925,6 +963,16 @@ def assemble(
     # drop, and continuous SCT values are binarized at the layer's own CeNGEN-calibrated cutoff.
     from celegans_connectome_kg.ingest.cengen import read_expression, read_gene_table
 
+    # Serial-homolog grouping label -> member cell names (ontology-confirmed single classes: rays,
+    # IL2, CP, VC). The build expands these to their members with a distinct ``grouped`` confidence.
+    morillo_groupings: dict[str, list[str]] = {}
+    if morillo_groupings_path and Path(morillo_groupings_path).exists():
+        import csv as _csv
+
+        with open(morillo_groupings_path, newline="") as _f:
+            for _r in _csv.DictReader(_f):
+                morillo_groupings[_r["label"].strip()] = _r["members"].split()
+
     seen_gene_ids = {g.id for g in genes}
     #: (genes_path, herm_path, male_path, herm_ds, male_ds, gene_kind, source_blurb, cutoff)
     _MORILLO_LAYERS = (
@@ -961,7 +1009,7 @@ def assemble(
                 continue
             recs = read_expression(path)
             mo_genes, mo_exprs, mo_unmapped = _build_morillo_expression(
-                dm, mo_genes_map, recs, cells, sex, ds
+                dm, mo_genes_map, recs, cells, sex, ds, morillo_groupings
             )
             if mo_unmapped:
                 raise ValueError(
@@ -975,8 +1023,10 @@ def assemble(
                         f"Per-neuron {kind} expression in the adult {sexword}, from the Morillo et "
                         "al. 2025 single-nucleus RNA-seq atlas (Cell Reports, PMID 40682776; "
                         f"doi:10.1016/j.celrep.2025.116016), {blurb}. Continuous SCT values binarized "
-                        f"at a CeNGEN threshold-4-calibrated cutoff ({cutoff}); merged clusters and "
-                        "non-neuronal columns dropped, class columns expanded to member cells."
+                        f"at a CeNGEN threshold-4-calibrated cutoff ({cutoff}); distinct-type merged "
+                        "clusters and non-neuronal columns dropped, class columns expanded to member "
+                        "cells, and serial-homolog groupings (rays, IL2, CP, VC) expanded to members "
+                        "with a 'grouped' confidence."
                     ),
                     sex=sex,
                     life_stage="adult",

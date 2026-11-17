@@ -46,6 +46,17 @@ import openpyxl
 
 HERE = Path(__file__).resolve().parent
 GENES_CSV = HERE / "morillo_receptor_genes.csv"
+GROUPINGS_CSV = HERE / "morillo_groupings.csv"
+
+
+def load_grouping_labels() -> set[str]:
+    """Serial-homolog grouping labels to KEEP (expanded to member cells downstream; see
+    morillo_groupings.csv). Ontology-confirmed single classes (rays, IL2, CP, VC)."""
+    with open(GROUPINGS_CSV, newline="") as f:
+        return {r["label"].strip() for r in csv.DictReader(f)}
+
+
+GROUPINGS = load_grouping_labels()
 
 #: Calibrated receptor binarization cutoff on the mmc12 SCT value (see module docstring).
 CUTOFF_T = 0.0491
@@ -81,18 +92,18 @@ DROP_LABELS = {
         "I Neurons",
         "I neurons",
         "Touch Neurons",
-        "CP Neurons",
-        "RnA",
-        "RnB",
-        "IL2DV",
-        "IL2LT",
-        "PVS",
     )
 }
 
 
 def keep(label: str) -> bool:
-    """True if a label is a single groundable neuron/class (not merged/pooled/non-neuronal)."""
+    """True if a label is a single groundable neuron/class OR a serial-homolog grouping.
+
+    Serial-homolog groupings (rays/IL2/CP/VC; see morillo_groupings.csv) are kept even with ``/`` or
+    ``,`` and expanded to member cells downstream. Merged clusters of distinct types are dropped.
+    """
+    if label in GROUPINGS:
+        return True
     if "/" in label or "," in label:
         return False
     if label.startswith("Male "):

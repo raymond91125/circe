@@ -11,16 +11,21 @@ and (importantly) what it deliberately does **not** claim.
 
 | | value |
 |---|---|
-| Edges (directed) | **11,586** |
-| Neurons in network | 188 |
-| Edge weight (NPP–GPCR pathways) | 1–9 (total 19,797) |
-| Edges touching a male-specific neuron | **2,080** |
-| Male-specific neurons participating | 17 (CEM×4, HOA, HOB, PHD×2, SPC/SPD/SPV×6, CA7, CP9, PVX) |
+| Edges (directed) | **20,189** |
+| Neurons in network | 238 |
+| Edge weight (NPP–GPCR pathways) | 1–11 (total 37,187) |
+| Edges touching a male-specific neuron | **10,135** |
+| Male-specific neurons participating | 63 (CEM×4, HOA, HOB, PHD×2, SPC/SPD/SPV×6, CA7, CP0–9, PVS, PVX, and all 36 ray neurons R1–R9 A/B) |
 | NPP–GPCR pairs usable in male | 75 of 92 |
 
-The 2,080 edges onto/from male-specific neurons (CEM, HOA/HOB, the spicule and ray-associated
-neurons, …) are the part no hermaphrodite network can contain — the reason a male connectome is
-worth deriving at all.
+The 10,135 edges onto/from male-specific neurons — the **ray neurons** (the male's principal
+copulatory sensory structure), the CP ventral-cord neurons, CEM, HOA/HOB, the spicule neurons, and
+PVS — are the part no hermaphrodite network can contain, and the reason a male connectome is worth
+deriving. The rays and CP neurons enter via **ontology-grounded serial-homolog grouping expansion**
+of Morillo's pooled `RnA`/`RnB`/`CP` columns (tagged `grouped` confidence — class-aggregate, not
+per-cell; see `data/morillo-2025-male/MANIFEST.md`). PVS is the male-specific neuron CIRCE previously
+mis-filed under the hermaphrodite name PVPR (`WBbt:0007837`; its male-specific partner PVU has no
+Morillo expression, so it is structural-only and absent here).
 
 ## Method — the *same* validated method as the hermaphrodite network
 

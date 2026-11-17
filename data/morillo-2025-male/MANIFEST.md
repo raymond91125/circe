@@ -59,19 +59,35 @@ any **edges** derived from this layer (Phase C), not for the expression records 
 ## Neuron reconciliation (mmc8 column label → CIRCE cells)
 
 mmc8 columns mix individual neurons (`HOA`), neuron classes (`AIY`, `CEM`), merged clusters the
-snRNA could not resolve (`PHA/PHB/ASH`), generic groupings (`RnA`, `CP Neurons`, `Male 1`), and
-non-neuronal cells (`Intestine`, `Sperm`). Policy (per the proposal's resolved curation choices):
+snRNA could not resolve (`PHA/PHB/ASH`), serial-homolog groupings (`RnA`, `CP Neurons`, `R5,7,9A`),
+and non-neuronal cells (`Intestine`, `Sperm`). Policy (per the proposal's resolved curation choices,
+extended with ontology-grounded grouping expansion):
 
-- **Merged clusters dropped** — any label naming more than one class (`/` or `,`): the value is for
-  the pooled group, not per neuron.
-- **Non-neuronal / ungroundable groupings dropped** (`Intestine`, `Sperm`, `Hypodermis`, `RnA`,
-  `RnB`, `CP Neurons`, `Male N`, `IL2DV`, `IL2LT`, `PVS`, …) — not individual CIRCE neurons.
-- **Ventral-cord classes aliased** to CIRCE's `-n` class names (`VB`→`VBn`, `VC`→`VCn`, `VD`→`VDn`,
-  `DA`→`DAn`, `DB`→`DBn`, `AS`→`ASn`).
-- **Male-specific neurons included** where Morillo resolved them individually (17 cells: `CEM`×4,
-  `HOA`, `HOB`, `PHD`×2, `SPC`/`SPD`/`SPV`×2, `CA7`, `CP9`, `PVX`).
-- Kept labels are an individual cell name or a neuron class; the build (assemble) expands a class
-  label to its member cells present in that sex (class-level calls, as with CeNGEN).
+- **Distinct-type merged clusters dropped** — a label naming more than one *different* class
+  (`PHA/PHB`, `AVE/AVA`, `CEM/Ray1,5,7B`): a pooled value over distinct cell types, not per-neuron.
+- **Non-neuronal / heterogeneous super-groups dropped** (`Intestine`, `Sperm`, `Hypodermis`,
+  `Motor Neurons`, `Mechanosensory Neurons`, `Touch Neurons`, `Male N`, …).
+- **Serial-homolog groupings EXPANDED** (`morillo_groupings.csv`) — a label that is *one* WBbt class
+  or serial homologs of one: rays `RnA` (`WBbt:0006972`) / `RnB` (`WBbt:0006973`) and ray subsets
+  (`R5,7,9A`, `Ray1,5,7A/B`), `IL2DV`/`IL2LT` (`WBbt:0005118`), `CP Neurons`/`CP7,8`
+  (`WBbt:0005310`), `VC4/5` (`WBbt:0005304`). These expand to their member cells, each record tagged
+  **`grouped`** — a *provenance/granularity* marker, **not** a lower confidence: the cells co-cluster
+  because their transcriptomes are alike, so the call is as real as a class-level `reported` call, it
+  just comes from a multi-class aggregate (coarser spatial resolution). The full per-cell records are
+  kept; the tag only lets a strict single-neuron analysis identify/exclude multi-class pools. Unlike
+  `PHA/PHB`, these are not distinct-type mergers.
+- **Ventral-cord classes aliased** to CIRCE's `-n` class names (`VB`→`VBn`, … `AS`→`ASn`).
+- **Male-specific neurons included** where Morillo resolved them individually (`CEM`×4, `HOA`, `HOB`,
+  `PHD`×2, `SPC`/`SPD`/`SPV`×2, `CA7`, `CP9`, `PVX`, and **`PVS`** — see below).
+- **PVP pair sexual dimorphism.** Audited against WBbt ("called X in hermaphrodite"): the male PVP
+  neurons are the distinct male-specific terms **`PVU`** (`WBbt:0007836`, herm `PVPL`) and **`PVS`**
+  (`WBbt:0007837`, herm `PVPR`). Cook 2019 reconstructs them under the herm names, so the build
+  relabels **male `PVPL`→`PVU`, `PVPR`→`PVS`** (`_MALE_DIMORPHIC_ALIAS`), leaving `PVPL`/`PVPR`
+  hermaphrodite-only. `PVS` carries its mmc8 ligand column (`reported`); `PVU` has no Morillo data
+  (structural-only). The male `PVP` *receptor* cluster has no WBbt male PVP member and so yields
+  nothing in the male (not forced onto PVU/PVS — WBbt's `PVP` does not contain them).
+- Everything else kept is an individual cell or a neuron class; the build expands a class label to
+  its member cells present in that sex (class-level calls, as with CeNGEN).
 
 ## Gene resolution
 
