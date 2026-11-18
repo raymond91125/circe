@@ -1,0 +1,673 @@
+{
+  "description": "Same-volume synapse<->contact consistency (synapses must occur at a contact).",
+  "heavy_threshold_sections": 5,
+  "cases": [
+    {
+      "label": "L4 (White JSH / Brittin L4)",
+      "synapse_dataset": "white_1986_jsh",
+      "contactome_dataset": "brittin_2021_l4_contactome",
+      "synapse_pairs_in_contactome_cells": 1357,
+      "contact_pairs": 4763,
+      "synapses_at_a_contact": 1347,
+      "fraction_at_contact": 0.9926,
+      "synapses_without_contact": 10,
+      "misses_weight_1": 8,
+      "misses_heavy": [],
+      "all_misses": [
+        {
+          "pair": [
+            "AVKL",
+            "SMBVL"
+          ],
+          "weight": 4.0,
+          "types": [
+            "gap_junction"
+          ]
+        },
+        {
+          "pair": [
+            "SAADR",
+            "SIAVR"
+          ],
+          "weight": 4.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "ADAL",
+            "AVER"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "ALA",
+            "AVAL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVHL",
+            "RIH"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "FLPL",
+            "RMFL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RIGR",
+            "SIAVR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RMDL",
+            "URYVR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RMDVL",
+            "URADL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RMHL",
+            "URXL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        }
+      ],
+      "potential_synapses_contact_without_synapse": 3345
+    },
+    {
+      "label": "adult (White N2U / Brittin adult)",
+      "synapse_dataset": "white_1986_n2u",
+      "contactome_dataset": "brittin_2021_adult_contactome",
+      "synapse_pairs_in_contactome_cells": 1454,
+      "contact_pairs": 5245,
+      "synapses_at_a_contact": 1424,
+      "fraction_at_contact": 0.9794,
+      "synapses_without_contact": 30,
+      "misses_weight_1": 20,
+      "misses_heavy": [
+        {
+          "pair": [
+            "PLNL",
+            "SMBVL"
+          ],
+          "weight": 7.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "PLNR",
+            "SMBVR"
+          ],
+          "weight": 6.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "PLNL",
+            "SAADL"
+          ],
+          "weight": 5.0,
+          "types": [
+            "chemical"
+          ]
+        }
+      ],
+      "all_misses": [
+        {
+          "pair": [
+            "PLNL",
+            "SMBVL"
+          ],
+          "weight": 7.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "PLNR",
+            "SMBVR"
+          ],
+          "weight": 6.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "PLNL",
+            "SAADL"
+          ],
+          "weight": 5.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "PLNR",
+            "SAADR"
+          ],
+          "weight": 4.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "OLQVL",
+            "SIBDL"
+          ],
+          "weight": 3.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "ADER",
+            "AVM"
+          ],
+          "weight": 2.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "ADLR",
+            "AVHR"
+          ],
+          "weight": 2.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "IL1VL",
+            "IL1VR"
+          ],
+          "weight": 2.0,
+          "types": [
+            "gap_junction"
+          ]
+        },
+        {
+          "pair": [
+            "RIGL",
+            "RMEL"
+          ],
+          "weight": 2.0,
+          "types": [
+            "gap_junction"
+          ]
+        },
+        {
+          "pair": [
+            "RMFL",
+            "URBR"
+          ],
+          "weight": 2.0,
+          "types": [
+            "gap_junction"
+          ]
+        },
+        {
+          "pair": [
+            "ADEL",
+            "SIADR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "ADEL",
+            "SMBDR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "ADLL",
+            "AIBR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AIBR",
+            "HSNR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AIML",
+            "AVDR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AIYR",
+            "HSNL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AIZR",
+            "HSNR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "ALA",
+            "AVAL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "ASEL",
+            "AWAR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVBL",
+            "PVQR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVBL",
+            "RIFR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVEL",
+            "PVNR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVFL",
+            "AVL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVJR",
+            "FLPR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVKL",
+            "AVM"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "BDUL",
+            "SAADL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "OLQDL",
+            "RIPR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "OLQDR",
+            "RIPL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "PVPR",
+            "PVQR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "PVPR",
+            "RMGR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        }
+      ],
+      "potential_synapses_contact_without_synapse": 3735
+    },
+    {
+      "label": "dauer (Yim synapses / Yim contactome)",
+      "synapse_dataset": "yim_2024_dauer",
+      "contactome_dataset": "yim_2024_dauer_contactome",
+      "synapse_pairs_in_contactome_cells": 1871,
+      "contact_pairs": 6080,
+      "synapses_at_a_contact": 1853,
+      "fraction_at_contact": 0.9904,
+      "synapses_without_contact": 18,
+      "misses_weight_1": 10,
+      "misses_heavy": [
+        {
+          "pair": [
+            "RIS",
+            "RMED"
+          ],
+          "weight": 5.0,
+          "types": [
+            "chemical"
+          ]
+        }
+      ],
+      "all_misses": [
+        {
+          "pair": [
+            "RIS",
+            "RMED"
+          ],
+          "weight": 5.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "GLRVR",
+            "RIVL"
+          ],
+          "weight": 2.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "OLQDR",
+            "URYDL"
+          ],
+          "weight": 2.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "PLNR",
+            "RIH"
+          ],
+          "weight": 2.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RIH",
+            "RIVL"
+          ],
+          "weight": 2.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RIH",
+            "RIVR"
+          ],
+          "weight": 2.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RIMR",
+            "RMEV"
+          ],
+          "weight": 2.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RMER",
+            "URBR"
+          ],
+          "weight": 2.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVAR",
+            "URBR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVAR",
+            "URYVR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "AVHL",
+            "AWBL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "BWM-DR04",
+            "IL1DR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "BWM-VL07",
+            "PVNL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "GLRVR",
+            "RIVR"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "IL2L",
+            "RMEL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "OLLR",
+            "URYDL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RIH",
+            "RMFL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        },
+        {
+          "pair": [
+            "RIS",
+            "RMEL"
+          ],
+          "weight": 1.0,
+          "types": [
+            "chemical"
+          ]
+        }
+      ],
+      "potential_synapses_contact_without_synapse": 4227
+    }
+  ]
+}
