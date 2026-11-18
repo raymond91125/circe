@@ -12,6 +12,7 @@
       "fraction_at_contact": 0.9926,
       "synapses_without_contact": 10,
       "misses_weight_1": 8,
+      "misses_contact_in_other_contactome": 5,
       "misses_heavy": [],
       "all_misses": [
         {
@@ -22,7 +23,8 @@
           "weight": 4.0,
           "types": [
             "gap_junction"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -32,7 +34,8 @@
           "weight": 4.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -42,7 +45,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -52,7 +56,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -62,7 +67,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -72,7 +78,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -82,7 +89,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -92,7 +100,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -102,7 +111,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -112,7 +122,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         }
       ],
       "potential_synapses_contact_without_synapse": 3345
@@ -127,6 +138,7 @@
       "fraction_at_contact": 0.9794,
       "synapses_without_contact": 30,
       "misses_weight_1": 20,
+      "misses_contact_in_other_contactome": 14,
       "misses_heavy": [
         {
           "pair": [
@@ -136,7 +148,8 @@
           "weight": 7.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -146,7 +159,8 @@
           "weight": 6.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -156,7 +170,8 @@
           "weight": 5.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         }
       ],
       "all_misses": [
@@ -168,7 +183,8 @@
           "weight": 7.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -178,7 +194,8 @@
           "weight": 6.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -188,7 +205,8 @@
           "weight": 5.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -198,7 +216,8 @@
           "weight": 4.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -208,7 +227,8 @@
           "weight": 3.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -218,7 +238,8 @@
           "weight": 2.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -228,7 +249,8 @@
           "weight": 2.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -238,7 +260,8 @@
           "weight": 2.0,
           "types": [
             "gap_junction"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -248,7 +271,8 @@
           "weight": 2.0,
           "types": [
             "gap_junction"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -258,7 +282,8 @@
           "weight": 2.0,
           "types": [
             "gap_junction"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -268,7 +293,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -278,7 +304,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -288,7 +315,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -298,7 +326,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -308,7 +337,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -318,7 +348,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -328,7 +359,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -338,7 +370,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -348,7 +381,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -358,7 +392,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -368,7 +403,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -378,7 +414,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -388,7 +425,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -398,7 +436,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -408,7 +447,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -418,7 +458,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -428,7 +469,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -438,7 +480,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -448,7 +491,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -458,7 +502,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         }
       ],
       "potential_synapses_contact_without_synapse": 3735
@@ -473,6 +518,7 @@
       "fraction_at_contact": 0.9904,
       "synapses_without_contact": 18,
       "misses_weight_1": 10,
+      "misses_contact_in_other_contactome": 8,
       "misses_heavy": [
         {
           "pair": [
@@ -482,7 +528,8 @@
           "weight": 5.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         }
       ],
       "all_misses": [
@@ -494,7 +541,8 @@
           "weight": 5.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -504,7 +552,8 @@
           "weight": 2.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -514,7 +563,8 @@
           "weight": 2.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -524,7 +574,8 @@
           "weight": 2.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -534,7 +585,8 @@
           "weight": 2.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -544,7 +596,8 @@
           "weight": 2.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -554,7 +607,8 @@
           "weight": 2.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -564,7 +618,8 @@
           "weight": 2.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -574,7 +629,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -584,7 +640,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -594,7 +651,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -604,7 +662,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -614,7 +673,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -624,7 +684,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -634,7 +695,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -644,7 +706,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": false
         },
         {
           "pair": [
@@ -654,7 +717,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         },
         {
           "pair": [
@@ -664,7 +728,8 @@
           "weight": 1.0,
           "types": [
             "chemical"
-          ]
+          ],
+          "contact_in_other_contactome": true
         }
       ],
       "potential_synapses_contact_without_synapse": 4227

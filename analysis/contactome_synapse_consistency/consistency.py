@@ -87,14 +87,21 @@ def analyse(graph: dict) -> dict:
     for sds, cds, label in PAIRINGS:
         cpairs, cells = contact_pairs[cds], contact_cells[cds]
         # Restrict synapse pairs to cells the contactome actually reconstructed (both endpoints), so a
-        # miss means "touch not scored", never "cell absent from the contactome's volume".
+        # miss means "touch not scored", never "cell absent from the contactome's volume". NOTE this is
+        # necessary but not sufficient: a nerve-ring cell can still synapse OUTSIDE the nerve ring
+        # (sublateral/ventral cord), which the nerve-ring contactome does not cover -- so some misses are
+        # out-of-volume synapses, not errors (the dauer case avoids this: same reconstruction scope).
         spairs = {p for p in syn_weight[sds] if len(p) == 2 and set(p) <= cells}
+        # A pair apposed in ANOTHER contactome is physically capable of contact, so a miss here is about
+        # volume/scope (synapse made elsewhere), not impossibility -- a check on the out-of-volume cause.
+        elsewhere = {p for other, ps in contact_pairs.items() if other != cds for p in ps}
         misses = sorted(
             (
                 {
                     "pair": sorted(p),
                     "weight": round(syn_weight[sds][p], 3),
                     "types": sorted(syn_types[sds][p]),
+                    "contact_in_other_contactome": p in elsewhere,
                 }
                 for p in spairs - cpairs
             ),
@@ -118,6 +125,9 @@ def analyse(graph: dict) -> dict:
                 "fraction_at_contact": round(at_contact / len(spairs), 4) if spairs else None,
                 "synapses_without_contact": len(misses),
                 "misses_weight_1": sum(1 for m in misses if m["weight"] <= 1),
+                "misses_contact_in_other_contactome": sum(
+                    1 for m in misses if m["contact_in_other_contactome"]
+                ),
                 "misses_heavy": [m for m in misses if m["weight"] >= HEAVY],
                 "all_misses": misses,
                 "potential_synapses_contact_without_synapse": potential,
@@ -141,12 +151,14 @@ def main() -> None:
         )
         print(
             f"  synapse WITHOUT contact: {c['synapses_without_contact']} "
-            f"(weight=1: {c['misses_weight_1']}; heavy >= {HEAVY}: {len(c['misses_heavy'])})"
+            f"(weight=1: {c['misses_weight_1']}; heavy >= {HEAVY}: {len(c['misses_heavy'])}; "
+            f"apposed in another contactome: {c['misses_contact_in_other_contactome']})"
         )
         for m in c["misses_heavy"]:
+            tag = " [contacts elsewhere]" if m["contact_in_other_contactome"] else ""
             print(
                 f"      {m['pair'][0]:8} {m['pair'][1]:8} weight={m['weight']:>5g} "
-                f"{','.join(m['types'])}"
+                f"{','.join(m['types'])}{tag}"
             )
         print(
             f"  potential synapses (contact without synapse): "

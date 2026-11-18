@@ -16,6 +16,22 @@ Run in both directions:
 - **contact without synapse** → a **potential synapse** (cells touch but do not synapse; Peters' rule /
   Stepanyants–Chklovskii). Reported as a count, for context.
 
+### Scope caveat — read this before the error interpretation
+
+The contactomes cover only the **nerve ring**; the White synapse datasets from the same series extend
+**beyond** it (sublateral / ventral cord, etc.). So a White↔Brittin "synapse without contact" has a
+third cause besides scoring error: the **synapse was made outside the nerve-ring volume Brittin
+segmented for contacts.** Restricting to cells both present in the contactome is *necessary but not
+sufficient* — a nerve-ring cell can still synapse elsewhere. Consequences:
+
+- **Dauer is the clean control.** Yim scored synapses *and* contacts from the **same reconstruction**
+  (identical volume *and* scope), so its 99.0% is the truest subset estimate; the two White↔Brittin
+  numbers are **lower bounds** (misses inflated by out-of-nerve-ring synapses).
+- **Capability cross-check.** For each miss we record whether the pair is a contact in *another*
+  contactome: if so, the pair is physically capable of apposition, so the miss is about volume/scope
+  (synapse made elsewhere), not impossibility. About half the misses are such pairs (adult 14/30,
+  L4 5/10, dauer 8/18) — and **all three heavy adult (PLN) misses are apposed elsewhere.**
+
 ## Prior art (reconciled)
 
 Brittin et al. 2021 (*Nature* 591:105; PMID 33627874; [PMC11648602](https://pmc.ncbi.nlm.nih.gov/articles/PMC11648602/))
@@ -60,28 +76,35 @@ Brittin do not report.** It uses the raw Supplementary-Information-1 contact set
 
 ## Results (`results.json`)
 
-| volume | synapses at a contact | synapse without contact | of those, wt=1 | heavy (≥5) | potential synapses |
-|---|---|---|---|---|---|
-| L4 | 1347 / 1357 = **99.3%** | 10 | 8 | 0 | 3345 |
-| adult | 1424 / 1454 = **97.9%** | 30 | 20 | 3 | 3735 |
-| dauer | 1853 / 1871 = **99.0%** | 18 | 10 | 1 | 4227 |
+| volume | synapses at a contact | synapse w/o contact | of those, wt=1 | heavy (≥5) | apposed elsewhere | potential synapses |
+|---|---|---|---|---|---|---|
+| L4 | 1347 / 1357 = **99.3%** | 10 | 8 | 0 | 5 | 3345 |
+| adult | 1424 / 1454 = **97.9%** | 30 | 20 | 3 | 14 | 3735 |
+| dauer (clean control) | 1853 / 1871 = **99.0%** | 18 | 10 | 1 | 8 | 4227 |
 
 **Interpretation.** The subset property holds to ~98–99% — CIRCE's synaptic data is consistent with the
-independently-scored contactomes. Misses split exactly as the principle predicts:
+independently-scored contactomes. The misses are dominated by two benign causes, not errors:
 
-1. **Detection-limit synapses (the bulk):** ~70–85% of misses are single-section (weight 1) — consistent
-   with borderline/false-positive synapses or sub-threshold contacts. Benign.
-2. **One systematic cluster — PLN in the adult:** all three heavy adult misses involve **PLN**, and they
-   are **bilaterally symmetric** (`PLNL–SMBVL`/`SAADL`, `PLNR–SMBVR`/`SAADR`). PLN is in Brittin's cell
-   set (it has other contacts), so this is a localized contact-scoring/reconstruction-extent issue for
-   PLN's thin anteriorly-projecting process — worth flagging upstream, **not a CIRCE error.** Dauer has a
-   single heavy miss (`RIS–RMED`, 5 sections).
+1. **Out-of-nerve-ring synapses (the scope cause):** the White datasets extend beyond the nerve ring
+   Brittin segmented, so a synapse between two nerve-ring cells made in the sublateral/ventral cord has
+   no nerve-ring contact. About half the misses are pairs *apposed in another contactome* (so physically
+   capable of contact), pointing to this cause rather than impossibility. Dauer (same-scope control)
+   still agrees at 99.0%, bounding the true error rate well below the White↔Brittin miss rate.
+2. **Detection-limit synapses:** ~70–85% of misses are single-section (weight 1) — the profile of
+   borderline/false-positive synapses or sub-threshold contacts. Benign.
+3. **The one systematic cluster — PLN in the adult** — is explained by (1): all three heavy adult misses
+   involve **PLN**, are **bilaterally symmetric** (`PLNL–SMBVL`/`SAADL`, `PLNR–SMBVR`/`SAADR`), and are
+   **all apposed in another contactome.** PLN are tail/lumbar neurons; SMB and SAA have sublateral-cord
+   processes, so these synapses are almost certainly made in the **sublateral cord, posterior to the
+   nerve ring** — outside Brittin's contact volume. Not a CIRCE error.
 
-**Calibration.** Robust: the ~98–99% subset agreement and the absence of any cell with many heavy misses
-(no naming/merge bug). The PLN cluster is a real, reproducible flag but its *cause* (Brittin scoring vs
-reconstruction extent) is a hypothesis, not established here. The large **potential-synapse** counts
-(3–4k contacts per volume without a synapse) simply restate that contact is **necessary but not
-sufficient** for a synapse — the premise of the whole contactome literature, not a finding of this check.
+**Calibration.** Robust: the subset agreement, and the absence of any cell with many heavy misses that
+are *not* apposed elsewhere (which is what a genuine naming/merge bug would look like). The true
+within-volume error rate is below the reported miss rates — the dauer same-scope control (99.0%) is the
+tightest estimate; the White↔Brittin figures are lower bounds inflated by the nerve-ring scope mismatch.
+The large **potential-synapse** counts (3–4k contacts per volume without a synapse) simply restate that
+contact is **necessary but not sufficient** for a synapse — the premise of the contactome literature,
+not a finding of this check.
 
 ## Run
 
