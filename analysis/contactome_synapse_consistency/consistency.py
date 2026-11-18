@@ -88,12 +88,18 @@ def analyse(graph: dict) -> dict:
         cpairs, cells = contact_pairs[cds], contact_cells[cds]
         # Restrict synapse pairs to cells the contactome actually reconstructed (both endpoints), so a
         # miss means "touch not scored", never "cell absent from the contactome's volume". NOTE this is
-        # necessary but not sufficient: a nerve-ring cell can still synapse OUTSIDE the nerve ring
-        # (sublateral/ventral cord), which the nerve-ring contactome does not cover -- so some misses are
-        # out-of-volume synapses, not errors (the dauer case avoids this: same reconstruction scope).
+        # necessary but NOT sufficient for White<->Brittin: the contactomes are nerve-ring-only but the
+        # White synapse scoring extends beyond it, so a miss can also be an out-of-volume synapse. That
+        # scope confound makes the White<->Brittin fractions LOWER BOUNDS; which cause applies to any one
+        # miss is not resolvable here. The dauer case has no scope confound (Yim scored synapses AND
+        # contacts from the same reconstruction), so it is the one clean subset estimate.
         spairs = {p for p in syn_weight[sds] if len(p) == 2 and set(p) <= cells}
-        # A pair apposed in ANOTHER contactome is physically capable of contact, so a miss here is about
-        # volume/scope (synapse made elsewhere), not impossibility -- a check on the out-of-volume cause.
+        # Context only: is the miss pair scored as a contact in ANOTHER contactome (different animal AND
+        # stage)? This does NOT establish the cause of the miss -- contact in another stage does not
+        # transfer to this volume (neurites remodel), and "apposed elsewhere" is equally consistent with
+        # a contact-scoring gap as with an out-of-volume synapse. It only shows the cells are not
+        # categorically non-adjacent. The cause of an individual miss is not resolvable here (CIRCE has
+        # no per-synapse coordinates); only the dauer same-scope control gives a clean subset estimate.
         elsewhere = {p for other, ps in contact_pairs.items() if other != cds for p in ps}
         misses = sorted(
             (
@@ -155,7 +161,7 @@ def main() -> None:
             f"apposed in another contactome: {c['misses_contact_in_other_contactome']})"
         )
         for m in c["misses_heavy"]:
-            tag = " [contacts elsewhere]" if m["contact_in_other_contactome"] else ""
+            tag = " [apposed in another stage]" if m["contact_in_other_contactome"] else ""
             print(
                 f"      {m['pair'][0]:8} {m['pair'][1]:8} weight={m['weight']:>5g} "
                 f"{','.join(m['types'])}{tag}"

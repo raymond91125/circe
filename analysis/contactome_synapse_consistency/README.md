@@ -20,17 +20,22 @@ Run in both directions:
 
 The contactomes cover only the **nerve ring**; the White synapse datasets from the same series extend
 **beyond** it (sublateral / ventral cord, etc.). So a White↔Brittin "synapse without contact" has a
-third cause besides scoring error: the **synapse was made outside the nerve-ring volume Brittin
-segmented for contacts.** Restricting to cells both present in the contactome is *necessary but not
-sufficient* — a nerve-ring cell can still synapse elsewhere. Consequences:
+cause besides scoring error: the **synapse was made outside the nerve-ring volume Brittin segmented for
+contacts.** Restricting to cells both present in the contactome is *necessary but not sufficient* — a
+nerve-ring cell can still synapse elsewhere. Consequences:
 
-- **Dauer is the clean control.** Yim scored synapses *and* contacts from the **same reconstruction**
-  (identical volume *and* scope), so its 99.0% is the truest subset estimate; the two White↔Brittin
-  numbers are **lower bounds** (misses inflated by out-of-nerve-ring synapses).
-- **Capability cross-check.** For each miss we record whether the pair is a contact in *another*
-  contactome: if so, the pair is physically capable of apposition, so the miss is about volume/scope
-  (synapse made elsewhere), not impossibility. About half the misses are such pairs (adult 14/30,
-  L4 5/10, dauer 8/18) — and **all three heavy adult (PLN) misses are apposed elsewhere.**
+- **Dauer is the clean control, the only one without this confound.** Yim scored synapses *and* contacts
+  from the **same reconstruction** (identical volume *and* scope), so its **99.0%** is the one clean
+  subset estimate. The two White↔Brittin fractions are **lower bounds** (misses inflated by the scope
+  mismatch).
+- **The cause of an individual White↔Brittin miss is NOT resolvable here.** CIRCE carries no per-synapse
+  coordinates, so we cannot tell an out-of-nerve-ring synapse from a Brittin contact-scoring gap from a
+  White false-positive. The analysis records, as **context only**, whether a miss pair is scored as a
+  contact in *another* contactome — but that is a **different animal and stage**, neurites remodel, and
+  "apposed elsewhere" is equally consistent with a scoring gap as with an out-of-volume synapse, so it
+  does **not** establish cause. It only shows the cells are not categorically non-adjacent. (~half of
+  misses are such pairs: adult 14/30, L4 5/10, dauer 8/18.) Do not read this field as an out-of-volume
+  attribution — an earlier draft did, wrongly.
 
 ## Prior art (reconciled)
 
@@ -68,42 +73,48 @@ Brittin do not report.** It uses the raw Supplementary-Information-1 contact set
   adjacency is the contactome itself.
 - **Weight = sections.** A miss is weighted by the synapse's section count. A **weight-1** miss
   (single section, at the EM detection limit) is the profile of a borderline/false-positive synapse or
-  a sub-threshold contact; a **heavy** miss (≥ 5 sections) is a real contact gap or a naming mismatch
-  worth inspecting. This weighting is the key calibration: a naming/merge bug would surface as *one cell
-  with many heavy misses*, which is not what we see.
+  a sub-threshold contact; a **heavy** miss (≥ 5 sections) is a substantive discrepancy worth inspecting.
+  This weighting is the key calibration: a naming/merge bug would surface as *one cell with many heavy
+  misses*, which is not what we see.
 - Deterministic (sorted; no RNG; identical across `PYTHONHASHSEED`). Reads `outputs/connectome.json`
   (`uv run cckg build` first); `results.json` is committed.
 
 ## Results (`results.json`)
 
-| volume | synapses at a contact | synapse w/o contact | of those, wt=1 | heavy (≥5) | apposed elsewhere | potential synapses |
+| volume | synapses at a contact | synapse w/o contact | of those, wt=1 | heavy (≥5) | apposed in another stage† | potential synapses |
 |---|---|---|---|---|---|---|
 | L4 | 1347 / 1357 = **99.3%** | 10 | 8 | 0 | 5 | 3345 |
 | adult | 1424 / 1454 = **97.9%** | 30 | 20 | 3 | 14 | 3735 |
 | dauer (clean control) | 1853 / 1871 = **99.0%** | 18 | 10 | 1 | 8 | 4227 |
 
+† context only — a different animal/stage; does **not** attribute the miss (see scope caveat).
+
 **Interpretation.** The subset property holds to ~98–99% — CIRCE's synaptic data is consistent with the
-independently-scored contactomes. The misses are dominated by two benign causes, not errors:
+independently-scored contactomes. Reading the misses:
 
-1. **Out-of-nerve-ring synapses (the scope cause):** the White datasets extend beyond the nerve ring
-   Brittin segmented, so a synapse between two nerve-ring cells made in the sublateral/ventral cord has
-   no nerve-ring contact. About half the misses are pairs *apposed in another contactome* (so physically
-   capable of contact), pointing to this cause rather than impossibility. Dauer (same-scope control)
-   still agrees at 99.0%, bounding the true error rate well below the White↔Brittin miss rate.
-2. **Detection-limit synapses:** ~70–85% of misses are single-section (weight 1) — the profile of
+1. **Detection-limit synapses:** ~55–80% of misses are single-section (weight 1) — the profile of
    borderline/false-positive synapses or sub-threshold contacts. Benign.
-3. **The one systematic cluster — PLN in the adult** — is explained by (1): all three heavy adult misses
-   involve **PLN**, are **bilaterally symmetric** (`PLNL–SMBVL`/`SAADL`, `PLNR–SMBVR`/`SAADR`), and are
-   **all apposed in another contactome.** PLN are tail/lumbar neurons; SMB and SAA have sublateral-cord
-   processes, so these synapses are almost certainly made in the **sublateral cord, posterior to the
-   nerve ring** — outside Brittin's contact volume. Not a CIRCE error.
+2. **Scope (White↔Brittin only):** the White datasets extend beyond the nerve ring, so some misses are
+   synapses made outside Brittin's volume. This cannot be confirmed per-miss (no synapse coordinates),
+   but it makes the two White↔Brittin fractions **lower bounds**. The **dauer same-scope control at
+   99.0%** has no such confound and bounds the within-reconstruction inconsistency at ~1%.
+3. **The one systematic cluster — PLN in the adult.** All three heavy adult misses involve **PLN**,
+   bilaterally symmetric (`PLNL–SMBVL`/`SAADL`, `PLNR–SMBVR`/`SAADR`). Checking the data: these pairs
+   **are scored as nerve-ring contacts in the L4 and dauer reconstructions, but not in the adult (N2U)**,
+   and PLN has fewer adult contacts (PLNL 21 / PLNR 14) than in L4 (27 / 25) or dauer (31 / 23). So this
+   is a **within-N2U discrepancy** (White's N2U synapse vs Brittin's N2U no-contact), *not* out-of-volume
+   (the appositions sit in the nerve ring in other stages). The most likely cause is an **incomplete
+   Brittin adult contact-scoring of PLN's process**; a White adult false-positive or real adult
+   remodeling can't be excluded without the EM. Either way — a flagged upstream discrepancy, **not a
+   CIRCE error.** *(An earlier draft called this out-of-nerve-ring; the data refute that.)*
 
-**Calibration.** Robust: the subset agreement, and the absence of any cell with many heavy misses that
-are *not* apposed elsewhere (which is what a genuine naming/merge bug would look like). The true
-within-volume error rate is below the reported miss rates — the dauer same-scope control (99.0%) is the
-tightest estimate; the White↔Brittin figures are lower bounds inflated by the nerve-ring scope mismatch.
-The large **potential-synapse** counts (3–4k contacts per volume without a synapse) simply restate that
-contact is **necessary but not sufficient** for a synapse — the premise of the contactome literature,
+**Calibration.** Robust: the subset agreement, and the absence of any cell with many heavy misses (a
+genuine naming/merge bug would surface that way). **Not resolved:** the cause of individual White↔Brittin
+misses — those fractions are lower bounds (scope confound); only the dauer same-scope control (99.0%) is
+a clean within-reconstruction estimate. The "apposed in another stage" field is context, not a cause
+attribution (cross-stage, non-transferable). The large **potential-synapse** counts (3–4k contacts per
+volume without a synapse) simply restate that contact is **necessary but not sufficient** for a synapse —
+the premise of the contactome literature,
 not a finding of this check.
 
 ## Run
