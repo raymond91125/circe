@@ -306,21 +306,28 @@ def kg_connections_map(connectome: object) -> dict:
          "conn": {class: {rel: {partner_class: {dataset_code: weight}}}}}
 
     ``rel`` is ``o``/``i`` (chemical out/in), ``e`` (gap junction, symmetric), ``fo``/``fi``
-    (functional out/in), or ``npo``/``npi`` (predicted neuropeptide out/in). Cells with no KG
-    ``cell_class`` key by their own name (matching the male projection's individual display). Gap
-    junctions are stored redundantly in both orientations in the KG (equal weights), so each
-    unordered pair is counted once, then attributed to both endpoints' classes.
+    (functional out/in), ``npo``/``npi`` (predicted neuropeptide out/in), ``mao``/``mai`` (predicted
+    monoamine out/in), or ``adj`` (membrane contact / contactome, symmetric; weight = contact area).
+    Cells with no KG ``cell_class`` key by their own name (matching the male projection's individual
+    display). The symmetric relations (gap junction ``e``, contact ``adj``) are stored redundantly in
+    both orientations in the KG, so each unordered pair is counted once, then attributed to both
+    endpoints' classes.
 
     The predicted neuropeptidergic network is included so the cell-info panel is complete ("all
     partners across every dataset"); it aggregates to class level here, so the bundled map stays
     far smaller than the ~125k raw edges.
     """
     conns = connectome.connections
-    # Only datasets that contribute a surfaced relation get a code: adjacency (contactome) is
-    # KG/SPARQL-only, so a contactome-only dataset must not appear in the cell-info panel's dataset
-    # list (it would be an orphan code no ``conn`` entry references).
+    # Datasets that contribute a surfaced relation get a code. Membrane adjacency (the contactome) is
+    # now surfaced as the symmetric ``adj`` relation, so the contactome datasets are included (and are
+    # referenced by ``conn`` -- not orphan codes).
+    kg_types = set(_KG_REL) | {"adjacency"}
     datasets = sorted(
-        {_strip(str(c.dataset), DATASET_PREFIX) for c in conns if str(c.connection_type) in _KG_REL}
+        {
+            _strip(str(c.dataset), DATASET_PREFIX)
+            for c in conns
+            if str(c.connection_type) in kg_types
+        }
     )
     code = {d: str(i) for i, d in enumerate(datasets)}
     cls = {c.name: (c.cell_class or c.name) for c in connectome.cells}
@@ -331,25 +338,28 @@ def kg_connections_map(connectome: object) -> dict:
 
     # class -> rel -> partner_class -> dataset_code -> summed weight
     conn: dict = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(float))))
-    # Gap junctions first canonicalised per (dataset, unordered cell pair) to drop the redundant
-    # reverse orientation, keyed at cell level so distinct member pairs still aggregate by class.
-    gap_seen: set[tuple[str, str, str]] = set()
+    # Symmetric relations -- gap junction (``e``) and membrane contact (``adj``) -- are stored in both
+    # orientations in the KG, so canonicalise per (rel, dataset, unordered cell pair) to drop the
+    # redundant reverse, keyed at cell level so distinct member pairs still aggregate by class.
+    symmetric = {"gap_junction": "e", "adjacency": "adj"}
+    sym_seen: set[tuple[str, str, str, str]] = set()
 
     for c in conns:
         ctype = str(c.connection_type)
-        if ctype != "gap_junction" and ctype not in _KG_REL:
-            continue  # adjacency (contactome) is KG/SPARQL-only; not surfaced in the cell-info panel
+        if ctype not in kg_types:
+            continue
         dset = code[_strip(str(c.dataset), DATASET_PREFIX)]
         pre_cls, post_cls = klass(c.pre), klass(c.post)
-        if ctype == "gap_junction":
+        if ctype in symmetric:
+            rel = symmetric[ctype]
             a, b = _strip(c.pre, CELL_PREFIX), _strip(c.post, CELL_PREFIX)
-            key = (dset, *sorted((a, b)))
-            if key in gap_seen:
+            key = (rel, dset, *sorted((a, b)))
+            if key in sym_seen:
                 continue
-            gap_seen.add(key)
-            conn[pre_cls]["e"][post_cls][dset] += c.weight
+            sym_seen.add(key)
+            conn[pre_cls][rel][post_cls][dset] += c.weight
             if post_cls != pre_cls:
-                conn[post_cls]["e"][pre_cls][dset] += c.weight
+                conn[post_cls][rel][pre_cls][dset] += c.weight
         else:
             rel_out, rel_in = _KG_REL[ctype]
             w = _signed_weight(
