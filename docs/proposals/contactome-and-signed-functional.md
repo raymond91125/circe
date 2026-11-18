@@ -14,9 +14,10 @@ current graph lacks:
   *(IMPLEMENTED — see below.)*
 - **C — Predicted chemical-synapse sign:** assign an excitatory/inhibitory **sign** to *chemical*
   synapses (far broader than Randi's measured functional subset), from presynaptic neurotransmitter
-  + postsynaptic ionotropic receptor — reusing B's `sign` slot. *(proposal)*
+  + postsynaptic ionotropic receptor — reusing B's `sign` slot. *(scoped — see below; not yet built)*
 
-Status: A and B are built; C is a proposal. Follows the Morillo proposal's structure.
+Status: A and B are built; C is scoped (plan below, not yet implemented). Follows the Morillo
+proposal's structure.
 
 ## A. Contactome
 
@@ -109,49 +110,130 @@ notice the weight can be negative.
 
 ## C. Predicted chemical-synapse sign
 
+> **Status: scoped (this section). Decision: derive natively; validate against Fenyves 2020.**
+
 ### Why
 
 Part B gives *measured* functional sign, but only for Randi's small head subset. The much broader
 signed layer is the **predicted polarity of chemical synapses** — whether each EM synapse is
 excitatory or inhibitory — inferred from the presynaptic neurotransmitter and the postsynaptic
-ionotropic receptor. This would put a sign on most of the chemical connectome (thousands of edges),
-complementing B's handful of measured ones, and enables signed-circuit analysis (feedforward
-excitation, feedback inhibition, E/I balance).
+ionotropic receptor. This puts a sign on most of the ionotropic chemical connectome (thousands of
+edges), complementing B's handful of measured ones, and enables signed-circuit analysis (feedforward
+excitation, feedback inhibition, E/I balance). The hermaphrodite layer is also the **validated engine**
+for the genuinely novel follow-on — a male signed connectome built by swapping the expression
+substrate (see "Follow-on" below).
 
-### Prior art (checked)
+### Prior art (checked) — this is a *reproduction*, not new science
 
-- **Fenyves et al. 2020** (*PLoS Comput Biol* e1007974) / **EleganSign** — predicts polarity for
-  ~70–73% of ionotropic chemical synapses by pairing presynaptic NT with postsynaptic receptor
-  expression; ~4:1 excitatory:inhibitory; synapses with both E and I receptors are flagged
-  "complex". In the OpenWorm ConnectomeToolbox.
-- **Signed-motif analysis** (bioRxiv 2025, PMC13374236) relabels Fenyves: of 3,638 connections,
-  1,555 excitatory / 553 inhibitory / 1,530 unknown. Downstream, not new primary data.
+The hermaphrodite prediction is **already published**, so Part C's value is integration into CIRCE
+(sign queryable alongside measured functional sign and NT identity) and a trustworthy, reusable
+derivation — not a new biological result.
+
+- **Fenyves et al. 2020** (*PLoS Comput Biol* 16:e1007974) / **EleganSign** — the method and the
+  hermaphrodite result. For each chemical synapse, pairs presynaptic NT with postsynaptic ionotropic
+  receptor expression: **cation-channel receptor → excitatory, anion-channel → inhibitory**; a synapse
+  is excitatory if **only cation** receptor genes match, inhibitory if **only anion**, **"complex"** if
+  both, unpredicted if none. Covers ~**73%** of the ionotropic chemical synapses; ~**4:1** E:I.
+  - Connectome used: **WormWiring** (3,638 connections / 20,589 synapses) = Cook 2019 hermaphrodite.
+  - Receptors: **62** ionotropic postsynaptic genes (Glu/ACh/GABA); **42** found expressed; `acc-4`
+    and `lgc-46` excluded (presynaptic localization). Per-gene cation/anion calls are the paper's
+    **S1 Table**.
+  - Inputs: older NT compilations + CeNGEN/Altun receptor expression, binarized.
+- **Data availability (confirmed downloadable):** **S1 Data** (per-connection predicted sign — the
+  comparison ground truth) at `linkgroup.hu/docs/S1_Data.xlsx` (xlsx, ~1.0 MB; also on PLoS SI), and
+  **S1 Table** (receptor → cation/anion mapping) on PLoS SI (`.docx`).
+- **Signed-motif analysis** (Csermely group, bioRxiv 2025, PMC13374236) relabels Fenyves: of 3,638
+  connections, 1,555 excitatory / 553 inhibitory / 1,530 unknown. Downstream, not new primary data.
 - Direct single-synapse polarity measurements remain sparse, so these are *predictions*.
 
-### Two routes
+### Approach — derive natively (decided)
 
-- **Derive natively (preferred — CIRCE's pattern).** Presynaptic NT identity (Wang 2024, already
-  ingested as `neurotransmitter_assignments`) × postsynaptic **ionotropic receptor** expression
-  (CeNGEN) → a per-synapse polarity, exactly as CIRCE derives the NP connectome from expression ×
-  pairs. Requires adding the fast-transmitter ionotropic receptors (ACh: `acr-*`/`acc-*`/`lgc-*`;
-  Glu: `glr-*`/`glc-*`/`avr-*`; GABA: `unc-49`/`exp-1`/`lgc-35`), analogous to CIRCE's existing
-  `cengen_2021_monoamine_ionotropic` layer. EleganSign then serves as an **independent validation
-  target**.
-- **Ingest EleganSign's table** (faster) — its precomputed per-synapse sign, populated onto chemical
-  connections. Less reproducible from source; good as a cross-check or interim.
+Mint a per-synapse polarity exactly as CIRCE derives the neuropeptide / monoamine connectomes from
+expression × pairs, rather than ingesting EleganSign's output. Native derivation is the CIRCE pattern,
+is reusable for the male swap, and keeps EleganSign as an **independent** validation target (ingesting
+its table would make the "validation" circular). The engine:
 
-### Design
+> For each chemical synapse `pre → post`: let `T = NT(pre)` (Wang 2024). Collect the ionotropic
+> receptor genes for transmitter `T` that `post` expresses (CeNGEN). The matched genes being
+> **cation-only → `excitatory`**, **anion-only → `inhibitory`**, **mixed → `complex` (sign unset)**,
+> **none → unpredicted (sign unset)**.
 
-- **Reuse the `sign` slot** (added in B) on chemical connections; keep it distinguishable from the
-  measured functional sign by `connection_type` (chemical vs functional) and dataset/provenance
-  (a derived `*_synapse_sign` dataset, or a confidence/provenance marker). "complex"/ambiguous
-  synapses leave `sign` unset.
-- Measured (Randi functional) and predicted (chemical) sign thus coexist cleanly.
+### Inputs
+
+| Need | Status |
+|---|---|
+| Chemical connectome to sign | ✅ `cook_2019_hermaphrodite` (= WormWiring; validation target); White / Witvliet as bonus coverage |
+| Presynaptic NT identity | ✅ Wang 2024 `neurotransmitter_assignments` (ACh / Glu / GABA + monoamines) |
+| Postsynaptic ionotropic receptor expression | ➕ add CeNGEN expression for the fast-transmitter ionotropic receptors |
+| Receptor → cation/anion mapping | ➕ curate from Fenyves **S1 Table** (cited) |
+| NT → receptor-family map | ➕ small curated table (ACh→nAChR/ACC; Glu→iGluR; GABA→GABA-A-type) |
+
+### New data to add (clone the `cengen-monoamine-ionotropic` layer — exact template)
+
+1. `data/cengen-ionotropic-receptors/ionotropic_receptor_genes.csv` — the fast-transmitter ionotropic
+   receptor genes (ACh `acr-*`/`acc-*`/`lgc-*`; Glu `glr-*`/`glc-*`/`avr-*`; GABA `unc-49`/`exp-1`/
+   `lgc-35`), each with **transmitter**, **cation/anion** (reproducing Fenyves S1 Table, cited), and
+   WormBase gene id; `acc-4`/`lgc-46` excluded with a noted reason.
+2. CeNGEN expression for those genes → `ionotropic_receptor_expression.csv` (same ingestion as the
+   monoamine ionotropic layer: `build_expression.py` + `MANIFEST.md`).
+3. `nt_receptor_family.csv` — maps each presynaptic transmitter to the receptor families that gate it.
+
+### Schema / build design
+
+- **Reuse the `sign` slot** (added in B) on the chemical connections. Distinguish predicted-chemical
+  from measured-functional sign by `connection_type` (chemical vs functional) and by a derived
+  provenance dataset (e.g. `fenyves_derived_synapse_sign`). "complex" / unpredicted leave `sign` unset
+  (a provenance note records *which* of the two it was).
+- Measured (Randi functional) and predicted (chemical) sign coexist cleanly; no viz change required
+  unless we choose to surface it later.
+
+### Validation plan (the point of doing the hermaphrodite layer)
+
+Compare our native predictions to Fenyves **S1 Data**, decomposing any divergence:
+
+1. **Logic check (same inputs).** Feed Fenyves' own NT + receptor calls through our engine; we must
+   reproduce their per-connection labels (near-exact). A mismatch here is a bug in our rule.
+2. **Data-vintage axis (our inputs).** Swap in Wang 2024 NT + current CeNGEN; report where and why a
+   sign changes. These differences are *data*, not errors — attribute them.
+3. **Headline sanity (per CLAUDE.md):** coverage ≈ 73%, E:I ≈ 4:1, "complex" rate in range. A result
+   outside these is a red flag to chase before trusting the layer.
+4. **Internal cross-checks:** concordance with Part B measured functional sign where they overlap, and
+   with NT identity (GABAergic source → inhibitory trend). Report honestly (functional sign is a net
+   circuit effect, not a monosynaptic guarantee).
+
+Downloading S1 Data (~1 MB, `linkgroup.hu`) happens at this step, with explicit go-ahead; it is a
+**validation reference only** — not vendored, not the source of CIRCE's signs.
+
+### Design decisions (recommended defaults)
+
+1. **Validation target connectome:** `cook_2019_hermaphrodite` (= WormWiring). Sign White / Witvliet
+   too for coverage, but validate against Cook only.
+2. **Cation/anion source:** reproduce Fenyves S1 Table as a curated, cited CIRCE file — not ingest
+   EleganSign's output (keeps validation independent).
+3. **"complex" / unpredicted:** `sign` unset, the two distinguished by a provenance note.
+4. **NT source:** Wang 2024 (newer than Fenyves'); treat the difference as a measured axis, not an
+   error.
 
 ### Caveats
 
-- Predictions, not measurements; the cation=excitatory / anion=inhibitory receptor→polarity mapping
-  is an assumption; "complex" synapses are unresolved; gene-expression thresholds apply.
+- Predictions, not measurements; the cation=excitatory / anion=inhibitory mapping is an assumption;
+  "complex" synapses are unresolved; gene-expression binarization thresholds apply; metabotropic
+  (GPCR) transmission and monoamine / neuropeptide sign are out of scope here (fast ionotropic only).
+
+### Deliverables / increments
+
+1. Curate the ionotropic receptor gene list + cation/anion mapping + NT→family map (data only).
+2. Ingest CeNGEN ionotropic receptor expression (new layer; template = monoamine ionotropic).
+3. Build step: derive per-synapse sign, populate `sign` + provenance; tests.
+4. Validation analysis under `analysis/` vs Fenyves S1 Data (logic + data-vintage decomposition).
+
+### Follow-on (out of scope here): a male signed connectome
+
+The genuinely novel extension — no male signed connectome exists. Same engine, male substrate:
+`cook_2019_male` synaptic connectome × male ionotropic receptor expression. The male ionotropic
+receptors sit in Morillo 2025's genome-wide `mmc12` (CIRCE currently ingests only its NPP-GPCR rows),
+so the substrate is obtainable by the same pipeline. Deferred until the hermaphrodite engine is
+validated.
 
 ## Open decisions (for review)
 
@@ -185,4 +267,9 @@ excitation, feedback inhibition, E/I balance).
 - Randi F, et al. *Neural signal propagation atlas of C. elegans.* Nature 623:406–414 (2023).
 - Fenyves BG, et al. *Synaptic polarity and sign-balance prediction using gene expression data in
   the C. elegans chemical synapse neuronal connectome network.* PLoS Comput Biol 16(12):e1007974
-  (2020). (EleganSign.)
+  (2020). (EleganSign; S1 Data = per-connection predicted sign, S1 Table = receptor cation/anion.)
+- Szilágyi GS, et al. *Signed motif analysis of the C. elegans neuronal network reveals positive
+  feedforward and negative feedback loops.* bioRxiv 2025.01.09.632090 (2025; PMC13374236). (Relabels
+  the Fenyves polarity dataset.)
+- Wang J, et al. *A neurotransmitter atlas of C. elegans males and hermaphrodites.* (Wang 2024;
+  presynaptic transmitter identity.)
