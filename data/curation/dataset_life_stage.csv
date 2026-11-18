@@ -20,6 +20,8 @@ cook_2020_pharynx_expression,adult,adult pharyngeal gene expression (Cook 2020 S
 bhatla_2015_i2,adult,adult I2 EM synapses (Bhatla 2015)
 yim_2024_dauer,dauer,dauer nerve-ring connectome (Yim/Choe/Bae 2024)
 yim_2024_dauer_contactome,dauer,dauer contactome / membrane adjacency (Yim et al. 2024, SD6)
+brittin_2021_l4_contactome,L4,L4 (JSH) nerve-ring contactome / membrane adjacency (Brittin et al. 2021, SI1)
+brittin_2021_adult_contactome,adult,adult (N2U) nerve-ring contactome / membrane adjacency (Brittin et al. 2021, SI1)
 ripoll_2023_neuropeptide_sr,adult,neuropeptide connectome short-range (Ripoll-Sanchez 2023; CeNGEN adult)
 ripoll_2023_neuropeptide_mr,adult,neuropeptide connectome mid-range (Ripoll-Sanchez 2023; CeNGEN adult)
 ripoll_2023_neuropeptide_lr,adult,neuropeptide connectome long-range (Ripoll-Sanchez 2023; CeNGEN adult)

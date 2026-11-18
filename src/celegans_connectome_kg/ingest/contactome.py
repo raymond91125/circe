@@ -3,7 +3,8 @@
 The contactome is the set of physical membrane contacts between neurons — observed appositions, not
 synapses (a synapse can only form where membranes touch, so synapses are a subset of contacts). The
 vendored edge list is undirected (``cell_a,cell_b,contact_size`` with ``cell_a < cell_b``); the build
-mints ``adjacency`` Connection records in both orientations. See data/yim-2024-dauer.
+mints ``adjacency`` Connection records in both orientations. See data/yim-2024-dauer and
+data/brittin-2021-contactome.
 """
 
 from __future__ import annotations

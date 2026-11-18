@@ -434,7 +434,9 @@ enums:
       adjacency:
         description: >-
           Observed physical membrane contact (apposition) between two neurons — the "contactome"
-          (term coined by Brittin et al. 2021; CIRCE's data is the Yim et al. 2024 dauer contactome).
+          (term coined by Brittin et al. 2021). CIRCE's data is the Brittin et al. 2021 L4 (JSH) and
+          adult (N2U) nerve-ring contactomes and the Yim et al. 2024 dauer contactome, each scored on
+          the same EM series as a synaptic connectome already in CIRCE.
           Undirected (stored in both orientations); weight is the contact area. Adjacency is the
           substrate that bounds synapses (a synapse needs contact) and the basis for
           extrasynaptic/ephaptic signalling — NOT itself a synapse.
