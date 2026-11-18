@@ -297,19 +297,25 @@ def test_brittin_contactome_ingested(built) -> None:
         assert overlap / len(syn_pairs) > 0.95  # ~99% L4, ~98% adult synapses occur at a contact
 
 
-def test_contactome_absent_from_viz_kg_connections(built) -> None:
-    """Adjacency (the contactome) is KG/SPARQL-only -- it must never leak into the cell-info panel's
-    `kg_connections.json`. A contactome-only dataset must not even appear in the `datasets` list
-    (that would be an orphan code no `conn` entry references), so the viz projection stays identical
-    to a build without the contactome and every `datasets` code is actually used."""
+def test_contactome_surfaced_in_viz_kg_connections(built) -> None:
+    """The contactome is surfaced in the cell-info panel's `kg_connections.json` as the symmetric
+    `adj` relation (membrane contact). The contactome datasets appear in `datasets` *because* they are
+    referenced by `adj` (no orphan codes), and `adj` is symmetric like gap junctions."""
     from celegans_connectome_kg.export.neuron_graph_json import kg_connections_map
 
     connectome, _ = built
     m = kg_connections_map(connectome)
-    assert not any(d.endswith("_contactome") for d in m["datasets"])  # no contactome dataset leaks
-    # no adjacency relation surfaced anywhere
+    # the contactome datasets are present (now referenced by adj)
+    assert any(d.endswith("_contactome") for d in m["datasets"])
+    # only the known relation codes appear; adj is one of them and is actually used
     rels = {rel for cls in m["conn"].values() for rel in cls}
-    assert rels <= {"o", "i", "e", "fo", "fi", "npo", "npi", "mao", "mai"}
+    assert rels <= {"o", "i", "e", "fo", "fi", "npo", "npi", "mao", "mai", "adj"}
+    assert "adj" in rels
+    # adj is symmetric: if A has B under adj, B has A under adj (same dataset codes)
+    adj = {c: r["adj"] for c, r in m["conn"].items() if "adj" in r}
+    a_cell = next(iter(adj))
+    b_cell = next(iter(adj[a_cell]))
+    assert a_cell in m["conn"].get(b_cell, {}).get("adj", {})
     # every dataset code is referenced by at least one conn entry (no orphans)
     used = {
         code
