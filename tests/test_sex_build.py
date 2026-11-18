@@ -106,6 +106,11 @@ def built():
         / "morillo_male_receptor_expression.csv",
         morillo_groupings_path=REPO / "data" / "morillo-2025-male" / "morillo_groupings.csv",
         yim_contactome_path=REPO / "data" / "yim-2024-dauer" / "dauer_contactome.csv",
+        brittin_l4_contactome_path=REPO / "data" / "brittin-2021-contactome" / "l4_contactome.csv",
+        brittin_adult_contactome_path=REPO
+        / "data"
+        / "brittin-2021-contactome"
+        / "adult_contactome.csv",
     )
     return connectome, stats
 
@@ -254,6 +259,44 @@ def test_dauer_contactome_ingested(built) -> None:
     assert overlap / len(syn_pairs) > 0.95  # ~99% of dauer synapses occur at a membrane contact
 
 
+def test_brittin_contactome_ingested(built) -> None:
+    """Brittin 2021 L4 (JSH) + adult (N2U) nerve-ring CONTACTOMES, as `adjacency` connections.
+    Undirected (both orientations), weight = membrane-contact area (um^2), non-negative, no sign.
+    Each is scored on the SAME EM series White 1986 scored synapses in, so the substrate property
+    holds: White synapse pairs are (almost entirely) a subset of contact pairs -- the within-animal
+    validation, done here against the matching white_1986 dataset for each stage."""
+    connectome, _ = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+
+    ds = {strip(d.id): d for d in connectome.datasets}
+    # (brittin contactome dataset, undirected contact count, matching White synapse dataset, stage)
+    cases = [
+        ("brittin_2021_l4_contactome", 4763, "white_1986_jsh", "L4"),
+        ("brittin_2021_adult_contactome", 5245, "white_1986_n2u", "adult"),
+    ]
+    for cds, n_undirected, wds, stage in cases:
+        assert str(ds[cds].sex) == "hermaphrodite" and str(ds[cds].life_stage) == stage
+
+        adj = [c for c in connectome.connections if strip(c.dataset) == cds]
+        assert len(adj) == n_undirected * 2  # undirected contacts x both orientations
+        assert all(str(c.connection_type) == "adjacency" for c in adj)
+        assert all(c.weight > 0 and c.sign is None for c in adj)
+        directed = {(strip(c.pre), strip(c.post)) for c in adj}
+        assert all((b, a) in directed for a, b in directed)  # symmetric
+
+        # VALIDATION: White synapse pairs (same EM series) are a subset of contact pairs.
+        contact_pairs = {frozenset((strip(c.pre), strip(c.post))) for c in adj}
+        contact_cells = {strip(c.pre) for c in adj} | {strip(c.post) for c in adj}
+        syn_pairs = {
+            frozenset((strip(c.pre), strip(c.post)))
+            for c in connectome.connections
+            if strip(c.dataset) == wds
+        }
+        syn_pairs = {p for p in syn_pairs if len(p) == 2 and p <= contact_cells}
+        overlap = len(syn_pairs & contact_pairs)
+        assert overlap / len(syn_pairs) > 0.95  # ~99% L4, ~98% adult synapses occur at a contact
+
+
 def test_contactome_absent_from_viz_kg_connections(built) -> None:
     """Adjacency (the contactome) is KG/SPARQL-only -- it must never leak into the cell-info panel's
     `kg_connections.json`. A contactome-only dataset must not even appear in the `datasets` list
@@ -263,7 +306,7 @@ def test_contactome_absent_from_viz_kg_connections(built) -> None:
 
     connectome, _ = built
     m = kg_connections_map(connectome)
-    assert "yim_2024_dauer_contactome" not in m["datasets"]
+    assert not any(d.endswith("_contactome") for d in m["datasets"])  # no contactome dataset leaks
     # no adjacency relation surfaced anywhere
     rels = {rel for cls in m["conn"].values() for rel in cls}
     assert rels <= {"o", "i", "e", "fo", "fi", "npo", "npi", "mao", "mai"}

@@ -4,10 +4,11 @@ Enrichments to CIRCE's **connection model**, scoped together because all add edg
 current graph lacks:
 
 - **A — Contactome (new data):** ingest *physical membrane adjacency* (which neurons touch) as a new
-  `adjacency` connection type. *(Yim 2024 **dauer** contactome IMPLEMENTED — same EM volume as the
-  dauer synapses, so synapses ⊆ contacts validates at ~99%. Brittin 2021 nerve ring deferred: its
-  clean per-pair data is only in a 17 GB Zenodo MySQL; the repo's committed graphs are a filtered
-  analysis subset that fails the subset check.)*
+  `adjacency` connection type. *(IMPLEMENTED — three contactomes, each scored on the same EM volume as
+  a synaptic connectome already in CIRCE, so synapses ⊆ contacts validates within-animal: Yim 2024
+  **dauer** (~99%), Brittin 2021 **L4** (99.3%) and **adult** (97.9%). Brittin came from the raw
+  per-section scoring in **Supplementary Information 1**, not the 17 GB Zenodo MySQL and not the
+  repo's committed graphs — those are a thresholded analysis subset that fails the subset check.)*
 - **B — Explicit functional sign (model enhancement, no new data):** make the
   excitatory/inhibitory **sign** of the Randi 2023 functional connections a first-class field.
   *(IMPLEMENTED — see below.)*
@@ -15,13 +16,15 @@ current graph lacks:
   synapses (far broader than Randi's measured functional subset), from presynaptic neurotransmitter
   + postsynaptic ionotropic receptor — reusing B's `sign` slot. *(proposal)*
 
-Status: A and C are proposals; B is built. Follows the Morillo proposal's structure.
+Status: A and B are built; C is a proposal. Follows the Morillo proposal's structure.
 
 ## A. Contactome
 
-> **Status: Yim 2024 dauer contactome IMPLEMENTED** (`yim_2024_dauer_contactome`, 6,080 undirected
-> contacts → 12,160 `adjacency` edges; synapses ⊆ contacts = ~99%, within-dataset). **Brittin 2021
-> nerve-ring deferred** — see the feasibility note under *Prior art*.
+> **Status: IMPLEMENTED** — three hermaphrodite contactomes as `adjacency` edges, each validated
+> within-animal against the matching synaptic dataset (synapses ⊆ contacts):
+> - `yim_2024_dauer_contactome` — 6,080 undirected → 12,160 edges; vs `yim_2024_dauer` = ~99%.
+> - `brittin_2021_l4_contactome` — 4,763 undirected → 9,526 edges; vs `white_1986_jsh` = 99.3%.
+> - `brittin_2021_adult_contactome` — 5,245 undirected → 10,490 edges; vs `white_1986_n2u` = 97.9%.
 
 ### Why (biological significance)
 
@@ -50,10 +53,12 @@ gate CIRCE otherwise lacks, especially for the male).
 
 ### Feasibility
 
-- **Ingestion route (recommended):** the OpenWorm **`cect`** package (ConnectomeToolbox) already
-  packages both Brittin and Yim contactomes as graph datasets — export a clean edge list
-  (`node, node, weight`) from it, avoiding Brittin's 17 GB raw SQL. **Fallbacks:** Brittin ASCII
-  (WormAtlas SI3); Yim supplementary matrices.
+- **Ingestion route (used):** read each publication's **own supplementary file** directly. Brittin =
+  Supplementary Information 1 (raw per-section membrane-contact scoring, ~8.9 MB ASCII CSV), aggregated
+  per unordered cell pair; Yim = Supplementary Data 6 (contact-area matrix). This avoids Brittin's
+  17 GB Zenodo MySQL *and* the OpenWorm `cect` package entirely. Note the repo's committed graphs
+  (`reference_graph_*` = Supp Info 3) are a **thresholded** subset (~900–1,046 contacts, ≥4-dataset
+  reproducibility, 173 cells) that fails the synapse⊆contact check — SI 1 is the full raw data.
 - **Name reconciliation:** Brittin nerve-ring neurons and Yim dauer cells are already CIRCE cells
   (dauer via the Yim synaptic layer), so grounding is mostly a lookup — a short reconciliation like
   the Morillo one, not a new cell inventory.
