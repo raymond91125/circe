@@ -1,0 +1,137 @@
+# Ionotropic fast-transmitter receptors — Fenyves 2020 polarity reference
+
+The curated set of **ionotropic (ligand-gated) postsynaptic receptor genes** for the three
+classical fast transmitters — **acetylcholine, glutamate, GABA** — each tagged with its
+**ion selectivity** (cation vs anion), which fixes the **sign** a synapse using that
+transmitter onto a cell expressing that receptor would carry.
+
+This is the input gene table for **Part C — predicted chemical-synapse sign**
+(see `../../docs/proposals/contactome-and-signed-functional.md`). It is **data only**: no
+schema, build, or expression here. Expression (CeNGEN) and the per-synapse derivation are
+later increments.
+
+## Source: Fenyves et al. 2020, S1 Table
+
+Fenyves BG, Qin P, Ch'ng Q, et al. *Transcriptional profiling of the signaling network of
+the C. elegans connectome.* PLoS Comput Biol 16(12):e1007974 (2020).
+doi:10.1371/journal.pcbi.1007974. The polarity assignments and per-gene references here are
+transcribed **verbatim** from that paper's **S1 Table** ("62 ionotropic postsynaptic
+receptor genes for glutamate, acetylcholine, and GABA … + for cation channel, – for anion
+channel"). The S1 Table `.docx` is **not vendored** (copyright); the full content is
+reproduced below and in `ionotropic_receptor_genes.csv`.
+
+### Polarity → ion → sign mapping
+
+Fenyves' "Polarity" column uses `+` / `−`. The mapping to CIRCE's functional sign:
+
+| Fenyves polarity | ion selectivity | sign of the synapse |
+|------------------|-----------------|---------------------|
+| `+`              | cation          | **excitatory**      |
+| `−`              | anion           | **inhibitory**      |
+
+(The *gene* carries the ion; the *synapse* sign is derived later by matching a presynaptic
+transmitter to the receptor the postsynaptic cell expresses. A cell expressing both a cation
+and an anion receptor for the same transmitter → **complex** / sign unset; a transmitter with
+no matched receptor → **unpredicted** / sign unset. See the proposal.)
+
+## The genes (64 rows = 62 distinct genes)
+
+Counts over the 64 S1-Table rows:
+
+| transmitter   | cation (excitatory) | anion (inhibitory) |
+|---------------|---------------------|--------------------|
+| acetylcholine | 30                  | 8                  |
+| glutamate     | 10                  | 6                  |
+| GABA          | 2 (`exp-1`, `lgc-35`) | 8                |
+
+**Acetylcholine — cation (+):** acr-1, acr-2, acr-3, acr-4, acr-5, acr-6, acr-7, acr-8, acr-9,
+acr-10, acr-11, acr-12, acr-13, acr-14, acr-15, acr-16, acr-17, acr-18, acr-19, acr-20, acr-21,
+acr-23, acr-25, deg-3, des-2, eat-2, lev-8, unc-29, unc-38, unc-63.
+**Acetylcholine — anion (−):** acc-1, acc-2, acc-3, acc-4, lgc-46, lgc-47, lgc-48, lgc-49.
+**Glutamate — cation (+):** glr-1, glr-2, glr-3, glr-4, glr-5, glr-6, glr-7, glr-8, nmr-1, nmr-2.
+**Glutamate — anion (−):** avr-14, avr-15, glc-1, glc-2, glc-3, glc-4.
+**GABA — cation (+):** exp-1, lgc-35.
+**GABA — anion (−):** gab-1, ggr-1, ggr-2, ggr-3, lgc-36, lgc-37, lgc-38, unc-49.
+
+### Excluded — presynaptic (not usable as postsynaptic sign predictors)
+
+Fenyves flags two genes as presynaptic; they are kept as rows (`excluded = presynaptic`) for
+faithful reproduction but must be dropped before predicting postsynaptic sign:
+
+- **acc-4** (ACh, anion) — presynaptic (Fenyves ref [3])
+- **lgc-46** (ACh, anion) — presynaptic (Fenyves ref [24])
+
+## WBGene grounding
+
+Every gene is grounded to a WormBase gene id, resolved **offline and deterministically**
+against the pinned WormBase release **WS298** (not a live API — same spirit as the
+monoamine-ionotropic layer). Resolution route per symbol: `geneIDs` (current CGC/sequence
+name) → `geneOtherIDs` (aliases) → `functional_descriptions` (names used only in prose). All
+64 resolve; **all are `Live`**; 0 unresolved.
+
+### Validation checkpoint: 64 rows → 62 distinct WBGene
+
+The 64 S1-Table name-rows collapse to exactly **62 distinct genes**, matching Fenyves'
+own stated count ("62 ionotropic postsynaptic receptor genes"). Two gene pairs are listed in
+the table under two names each (both members agree on transmitter and ion — self-consistent):
+
+| co-referent pair | WBGene | transmitter / ion |
+|------------------|--------|-------------------|
+| `acr-4` = `des-2`  | WBGene00000955 | ACh / cation |
+| `acr-13` = `lev-8` | WBGene00002975 | ACh / cation |
+
+Downstream builds must key on **WBGene**, not symbol, so these de-duplicate naturally.
+
+### Fenyves name → current WormBase CGC name
+
+Six S1-Table names are now non-current (aliases or prose-only names). The CSV keeps Fenyves'
+name in `symbol` (faithful to the table) and records the present CGC name in
+`current_cgc_name`:
+
+| Fenyves `symbol` | `current_cgc_name` | WBGene | resolved via |
+|------------------|--------------------|--------|--------------|
+| acr-1  | lev-1  | WBGene00002974 | geneOtherIDs (alias) |
+| acr-4  | des-2  | WBGene00000955 | geneOtherIDs (alias) |
+| acr-13 | lev-8  | WBGene00002975 | geneOtherIDs (alias) |
+| ggr-1  | lgc-57 | WBGene00001586 | functional_descriptions (prose) |
+| ggr-2  | lgc-58 | WBGene00001587 | functional_descriptions (prose) |
+| ggr-3  | lgc-56 | WBGene00001588 | functional_descriptions (prose) |
+
+### Cross-layer overlap
+
+**`lgc-56` (WBGene00001588)** — Fenyves' `ggr-3` — also appears in the monoamine-ionotropic
+layer (`../cengen-monoamine-ionotropic/`), where it is a deorphanized **amine**-gated channel
+(tyramine/dopamine/octopamine; Morud et al. 2021). Both layers classify it as an **anion**
+(inhibitory) channel, so its sign contribution is robust; Fenyves treats it as a GABA receptor
+for the GABA-sign prediction. This is the only gene shared between the two layers.
+
+## WS298 source files (not vendored)
+
+Resolved against WormBase release WS298 (EBI mirror), downloaded transiently; **not vendored**
+(large, and the grounding result is baked into the CSV):
+
+| file | sha256 |
+|------|--------|
+| `c_elegans.PRJNA13758.WS298.geneIDs.txt.gz`      | `d87c69d1cabc03dc3e0d76b98944fecd952734f1010073b8d84c0970cda19346` |
+| `c_elegans.PRJNA13758.WS298.geneOtherIDs.txt.gz` | `d549f0f41bc8cd301ddac1ac91f96fcdbb3815dc38ae29cce040bd758f447608` |
+| `c_elegans.PRJNA13758.WS298.functional_descriptions.txt.gz` | `ea6acf482a4cffbd5723daab2da304b43c9b1063a913505fab6d77576a92fae1` |
+
+Base URL: `https://ftp.ebi.ac.uk/pub/databases/wormbase/releases/WS298/species/c_elegans/PRJNA13758/annotation/`
+
+## Vendored data
+
+- **`ionotropic_receptor_genes.csv`** — 64 rows. Columns:
+  `symbol` (Fenyves S1-Table name), `wbgene` (`WB:WBGene…`), `current_cgc_name`,
+  `category` (`ionotropic_receptor`), `transmitter` (`acetylcholine`/`glutamate`/`GABA`),
+  `ion` (`cation`/`anion`), `excluded` (`presynaptic` or empty), `note` (S1-Table comment /
+  Fenyves reference markers), `source` (`Fenyves 2020 S1 Table`), `wbgene_source`
+  (`WormBase WS298`).
+
+## Not here (later increments)
+
+- **Expression** — which neurons express each receptor (CeNGEN threshold-4). The CeNGEN matrix
+  rows needed are `acr-*`/`glr-*`/`glc-*`/`unc-*` fast-transmitter receptors, which are **not**
+  in the `NPP/NPR/MR/LGC` subset the monoamine layer reads; the full CeNGEN matrix is required.
+- **Per-synapse sign derivation** — matching presynaptic transmitter (Wang 2024) to postsynaptic
+  receptor expression to populate the `sign` slot with provenance dataset
+  `fenyves_derived_synapse_sign`.
