@@ -1,0 +1,65 @@
+symbol,wbgene,current_cgc_name,category,transmitter,ion,excluded,note,source,wbgene_source
+acc-1,WB:WBGene00010275,acc-1,ionotropic_receptor,acetylcholine,anion,,"[1],[2]",Fenyves 2020 S1 Table,WormBase WS298
+acc-2,WB:WBGene00008280,acc-2,ionotropic_receptor,acetylcholine,anion,,,Fenyves 2020 S1 Table,WormBase WS298
+acc-3,WB:WBGene00018880,acc-3,ionotropic_receptor,acetylcholine,anion,,,Fenyves 2020 S1 Table,WormBase WS298
+acc-4,WB:WBGene00012099,acc-4,ionotropic_receptor,acetylcholine,anion,presynaptic,presynaptic [3],Fenyves 2020 S1 Table,WormBase WS298
+acr-1,WB:WBGene00002974,lev-1,ionotropic_receptor,acetylcholine,cation,,"unc-29 nAChR group [2,4]",Fenyves 2020 S1 Table,WormBase WS298
+acr-2,WB:WBGene00000042,acr-2,ionotropic_receptor,acetylcholine,cation,,[5],Fenyves 2020 S1 Table,WormBase WS298
+acr-3,WB:WBGene00000043,acr-3,ionotropic_receptor,acetylcholine,cation,,[6],Fenyves 2020 S1 Table,WormBase WS298
+acr-4,WB:WBGene00000955,des-2,ionotropic_receptor,acetylcholine,cation,,deg-3 nAChR group [4],Fenyves 2020 S1 Table,WormBase WS298
+acr-5,WB:WBGene00000044,acr-5,ionotropic_receptor,acetylcholine,cation,,[7],Fenyves 2020 S1 Table,WormBase WS298
+acr-6,WB:WBGene00000045,acr-6,ionotropic_receptor,acetylcholine,cation,,unc-38 group [4],Fenyves 2020 S1 Table,WormBase WS298
+acr-7,WB:WBGene00000046,acr-7,ionotropic_receptor,acetylcholine,cation,,acr-16 group [4],Fenyves 2020 S1 Table,WormBase WS298
+acr-8,WB:WBGene00000047,acr-8,ionotropic_receptor,acetylcholine,cation,,unc-38 group,Fenyves 2020 S1 Table,WormBase WS298
+acr-9,WB:WBGene00000048,acr-9,ionotropic_receptor,acetylcholine,cation,,"acr-16 group [2,4]",Fenyves 2020 S1 Table,WormBase WS298
+acr-10,WB:WBGene00000049,acr-10,ionotropic_receptor,acetylcholine,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+acr-11,WB:WBGene00000050,acr-11,ionotropic_receptor,acetylcholine,cation,,[9],Fenyves 2020 S1 Table,WormBase WS298
+acr-12,WB:WBGene00000051,acr-12,ionotropic_receptor,acetylcholine,cation,,unc-38 group [10],Fenyves 2020 S1 Table,WormBase WS298
+acr-13,WB:WBGene00002975,lev-8,ionotropic_receptor,acetylcholine,cation,,unc-38 group,Fenyves 2020 S1 Table,WormBase WS298
+acr-14,WB:WBGene00000053,acr-14,ionotropic_receptor,acetylcholine,cation,,acr-16 group [4]; [9],Fenyves 2020 S1 Table,WormBase WS298
+acr-15,WB:WBGene00000054,acr-15,ionotropic_receptor,acetylcholine,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+acr-16,WB:WBGene00000055,acr-16,ionotropic_receptor,acetylcholine,cation,,"[11]; [2], uniprot.org",Fenyves 2020 S1 Table,WormBase WS298
+acr-17,WB:WBGene00000056,acr-17,ionotropic_receptor,acetylcholine,cation,,[2],Fenyves 2020 S1 Table,WormBase WS298
+acr-18,WB:WBGene00000057,acr-18,ionotropic_receptor,acetylcholine,cation,,[12],Fenyves 2020 S1 Table,WormBase WS298
+acr-19,WB:WBGene00000058,acr-19,ionotropic_receptor,acetylcholine,cation,,[2],Fenyves 2020 S1 Table,WormBase WS298
+acr-20,WB:WBGene00000059,acr-20,ionotropic_receptor,acetylcholine,cation,,[12],Fenyves 2020 S1 Table,WormBase WS298
+acr-21,WB:WBGene00000060,acr-21,ionotropic_receptor,acetylcholine,cation,,[2],Fenyves 2020 S1 Table,WormBase WS298
+acr-23,WB:WBGene00000062,acr-23,ionotropic_receptor,acetylcholine,cation,,[12],Fenyves 2020 S1 Table,WormBase WS298
+acr-25,WB:WBGene00043066,acr-25,ionotropic_receptor,acetylcholine,cation,,[2],Fenyves 2020 S1 Table,WormBase WS298
+avr-14,WB:WBGene00000232,avr-14,ionotropic_receptor,glutamate,anion,,"[13]; [2], uniprot.org",Fenyves 2020 S1 Table,WormBase WS298
+avr-15,WB:WBGene00000233,avr-15,ionotropic_receptor,glutamate,anion,,,Fenyves 2020 S1 Table,WormBase WS298
+deg-3,WB:WBGene00000951,deg-3,ionotropic_receptor,acetylcholine,cation,,"[14]; [2], uniprot.org",Fenyves 2020 S1 Table,WormBase WS298
+des-2,WB:WBGene00000955,des-2,ionotropic_receptor,acetylcholine,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+eat-2,WB:WBGene00001133,eat-2,ionotropic_receptor,acetylcholine,cation,,wormbase.org; uniprot.org,Fenyves 2020 S1 Table,WormBase WS298
+exp-1,WB:WBGene00001373,exp-1,ionotropic_receptor,GABA,cation,,[15],Fenyves 2020 S1 Table,WormBase WS298
+gab-1,WB:WBGene00001512,gab-1,ionotropic_receptor,GABA,anion,,"[16]; [2,4], wormbase.org",Fenyves 2020 S1 Table,WormBase WS298
+ggr-1,WB:WBGene00001586,lgc-57,ionotropic_receptor,GABA,anion,,,Fenyves 2020 S1 Table,WormBase WS298
+ggr-2,WB:WBGene00001587,lgc-58,ionotropic_receptor,GABA,anion,,,Fenyves 2020 S1 Table,WormBase WS298
+ggr-3,WB:WBGene00001588,lgc-56,ionotropic_receptor,GABA,anion,,,Fenyves 2020 S1 Table,WormBase WS298
+glc-1,WB:WBGene00001591,glc-1,ionotropic_receptor,glutamate,anion,,[13],Fenyves 2020 S1 Table,WormBase WS298
+glc-2,WB:WBGene00001592,glc-2,ionotropic_receptor,glutamate,anion,,[17],Fenyves 2020 S1 Table,WormBase WS298
+glc-3,WB:WBGene00001593,glc-3,ionotropic_receptor,glutamate,anion,,[18],Fenyves 2020 S1 Table,WormBase WS298
+glc-4,WB:WBGene00001594,glc-4,ionotropic_receptor,glutamate,anion,,predicted [4],Fenyves 2020 S1 Table,WormBase WS298
+glr-1,WB:WBGene00001612,glr-1,ionotropic_receptor,glutamate,cation,,[19]; [4],Fenyves 2020 S1 Table,WormBase WS298
+glr-2,WB:WBGene00001613,glr-2,ionotropic_receptor,glutamate,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+glr-3,WB:WBGene00001614,glr-3,ionotropic_receptor,glutamate,cation,,[20],Fenyves 2020 S1 Table,WormBase WS298
+glr-4,WB:WBGene00001615,glr-4,ionotropic_receptor,glutamate,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+glr-5,WB:WBGene00001616,glr-5,ionotropic_receptor,glutamate,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+glr-6,WB:WBGene00001617,glr-6,ionotropic_receptor,glutamate,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+glr-7,WB:WBGene00001618,glr-7,ionotropic_receptor,glutamate,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+glr-8,WB:WBGene00001619,glr-8,ionotropic_receptor,glutamate,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+lev-8,WB:WBGene00002975,lev-8,ionotropic_receptor,acetylcholine,cation,,[21],Fenyves 2020 S1 Table,WormBase WS298
+lgc-35,WB:WBGene00012915,lgc-35,ionotropic_receptor,GABA,cation,,[22],Fenyves 2020 S1 Table,WormBase WS298
+lgc-36,WB:WBGene00008551,lgc-36,ionotropic_receptor,GABA,anion,,"[23]; [2,4]",Fenyves 2020 S1 Table,WormBase WS298
+lgc-37,WB:WBGene00013914,lgc-37,ionotropic_receptor,GABA,anion,,,Fenyves 2020 S1 Table,WormBase WS298
+lgc-38,WB:WBGene00017389,lgc-38,ionotropic_receptor,GABA,anion,,,Fenyves 2020 S1 Table,WormBase WS298
+lgc-46,WB:WBGene00022106,lgc-46,ionotropic_receptor,acetylcholine,anion,presynaptic,"acc-1 group, [2,4], presynaptic [24]",Fenyves 2020 S1 Table,WormBase WS298
+lgc-47,WB:WBGene00009799,lgc-47,ionotropic_receptor,acetylcholine,anion,,"acc-1 group, [2,4,25]",Fenyves 2020 S1 Table,WormBase WS298
+lgc-48,WB:WBGene00008223,lgc-48,ionotropic_receptor,acetylcholine,anion,,acc-1 group,Fenyves 2020 S1 Table,WormBase WS298
+lgc-49,WB:WBGene00010741,lgc-49,ionotropic_receptor,acetylcholine,anion,,acc-1 group,Fenyves 2020 S1 Table,WormBase WS298
+nmr-1,WB:WBGene00003774,nmr-1,ionotropic_receptor,glutamate,cation,,[20],Fenyves 2020 S1 Table,WormBase WS298
+nmr-2,WB:WBGene00003775,nmr-2,ionotropic_receptor,glutamate,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+unc-29,WB:WBGene00006765,unc-29,ionotropic_receptor,acetylcholine,cation,,[26],Fenyves 2020 S1 Table,WormBase WS298
+unc-38,WB:WBGene00006774,unc-38,ionotropic_receptor,acetylcholine,cation,,,Fenyves 2020 S1 Table,WormBase WS298
+unc-49,WB:WBGene00006784,unc-49,ionotropic_receptor,GABA,anion,,"[4,23]",Fenyves 2020 S1 Table,WormBase WS298
+unc-63,WB:WBGene00006797,unc-63,ionotropic_receptor,acetylcholine,cation,,unc-38 group [27],Fenyves 2020 S1 Table,WormBase WS298
