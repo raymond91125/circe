@@ -126,12 +126,59 @@ Base URL: `https://ftp.ebi.ac.uk/pub/databases/wormbase/releases/WS298/species/c
   `ion` (`cation`/`anion`), `excluded` (`presynaptic` or empty), `note` (S1-Table comment /
   Fenyves reference markers), `source` (`Fenyves 2020 S1 Table`), `wbgene_source`
   (`WormBase WS298`).
+- **`ionotropic_receptor_expression.csv`** — 2,738 rows, columns `cell`, `gene_symbol`, `wbgene`;
+  one row per (neuron, receptor) called expressed at CeNGEN threshold 4 (58 genes × 290 cells).
+- **`cengen_class_map.csv`** — the auditable CeNGEN-class → CIRCE-member-cells expansion (128 rows).
+- **`build_expression.py`** — regenerates the two CSVs above from the gene table, the CeNGEN
+  matrix (env `CENGEN_T4`), and `../neuron-graph/neurons.json`. Deterministic.
 
-## Not here (later increments)
+## Expression (CeNGEN threshold 4)
 
-- **Expression** — which neurons express each receptor (CeNGEN threshold-4). The CeNGEN matrix
-  rows needed are `acr-*`/`glr-*`/`glc-*`/`unc-*` fast-transmitter receptors, which are **not**
-  in the `NPP/NPR/MR/LGC` subset the monoamine layer reads; the full CeNGEN matrix is required.
+Which neuron expresses each receptor, needed to predict a postsynaptic cell's response to its
+presynaptic transmitter.
+
+### Source: CeNGEN published threshold-4 matrix
+
+`021821_stringent_threshold4.csv` — CeNGEN's **published** (Taylor et al. 2021, *Cell*
+184:4329, doi:10.1016/j.cell.2021.06.023) single-cell expression matrix at the most stringent
+threshold (4): 13,669 genes × **128 neuron classes**, keyed by `Wormbase_ID`; value > 0 means
+the gene is called expressed in that class. **Not vendored** (9.8 MB); the projection below is
+baked into the committed CSV.
+
+- URL: `https://cengen.org/storage/021821_stringent_threshold4.csv`
+- sha256: `478791be7f43d46e11cb751cf12016ae517d59b34db3325f29703646853df875`
+
+**Vintage note.** This is a *different* CeNGEN vintage than the monoamine-ionotropic layer
+(which uses Ripoll's July-2020 `30072020` threshold-4 subset to reproduce Ripoll). This layer
+deliberately uses the **published final release** as a single consistent source for all 62
+genes — the 2020 subset omits 6 of them, and mixing vintages within one receptor set would be
+a confound for the Fenyves validation. The two layers' vintages are independent and each
+documented.
+
+### Genes with no CeNGEN neuronal expression (4 of 62)
+
+`acr-10`, `acr-25`, `eat-2`, `lgc-48` are **absent from the matrix entirely** — CeNGEN lists
+only genes detected above background in neurons, and these were not (`eat-2` is pharyngeal-muscle;
+the others undetected in neurons). They therefore contribute no postsynaptic sign prediction.
+58 of 62 genes have neuronal expression.
+
+### Class → cell expansion
+
+The matrix is per **neuron class**; CIRCE cells are individual neurons, so each class is expanded
+to its member cells (a class's members share the class's expression — the standard assumption).
+`cengen_class_map.csv` records the expansion for **all 128** classes, auditable. Of these, 105
+match a CIRCE class token (e.g. `ADA` → ADAL, ADAR), 4 a cell name (`ASEL`, `ASER`, `DA9`,
+`VA12`), and 19 are CeNGEN aggregates mapped explicitly (the ventral-cord motor-neuron groupings
+`AS`/`DA`/`DB`/`VA`/`VB`/`VC` with their split-out singletons, and `IL2_DV/LR`, `RMD_DV/LR`,
+`RME_DV/LR`). Two collapses are irreducibly ambiguous and resolved **conservatively (union)**:
+
+- **`VD_DD`** → all 13 VD + 6 DD neurons. CeNGEN cannot separate the VD and DD GABAergic motor
+  neurons, so expression is assigned to all 19.
+- **`AWC_ON` / `AWC_OFF`** → both AWCL and AWCR. The ON/OFF identity is stochastic per animal,
+  not fixed to left/right, so a gene called in either is assigned to both AWC neurons.
+
+## Not here (later increment)
+
 - **Per-synapse sign derivation** — matching presynaptic transmitter (Wang 2024) to postsynaptic
   receptor expression to populate the `sign` slot with provenance dataset
   `fenyves_derived_synapse_sign`.
