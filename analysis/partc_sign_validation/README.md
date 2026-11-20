@@ -91,11 +91,42 @@ over-represents the inhibitory GluCls (`avr-14`, `glc-4`), pulling glutamatergic
 inhibitory/complex and depressing the raw E:I. This is the same effect Fenyves themselves noted
 (adding CeNGEN lowered their E:I 3.7–4.1 → 3.1); CIRCE's raw threshold-4 is a stronger dose.
 
+## Result 4 — external validation vs Fenyves 2020 S1 Data (logic check + data-vintage)
+
+Fenyves' S1 Data (xlsx, ~1 MB, `linkgroup.hu`, sha256 in `results.json`; a validation reference, **not
+vendored** — give its path via `$FENYVES_S1`) contains their inputs *and* outputs: NT assignments
+(sheet 1), the cation/anion table (sheet 2), the receptor-expression matrix (sheet 3), and the
+per-connection sign prediction (sheet 5). That lets us separate rule from data cleanly.
+
+**Logic check — the rule is identical.** Running CIRCE's sign rule on Fenyves' *own* receptor-match
+booleans (S1 sheet 5) reproduces their per-connection label **3,638 / 3,638 = 100%**. So the engine
+logic is exactly Fenyves'; every divergence below is **data**, not rule.
+
+**Output comparison — divergence is expression density, not sign direction.** On the 2,435 connections
+both connectomes share and we both make a sign call for, raw agreement is only **29.2%** — but that is
+category reshuffling, not sign error:
+
+- When **both make a definite (+/−) call, they agree on direction 87.7%** of the time (316 such pairs).
+- The disagreements are dominated by *complex/unpredicted* reshuffling: we call **complex** where
+  Fenyves calls a clean sign (562 excitatory + 281 inhibitory), and we make a definite or complex call
+  where Fenyves had **no prediction** (298 + 269 + 202). Current CeNGEN threshold-4 simply detects far
+  more receptor expression than Fenyves' 2020 curated matrix, which *raises* coverage (fewer "no pred":
+  theirs 1,422/3,638 = 39%) *and* inflates complex.
+- **Attribution:** of 1,725 disagreements, **1,513 (88%) are expression-driven** and only **212 (12%)
+  are NT-source-driven** — confirming the data-vintage axis quantitatively. (Fenyves' own
+  per-connection balance: + 1,314 / − 425 / complex 477 / no pred 1,422; definite E:I = 3.09.)
+
+So the engine is Fenyves' engine; feeding it today's denser CeNGEN is what moves the numbers, in the
+direction the earlier results already showed (more complex, more inhibitory glutamate calls).
+
 ## Bottom line
 
-- The **engine is correct** (4,294/4,294 self-consistent) and, under the published complex-resolution,
-  **reproduces the hermaphrodite polarity balance** (E:I ≈ 3.1, coverage ≈ 65%). The headline raw
-  divergence was a counting/convention artifact, not a bug — consistent with the #99 write-up.
+- The **engine is Fenyves' engine** — running our rule on Fenyves' own data reproduces their
+  per-connection labels **100%** (3,638/3,638), and the analysis is self-consistent with the shipped
+  build (4,294/4,294). Under the published complex-resolution it **reproduces the hermaphrodite
+  polarity balance** (E:I ≈ 3.1, coverage ≈ 65%). The raw divergence is a counting/convention +
+  expression-density effect (88% of connection-level disagreements are expression-driven, 12% NT),
+  not a bug.
 - **Trust ACh and GABA sign predictions; treat glutamatergic predictions as low-confidence**, because
   threshold-4 over-calls the inhibitory GluCls — a limitation the functional reality check exposes
   independently of Fenyves.
@@ -104,9 +135,9 @@ inhibitory/complex and depressing the raw E:I. This is the same effect Fenyves t
 
 ## Not done (needs data not yet fetched)
 
-- **Exact logic check** (feed Fenyves' own NT + receptor calls through our engine; reproduce their
-  per-connection labels) and the **per-synapse data-vintage decomposition** — both need Fenyves' S1
-  Data / S6 Table / S7 Data (≈1 MB, `linkgroup.hu` / PLoS SI), a validation reference only, to be
-  downloaded with explicit go-ahead.
-- **Threshold sensitivity** (does a less stringent/more stringent CeNGEN threshold change the GluCl
-  over-call?) — needs the other CeNGEN threshold matrices.
+- **Threshold sensitivity** — does a different CeNGEN threshold tame the broad GluCl (`avr-14`/`glc-4`)
+  expression that drives the inhibitory over-call and the complex inflation? Needs the other CeNGEN
+  threshold matrices (only threshold-4 is used by the layer today).
+- **Per-synapse (weighted) reconciliation** — this analysis compares per *connection*; Fenyves'
+  headline is per *synapse*. Weighting our connections by synapse count would make the magnitudes
+  directly comparable; not required for the conclusions above.
