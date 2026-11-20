@@ -1,0 +1,264 @@
+{
+  "matrix_sha256": {
+    "threshold1": "74ac7e400f3f841d8784946db67bdbc211598c8682020ef57730b29e564e0cb6",
+    "threshold2": "de03fc03cacdf4c1aa7ffd7565df89135ed72eab68d0b3cf03f542932abc63c8",
+    "threshold3": "2454624b7b0409b8ce62c5687c431e0c9b9dd5f38148e0bc9b0fb48c26887236"
+  },
+  "n_in_scope_chemical_connections": 4294,
+  "per_threshold": {
+    "threshold1": {
+      "complex_pct": 70.4,
+      "definite_pct": 4.1,
+      "glucl_cells_expressing": {
+        "avr-14": 291,
+        "avr-15": 77,
+        "glc-1": 25,
+        "glc-2": 73,
+        "glc-3": 66,
+        "glc-4": 168
+      },
+      "glutamate_E:I": 0.06,
+      "glutamate_outcome": {
+        "complex": 1213,
+        "excitatory": 2,
+        "inhibitory": 33,
+        "unpredicted": 108
+      },
+      "inhibitory_overcall_drivers": {
+        "avr-14": 3,
+        "ggr-1": 1,
+        "ggr-2": 1,
+        "glc-3": 1,
+        "glc-4": 3,
+        "lgc-38": 1
+      },
+      "n_cells_with_any_receptor": 302,
+      "raw_E:I": 0.46,
+      "raw_counts": {
+        "complex": 3021,
+        "excitatory": 55,
+        "inhibitory": 119,
+        "unpredicted": 1099
+      },
+      "reality_raw": {
+        "agreement_pct": 50.0,
+        "confusion": {
+          "excitatory|excitatory": 4,
+          "inhibitory|excitatory": 4
+        },
+        "overlap": 8
+      },
+      "reality_resolved": {
+        "agreement_pct": 72.2,
+        "confusion": {
+          "excitatory|excitatory": 103,
+          "excitatory|inhibitory": 13,
+          "inhibitory|excitatory": 27,
+          "inhibitory|inhibitory": 1
+        },
+        "overlap": 144
+      },
+      "resolved_E:I": 5.45,
+      "resolved_counts": {
+        "excitatory": 2447,
+        "inhibitory": 449,
+        "unknown": 299,
+        "unpredicted": 1099
+      }
+    },
+    "threshold2": {
+      "complex_pct": 65.5,
+      "definite_pct": 8.6,
+      "glucl_cells_expressing": {
+        "avr-14": 274,
+        "avr-15": 65,
+        "glc-1": 11,
+        "glc-2": 47,
+        "glc-3": 51,
+        "glc-4": 148
+      },
+      "glutamate_E:I": 0.06,
+      "glutamate_outcome": {
+        "complex": 1091,
+        "excitatory": 9,
+        "inhibitory": 148,
+        "unpredicted": 108
+      },
+      "inhibitory_overcall_drivers": {
+        "avr-14": 9,
+        "avr-15": 5,
+        "ggr-1": 1,
+        "ggr-2": 1,
+        "glc-3": 2,
+        "glc-4": 7,
+        "lgc-38": 1
+      },
+      "n_cells_with_any_receptor": 302,
+      "raw_E:I": 0.53,
+      "raw_counts": {
+        "complex": 2812,
+        "excitatory": 128,
+        "inhibitory": 243,
+        "unpredicted": 1111
+      },
+      "reality_raw": {
+        "agreement_pct": 41.2,
+        "confusion": {
+          "excitatory|excitatory": 6,
+          "inhibitory|excitatory": 10,
+          "inhibitory|inhibitory": 1
+        },
+        "overlap": 17
+      },
+      "reality_resolved": {
+        "agreement_pct": 65.0,
+        "confusion": {
+          "excitatory|excitatory": 91,
+          "excitatory|inhibitory": 12,
+          "inhibitory|excitatory": 38,
+          "inhibitory|inhibitory": 2
+        },
+        "overlap": 143
+      },
+      "resolved_E:I": 3.18,
+      "resolved_counts": {
+        "excitatory": 2206,
+        "inhibitory": 694,
+        "unknown": 283,
+        "unpredicted": 1111
+      }
+    },
+    "threshold3": {
+      "complex_pct": 51.4,
+      "definite_pct": 21.1,
+      "glucl_cells_expressing": {
+        "avr-14": 210,
+        "avr-15": 26,
+        "glc-1": 4,
+        "glc-2": 32,
+        "glc-3": 31,
+        "glc-4": 110
+      },
+      "glutamate_E:I": 0.31,
+      "glutamate_outcome": {
+        "complex": 799,
+        "excitatory": 96,
+        "inhibitory": 312,
+        "unpredicted": 149
+      },
+      "inhibitory_overcall_drivers": {
+        "avr-14": 18,
+        "avr-15": 3,
+        "ggr-2": 1,
+        "glc-1": 1,
+        "glc-4": 16,
+        "lgc-38": 1,
+        "lgc-47": 2
+      },
+      "n_cells_with_any_receptor": 296,
+      "raw_E:I": 1.19,
+      "raw_counts": {
+        "complex": 2205,
+        "excitatory": 491,
+        "inhibitory": 413,
+        "unpredicted": 1185
+      },
+      "reality_raw": {
+        "agreement_pct": 41.5,
+        "confusion": {
+          "excitatory|excitatory": 17,
+          "excitatory|inhibitory": 1,
+          "inhibitory|excitatory": 23
+        },
+        "overlap": 41
+      },
+      "reality_resolved": {
+        "agreement_pct": 64.7,
+        "confusion": {
+          "excitatory|excitatory": 90,
+          "excitatory|inhibitory": 12,
+          "inhibitory|excitatory": 37
+        },
+        "overlap": 139
+      },
+      "resolved_E:I": 3.2,
+      "resolved_counts": {
+        "excitatory": 2161,
+        "inhibitory": 676,
+        "unknown": 272,
+        "unpredicted": 1185
+      }
+    },
+    "threshold4": {
+      "complex_pct": 42.9,
+      "definite_pct": 27.2,
+      "glucl_cells_expressing": {
+        "avr-14": 170,
+        "avr-15": 19,
+        "glc-1": 2,
+        "glc-2": 18,
+        "glc-3": 23,
+        "glc-4": 86
+      },
+      "glutamate_E:I": 0.43,
+      "glutamate_outcome": {
+        "complex": 654,
+        "excitatory": 147,
+        "inhibitory": 340,
+        "unpredicted": 215
+      },
+      "inhibitory_overcall_drivers": {
+        "acc-2": 1,
+        "avr-14": 21,
+        "avr-15": 3,
+        "glc-1": 1,
+        "glc-4": 16,
+        "lgc-38": 1
+      },
+      "n_cells_with_any_receptor": 290,
+      "raw_E:I": 1.51,
+      "raw_counts": {
+        "complex": 1842,
+        "excitatory": 704,
+        "inhibitory": 465,
+        "unpredicted": 1283
+      },
+      "reality_raw": {
+        "agreement_pct": 47.3,
+        "confusion": {
+          "excitatory|excitatory": 26,
+          "excitatory|inhibitory": 3,
+          "inhibitory|excitatory": 26
+        },
+        "overlap": 55
+      },
+      "reality_resolved": {
+        "agreement_pct": 64.2,
+        "confusion": {
+          "excitatory|excitatory": 86,
+          "excitatory|inhibitory": 12,
+          "inhibitory|excitatory": 36
+        },
+        "overlap": 134
+      },
+      "resolved_E:I": 3.08,
+      "resolved_counts": {
+        "excitatory": 2113,
+        "inhibitory": 686,
+        "unknown": 212,
+        "unpredicted": 1283
+      }
+    }
+  },
+  "primary_connectome": "cook_2019_hermaphrodite",
+  "self_checks": {
+    "expression_edge_counts": {
+      "threshold1": 6086,
+      "threshold2": 4727,
+      "threshold3": 3445,
+      "threshold4": 2709
+    },
+    "expression_nested_t4_subset_t3_subset_t2_subset_t1": true,
+    "threshold4_reproduces_committed_raw_counts": true
+  }
+}
