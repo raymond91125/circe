@@ -18,15 +18,28 @@ no RNG), primary target ``cook_2019_hermaphrodite`` (= WormWiring, Fenyves' own 
   3. NT-IDENTITY SANITY + the inhibitory-overcall diagnostic: predicted sign by presynaptic
      transmitter, and which anion receptor genes drive the functional-overlap disagreements.
 
-Reads only committed inputs + the build output; writes results.json next to this file. Run from the
-repo root after ``uv run cckg build``:
+  4. EXTERNAL VALIDATION vs Fenyves 2020 S1 Data (optional; needs the file). Two parts:
+     - LOGIC CHECK: run our sign rule on Fenyves' OWN receptor-match booleans (their S1 Data sheet
+       5) and confirm we reproduce their per-connection label -- isolates the rule from the data.
+     - DATA-VINTAGE DECOMPOSITION: compare our per-connection predictions to theirs on the shared
+       connections, and attribute each disagreement to an NT-source difference vs an expression
+       difference (ours = CeNGEN threshold-4; theirs = a curated WormBase/WormAtlas/CeNGEN matrix).
+     S1 Data (xlsx, ~1 MB, linkgroup.hu; a validation reference, NOT vendored) is given via
+     ``$FENYVES_S1`` or argv[1]; its sha256 + the numbers are captured in results.json.
 
-    uv run python -I analysis/partc_sign_validation/validate.py
+Reads committed inputs + the build output (+ optional S1 Data); writes results.json next to this
+file. Run from the repo root after ``uv run cckg build``:
+
+    uv run python -I analysis/partc_sign_validation/validate.py                       # checks 1-3
+    FENYVES_S1=/path/to/S1_Data.xlsx uv run python -I analysis/partc_sign_validation/validate.py
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
+import os
+import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -59,6 +72,10 @@ SZILAGYI_2026 = {  # per CONNECTION, 3,638; complex resolved by receptor ratio (
     "unknown": 1530,
     "E:I": 2.81,
 }
+FENYVES_S1_URL = "https://linkgroup.hu/docs/S1_Data.xlsx"  # NOT vendored; validation reference only
+# Fenyves per-connection label (S1 Data sheet 5 col 16) -> our outcome vocabulary.
+_FEN_MAP = {"+": "excitatory", "-": "inhibitory", "complex": "complex", "no pred": "unpredicted"}
+_FEN_NT = {"Glu": "glutamate", "ACh": "acetylcholine", "GABA": "GABA"}
 
 
 def _strip(s: str) -> str:
@@ -67,6 +84,89 @@ def _strip(s: str) -> str:
 
 def _ratio(e: int, i: int) -> float | None:
     return round(e / i, 2) if i else None
+
+
+def _rule_from_booleans(gp, gn, ap, an, bp, bn) -> str:
+    """Our sign rule expressed over Fenyves' six receptor-match booleans (+/- x Glu/ACh/GABA),
+    returning their vocabulary (+/-/complex/no pred). Used only for the logic check."""
+    cation, anion = (gp or ap or bp), (gn or an or bn)
+    if cation and not anion:
+        return "+"
+    if anion and not cation:
+        return "-"
+    if cation and anion:
+        return "complex"
+    return "no pred"
+
+
+def fenyves_s1_comparison(
+    path: Path,
+    raw_outcome: dict[tuple[str, str], str],
+    nt_by_cell: dict[str, str],
+) -> dict:
+    """Logic check + data-vintage decomposition vs Fenyves 2020 S1 Data (sheets 1 + 5)."""
+    import openpyxl
+
+    wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+    # their NT per neuron (sheet 1): dominant + alternative -> fast-transmitter set
+    their_fast: dict[str, frozenset[str]] = {}
+    for r in wb["1. NT expr"].iter_rows(min_row=2, values_only=True):
+        if r[0]:
+            their_fast[r[0]] = frozenset(_FEN_NT[x] for x in (r[1], r[2]) if x in _FEN_NT)
+    # sheet 5: per chemical connection, their label + the six receptor-match booleans
+    fen_pred: dict[tuple[str, str], str] = {}
+    logic_ok = logic_n = 0
+    for r in wb["5. Sign prediction"].iter_rows(min_row=3, values_only=True):
+        if r[5] != "chemical" or not r[0] or not r[3]:
+            continue
+        fen_pred[(r[0], r[3])] = r[16]
+        booleans = [str(r[j]) == "True" for j in range(6, 12)]
+        logic_n += 1
+        logic_ok += _rule_from_booleans(*booleans) == r[16]
+
+    # output comparison on connections both have AND we make a sign call for (jointly in-scope)
+    common = sorted(p for p in raw_outcome if p in fen_pred)
+    confusion = Counter((raw_outcome[p], _FEN_MAP[fen_pred[p]]) for p in common)
+    agree = sum(v for (a, b), v in confusion.items() if a == b)
+    both_definite = [
+        p
+        for p in common
+        if raw_outcome[p] in ("excitatory", "inhibitory")
+        and _FEN_MAP[fen_pred[p]] in ("excitatory", "inhibitory")
+    ]
+    bd_agree = sum(1 for p in both_definite if raw_outcome[p] == _FEN_MAP[fen_pred[p]])
+    # attribute disagreements: NT(source) differs ours-vs-theirs, else expression-driven
+    disagree = [p for p in common if raw_outcome[p] != _FEN_MAP[fen_pred[p]]]
+    nt_driven = sum(
+        1
+        for p in disagree
+        if decode_fast_transmitters(nt_by_cell.get(p[0])) != their_fast.get(p[0], frozenset())
+    )
+    return {
+        "source_url": FENYVES_S1_URL,
+        "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        "logic_check": {
+            "note": "our rule on Fenyves' own receptor-match booleans (S1 sheet 5) vs their label",
+            "reproduced": logic_ok,
+            "total": logic_n,
+            "pct": round(100 * logic_ok / logic_n, 2) if logic_n else None,
+        },
+        "fenyves_per_connection_label_dist": dict(Counter(fen_pred.values())),
+        "output_comparison_raw": {
+            "jointly_in_scope": len(common),
+            "agreement_pct": round(100 * agree / len(common), 1) if common else None,
+            "both_make_definite_call": len(both_definite),
+            "agree_on_direction_when_both_definite_pct": (
+                round(100 * bd_agree / len(both_definite), 1) if both_definite else None
+            ),
+            "confusion_ours_x_fenyves": {f"{a}|{b}": v for (a, b), v in sorted(confusion.items())},
+        },
+        "divergence_attribution": {
+            "disagreements": len(disagree),
+            "nt_source_driven": nt_driven,
+            "expression_driven": len(disagree) - nt_driven,
+        },
+    }
 
 
 def main() -> None:
@@ -213,6 +313,14 @@ def main() -> None:
         },
         "nt_identity_sanity": {tx: dict(c) for tx, c in sorted(nt_breakdown.items())},
     }
+
+    # ----- optional external validation vs Fenyves S1 Data -----
+    s1_path = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("FENYVES_S1")
+    if s1_path and Path(s1_path).exists():
+        results["external_fenyves_s1"] = fenyves_s1_comparison(
+            Path(s1_path), raw_outcome, nt_by_cell
+        )
+
     OUT.write_text(json.dumps(results, indent=2, sort_keys=True) + "\n")
 
     # ----- console summary -----
@@ -241,6 +349,26 @@ def main() -> None:
     print("\nNT-identity sanity (raw outcome by presynaptic transmitter):")
     for tx, c in results["nt_identity_sanity"].items():
         print(f"  {tx:14} {c}")
+    if "external_fenyves_s1" in results:
+        ex = results["external_fenyves_s1"]
+        lc, oc, da = ex["logic_check"], ex["output_comparison_raw"], ex["divergence_attribution"]
+        print("\nexternal validation vs Fenyves S1 Data:")
+        print(
+            f"  LOGIC CHECK (our rule on their data): {lc['reproduced']}/{lc['total']} = {lc['pct']}%"
+        )
+        print(
+            f"  output agreement (raw): {oc['agreement_pct']}% over {oc['jointly_in_scope']} shared"
+        )
+        print(
+            f"  agree on DIRECTION when both make a definite call: "
+            f"{oc['agree_on_direction_when_both_definite_pct']}% of {oc['both_make_definite_call']}"
+        )
+        print(
+            f"  disagreements: {da['disagreements']}  expression-driven={da['expression_driven']}  "
+            f"NT-driven={da['nt_source_driven']}"
+        )
+    else:
+        print("\n(external Fenyves S1 check skipped -- set FENYVES_S1=/path/to/S1_Data.xlsx)")
     print(f"\nwrote {OUT}")
 
 
