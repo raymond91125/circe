@@ -11,6 +11,9 @@ Fenyves' own connectome):
 
 Run (after `uv run cckg build`): `uv run python -I analysis/partc_sign_validation/validate.py`.
 Deterministic (verified identical across `PYTHONHASHSEED`); numbers are captured in `results.json`.
+The threshold-sensitivity follow-on (Result 5) is a second script that needs the CeNGEN threshold
+1–3 matrices (not vendored): `CENGEN_MATRICES_DIR=/path/to/matrices uv run python -I
+analysis/partc_sign_validation/threshold_sensitivity.py` → `threshold_sensitivity_results.json`.
 
 ## Prior art (the references this reconciles with)
 
@@ -119,6 +122,40 @@ category reshuffling, not sign error:
 So the engine is Fenyves' engine; feeding it today's denser CeNGEN is what moves the numbers, in the
 direction the earlier results already showed (more complex, more inhibitory glutamate calls).
 
+## Result 5 — threshold sensitivity: the GluCl over-call is irreducible, not a tunable artifact
+
+The layer uses CeNGEN's **threshold 4** matrix — CeNGEN's *most stringent* (fewest genes called
+expressed). CeNGEN publishes four nested binary matrices (1 liberal → 4 stringent;
+expr(t4) ⊆ expr(t3) ⊆ expr(t2) ⊆ expr(t1), **verified** here). The obvious question Result 2/3
+raises: does a different threshold tame the broad `avr-14`/`glc-4` expression driving the
+inhibitory over-call? Since threshold 4 is already the floor, the only directions available are
+*less* stringent. Reclassifying the same 4,294 in-scope hermaphrodite chemical connections at each
+threshold (swapping **only** the postsynaptic expression) gives
+(`threshold_sensitivity.py` → `threshold_sensitivity_results.json`):
+
+| CeNGEN threshold | expr edges | raw exc/inh/cpx/unp | def % | raw E:I | resolved E:I | glu exc/inh/cpx | **glu E:I** | `avr-14` cells | `glc-4` cells |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 liberal | 6,086 | 55 / 119 / 3,021 / 1,099 | 4.1% | 0.46 | 5.45 | 2 / 33 / 1,213 | **0.06** | 291 | 168 |
+| 2 medium | 4,727 | 128 / 243 / 2,812 / 1,111 | 8.6% | 0.53 | 3.18 | 9 / 148 / 1,091 | **0.06** | 274 | 148 |
+| 3 conservative | 3,445 | 491 / 413 / 2,205 / 1,185 | 21.1% | 1.19 | 3.20 | 96 / 312 / 799 | **0.31** | 210 | 110 |
+| **4 stringent (shipped)** | 2,709 | 704 / 465 / 1,842 / 1,283 | 27.2% | 1.51 | 3.08 | 147 / 340 / 654 | **0.43** | 170 | 86 |
+
+Every over-call metric is **monotonically best at threshold 4** and worsens as the threshold
+loosens: the GluCls spread (`avr-14` 170 → 291 cells, `glc-4` 86 → 168), glutamate E:I collapses
+toward zero (0.43 → 0.06), complex inflates (42.9% → 70.4%) and raw definite coverage craters
+(27.2% → 4.1%). So the over-call is **not a tunable artifact** — it is intrinsic to how broadly
+CeNGEN's single-cell data detect these glutamate-gated chloride channels, and it is already as small
+as CeNGEN allows. There is no cut more stringent than threshold 4, so the layer cannot tune it away;
+the shipped choice of threshold 4 is the right (most conservative) operating point, vindicated.
+
+The lever that *does* help is **complex resolution, not threshold**: the receptor-ratio-resolved
+E:I stays ≈3.1–3.2 (t1's 5.45 is an inflation artifact of near-universal expression) and the
+resolved reality-check agreement is flat-to-slightly-higher at looser thresholds (64.2% → 72.2%,
+but only because ratio resolution leans on the cation/anion *balance* in denser data while raw
+definite coverage is destroyed). This confirms increment 4's conclusion from the other direction:
+**how complex is handled dominates the threshold choice.** (Raw reality-check agreement swings
+41–50% across thresholds but on 8–55 overlap pairs — too few to read into.)
+
 ## Bottom line
 
 - The **engine is Fenyves' engine** — running our rule on Fenyves' own data reproduces their
@@ -129,15 +166,13 @@ direction the earlier results already showed (more complex, more inhibitory glut
   not a bug.
 - **Trust ACh and GABA sign predictions; treat glutamatergic predictions as low-confidence**, because
   threshold-4 over-calls the inhibitory GluCls — a limitation the functional reality check exposes
-  independently of Fenyves.
+  independently of Fenyves, and one that **no CeNGEN threshold removes** (Result 5: threshold 4 is
+  already the most stringent, hence the least over-called, cut available).
 - CIRCE keeps the stored sign **raw** (complex unset); the receptor-ratio-resolved labels are provided
   here as a derived view, not written back to the KG.
 
 ## Not done (needs data not yet fetched)
 
-- **Threshold sensitivity** — does a different CeNGEN threshold tame the broad GluCl (`avr-14`/`glc-4`)
-  expression that drives the inhibitory over-call and the complex inflation? Needs the other CeNGEN
-  threshold matrices (only threshold-4 is used by the layer today).
 - **Per-synapse (weighted) reconciliation** — this analysis compares per *connection*; Fenyves'
   headline is per *synapse*. Weighting our connections by synapse count would make the magnitudes
   directly comparable; not required for the conclusions above.

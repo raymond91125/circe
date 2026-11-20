@@ -148,6 +148,17 @@ baked into the committed CSV.
 - URL: `https://cengen.org/storage/021821_stringent_threshold4.csv`
 - sha256: `478791be7f43d46e11cb751cf12016ae517d59b34db3325f29703646853df875`
 
+**Other thresholds — validation references only (not vendored, not used by the build).** CeNGEN
+publishes four nested binary matrices (1 liberal → 4 stringent); the build uses only threshold 4
+(most stringent). The threshold-sensitivity analysis (`../../analysis/partc_sign_validation/`,
+Result 5) reads thresholds 1–3 to show the GluCl over-call is irreducible by threshold choice:
+
+| threshold | URL | sha256 |
+|---|---|---|
+| 1 liberal      | `https://cengen.org/storage/021821_liberal_threshold1.csv`      | `74ac7e400f3f841d8784946db67bdbc211598c8682020ef57730b29e564e0cb6` |
+| 2 medium       | `https://cengen.org/storage/021821_medium_threshold2.csv`       | `de03fc03cacdf4c1aa7ffd7565df89135ed72eab68d0b3cf03f542932abc63c8` |
+| 3 conservative | `https://cengen.org/storage/021821_conservative_threshold3.csv` | `2454624b7b0409b8ce62c5687c431e0c9b9dd5f38148e0bc9b0fb48c26887236` |
+
 **Vintage note.** This is a *different* CeNGEN vintage than the monoamine-ionotropic layer
 (which uses Ripoll's July-2020 `30072020` threshold-4 subset to reproduce Ripoll). This layer
 deliberately uses the **published final release** as a single consistent source for all 62
