@@ -234,11 +234,19 @@ Downloading S1 Data (~1 MB, `linkgroup.hu`) happens at this step, with explicit 
 3. ✅ Build step: derive per-synapse sign, populate `sign` + provenance; tests. *(This increment —
    the `fenyves_derived_synapse_sign` provenance dataset writes `sign` + a `predicted_sign` evidence
    note on the hermaphrodite, non-dauer chemical connections; pure engine unit-tested.)*
-4. Validation analysis under `analysis/` vs Fenyves (logic + data-vintage decomposition), against
-   two verified references: **Fenyves 2020 S1 Data** (per-synapse) and **Szilágyi et al., *BMC
-   Biol* 2026;24:167** (DOI 10.1186/s12915-026-02641-4; Fenyves' own group), which relabels the
-   2020 complex synapses to one sign **by the anion/cation receptor-count ratio** (ties → unknown)
-   and reports per-connection counts (3,638 → 1,555 excitatory / 553 inhibitory / 1,530 unknown).
+4. 🔶 Validation analysis under `analysis/partc_sign_validation/` (mostly done). Against two verified
+   references: **Fenyves 2020** (per-synapse) and **Szilágyi et al., *BMC Biol* 2026;24:167** (DOI
+   10.1186/s12915-026-02641-4; Fenyves' own group), which relabels the 2020 complex synapses to one
+   sign **by the anion/cation receptor-count ratio** (ties → unknown; 3,638 → 1,555 / 553 / 1,530).
+   **Findings:** the engine is self-consistent (4,294/4,294); under the authors' own complex
+   resolution our result reproduces the hermaphrodite balance (E:I ≈ 3.08 vs their 2.81–3.52,
+   definite coverage ≈ 65%) — the raw E:I ≈ 1.5 was a complex-convention artifact. The **biological
+   reality check vs measured functional sign (Randi 2023)** passes at 64% (resolved) but exposes a
+   real limitation: **glutamatergic synapses are over-called inhibitory**, driven by the broadly
+   threshold-4-expressed GluCls `avr-14`/`glc-4` — so ACh/GABA predictions are trustworthy,
+   glutamatergic ones are low-confidence. **Still pending (needs a download):** the exact per-synapse
+   logic check + data-vintage decomposition vs Fenyves S1 Data, and a CeNGEN-threshold sensitivity
+   test for the GluCl over-call.
 
 > **Increment-3 build result, and what increment 4 must actually explain.** On Cook 2019
 > hermaphrodite (Fenyves' target connectome), over the in-scope chemical connections (presynaptic

@@ -1,0 +1,96 @@
+{
+  "headline": {
+    "raw": {
+      "E:I": 1.51,
+      "counts": {
+        "complex": 1842,
+        "excitatory": 704,
+        "inhibitory": 465,
+        "unpredicted": 1283
+      },
+      "definite_pct": 27.2,
+      "n_in_scope": 4294,
+      "predicted_incl_complex_pct": 70.1
+    },
+    "receptor_ratio_resolved": {
+      "E:I": 3.08,
+      "counts": {
+        "excitatory": 2113,
+        "inhibitory": 686,
+        "unknown": 212,
+        "unpredicted": 1283
+      },
+      "definite_pct": 65.2,
+      "n_in_scope": 4294,
+      "predicted_incl_complex_pct": 65.2
+    },
+    "reference_fenyves_2020_per_synapse": {
+      "E:I": 3.52,
+      "complex": 3413,
+      "excitatory": 9070,
+      "inhibitory": 2580,
+      "predicted_pct": 73.2,
+      "unpredicted": 5526
+    },
+    "reference_szilagyi_2026_per_connection": {
+      "E:I": 2.81,
+      "excitatory": 1555,
+      "inhibitory": 553,
+      "unknown": 1530
+    }
+  },
+  "nt_identity_sanity": {
+    "GABA": {
+      "complex": 65,
+      "excitatory": 1,
+      "inhibitory": 96,
+      "unpredicted": 176
+    },
+    "acetylcholine": {
+      "complex": 1257,
+      "excitatory": 566,
+      "inhibitory": 31,
+      "unpredicted": 918
+    },
+    "glutamate": {
+      "complex": 654,
+      "excitatory": 147,
+      "inhibitory": 340,
+      "unpredicted": 215
+    }
+  },
+  "primary_connectome": "cook_2019_hermaphrodite",
+  "reality_check_vs_measured_functional": {
+    "inhibitory_overcall_anion_drivers": {
+      "acc-2": 1,
+      "avr-14": 21,
+      "avr-15": 3,
+      "glc-1": 1,
+      "glc-4": 16,
+      "lgc-38": 1
+    },
+    "n_measured_functional_signed_pairs": 1423,
+    "note": "Functional sign (Randi 2023) is a net signal-propagation effect, not a monosynaptic ground truth; this bounds, not proves, correctness.",
+    "raw": {
+      "agree": 26,
+      "agreement_pct": 47.3,
+      "confusion_pred_x_measured": {
+        "excitatory|excitatory": 26,
+        "excitatory|inhibitory": 3,
+        "inhibitory|excitatory": 26
+      },
+      "overlap": 55
+    },
+    "receptor_ratio_resolved": {
+      "agree": 86,
+      "agreement_pct": 64.2,
+      "confusion_pred_x_measured": {
+        "excitatory|excitatory": 86,
+        "excitatory|inhibitory": 12,
+        "inhibitory|excitatory": 36
+      },
+      "overlap": 134
+    }
+  },
+  "self_check_recomputed_vs_stored_mismatches": 0
+}
