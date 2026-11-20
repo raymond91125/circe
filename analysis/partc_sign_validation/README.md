@@ -156,6 +156,34 @@ definite coverage is destroyed). This confirms increment 4's conclusion from the
 **how complex is handled dominates the threshold choice.** (Raw reality-check agreement swings
 41–50% across thresholds but on 8–55 overlap pairs — too few to read into.)
 
+## Result 6 — per-synapse reconciliation: the counting unit is not the gap
+
+Results 1 and 4 compare **per connection**; Fenyves' headline is **per synapse** (20,589 synapses).
+This weights each connection by its synapse count (the connectome `weight` = Cook's aggregated
+synapse number) and re-tallies per synapse, restricted to the **neuron→neuron** scope Fenyves
+scored (`per_synapse_reconciliation.py` → `per_synapse_reconciliation_results.json`).
+
+First, the scope lines up: our neuron→neuron chemical total is **3,707 connections / 20,905
+synapses**, within ~2% of Fenyves' **3,638 / 20,589** — confirming `weight` is a synapse count and
+that the muscle NMJs (1,051 conns / 6,193 synapses) really are a separate extension, not overlap.
+
+| view (neuron→neuron) | exc | inh | complex | unknown | unpred | **E:I** | predicted incl-complex |
+|---|---|---|---|---|---|---|---|
+| ours, per **connection** | 704 | 465 | 1,842 | — | 696 | 1.51 | 81.2% |
+| ours, per **synapse** (raw) | 3,061 | 2,301 | 12,921 | — | 2,622 | **1.33** | 87.5% |
+| ours, per **synapse** (resolved) | 12,663 | 4,044 | — | 1,576 | 2,622 | **3.13** | 79.9% |
+| Fenyves 2020, per **synapse** | 9,070 | 2,580 | 3,413 | — | 5,526 | **3.52** | 73.2% |
+
+The counting unit is **not** the source of the raw E:I gap: weighting per synapse moves raw E:I the
+*wrong* way (1.51 → **1.33**), because the strongest (high-synapse-count) edges are
+disproportionately **complex** — complex is 42.9% of connections but **61.8% of synapses**
+(12,921/20,905). So per synapse the complex-handling convention matters *more*, not less. Once
+complex is receptor-ratio-resolved, per-synapse **E:I = 3.13 lands beside Fenyves' 3.52**, now in his
+counting unit *and* scope; our higher absolute counts (and lower unpredicted: 2,622 vs 5,526) are the
+denser-CeNGEN coverage of Result 4, not a sign-direction difference. This is the cleanest
+apples-to-apples statement of the reconciliation: same connectome, same neuron→neuron scope
+(~20,900 synapses), same per-synapse unit, same complex resolution → **E:I 3.13 vs 3.52.**
+
 ## Bottom line
 
 - The **engine is Fenyves' engine** — running our rule on Fenyves' own data reproduces their
@@ -163,7 +191,8 @@ definite coverage is destroyed). This confirms increment 4's conclusion from the
   build (4,294/4,294). Under the published complex-resolution it **reproduces the hermaphrodite
   polarity balance** (E:I ≈ 3.1, coverage ≈ 65%). The raw divergence is a counting/convention +
   expression-density effect (88% of connection-level disagreements are expression-driven, 12% NT),
-  not a bug.
+  not a bug — and **not a counting-unit artifact either**: per synapse, in Fenyves' own scope, the
+  resolved E:I is 3.13 vs his 3.52 (Result 6).
 - **Trust ACh and GABA sign predictions; treat glutamatergic predictions as low-confidence**, because
   threshold-4 over-calls the inhibitory GluCls — a limitation the functional reality check exposes
   independently of Fenyves, and one that **no CeNGEN threshold removes** (Result 5: threshold 4 is
@@ -171,8 +200,9 @@ definite coverage is destroyed). This confirms increment 4's conclusion from the
 - CIRCE keeps the stored sign **raw** (complex unset); the receptor-ratio-resolved labels are provided
   here as a derived view, not written back to the KG.
 
-## Not done (needs data not yet fetched)
+## Beyond this analysis
 
-- **Per-synapse (weighted) reconciliation** — this analysis compares per *connection*; Fenyves'
-  headline is per *synapse*. Weighting our connections by synapse count would make the magnitudes
-  directly comparable; not required for the conclusions above.
+Both increment-4 follow-ons are now done (Results 5 and 6). The remaining Part C direction is a
+separate layer, not a validation of this one: a **male signed connectome** (`cook_2019_male` ×
+male-specific ionotropic receptor expression), which would need a male receptor-expression substrate
+(CeNGEN is hermaphrodite) before the same engine could be applied.
