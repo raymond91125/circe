@@ -177,8 +177,24 @@ match a CIRCE class token (e.g. `ADA` → ADAL, ADAR), 4 a cell name (`ASEL`, `A
 - **`AWC_ON` / `AWC_OFF`** → both AWCL and AWCR. The ON/OFF identity is stochastic per animal,
   not fixed to left/right, so a gene called in either is assigned to both AWC neurons.
 
-## Not here (later increment)
+## Per-synapse sign derivation (build; Part C increment 3)
 
-- **Per-synapse sign derivation** — matching presynaptic transmitter (Wang 2024) to postsynaptic
-  receptor expression to populate the `sign` slot with provenance dataset
-  `fenyves_derived_synapse_sign`.
+The build (`celegans_connectome_kg.ingest.synapse_sign` + `build.assemble`) consumes the two CSVs
+above to populate the `sign` slot on the **hermaphrodite, non-dauer chemical connections**, under the
+provenance dataset **`fenyves_derived_synapse_sign`** (which mints no connections of its own). For
+`pre → post`: the presynaptic fast transmitter (`decode_fast_transmitters` of the neuron-graph NT
+code, refined by Wang 2024 hermaphrodite calls) is matched to the ionotropic receptor genes `post`
+expresses — **cation-only → excitatory, anion-only → inhibitory, mixed → complex (unset), none →
+unpredicted (unset)**. Every in-scope connection gets a `predicted_sign` evidence note recording the
+outcome, so complex/unpredicted stay queryable though `sign` is unset. Dauer is excluded (its
+stage-specific remodeling makes adult CeNGEN least applicable); other stages share the standard
+adult-expression caveat.
+
+**Coverage/vintage caveat (decomposed in increment 4).** On Cook 2019 hermaphrodite the build yields
+coverage ≈27% and E:I ≈1.5:1 — far from Fenyves' ~73% / ~4:1 — for two data reasons, not an engine
+bug: (1) CeNGEN is **neurons-only**, so ~1,000 body-wall-muscle NMJs + pharyngeal targets have no
+expression and fall to `unpredicted` (Fenyves scored muscle); (2) current CeNGEN threshold-4 calls
+the anion channels broadly (avr-14 68/128 classes, unc-38 92/128, lgc-47 45/128, unc-49 38/128), so
+most neurons co-express cation+anion receptors → `complex`. The engine is unit-tested in isolation
+(`tests/test_synapse_sign.py`); the quantitative reconciliation against Fenyves S1 Data is the
+increment-4 validation analysis.
