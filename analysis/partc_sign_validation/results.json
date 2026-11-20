@@ -1,4 +1,48 @@
 {
+  "external_fenyves_s1": {
+    "divergence_attribution": {
+      "disagreements": 1725,
+      "expression_driven": 1513,
+      "nt_source_driven": 212
+    },
+    "fenyves_per_connection_label_dist": {
+      "+": 1314,
+      "-": 425,
+      "complex": 477,
+      "no pred": 1422
+    },
+    "logic_check": {
+      "note": "our rule on Fenyves' own receptor-match booleans (S1 sheet 5) vs their label",
+      "pct": 100.0,
+      "reproduced": 3638,
+      "total": 3638
+    },
+    "output_comparison_raw": {
+      "agree_on_direction_when_both_definite_pct": 87.7,
+      "agreement_pct": 29.2,
+      "both_make_definite_call": 316,
+      "confusion_ours_x_fenyves": {
+        "complex|complex": 282,
+        "complex|excitatory": 562,
+        "complex|inhibitory": 281,
+        "complex|unpredicted": 202,
+        "excitatory|complex": 23,
+        "excitatory|excitatory": 218,
+        "excitatory|inhibitory": 10,
+        "excitatory|unpredicted": 298,
+        "inhibitory|complex": 32,
+        "inhibitory|excitatory": 29,
+        "inhibitory|inhibitory": 59,
+        "inhibitory|unpredicted": 269,
+        "unpredicted|excitatory": 17,
+        "unpredicted|inhibitory": 2,
+        "unpredicted|unpredicted": 151
+      },
+      "jointly_in_scope": 2435
+    },
+    "sha256": "ab2ad834a604826dba427818ba524eb56d65626fcd84a40a697d902c90456828",
+    "source_url": "https://linkgroup.hu/docs/S1_Data.xlsx"
+  },
   "headline": {
     "raw": {
       "E:I": 1.51,
