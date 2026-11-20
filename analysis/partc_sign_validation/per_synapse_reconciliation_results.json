@@ -1,0 +1,89 @@
+{
+  "note": "neuron->neuron is the like-for-like scope vs Fenyves (he did not score muscle). Weighting per synapse does NOT close the raw E:I gap (1.51 per-connection -> 1.33 per-synapse, the wrong direction, because the strongest edges are disproportionately complex); the gap is complex-handling + expression density. Receptor-ratio-resolved per-synapse E:I lands beside Fenyves' 3.52.",
+  "primary_connectome": "cook_2019_hermaphrodite",
+  "reference_fenyves_2020_per_synapse": {
+    "E:I": 3.52,
+    "complex": 3413,
+    "connections": 3638,
+    "excitatory": 9070,
+    "inhibitory": 2580,
+    "predicted_incl_complex_pct": 73.2,
+    "total": 20589,
+    "unpredicted": 5526
+  },
+  "scope_all_chemical_incl_muscle": {
+    "n_connections": 4879,
+    "n_synapses": 28113,
+    "per_connection": {
+      "E:I": 1.51,
+      "counts": {
+        "complex": 1842,
+        "excitatory": 704,
+        "inhibitory": 465,
+        "unpredicted": 1868
+      },
+      "definite_pct": 24.0,
+      "predicted_incl_complex_pct": 61.7
+    },
+    "per_synapse_raw": {
+      "E:I": 1.33,
+      "counts": {
+        "complex": 12921.0,
+        "excitatory": 3061.0,
+        "inhibitory": 2301.0,
+        "unpredicted": 9830.0
+      },
+      "definite_pct": 19.1,
+      "predicted_incl_complex_pct": 65.0
+    },
+    "per_synapse_receptor_ratio_resolved": {
+      "E:I": 3.13,
+      "counts": {
+        "excitatory": 12663.0,
+        "inhibitory": 4044.0,
+        "unknown": 1576.0,
+        "unpredicted": 9830.0
+      },
+      "definite_pct": 59.4,
+      "predicted_incl_complex_pct": 59.4
+    }
+  },
+  "scope_neuron_to_neuron": {
+    "n_connections": 3707,
+    "n_synapses": 20905,
+    "per_connection": {
+      "E:I": 1.51,
+      "counts": {
+        "complex": 1842,
+        "excitatory": 704,
+        "inhibitory": 465,
+        "unpredicted": 696
+      },
+      "definite_pct": 31.5,
+      "predicted_incl_complex_pct": 81.2
+    },
+    "per_synapse_raw": {
+      "E:I": 1.33,
+      "counts": {
+        "complex": 12921.0,
+        "excitatory": 3061.0,
+        "inhibitory": 2301.0,
+        "unpredicted": 2622.0
+      },
+      "definite_pct": 25.6,
+      "predicted_incl_complex_pct": 87.5
+    },
+    "per_synapse_receptor_ratio_resolved": {
+      "E:I": 3.13,
+      "counts": {
+        "excitatory": 12663.0,
+        "inhibitory": 4044.0,
+        "unknown": 1576.0,
+        "unpredicted": 2622.0
+      },
+      "definite_pct": 79.9,
+      "predicted_incl_complex_pct": 79.9
+    }
+  },
+  "self_check_definite_and_complex_match_committed_raw": true
+}
