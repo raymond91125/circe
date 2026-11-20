@@ -1,5 +1,6 @@
 """Tests for the sex-aware assemble — Cook 2019 male + hermaphrodite merged [M5]."""
 
+from collections import Counter
 from pathlib import Path
 
 import pytest
@@ -83,6 +84,14 @@ def built():
         / "data"
         / "cengen-monoamine-ionotropic"
         / "monoamine_ionotropic_expression.csv",
+        ionotropic_receptor_genes_path=REPO
+        / "data"
+        / "cengen-ionotropic-receptors"
+        / "ionotropic_receptor_genes.csv",
+        ionotropic_receptor_expression_path=REPO
+        / "data"
+        / "cengen-ionotropic-receptors"
+        / "ionotropic_receptor_expression.csv",
         morillo_genes_path=REPO / "data" / "morillo-2025-male" / "morillo_genes.csv",
         morillo_herm_expression_path=REPO
         / "data"
@@ -192,10 +201,14 @@ def test_functional_connections_are_signed(built) -> None:
     assert functional
     # weight is the non-negative magnitude for EVERY connection type now
     assert all(c.weight >= 0 for c in connectome.connections)
-    # every functional edge has a sign; no other type does
+    # every functional edge has a measured sign
     assert all(str(c.sign) in ("excitatory", "inhibitory") for c in functional)
+    # a sign is carried only by functional (measured) and chemical (predicted, Part C) edges --
+    # never gap_junction / neuropeptidergic / monoaminergic / adjacency
     assert all(
-        c.sign is None for c in connectome.connections if str(c.connection_type) != "functional"
+        c.sign is None
+        for c in connectome.connections
+        if str(c.connection_type) not in ("functional", "chemical")
     )
     exc = sum(1 for c in functional if str(c.sign) == "excitatory")
     inh = sum(1 for c in functional if str(c.sign) == "inhibitory")
@@ -207,6 +220,83 @@ def test_functional_connections_are_signed(built) -> None:
     m = kg_connections_map(connectome)
     assert m["conn"]["ADA"]["fo"]["AWA"]  # a known ADA->AWA inhibitory functional edge
     assert any(v < 0 for v in m["conn"]["ADA"]["fo"]["AWA"].values())
+
+
+def test_predicted_chemical_sign(built) -> None:
+    """Part C: chemical synapses carry a *predicted* sign (Fenyves 2020 derivation) -- presynaptic
+    fast transmitter x postsynaptic ionotropic receptor expression. Provenance-only dataset: it
+    mints no connections, it writes `sign` + a `predicted_sign` evidence note on the hermaphrodite
+    (non-dauer) chemical connections.
+
+    NOTE on the numbers: coverage here is far below Fenyves' ~73% and "complex" far above, because
+    (a) CeNGEN is neurons-only so NMJ/pharyngeal targets have no expression (-> unpredicted), and
+    (b) current CeNGEN threshold-4 calls the anion channels (avr-14, lgc-47/38, unc-49) broadly, so
+    many neurons co-express cation+anion receptors (-> complex). That divergence is a data
+    coverage/vintage effect decomposed in the increment-4 validation, not an engine error; these
+    assertions lock the deterministic build, not a biological headline."""
+    connectome, stats = built
+    strip = lambda s: str(s).split("/")[-1]  # noqa: E731
+
+    # provenance-only dataset: present, hermaphrodite, and owns NO connections
+    ds = {strip(d.id): d for d in connectome.datasets}
+    assert "fenyves_derived_synapse_sign" in ds
+    assert str(ds["fenyves_derived_synapse_sign"].sex) == "hermaphrodite"
+    assert not [
+        c for c in connectome.connections if strip(c.dataset) == "fenyves_derived_synapse_sign"
+    ]
+
+    def outcome(conn):
+        for e in conn.evidence:
+            if strip(e.dataset) == "fenyves_derived_synapse_sign":
+                return str(e.value)
+        return None
+
+    # sign is set iff the predicted outcome is excitatory/inhibitory; complex/unpredicted unset
+    for c in connectome.connections:
+        o = outcome(c)
+        if o is None:
+            continue
+        assert str(c.connection_type) == "chemical"
+        if o in ("excitatory", "inhibitory"):
+            assert str(c.sign) == o
+        else:
+            assert o in ("complex", "unpredicted") and c.sign is None
+
+    # only hermaphrodite, non-dauer chemical connections are annotated
+    annotated_ds = {strip(c.dataset) for c in connectome.connections if outcome(c)}
+    assert "cook_2019_male" not in annotated_ds
+    assert "yim_2024_dauer" not in annotated_ds
+    assert "cook_2019_hermaphrodite" in annotated_ds
+
+    # deterministic outcome tally on Fenyves' own target connectome (WormWiring = Cook 2019 herm)
+    cook = Counter(
+        outcome(c)
+        for c in connectome.connections
+        if strip(c.dataset) == "cook_2019_hermaphrodite" and outcome(c)
+    )
+    assert dict(cook) == {
+        "excitatory": 704,
+        "inhibitory": 465,
+        "complex": 1842,
+        "unpredicted": 1283,
+    }
+    assert stats.predicted_synapse_signs == {
+        "excitatory": 3297,
+        "inhibitory": 2500,
+        "complex": 8985,
+        "unpredicted": 3925,
+    }
+
+    # textbook spot-checks (cook_2019_hermaphrodite):
+    sign = {
+        (strip(c.pre), strip(c.post)): str(c.sign)
+        for c in connectome.connections
+        if strip(c.dataset) == "cook_2019_hermaphrodite" and str(c.connection_type) == "chemical"
+    }
+    # AVA (cholinergic command interneuron) -> VA motor neuron: excitatory (cation nAChR)
+    assert sign[("AVAL", "VA1")] == "excitatory"
+    # RIS (GABAergic sleep neuron; NT code "bg" -> betaine dropped, GABA kept) -> AVE: inhibitory
+    assert sign[("RIS", "AVEL")] == "inhibitory"
 
 
 def test_dauer_dataset(built) -> None:
@@ -335,8 +425,12 @@ def test_dataset_life_stage_backfill(built) -> None:
     stage = {
         strip(d.id): (str(d.life_stage) if d.life_stage else None) for d in connectome.datasets
     }
-    # every dataset is staged except the non-dauer innexin expression dataset, which spans stages
-    assert {k for k, v in stage.items() if v is None} == {"bhattacharya_2019_innexin"}
+    # every dataset is staged except the two that span stages: the non-dauer innexin expression
+    # dataset and the predicted-sign derivation (applied across hermaphrodite stages)
+    assert {k for k, v in stage.items() if v is None} == {
+        "bhattacharya_2019_innexin",
+        "fenyves_derived_synapse_sign",
+    }
     assert stage["white_1986_jsh"] == "L4" and stage["white_1986_n2u"] == "adult"
     assert stage["witvliet_2020_1"] == "L1" and stage["witvliet_2020_5"] == "L2"
     assert stage["witvliet_2020_6"] == "L3" and stage["witvliet_2020_7"] == "adult"

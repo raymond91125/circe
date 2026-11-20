@@ -313,9 +313,14 @@ slots:
     range: float
   sign:
     description: >-
-      For functional connections, the direction of the effect: ``excitatory`` or ``inhibitory``
-      (from the signed signal-propagation value of Randi et al. 2023). Absent for connection types
-      with no measured sign (chemical, gap_junction, neuropeptidergic, monoaminergic, adjacency).
+      The direction of a connection's effect: ``excitatory`` or ``inhibitory``. Two provenances,
+      distinguished by ``connection_type`` and the ``predicted_sign`` evidence: for **functional**
+      connections it is *measured* (the signed signal-propagation value of Randi et al. 2023); for
+      **chemical** connections it is *predicted* (Fenyves 2020: presynaptic transmitter x
+      postsynaptic ionotropic receptor expression; hermaphrodite, dauer excluded). A predicted
+      ``complex`` or ``unpredicted`` chemical synapse leaves this unset but carries a
+      ``predicted_sign`` evidence note. Absent for gap_junction, neuropeptidergic, monoaminergic
+      and adjacency connections.
     range: ConnectionSign
   dataset:
     description: The dataset in which this was observed.
@@ -457,6 +462,12 @@ enums:
         description: An aggregated connection weight observed in a dataset (v1).
       synaptic_contact:
         description: An individual synaptic contact (reserved for a later release).
+      predicted_sign:
+        description: >-
+          A predicted excitatory/inhibitory sign for a chemical synapse, derived from the
+          presynaptic transmitter and postsynaptic ionotropic receptor expression (Fenyves 2020
+          method). The ``value`` records the outcome (excitatory / inhibitory / complex /
+          unpredicted); ``complex`` and ``unpredicted`` leave ``Connection.sign`` unset.
 
   Sex:
     description: The biological sex of a C. elegans specimen.

@@ -177,8 +177,40 @@ match a CIRCE class token (e.g. `ADA` → ADAL, ADAR), 4 a cell name (`ASEL`, `A
 - **`AWC_ON` / `AWC_OFF`** → both AWCL and AWCR. The ON/OFF identity is stochastic per animal,
   not fixed to left/right, so a gene called in either is assigned to both AWC neurons.
 
-## Not here (later increment)
+## Per-synapse sign derivation (build; Part C increment 3)
 
-- **Per-synapse sign derivation** — matching presynaptic transmitter (Wang 2024) to postsynaptic
-  receptor expression to populate the `sign` slot with provenance dataset
-  `fenyves_derived_synapse_sign`.
+The build (`celegans_connectome_kg.ingest.synapse_sign` + `build.assemble`) consumes the two CSVs
+above to populate the `sign` slot on the **hermaphrodite, non-dauer chemical connections**, under the
+provenance dataset **`fenyves_derived_synapse_sign`** (which mints no connections of its own). For
+`pre → post`: the presynaptic fast transmitter (`decode_fast_transmitters` of the neuron-graph NT
+code, refined by Wang 2024 hermaphrodite calls) is matched to the ionotropic receptor genes `post`
+expresses — **cation-only → excitatory, anion-only → inhibitory, mixed → complex (unset), none →
+unpredicted (unset)**. Every in-scope connection gets a `predicted_sign` evidence note recording the
+outcome, so complex/unpredicted stay queryable though `sign` is unset. Dauer is excluded (its
+stage-specific remodeling makes adult CeNGEN least applicable); other stages share the standard
+adult-expression caveat.
+
+**Comparison to Fenyves (decomposed in increment 4) — read the counting carefully.** On Cook 2019
+hermaphrodite the in-scope chemical connections are 704 excitatory / 465 inhibitory / 1,842 complex /
+1,283 unpredicted. Three pitfalls before comparing to Fenyves:
+- **Coverage is not the main divergence.** Fenyves' "73% predicted" counts *complex as predicted*;
+  counted that way ours is ≈70%. The ≈27% definite-sign-only fraction is a different quantity.
+  (Fenyves counts synapses; we count connections — reconciled in increment 4.)
+- **Muscle is an extension, not a gap.** Fenyves signed a **neuron→neuron** network (20,589 synapses,
+  297 neurons); muscle is not scored. The ~1,000 body-wall-muscle NMJs that fall to `unpredicted`
+  here (post absent from neurons-only CeNGEN) appear only because we sign all hermaphrodite chemical
+  synapses, not because Fenyves covered them. A muscle receptor-expression substrate (Altun /
+  WormAtlas) would extend *beyond* Fenyves.
+- **The real divergence is complex rate + E:I, from expression density.** Fenyves 2020 (per-synapse)
+  ≈3.5:1 E:I, 16.6% complex; ours ≈1.5:1 with far more complex, because raw threshold-4 calls the
+  anion channels broadly (avr-14 68/128 classes, unc-38 92/128, lgc-47 45/128, unc-49 38/128) and
+  finds 58/62 genes expressed, vs Fenyves' curated binary matrix (WormBase + WormAtlas + CeNGEN,
+  42/62). Fenyves themselves report adding CeNGEN lowered their E:I — this is a stronger dose.
+
+There is no independent "~4:1" prior; ~4:1 is Fenyves' measured value, and any per-connection split
+depends on how complex is resolved. Fenyves' own group (Szilágyi et al., *BMC Biol* 2026;24:167, DOI
+10.1186/s12915-026-02641-4) resolves complex by the anion/cation receptor-count ratio (ties →
+unknown), reporting 3,638 connections → 1,555 / 553 / 1,530. CIRCE keeps the stored chemical `sign`
+**raw** (complex unset); a receptor-ratio-resolved view is an increment-4 derived comparison. The
+engine is unit-tested in isolation (`tests/test_synapse_sign.py`); the quantitative reconciliation
+against both references is the increment-4 validation analysis.

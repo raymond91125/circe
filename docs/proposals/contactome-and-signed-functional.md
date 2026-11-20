@@ -14,10 +14,11 @@ current graph lacks:
   *(IMPLEMENTED — see below.)*
 - **C — Predicted chemical-synapse sign:** assign an excitatory/inhibitory **sign** to *chemical*
   synapses (far broader than Randi's measured functional subset), from presynaptic neurotransmitter
-  + postsynaptic ionotropic receptor — reusing B's `sign` slot. *(scoped — see below; not yet built)*
+  + postsynaptic ionotropic receptor — reusing B's `sign` slot. *(data + build IMPLEMENTED,
+  increments 1–3; validation analysis (increment 4) pending — see below)*
 
-Status: A and B are built; C is scoped (plan below, not yet implemented). Follows the Morillo
-proposal's structure.
+Status: A and B are built; C's data and derivation build are built (increments 1–3), with the
+validation analysis (increment 4) pending. Follows the Morillo proposal's structure.
 
 ## A. Contactome
 
@@ -110,7 +111,8 @@ notice the weight can be negative.
 
 ## C. Predicted chemical-synapse sign
 
-> **Status: scoped (this section). Decision: derive natively; validate against Fenyves 2020.**
+> **Status: data + derivation built (increments 1–3); validation (increment 4) pending. Decision:
+> derive natively; validate against Fenyves 2020.**
 
 ### Why
 
@@ -222,10 +224,52 @@ Downloading S1 Data (~1 MB, `linkgroup.hu`) happens at this step, with explicit 
 
 ### Deliverables / increments
 
-1. Curate the ionotropic receptor gene list + cation/anion mapping + NT→family map (data only).
-2. Ingest CeNGEN ionotropic receptor expression (new layer; template = monoamine ionotropic).
-3. Build step: derive per-synapse sign, populate `sign` + provenance; tests.
-4. Validation analysis under `analysis/` vs Fenyves S1 Data (logic + data-vintage decomposition).
+1. ✅ Curate the ionotropic receptor gene list + cation/anion mapping (data only). *(PR #97 — 64
+   S1-Table rows = 62 WBGene, grounded offline against WS298. No separate `nt_receptor_family.csv`
+   was needed: each gene already carries its `transmitter`, so the NT→family relation is the gene
+   table itself.)*
+2. ✅ Ingest CeNGEN ionotropic receptor expression (new layer; template = monoamine ionotropic).
+   *(PR #98 — published 021821 threshold-4 matrix, per-class → per-cell expansion; 58/62 genes with
+   neuronal expression, 290 neurons.)*
+3. ✅ Build step: derive per-synapse sign, populate `sign` + provenance; tests. *(This increment —
+   the `fenyves_derived_synapse_sign` provenance dataset writes `sign` + a `predicted_sign` evidence
+   note on the hermaphrodite, non-dauer chemical connections; pure engine unit-tested.)*
+4. Validation analysis under `analysis/` vs Fenyves (logic + data-vintage decomposition), against
+   two verified references: **Fenyves 2020 S1 Data** (per-synapse) and **Szilágyi et al., *BMC
+   Biol* 2026;24:167** (DOI 10.1186/s12915-026-02641-4; Fenyves' own group), which relabels the
+   2020 complex synapses to one sign **by the anion/cation receptor-count ratio** (ties → unknown)
+   and reports per-connection counts (3,638 → 1,555 excitatory / 553 inhibitory / 1,530 unknown).
+
+> **Increment-3 build result, and what increment 4 must actually explain.** On Cook 2019
+> hermaphrodite (Fenyves' target connectome), over the in-scope chemical connections (presynaptic
+> fast transmitter present): 704 excitatory, 465 inhibitory, 1,842 complex, 1,283 unpredicted. The
+> engine is correct (unit-tested; textbook AVA→VA excitatory, RIS→AVE inhibitory reproduce); the
+> differences from Fenyves are **data**, not a rule bug. Note the comparison pitfalls before reading
+> any single number:
+> - **Count the same way.** Fenyves' headline "73% predicted" counts *complex as predicted*
+>   (excitatory + inhibitory + complex). Counted that way our predicted fraction is ≈70% — i.e.
+>   **coverage is NOT the main divergence**. The ≈27% figure is the *definite-sign-only* fraction, a
+>   different quantity. (Fenyves also counts **synapses**, we count **connections**, and per-synapse
+>   vs per-connection weighting shifts the split — reconciled in increment 4.)
+> - **Fenyves is neuron→neuron too.** Their network is 20,589 synapses among 297 neurons; **muscle is
+>   not scored**. So the ~1,000 body-wall-muscle NMJs that fall to `unpredicted` here (post absent
+>   from CeNGEN) are an *extension beyond* Fenyves, not a gap against it — they appear only because we
+>   sign all hermaphrodite chemical synapses rather than restricting to the neuron→neuron scope.
+>   Adding a muscle receptor-expression substrate (Altun / WormAtlas) is an optional extension, not a
+>   fix needed to match Fenyves.
+> - **The genuine divergence is the complex rate and E:I ratio, from expression density.** Fenyves
+>   2020 (per-synapse) is ≈3.5:1 E:I with 16.6% complex; ours is ≈1.5:1 with far more complex. This
+>   is the "data-vintage axis": our raw CeNGEN threshold-4 calls the anion channels broadly (raw
+>   matrix: avr-14 68/128 classes, unc-38 92/128, lgc-47 45/128, unc-49 38/128) and finds 58/62 genes
+>   expressed, versus Fenyves' hand-curated binary matrix (WormBase + WormAtlas + CeNGEN, 42/62
+>   expressed). Fenyves themselves report that *adding* CeNGEN lowered their E:I (3.7–4.1 → 3.1–4.1) —
+>   we see a stronger dose of the same effect. There is **no independent "~4:1" prior**; ~4:1 is
+>   Fenyves' own measured value, and the per-connection split depends on a complex-resolution choice
+>   (see below).
+> - **"Complex" resolution is a documented, author-endorsed step.** Fenyves' own group (Szilágyi
+>   2026) resolves complex to a definite sign by receptor-count ratio. CIRCE therefore keeps the
+>   **stored** chemical `sign` raw (complex unset); a receptor-ratio-resolved *view* is an
+>   increment-4 derived comparison, not baked into the KG.
 
 ### Follow-on (out of scope here): a male signed connectome
 

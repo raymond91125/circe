@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import json
 from collections import Counter, defaultdict
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from types import ModuleType
 
@@ -172,6 +172,7 @@ class BuildStats:
     genes: int = 0
     gene_expressions: int = 0
     neurotransmitter_assignments: int = 0
+    predicted_synapse_signs: dict[str, int] = field(default_factory=dict)
 
 
 def _aggregate(records: list[ConnectionRecord], alias: dict[str, str]):
@@ -207,6 +208,10 @@ _NP_EXPRESSION_DATASET = "ripoll_2023_expression"
 _MONOAMINE_DATASET = "ripoll_2023_monoamine"
 _MONOAMINE_EXPRESSION_DATASET = "ripoll_2023_monoamine_expression"
 _MONOAMINE_IONOTROPIC_DATASET = "cengen_2021_monoamine_ionotropic_expression"
+#: Predicted chemical-synapse sign (Part C), derived in-build from presynaptic NT x postsynaptic
+#: ionotropic receptor expression (Fenyves 2020 method). A provenance-only dataset: it mints no
+#: connections, it records the derived `sign` on the hermaphrodite chemical connections.
+_FENYVES_SIGN_DATASET = "fenyves_derived_synapse_sign"
 #: Morillo et al. 2025 male snRNA-seq atlas. Ligands (mmc8, per-neuron) and receptors (mmc12,
 #: cluster-level) are separate layers, each one dataset per sex (resolutions kept distinct).
 _MORILLO_HERM_DATASET = "morillo_2025_hermaphrodite"
@@ -516,6 +521,8 @@ def assemble(
     monoamine_expression_path: Path | None = None,
     monoamine_ionotropic_genes_path: Path | None = None,
     monoamine_ionotropic_expression_path: Path | None = None,
+    ionotropic_receptor_genes_path: Path | None = None,
+    ionotropic_receptor_expression_path: Path | None = None,
     morillo_genes_path: Path | None = None,
     morillo_herm_expression_path: Path | None = None,
     morillo_male_expression_path: Path | None = None,
@@ -879,6 +886,93 @@ def assemble(
                 )
             )
 
+    # --- Predicted chemical-synapse sign (Part C): Fenyves 2020 derivation (optional) ---------
+    # Derive an excitatory/inhibitory sign for every hermaphrodite chemical synapse from the
+    # presynaptic transmitter x postsynaptic ionotropic receptor expression, and record it on the
+    # existing chemical `Connection`s (no new connections). Provenance is a `predicted_sign`
+    # Evidence entry tagging the derived dataset; "complex"/"unpredicted" leave `sign` unset but
+    # keep the Evidence so which-of-the-two is queryable. See docs/proposals and the data MANIFEST.
+    predicted_sign_outcomes: dict[str, int] = {}
+    if ionotropic_receptor_genes_path and ionotropic_receptor_expression_path:
+        from celegans_connectome_kg.ingest.synapse_sign import (
+            SOURCE as SIGN_SOURCE,
+            classify_sign,
+            decode_fast_transmitters,
+            read_receptor_catalog,
+            read_receptor_expression,
+        )
+        from celegans_connectome_kg.ingest.yim_2024_dauer import DATASET_ID as _DAUER_DATASET
+
+        catalog = read_receptor_catalog(ionotropic_receptor_genes_path)
+        expressed_by_cell = read_receptor_expression(ionotropic_receptor_expression_path)
+
+        # Hermaphrodite presynaptic NT identity: the neuron-graph assignment (Cell.neurotransmitter,
+        # already nt-curated), refined by Wang 2024's hermaphrodite dimorphic calls where present.
+        # The Wang male atlas feeds the male follow-on, not this hermaphrodite layer.
+        nt_by_cell: dict[str, str] = {c.name: str(c.neurotransmitter or "") for c in cells}
+        if neurotransmitter_path:
+            from celegans_connectome_kg.ingest.neurotransmitter import read_neurotransmitters
+
+            for rec in read_neurotransmitters(neurotransmitter_path):
+                if rec.sex == _HERMAPHRODITE:
+                    nt_by_cell[rec.cell] = rec.neurotransmitter
+
+        # Sign is a property of the (pre, post) biology, independent of which connectome observed
+        # it, so compute once per ordered pair and apply to every eligible chemical connection.
+        sign_cache: dict[tuple[str, str], tuple[str | None, str]] = {}
+        for conn in connections:
+            if str(conn.connection_type) != "chemical":
+                continue
+            did = str(conn.dataset).removeprefix(DATASET_PREFIX)
+            # Hermaphrodite only; dauer excluded (stage-specific remodeling + expression make adult
+            # CeNGEN least applicable there -- the other stages share the standard adult caveat).
+            if dataset_sex.get(did) != _HERMAPHRODITE or did == _DAUER_DATASET:
+                continue
+            pre = str(conn.pre).removeprefix(CELL_PREFIX)
+            post = str(conn.post).removeprefix(CELL_PREFIX)
+            if (pre, post) not in sign_cache:
+                sign_cache[(pre, post)] = classify_sign(
+                    decode_fast_transmitters(nt_by_cell.get(pre)),
+                    expressed_by_cell.get(post, set()),
+                    catalog,
+                )
+            sign, outcome = sign_cache[(pre, post)]
+            if (
+                outcome == "out_of_scope"
+            ):  # pre has no fast transmitter -> not an ionotropic synapse
+                continue
+            predicted_sign_outcomes[outcome] = predicted_sign_outcomes.get(outcome, 0) + 1
+            if sign is not None:
+                conn.sign = sign
+            conn.evidence.append(
+                dm.Evidence(
+                    evidence_type="predicted_sign",
+                    dataset=_dataset_id(_FENYVES_SIGN_DATASET),
+                    value=outcome,
+                    source=SIGN_SOURCE,
+                )
+            )
+        datasets.append(
+            dm.Dataset(
+                id=_dataset_id(_FENYVES_SIGN_DATASET),
+                name="Predicted chemical-synapse sign (Fenyves 2020 derivation)",
+                description=(
+                    "Predicted excitatory/inhibitory polarity of the hermaphrodite chemical synapses "
+                    "(dauer excluded), derived in-build by the Fenyves et al. 2020 method (PLoS "
+                    "Comput Biol 16:e1007974): for pre->post, the presynaptic fast transmitter "
+                    "(acetylcholine/glutamate/GABA; neuron-graph + Wang 2024 hermaphrodite NT) is "
+                    "matched to the ionotropic receptor genes post expresses (CeNGEN threshold 4) -- "
+                    "cation-only receptors -> excitatory, anion-only -> inhibitory, mixed -> complex "
+                    "(sign unset), none -> unpredicted (sign unset). Receptor cation/anion calls "
+                    "reproduce the paper's S1 Table. Provenance only: this dataset mints no "
+                    "connections; it records `sign` + a `predicted_sign` evidence note on the "
+                    "chemical connections. Predictions, not measurements; adult expression applied "
+                    "across stages; cation=excitatory/anion=inhibitory is the method's assumption."
+                ),
+                sex=_HERMAPHRODITE,
+            )
+        )
+
     # --- Neuropeptide NPP-GPCR pairs (optional): the 92 deorphanized pairs (mechanistic layer) ---
     # The pairs underlying the Ripoll-Sanchez neuropeptidergic edges. Per-edge attribution
     # (which pairs mediate each edge) is materialized to the viz projection, not RDF (145k rows).
@@ -1213,5 +1307,6 @@ def assemble(
         genes=len(genes),
         gene_expressions=len(gene_expressions),
         neurotransmitter_assignments=len(neurotransmitter_assignments),
+        predicted_synapse_signs=predicted_sign_outcomes,
     )
     return connectome, stats

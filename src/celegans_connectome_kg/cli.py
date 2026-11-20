@@ -47,6 +47,12 @@ DEFAULT_MONOAMINE_IONOTROPIC_GENES = Path(
 DEFAULT_MONOAMINE_IONOTROPIC_EXPR = Path(
     "data/cengen-monoamine-ionotropic/monoamine_ionotropic_expression.csv"
 )
+DEFAULT_IONOTROPIC_RECEPTOR_GENES = Path(
+    "data/cengen-ionotropic-receptors/ionotropic_receptor_genes.csv"
+)
+DEFAULT_IONOTROPIC_RECEPTOR_EXPR = Path(
+    "data/cengen-ionotropic-receptors/ionotropic_receptor_expression.csv"
+)
 DEFAULT_GENE_EXPR_XLSX = Path("data/cook-2020-pharynx/SI6_gene_expression.xlsx")
 DEFAULT_GENE_MAP = Path("data/cook-2020-pharynx/si6_genes.csv")
 DEFAULT_COOK_WORMATLAS = Path("data/curation/cook_wormatlas_class.csv")
@@ -279,6 +285,14 @@ def build(
             if DEFAULT_MONOAMINE_IONOTROPIC_EXPR.exists()
             else None
         ),
+        ionotropic_receptor_genes_path=(
+            DEFAULT_IONOTROPIC_RECEPTOR_GENES
+            if DEFAULT_IONOTROPIC_RECEPTOR_GENES.exists()
+            else None
+        ),
+        ionotropic_receptor_expression_path=(
+            DEFAULT_IONOTROPIC_RECEPTOR_EXPR if DEFAULT_IONOTROPIC_RECEPTOR_EXPR.exists() else None
+        ),
         gene_expr_xlsx_path=(
             DEFAULT_GENE_EXPR_XLSX
             if (DEFAULT_GENE_EXPR_XLSX.exists() and DEFAULT_GENE_MAP.exists())
@@ -329,6 +343,8 @@ def build(
     click.echo(f"connections: {stats.connections}")
     for t in ("chemical", "gap_junction", "functional"):
         click.echo(f"  {t:13} {stats.connections_by_type.get(t, 0)}")
+    if stats.predicted_synapse_signs:
+        click.echo(f"predicted chemical-synapse sign: {stats.predicted_synapse_signs}")
     if stats.unknown_connection_cells:
         click.echo(
             f"note: {stats.unknown_connection_cells} connection endpoints not in the cell list"
